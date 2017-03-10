@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="StripMenuView">
+        <attr name="imgSrc" format="reference" />
+        <attr name="textName" format="string" />
+        <attr name="textNameColor" format="color" />
+        <attr name="textAddition" format="string" />
+        <attr name="textAdditionColor" format="color" />
+        <attr name="isHasTopLine" format="boolean" />
+        <attr name="isHasBottomLine" format="boolean" />
+        <attr name="isSubMenuIV" format="boolean" />
+        <attr name="lineMargin" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="LabView">
+        <attr name="lab_back" format="reference" />
+        <attr name="lab_img" format="reference" />
+        <attr name="lab_size" format="integer" />
+        <attr name="lab_color" format="color" />
+        <attr name="lab_text" format="string" />
+    </declare-styleable>
+
+</resources>

@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Recruit</string>
+    <string name="title_home">title1</string>
+    <string name="title_dashboard">title2</string>
+    <string name="title_notifications">title3</string>
+    <string name="title_person">title4</string>
+
+    <!-- 订单状态-->
+    <string name="userOrderTip">报名订单</string>
+    <string name="userOrderState1">待付款</string>
+    <string name="userOrderState2">已预订</string>
+    <string name="userOrderState3">已完成</string>
+
+    <!-- 订单状态-->
+    <string name="userResumeTip">我的就业</string>
+    <string name="userResume1">我的简历</string>
+    <string name="userResume2">刷新简历</string>
+    <string name="userResume3">投递反馈</string>
+
+    <!-- 订单状态-->
+    <string name="userStrip1">我的积分</string>
+    <string name="userStrip2">系统通知</string>
+    <string name="userStrip3">版本信息</string>
+    <string name="userStrip4">修改密码</string>
+    <string name="userStrip5">退出登录</string>
+
+    <string name="recruitFun1">学校</string>
+    <string name="recruitFun2">学习</string>
+    <string name="recruitFun3">就业</string>
+    <string name="hotUniversity">热门院校</string>
+    <string name="hotUniMajor">热门专业</string>
+
+    <string name="province">省份</string>
+    <string name="city">城市</string>
+    <string name="major">专业</string>
+
+
+</resources>
