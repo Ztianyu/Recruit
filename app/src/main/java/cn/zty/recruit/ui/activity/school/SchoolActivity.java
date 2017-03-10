@@ -41,8 +41,16 @@ public class SchoolActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        textTitle.setText("");
-        initToolbar(toolbar);
+        toolbar.setTitle("学校");
+        toolbar.inflateMenu(R.menu.navigation);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     @Override

@@ -112,8 +112,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void initToolbar(Toolbar toolbar) {
-        toolbar.setTitle("");
-
         setSupportActionBar(toolbar);
 
         if (getSupportActionBar() != null) {
