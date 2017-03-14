@@ -52,13 +52,13 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_alignParentTop="true"
-        android:background="#cccccc"></View>
+        android:background="#d9d9d9"></View>
 
     <View
         android:id="@+id/bottomLine"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_alignParentBottom="true"
-        android:background="#cccccc"></View>
+        android:background="#d9d9d9"></View>
 
 </RelativeLayout>

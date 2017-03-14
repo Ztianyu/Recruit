@@ -14,15 +14,11 @@
 
         <include layout="@layout/view_user_order" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="6dp"></View>
-
         <include layout="@layout/view_user_resume" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="6dp"></View>
+            android:layout_height="16dp"></View>
 
         <include layout="@layout/view_user_strip" />
     </LinearLayout>

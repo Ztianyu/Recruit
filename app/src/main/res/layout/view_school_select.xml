@@ -21,6 +21,8 @@
             android:layout_gravity="center_vertical"
             android:gravity="left|center_vertical"
             android:paddingLeft="8dp"
+            android:paddingRight="4dp"
+            android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
             android:text="@string/province" />
     </FrameLayout>
 
@@ -37,6 +39,8 @@
             android:layout_gravity="center_vertical"
             android:gravity="left|center_vertical"
             android:paddingLeft="8dp"
+            android:paddingRight="4dp"
+            android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
             android:text="@string/city" />
     </FrameLayout>
 
@@ -53,6 +57,8 @@
             android:layout_gravity="center_vertical"
             android:gravity="left|center_vertical"
             android:paddingLeft="8dp"
+            android:paddingRight="4dp"
+            android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
             android:text="@string/major" />
     </FrameLayout>
 

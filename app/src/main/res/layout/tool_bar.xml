@@ -10,9 +10,9 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/toolbarHeight1"
         android:background="@color/colorPrimary"
-        android:minHeight="45dp"
+        android:minHeight="@dimen/toolbarHeight1"
         app:titleTextAppearance="@style/Toolbar.TitleText"
         app:popupTheme="@style/AppTheme.PopupOverlay">
 

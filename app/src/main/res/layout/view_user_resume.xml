@@ -6,25 +6,33 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginLeft="16dp"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:text="@string/userResumeTip"
-        android:textSize="16sp" />
+        android:orientation="horizontal">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/colorDiver" />
+        <View
+            android:layout_width="3dp"
+            android:layout_height="16dp"
+            android:layout_marginLeft="16dp"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_marginLeft="6dp"
+            android:gravity="center_vertical"
+            android:text="@string/userResumeTip"
+            android:textColor="@color/textColor"
+            android:textSize="16sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp">
+        android:paddingBottom="8dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -32,12 +40,12 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <cn.zty.baselib.widget.LabView
+            <cn.zty.recruit.widget.LabView
                 android:id="@+id/labResume1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:lab_img="@mipmap/ic_launcher_round"
-                app:lab_text="@string/userResume1"></cn.zty.baselib.widget.LabView>
+                app:lab_img="@mipmap/ic_resume1"
+                app:lab_text="@string/userResume1"></cn.zty.recruit.widget.LabView>
         </LinearLayout>
 
         <LinearLayout
@@ -46,12 +54,12 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <cn.zty.baselib.widget.LabView
+            <cn.zty.recruit.widget.LabView
                 android:id="@+id/labResume2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:lab_img="@mipmap/ic_launcher_round"
-                app:lab_text="@string/userResume2"></cn.zty.baselib.widget.LabView>
+                app:lab_img="@mipmap/ic_resume2"
+                app:lab_text="@string/userResume2"></cn.zty.recruit.widget.LabView>
         </LinearLayout>
 
         <LinearLayout
@@ -60,19 +68,15 @@
             android:layout_weight="1"
             android:gravity="center">
 
-            <cn.zty.baselib.widget.LabView
+            <cn.zty.recruit.widget.LabView
                 android:id="@+id/labResume3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:lab_img="@mipmap/ic_launcher_round"
-                app:lab_text="@string/userResume3"></cn.zty.baselib.widget.LabView>
+                app:lab_img="@mipmap/ic_resume3"
+                app:lab_text="@string/userResume3"></cn.zty.recruit.widget.LabView>
         </LinearLayout>
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/colorDiver" />
 
 </LinearLayout>

@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="textColor">#464747</color>
+    <color name="textColor">#353535</color>
+
+    <color name="gray">#999999</color>
+
+    <color name="selectColor">#560000</color>
+    <color name="normalColor">#464747</color>
 </resources>

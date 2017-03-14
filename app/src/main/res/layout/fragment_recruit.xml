@@ -54,7 +54,17 @@
 
             <include layout="@layout/view_recruit_fun" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:background="@color/colorBackground" />
+
             <include layout="@layout/view_hot_university" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:background="@color/colorBackground" />
 
             <include layout="@layout/view_hot_major" />
         </LinearLayout>

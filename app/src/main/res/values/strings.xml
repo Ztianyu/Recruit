@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Recruit</string>
-    <string name="title_home">title1</string>
-    <string name="title_dashboard">title2</string>
-    <string name="title_notifications">title3</string>
-    <string name="title_person">title4</string>
+    <string name="title_home">首页</string>
+    <string name="title_dashboard">直播</string>
+    <string name="title_notifications">生活</string>
+    <string name="title_person">我的</string>
 
     <!-- 订单状态-->
     <string name="userOrderTip">报名订单</string>
@@ -33,6 +33,19 @@
     <string name="province">省份</string>
     <string name="city">城市</string>
     <string name="major">专业</string>
+
+    <string name="space">地　　区</string>
+    <string name="majorType">学科门类</string>
+    <string name="testType">考试类型</string>
+    <string name="testAccount">考试分数</string>
+    <string name="tuitionRange">学费范围</string>
+
+    <string name="labSchool1">院校简介</string>
+    <string name="labSchool2">学校全景</string>
+    <string name="labSchool3">院系介绍</string>
+    <string name="labSchool4">师资力量</string>
+    <string name="labSchool5">院系专业</string>
+    <string name="labSchool6">预约看校</string>
 
 
 </resources>

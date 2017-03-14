@@ -26,16 +26,21 @@ public class HotMajorAdapter extends MyBaseAdapter<MajorModel> {
         if (convertView == null) {
             holder = new Holder();
             convertView = LayoutInflater.from(context).inflate(R.layout.item_hot_major, null);
-            holder.textMajor = (TextView) convertView.findViewById(R.id.textMajor);
+            holder.itemMajorTip = (TextView) convertView.findViewById(R.id.itemMajorTip);
+            holder.itemMajorName = (TextView) convertView.findViewById(R.id.itemMajorName);
+            holder.itemMajorCount = (TextView) convertView.findViewById(R.id.itemMajorCount);
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();
         }
-        holder.textMajor.setText(position + "：专业");
+        holder.itemMajorTip.setText((position + 1) + "");
+        holder.itemMajorName.setText((position + 1) + "：专业");
         return convertView;
     }
 
     static class Holder {
-        TextView textMajor;
+        TextView itemMajorTip;
+        TextView itemMajorName;
+        TextView itemMajorCount;
     }
 }

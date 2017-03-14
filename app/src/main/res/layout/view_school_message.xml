@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/imgSchool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/textSchoolName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@id/imgSchool"
+            android:textColor="@color/textColor"
+            tools:text="广州汁职业术学校" />
+
+        <cn.zty.baselib.widget.AutoLinefeedLayout
+            android:id="@+id/autoLineLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textSchoolName"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/imgSchool"></cn.zty.baselib.widget.AutoLinefeedLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:text="所在地区：" />
+
+        <TextView
+            android:id="@+id/textSchoolSpace"
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/gray"
+            tools:text="广东 广州" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:text="学校性质：" />
+
+        <TextView
+            android:id="@+id/textSchoolNature"
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/gray"
+            tools:text="办公、办学" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:text="创办时间：" />
+
+        <TextView
+            android:id="@+id/textSchoolCreateData"
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/gray"
+            tools:text="1984年" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:text="学校地址：" />
+
+        <TextView
+            android:id="@+id/textSchoolAddress"
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/gray"
+            tools:text="广东省 广州市海珠区滨江东路112号" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorDiver" />
+
+</LinearLayout>

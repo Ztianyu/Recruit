@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupSex"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radioButtonMan"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:button="@null"
+            android:drawableLeft="@drawable/check_allot"
+            android:drawablePadding="8dp"
+            android:text="男"
+            android:textColor="@drawable/check_text_selector"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/colorDiver"></View>
+
+        <RadioButton
+            android:id="@+id/radioButtonWoman"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="16dp"
+            android:button="@null"
+            android:drawableLeft="@drawable/check_allot"
+            android:drawablePadding="8dp"
+            android:text="女"
+            android:textColor="@drawable/check_text_selector"
+            android:textSize="14sp" />
+    </RadioGroup>
+
+</LinearLayout>

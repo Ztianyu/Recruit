@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         setTitleBar();
 
         navigation.setOnNavigationItemSelectedListener(this);
-//        navigation.enableAnimation(false);
+        navigation.enableAnimation(false);
         navigation.enableShiftingMode(false);
         navigation.enableItemShiftingMode(false);
     }

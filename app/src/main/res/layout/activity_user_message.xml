@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include layout="@layout/view_user_message_header" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorDiver"></View>
+
+            <cn.zty.baselib.widget.StripViewNoImg
+                android:id="@+id/textUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isHasBottomLine="false"
+                app:isHasTopLine="false"
+                app:lineMargin="16"
+                app:textAdditionColor="@color/gray"
+                app:textName="姓 名"
+                app:textNameColor="@color/textColor"></cn.zty.baselib.widget.StripViewNoImg>
+
+            <cn.zty.baselib.widget.StripViewNoImg
+                android:id="@+id/textUserSex"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isHasBottomLine="true"
+                app:isHasTopLine="false"
+                app:lineMargin="16"
+                app:textAdditionColor="@color/gray"
+                app:textName="性 别"
+                app:textNameColor="@color/textColor"></cn.zty.baselib.widget.StripViewNoImg>
+
+            <cn.zty.baselib.widget.StripViewNoImg
+                android:id="@+id/textUserAge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isHasBottomLine="true"
+                app:isHasTopLine="false"
+                app:lineMargin="16"
+                app:textAdditionColor="@color/gray"
+                app:textName="出生日期"
+                app:textNameColor="@color/textColor"></cn.zty.baselib.widget.StripViewNoImg>
+
+            <cn.zty.baselib.widget.StripViewNoImg
+                android:id="@+id/textUserPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isHasBottomLine="true"
+                app:isHasTopLine="false"
+                app:lineMargin="16"
+                app:textAdditionColor="@color/gray"
+                app:textName="手机号码"
+                app:textNameColor="@color/textColor"></cn.zty.baselib.widget.StripViewNoImg>
+
+            <cn.zty.baselib.widget.StripViewNoImg
+                android:id="@+id/textUserEducation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isHasBottomLine="true"
+                app:isHasTopLine="false"
+                app:lineMargin="16"
+                app:textAdditionColor="@color/gray"
+                app:textName="最新学历"
+                app:textNameColor="@color/textColor"></cn.zty.baselib.widget.StripViewNoImg>
+
+            <cn.zty.baselib.widget.StripViewNoImg
+                android:id="@+id/textUserPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isHasBottomLine="true"
+                app:isHasTopLine="false"
+                app:lineMargin="16"
+                app:textAdditionColor="@color/gray"
+                app:textName="所在地区"
+                app:textNameColor="@color/textColor"></cn.zty.baselib.widget.StripViewNoImg>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDiver"></View>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

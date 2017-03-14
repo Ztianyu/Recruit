@@ -18,12 +18,4 @@
         <attr name="border_color" format="color" />
     </declare-styleable>
 
-    <declare-styleable name="LabView">
-        <attr name="lab_back" format="reference" />
-        <attr name="lab_img" format="reference" />
-        <attr name="lab_size" format="integer" />
-        <attr name="lab_color" format="color" />
-        <attr name="lab_text" format="string" />
-    </declare-styleable>
-
 </resources>

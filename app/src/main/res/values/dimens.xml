@@ -5,7 +5,7 @@
 
     <dimen name="toolbarHeight">56dp</dimen>
 
-    <dimen name="toolbarHeight1">44dp</dimen>
+    <dimen name="toolbarHeight1">45dp</dimen>
 
     <dimen name="diverHeight">0.5dp</dimen>
 </resources>

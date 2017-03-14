@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@mipmap/bg_home_user"
+    android:background="@mipmap/bg_header"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="16dp">
@@ -14,6 +14,7 @@
         android:layout_width="72dp"
         android:layout_height="72dp"
         app:border_color="@color/colorHeaderBorder"
+        android:background="@mipmap/ic_default_header"
         app:border_width="0.5dp" />
 
     <LinearLayout
@@ -26,6 +27,8 @@
             android:id="@+id/textName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/white"
             tools:text="春暖花开" />
 
         <TextView
@@ -33,6 +36,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:textSize="15sp"
+            android:textColor="@color/white"
             tools:text="女" />
     </LinearLayout>
 

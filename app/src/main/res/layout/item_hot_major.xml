@@ -1,16 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="16dp">
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp">
 
     <TextView
-        android:id="@+id/textMajor"
+        android:id="@+id/itemMajorTip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:minHeight="56dp"
-        android:text="专业" />
+        android:layout_marginRight="8dp"
+        android:background="@mipmap/ic_major_tip"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        tools:text="99" />
+
+
+    <TextView
+        android:id="@+id/itemMajorName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textColor"
+        android:textSize="14sp"
+        tools:text="广州汁职业术学校" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray"
+        android:textSize="14sp"
+        tools:text="开设院校" />
+
+    <TextView
+        android:id="@+id/itemMajorCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/shape_lab2"
+        android:minWidth="40dp"
+        android:paddingBottom="3dp"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:paddingTop="3dp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        tools:text="85个" />
+
 
 </LinearLayout>

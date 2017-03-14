@@ -5,16 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/colorDiver"></View>
-
     <cn.zty.baselib.widget.StripMenuView
         android:id="@+id/strip1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:imgSrc="@mipmap/ic_launcher_round"
+        app:imgSrc="@mipmap/ic_person_integer"
         app:isHasBottomLine="false"
         app:isHasTopLine="false"
         app:lineMargin="16"
@@ -25,7 +20,7 @@
         android:id="@+id/strip2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:imgSrc="@mipmap/ic_launcher_round"
+        app:imgSrc="@mipmap/ic_person_notice"
         app:isHasBottomLine="true"
         app:isHasTopLine="false"
         app:lineMargin="16"
@@ -36,7 +31,7 @@
         android:id="@+id/strip3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:imgSrc="@mipmap/ic_launcher_round"
+        app:imgSrc="@mipmap/ic_person_version"
         app:isHasBottomLine="true"
         app:isHasTopLine="false"
         app:lineMargin="16"
@@ -47,7 +42,7 @@
         android:id="@+id/strip4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:imgSrc="@mipmap/ic_launcher_round"
+        app:imgSrc="@mipmap/ic_person_password"
         app:isHasBottomLine="true"
         app:isHasTopLine="false"
         app:lineMargin="16"
@@ -58,7 +53,7 @@
         android:id="@+id/strip5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:imgSrc="@mipmap/ic_launcher_round"
+        app:imgSrc="@mipmap/ic_person_exit"
         app:isHasBottomLine="true"
         app:isHasTopLine="false"
         app:lineMargin="16"
