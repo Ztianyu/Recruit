@@ -23,6 +23,7 @@ import cn.zty.recruit.base.BaseFragment;
 import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.MajorModel;
 import cn.zty.recruit.bean.UniversityModel;
+import cn.zty.recruit.ui.activity.learn.LearnActivity;
 import cn.zty.recruit.ui.activity.school.MoreActivity;
 import cn.zty.recruit.ui.activity.school.SchoolActivity;
 import cn.zty.recruit.utils.BannerUtils;
@@ -106,6 +107,7 @@ public class RecruitFragment extends BaseFragment {
                 startActivity(new Intent(context, SchoolActivity.class));
                 break;
             case R.id.btnRecruitFun2:
+                startActivity(new Intent(context, LearnActivity.class));
                 break;
             case R.id.btnRecruitFun3:
                 break;

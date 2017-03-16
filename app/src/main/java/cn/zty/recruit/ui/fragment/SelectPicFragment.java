@@ -29,7 +29,6 @@ public class SelectPicFragment extends DialogFragment {
 
     private OnSelectListener listener;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+
+    <ScrollView
+        android:id="@+id/scrollViewInstitution"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/view_institution_header" />
+
+            <TextView
+                android:id="@+id/textInstitutionIntroduction"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:drawableLeft="@mipmap/ic_line_tip"
+                android:drawablePadding="6dp"
+                android:drawableRight="@mipmap/ic_expand_normal"
+                android:gravity="center_vertical"
+                android:text="机构简介"
+                android:textColor="@color/textColor"
+                android:textSize="14sp" />
+
+            <cn.zty.baselib.widget.ExpandListView
+                android:id="@+id/listInstitutionMajor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="8dp"
+                android:scrollbars="none"></cn.zty.baselib.widget.ExpandListView>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"></View>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -19,6 +19,7 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.pick.OnSelectListener;
 import cn.zty.recruit.pick.SelectPicUtils;
+import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.utils.FileUtil;
 
 import static cn.zty.recruit.pick.SelectPicUtils.tempFile;
@@ -27,7 +28,7 @@ import static cn.zty.recruit.pick.SelectPicUtils.tempFile;
  * Created by zty on 2017/3/14.
  */
 
-public class ArchivesActivity extends BaseActivity implements OnSelectListener{
+public class ArchivesActivity extends BaseActivity implements OnSelectListener {
     @BindView(R.id.textTitle)
     TextView textTitle;
     @BindView(R.id.toolbar)
@@ -70,17 +71,32 @@ public class ArchivesActivity extends BaseActivity implements OnSelectListener{
                 SelectPicUtils.showDialog(getSupportFragmentManager());
                 break;
             case R.id.textUserName:
+                Bundle bundle = new Bundle();
+                bundle.putString("title", "姓名");
+                bundle.putString("message", "春暖花开");
+                bundle.putString("key", "name");
+                bundle.putInt("type", 0);
+                startActivity(new Intent(this, SetTextActivity.class).putExtras(bundle));
                 break;
             case R.id.textUserSex:
                 startActivity(new Intent(this, SetSexActivity.class));
                 break;
             case R.id.textUserAge:
+                DialogUtils.showDataSelect(this, textUserAge);
                 break;
             case R.id.textUserPhone:
+                Bundle bundle2 = new Bundle();
+                bundle2.putString("title", "手机号码");
+                bundle2.putString("message", "15515797465");
+                bundle2.putString("key", "phone");
+                bundle2.putInt("type", 2);
+                startActivity(new Intent(this, SetTextActivity.class).putExtras(bundle2));
                 break;
             case R.id.textUserEducation:
+                startActivity(new Intent(this, SetEducationActivity.class));
                 break;
             case R.id.textUserPosition:
+                startActivity(new Intent(this, SetPositionActivity.class));
                 break;
         }
     }

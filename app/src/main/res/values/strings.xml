@@ -47,5 +47,20 @@
     <string name="labSchool5">院系专业</string>
     <string name="labSchool6">预约看校</string>
 
+    <string name="panoramaStrip1">360度机构全景</string>
+    <string name="panoramaStrip2">食堂</string>
+    <string name="panoramaStrip3">宿舍</string>
+    <string name="panoramaStrip4">教室</string>
+    <string name="panoramaStrip5">运动场所</string>
+    <string name="panoramaStrip6">周边环境</string>
+
+    <string name="strCall">请您拨打招生咨询电话：</string>
+
+    <string name="call">呼叫</string>
+    <string name="cancel">取消</string>
+
+    <string name="training">培训机构</string>
+    <string name="study">进修学校</string>
+
 
 </resources>

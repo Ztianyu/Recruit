@@ -51,7 +51,7 @@
                 android:id="@+id/itemSchoolPosition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
+                android:layout_gravity="center_vertical"
                 android:drawableLeft="@mipmap/ic_position"
                 android:drawablePadding="6dp"
                 android:textColor="@color/gray"

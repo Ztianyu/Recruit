@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupEducation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radioPrimarySchool"
+            style="@style/MyRadioButton"
+            android:text="@string/primarySchool" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/colorDiver"></View>
+
+        <RadioButton
+            android:id="@+id/radioMiddleSchool"
+            style="@style/MyRadioButton"
+            android:text="@string/middleSchool" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/colorDiver"></View>
+
+        <RadioButton
+            android:id="@+id/radioHighSchool"
+            style="@style/MyRadioButton"
+            android:text="@string/highSchool" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/colorDiver"></View>
+
+        <RadioButton
+            android:id="@+id/radioUndergraduate"
+            style="@style/MyRadioButton"
+            android:text="@string/undergraduate" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/colorDiver"></View>
+
+        <RadioButton
+            android:id="@+id/radioMaster"
+            style="@style/MyRadioButton"
+            android:text="@string/master" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@color/colorDiver"></View>
+
+        <RadioButton
+            android:id="@+id/radioDoctor"
+            style="@style/MyRadioButton"
+            android:text="@string/doctor" />
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorDiver"></View>
+
+</LinearLayout>

@@ -40,6 +40,10 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
         return position;
     }
 
+    public List<T> getData() {
+        return mData;
+    }
+
     /**
      * 设置数据源
      *

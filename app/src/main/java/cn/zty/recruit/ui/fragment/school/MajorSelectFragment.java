@@ -24,6 +24,7 @@ import cn.zty.recruit.adapter.RightContentListAdapter;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.bean.LeftMenuEntity;
 import cn.zty.recruit.bean.RightContentEntity;
+import cn.zty.recruit.listener.MajorSelectListener;
 
 /**
  * 选择专业
@@ -37,6 +38,8 @@ public class MajorSelectFragment extends DialogFragment {
     RightContentListAdapter rightContentListAdapter;
     @BindView(R.id.linkage)
     LinkageView linkage;
+
+    private MajorSelectListener listener;
 
     public static MajorSelectFragment newInstance(int height) {
         MajorSelectFragment fragment = new MajorSelectFragment();
@@ -102,7 +105,8 @@ public class MajorSelectFragment extends DialogFragment {
 
             @Override
             public void onRightClick(View itemView, int position) {
-
+                dismiss();
+                listener.onMajorSelect("", "" + (position + 1));
             }
         });
 
@@ -117,5 +121,10 @@ public class MajorSelectFragment extends DialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        try {
+            listener = (MajorSelectListener) context;
+        } catch (ClassCastException e) {
+            dismiss();
+        }
     }
 }

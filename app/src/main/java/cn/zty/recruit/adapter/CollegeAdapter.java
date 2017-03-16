@@ -44,9 +44,7 @@ public class CollegeAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int i, int i1) {
-
         return mData.get(i);
-
     }
 
     @Override
@@ -69,18 +67,18 @@ public class CollegeAdapter extends BaseExpandableListAdapter {
         ViewHolder holder = null;
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_expand_group, null);
-            holder.name = (TextView) convertView.findViewById(R.id.textExpandGroup);
-            holder.indicator = (ImageView) convertView.findViewById(R.id.imgExpandGroup);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_college_list, null);
+            holder.name = (TextView) convertView.findViewById(R.id.textCollegeListName);
+            holder.indicator = (ImageView) convertView.findViewById(R.id.imgCollegeExpand);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.name.setText("学院" + groupPosition);
         if (isExpanded) {
-            holder.indicator.setBackgroundResource(R.drawable.ic_arrow_drop_up_black_24dp);
+            holder.indicator.setBackgroundResource(R.mipmap.ic_expand);
         } else {
-            holder.indicator.setBackgroundResource(R.drawable.ic_arrow_drop_down_black_24dp);
+            holder.indicator.setBackgroundResource(R.mipmap.ic_expand_normal);
         }
 
         return convertView;

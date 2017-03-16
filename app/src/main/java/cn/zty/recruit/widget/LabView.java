@@ -46,7 +46,7 @@ public class LabView extends RelativeLayout {
         layoutLab.setBackground(arr.getDrawable(R.styleable.LabView_lab_back));
         imgLab.setImageDrawable(arr.getDrawable(R.styleable.LabView_lab_img));
         textLab.setText(arr.getString(R.styleable.LabView_lab_text));
-        textLab.setTextSize(TypedValue.COMPLEX_UNIT_SP, arr.getInt(R.styleable.LabView_lab_size, 14));
+        textLab.setTextSize(TypedValue.COMPLEX_UNIT_SP, arr.getInt(R.styleable.LabView_lab_size, 13));
         textLab.setTextColor(arr.getColor(R.styleable.LabView_lab_color, ContextCompat.getColor(context, R.color.textColor)));
 
     }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="primarySchool">小学</string>
+    <string name="middleSchool">初中</string>
+    <string name="highSchool">高中</string>
+    <string name="undergraduate">本科</string>
+    <string name="master">硕士</string>
+    <string name="doctor">博士</string>
+</resources>

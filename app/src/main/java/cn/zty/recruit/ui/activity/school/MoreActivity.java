@@ -65,6 +65,8 @@ public class MoreActivity extends BaseActivity {
                 break;
         }
 
+        loadMoreFooter = new LoadMoreFooter(this);
+
         moreContent.getRecyclerView().setRefreshEnabled(true);    //设置是否可刷新
         moreContent.getSwipeRefreshLayout().setColorSchemeResources(R.color.colorAccent, R.color.colorAccent, R.color.gray);
         initAdapter(moreContent.getRecyclerView());

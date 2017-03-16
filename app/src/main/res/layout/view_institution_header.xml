@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imgInstitution"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@mipmap/ic_train_default" />
+
+    <TextView
+        android:id="@+id/textInstitutionName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:drawableLeft="@mipmap/ic_institution_tag"
+        android:drawablePadding="6dp"
+        android:textColor="@color/textColor"
+        android:textSize="16sp"
+        tools:text="广州职业技术学院" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:text="所在地区：" />
+
+        <TextView
+            android:id="@+id/textInstitutionSpace"
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/gray"
+            tools:text="广东 广州" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:text="学校地址：" />
+
+        <TextView
+            android:id="@+id/textInstitutionAddress"
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/gray"
+            tools:text="广东省 广州市海珠区滨江东路112号" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:text="招生人数：" />
+
+        <TextView
+            android:id="@+id/textInstitutionAccount"
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/gray"
+            tools:text="1000人" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:text="报名开始时间：" />
+
+        <TextView
+            android:id="@+id/textInstitutionStartTime"
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/gray"
+            tools:text="2017-06-01" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:text="报名截止时间：" />
+
+        <TextView
+            android:id="@+id/textInstitutionEndTime"
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/gray"
+            tools:text="2017-08-30" />
+    </LinearLayout>
+
+</LinearLayout>

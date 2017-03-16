@@ -58,5 +58,17 @@
         <item name="android:textColor">@color/textColor</item>
     </style>
 
+    <style name="MyRadioButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:minWidth">120dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:button">@null</item>
+        <item name="android:drawableLeft">@drawable/check_allot</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:textColor">@drawable/check_text_selector</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 
 </resources>

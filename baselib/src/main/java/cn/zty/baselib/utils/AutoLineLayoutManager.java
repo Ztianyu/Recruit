@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
+ * 自动换行
  * Created by zty on 2017/3/13.
  */
 

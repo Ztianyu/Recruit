@@ -1,6 +1,7 @@
 package cn.zty.recruit.ui.activity.school;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import cn.zty.baselib.widget.AutoLinefeedLayout;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.ui.activity.WebActivity;
+import cn.zty.recruit.ui.fragment.school.CallFragment;
 import cn.zty.recruit.widget.LabView;
 
 /**
@@ -73,15 +75,23 @@ public class SchoolDetailActivity extends BaseActivity {
                 startActivity(new Intent(this, WebActivity.class));
                 break;
             case R.id.labSchool2:
+                startActivity(new Intent(this, PanoramaActivity.class));
                 break;
             case R.id.labSchool3:
                 startActivity(new Intent(this, CollegeActivity.class));
                 break;
             case R.id.labSchool4:
+                startActivity(new Intent(this, WebActivity.class));
                 break;
             case R.id.labSchool5:
+                startActivity(new Intent(this, CollegeListActivity.class));
                 break;
             case R.id.labSchool6:
+                Fragment fragment = getSupportFragmentManager().findFragmentByTag("callFragment");
+                if (fragment != null)
+                    getSupportFragmentManager().beginTransaction().remove(fragment);
+                CallFragment callFragment = CallFragment.newInstance("0371-573233");
+                callFragment.show(getSupportFragmentManager().beginTransaction(), "callFragment");
                 break;
         }
     }
