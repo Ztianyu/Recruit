@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp">
+
+    <TextView
+        android:id="@+id/textRadioTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1、ACCP软件开发-JAVA 方向  第一节课上"
+        android:textColor="@color/colorAccent"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@mipmap/ic_vadio_default" />
+
+    <TextView
+        android:id="@+id/textRadioIntroduction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="计算机软件基础、英语、C语言数据库原理 SQLserver、C++程序设计、java核心编程、linux、websphere 开发工具、DB2数据库高级管理、DB2数据库应用开发、ERWin数据库"
+        android:textColor="@color/gray"
+        android:textSize="12sp" />
+
+
+</LinearLayout>

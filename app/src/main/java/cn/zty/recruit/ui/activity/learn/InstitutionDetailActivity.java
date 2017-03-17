@@ -1,5 +1,7 @@
 package cn.zty.recruit.ui.activity.learn;
 
+import android.content.Intent;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -10,11 +12,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import cn.zty.baselib.widget.ExpandListView;
+import cn.droidlover.xrecyclerview.XRecyclerView;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.InstitutionMajorAdapter;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.bean.InstitutionMajorModel;
+import cn.zty.recruit.ui.activity.WebActivity;
 
 /**
  * Created by zty on 2017/3/16.
@@ -40,12 +43,11 @@ public class InstitutionDetailActivity extends BaseActivity {
     @BindView(R.id.textInstitutionIntroduction)
     TextView textInstitutionIntroduction;
     @BindView(R.id.listInstitutionMajor)
-    ExpandListView listInstitutionMajor;
+    XRecyclerView listInstitutionMajor;
     @BindView(R.id.scrollViewInstitution)
-    ScrollView scrollViewInstitution;
+    NestedScrollView scrollViewInstitution;
 
     InstitutionMajorAdapter adapter;
-
 
     @Override
     protected int initLayoutId() {
@@ -57,8 +59,12 @@ public class InstitutionDetailActivity extends BaseActivity {
         toolbar.setTitle("机构详情");
         initToolbar(toolbar);
 
+        listInstitutionMajor.setNestedScrollingEnabled(false);
+
         adapter = new InstitutionMajorAdapter(this);
+        listInstitutionMajor.verticalLayoutManager(this);
         listInstitutionMajor.setAdapter(adapter);
+        listInstitutionMajor.horizontalDivider(R.color.colorBackground, R.dimen.diverHeight2);
     }
 
     @Override
@@ -73,7 +79,6 @@ public class InstitutionDetailActivity extends BaseActivity {
         scrollViewInstitution.post(new Runnable() {
             @Override
             public void run() {
-
                 scrollViewInstitution.fullScroll(ScrollView.FOCUS_UP);
             }
         });
@@ -81,6 +86,7 @@ public class InstitutionDetailActivity extends BaseActivity {
 
     @OnClick(R.id.textInstitutionIntroduction)
     public void onClick() {
+        startActivity(new Intent(this, WebActivity.class));
     }
 
 }

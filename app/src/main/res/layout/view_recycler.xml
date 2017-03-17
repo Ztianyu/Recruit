@@ -7,9 +7,6 @@
 
     <include layout="@layout/tool_bar" />
 
-    <cn.droidlover.xrecyclerview.XRecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></cn.droidlover.xrecyclerview.XRecyclerView>
+    <include layout="@layout/x_recycler" />
 
 </LinearLayout>

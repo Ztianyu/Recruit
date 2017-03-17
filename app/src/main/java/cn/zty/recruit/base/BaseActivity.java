@@ -82,6 +82,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         }
 
+        AppManager.getInstance().removeActivity(this);
+
         super.onDestroy();
     }
 

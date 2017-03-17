@@ -7,7 +7,7 @@
 
     <include layout="@layout/tool_bar" />
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/scrollViewInstitution"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,20 +34,17 @@
                 android:textColor="@color/textColor"
                 android:textSize="14sp" />
 
-            <cn.zty.baselib.widget.ExpandListView
+            <cn.droidlover.xrecyclerview.XRecyclerView
                 android:id="@+id/listInstitutionMajor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="8dp"
-                android:scrollbars="none"></cn.zty.baselib.widget.ExpandListView>
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"></cn.droidlover.xrecyclerview.XRecyclerView>
 
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="32dp"></View>
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
 </LinearLayout>

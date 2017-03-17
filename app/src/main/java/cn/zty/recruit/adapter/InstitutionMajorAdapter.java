@@ -1,48 +1,41 @@
 package cn.zty.recruit.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import cn.zty.baselib.adapter.MyBaseAdapter;
+import cn.droidlover.xrecyclerview.RecyclerAdapter;
+import cn.zty.baselib.holder.ViewHolder;
 import cn.zty.recruit.R;
 import cn.zty.recruit.bean.InstitutionMajorModel;
+import cn.zty.recruit.ui.activity.learn.MajorDetailActivity;
 
 /**
  * Created by zty on 2017/3/16.
  */
 
-public class InstitutionMajorAdapter extends MyBaseAdapter<InstitutionMajorModel> {
+public class InstitutionMajorAdapter extends RecyclerAdapter<InstitutionMajorModel, ViewHolder> {
 
     public InstitutionMajorAdapter(Context context) {
         super(context);
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Holder holder = null;
-        if (convertView == null) {
-            holder = new Holder();
-            convertView = LayoutInflater.from(context).inflate(R.layout.item_institution_major, null);
-            holder.textInstitutionMajorTip = (TextView) convertView.findViewById(R.id.textInstitutionMajorTip);
-            holder.textMajorName = (TextView) convertView.findViewById(R.id.textMajorName);
-            holder.textMajorIntroduction = (TextView) convertView.findViewById(R.id.textMajorIntroduction);
-            holder.textMajorPrise = (TextView) convertView.findViewById(R.id.textMajorPrise);
-            holder.textMajorUnit = (TextView) convertView.findViewById(R.id.textMajorUnit);
-            convertView.setTag(holder);
-        } else {
-            holder = (Holder) convertView.getTag();
-        }
-        return convertView;
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return ViewHolder.create(context, R.layout.item_institution_major, parent);
     }
 
-    static class Holder {
-        TextView textInstitutionMajorTip;
-        TextView textMajorName;
-        TextView textMajorIntroduction;
-        TextView textMajorPrise;
-        TextView textMajorUnit;
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        holder.setText(R.id.textInstitutionMajorTip, (position + 1) + "");
+
+        holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, MajorDetailActivity.class));
+            }
+        });
+
     }
 }

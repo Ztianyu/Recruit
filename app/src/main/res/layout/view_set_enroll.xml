@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="姓　　名："
+            android:textColor="@color/textColor"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/editEnrollName"
+            style="@style/EditEnroll" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="性　　别："
+            android:textColor="@color/textColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btnChoseSex"
+            style="@style/EditEnroll"
+            android:gravity="center_vertical"
+            android:drawableRight="@mipmap/ic_expand"
+            android:paddingRight="16dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="出生日期："
+            android:textColor="@color/textColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btnChoseAge"
+            style="@style/EditEnroll"
+            android:gravity="center_vertical"
+            android:drawableRight="@mipmap/ic_expand"
+            android:paddingRight="16dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机号码："
+            android:textColor="@color/textColor"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/editEnrollPhone"
+            style="@style/EditEnroll" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="学　　历："
+            android:textColor="@color/textColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btnChoseEducation"
+            style="@style/EditEnroll"
+            android:gravity="center_vertical"
+            android:drawableRight="@mipmap/ic_expand"
+            android:paddingRight="16dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="定金类型："
+            android:textColor="@color/textColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btnChoseType"
+            style="@style/EditEnroll"
+            android:gravity="center_vertical"
+            android:drawableRight="@mipmap/ic_expand"
+            android:paddingRight="16dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="备　　注："
+            android:textColor="@color/textColor"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/editEnrollPs"
+            style="@style/EditEnroll"
+            android:gravity="top"
+            android:minLines="5" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="56dp" />
+
+</LinearLayout>

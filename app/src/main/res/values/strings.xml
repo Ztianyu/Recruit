@@ -62,5 +62,9 @@
     <string name="training">培训机构</string>
     <string name="study">进修学校</string>
 
+    <string name="majorFun1">开课计划</string>
+    <string name="majorFun2">在线试听</string>
+    <string name="majorFun3">在线报名</string>
+
 
 </resources>

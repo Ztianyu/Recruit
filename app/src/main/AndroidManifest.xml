@@ -98,6 +98,22 @@
             android:name=".ui.activity.learn.InstitutionDetailActivity"
             android:screenOrientation="portrait"></activity>
 
+        <activity
+            android:name=".ui.activity.learn.MajorDetailActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.learn.MajorPlanActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.learn.AuditionActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.learn.EnrollActivity"
+            android:screenOrientation="portrait"></activity>
+
     </application>
 
 </manifest>

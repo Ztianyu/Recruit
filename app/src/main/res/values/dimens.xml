@@ -8,4 +8,6 @@
     <dimen name="toolbarHeight1">45dp</dimen>
 
     <dimen name="diverHeight">0.5dp</dimen>
+
+    <dimen name="diverHeight2">8dp</dimen>
 </resources>

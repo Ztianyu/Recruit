@@ -59,15 +59,27 @@
     </style>
 
     <style name="MyRadioButton">
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">45dp</item>
-        <item name="android:minWidth">120dp</item>
-        <item name="android:layout_marginLeft">16dp</item>
         <item name="android:button">@null</item>
-        <item name="android:drawableLeft">@drawable/check_allot</item>
+        <item name="android:drawableRight">@drawable/check_allot</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
         <item name="android:drawablePadding">8dp</item>
-        <item name="android:textColor">@drawable/check_text_selector</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="EditEnroll">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">36dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/textColor</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:background">@drawable/edit_shape</item>
     </style>
 
 
