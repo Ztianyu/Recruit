@@ -55,7 +55,7 @@ public class MoreActivity extends BaseActivity {
         switch (type) {
             case TYPE_HOT_SCHOOL:
                 if (universityAdapter == null)
-                    universityAdapter = new UniversityAdapter(this);
+                    universityAdapter = new UniversityAdapter(this, true);
                 adapter = universityAdapter;
                 break;
             case TYPE_HOT_MAJOR:

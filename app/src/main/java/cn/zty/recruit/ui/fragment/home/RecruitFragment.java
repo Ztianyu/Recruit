@@ -14,15 +14,16 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.droidlover.xrecyclerview.XRecyclerView;
 import cn.zty.baselib.widget.ExpandListView;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.HotMajorAdapter;
-import cn.zty.recruit.adapter.HotUniversityAdapter;
-import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.adapter.UniversityAdapter;
 import cn.zty.recruit.base.BaseFragment;
 import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.MajorModel;
 import cn.zty.recruit.bean.UniversityModel;
+import cn.zty.recruit.ui.activity.job.JobActivity;
 import cn.zty.recruit.ui.activity.learn.LearnActivity;
 import cn.zty.recruit.ui.activity.school.MoreActivity;
 import cn.zty.recruit.ui.activity.school.SchoolActivity;
@@ -52,13 +53,13 @@ public class RecruitFragment extends BaseFragment {
     @BindView(R.id.btnMoreUniversity)
     TextView btnMoreUniversity;
     @BindView(R.id.listHotUniversity)
-    ExpandListView listHotUniversity;
+    XRecyclerView listHotUniversity;
     @BindView(R.id.btnMoreMajor)
     TextView btnMoreMajor;
     @BindView(R.id.listHotMajor)
     ExpandListView listHotMajor;
 
-    HotUniversityAdapter hotUniversityAdapter;
+    UniversityAdapter universityAdapter;
     HotMajorAdapter hotMajorAdapter;
 
     @Override
@@ -71,10 +72,14 @@ public class RecruitFragment extends BaseFragment {
         toolbar.setPadding(0, RecruitApplication.getInstance().getStatusBarHeight(), 0, 0);
         ViewAdaptionUtils.CollapsingToolbarLayoutAdaptation(bannerRecruit, 400);
 
-        hotUniversityAdapter = new HotUniversityAdapter(context, false);
+        universityAdapter = new UniversityAdapter(context, false);
         hotMajorAdapter = new HotMajorAdapter(context);
 
-        listHotUniversity.setAdapter(hotUniversityAdapter);
+        listHotUniversity.setNestedScrollingEnabled(false);
+        listHotUniversity.verticalLayoutManager(context)
+                .setAdapter(universityAdapter);
+        listHotUniversity.horizontalDivider(R.color.colorDiver,R.dimen.diverHeight);
+
         listHotMajor.setAdapter(hotMajorAdapter);
     }
 
@@ -91,7 +96,7 @@ public class RecruitFragment extends BaseFragment {
         universityModels.add(new UniversityModel());
         universityModels.add(new UniversityModel());
         universityModels.add(new UniversityModel());
-        hotUniversityAdapter.setData(universityModels);
+        universityAdapter.setData(universityModels);
 
         List<MajorModel> majorModels = new ArrayList<>();
         majorModels.add(new MajorModel());
@@ -110,6 +115,7 @@ public class RecruitFragment extends BaseFragment {
                 startActivity(new Intent(context, LearnActivity.class));
                 break;
             case R.id.btnRecruitFun3:
+                startActivity(new Intent(context, JobActivity.class));
                 break;
             case R.id.btnMoreUniversity:
                 startActivity(new Intent(context, MoreActivity.class).putExtra("type", MoreActivity.TYPE_HOT_SCHOOL));

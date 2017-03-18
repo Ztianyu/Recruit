@@ -19,8 +19,6 @@ import cn.zty.recruit.bean.CollegeModel;
 
 public class CollegeActivity extends BaseActivity {
 
-    @BindView(R.id.textTitle)
-    TextView textTitle;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.expandedMajor)

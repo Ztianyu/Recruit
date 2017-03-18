@@ -33,10 +33,10 @@
 
         <TextView
             style="@style/TipTextView"
-            android:text="@string/majorType" />
+            android:text="学校类型" />
 
         <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/spinnerMajorType"
+            android:id="@+id/spinnerStudyType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp" />
@@ -51,10 +51,10 @@
 
         <TextView
             style="@style/TipTextView"
-            android:text="@string/testType" />
+            android:text="进修学历" />
 
         <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/spinnerTestType"
+            android:id="@+id/spinnerStudyEducation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp" />
@@ -69,10 +69,28 @@
 
         <TextView
             style="@style/TipTextView"
-            android:text="@string/testAccount" />
+            android:text="学科门类" />
 
         <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/spinnerTestAccount"
+            android:id="@+id/spinnerSubjectType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TipTextView"
+            android:text="意向专业" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinnerIntentionMajor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp" />

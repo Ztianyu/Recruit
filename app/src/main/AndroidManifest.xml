@@ -114,6 +114,26 @@
             android:name=".ui.activity.learn.EnrollActivity"
             android:screenOrientation="portrait"></activity>
 
+        <activity
+            android:name=".ui.activity.learn.StudySchoolDetail"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.learn.StudyVideoActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.learn.StudyMajorActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.learn.StudyEnrollActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.job.JobActivity"
+            android:screenOrientation="portrait"></activity>
+
     </application>
 
 </manifest>

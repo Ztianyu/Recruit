@@ -67,7 +67,7 @@ public class CallFragment extends DialogFragment {
         WindowManager.LayoutParams windowParams = window.getAttributes();
         windowParams.dimAmount = 0.6f;
         windowParams.gravity = Gravity.CENTER;
-        windowParams.width = (int) (BaseActivity.screenWidth * 0.8);
+        windowParams.width = WindowManager.LayoutParams.MATCH_PARENT;
         windowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(windowParams);
     }

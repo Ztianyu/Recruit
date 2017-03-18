@@ -44,8 +44,8 @@
         <TextView
             android:id="@+id/btnChoseSex"
             style="@style/EditEnroll"
-            android:gravity="center_vertical"
             android:drawableRight="@mipmap/ic_expand"
+            android:gravity="center_vertical"
             android:paddingRight="16dp" />
 
     </LinearLayout>
@@ -67,8 +67,8 @@
         <TextView
             android:id="@+id/btnChoseAge"
             style="@style/EditEnroll"
-            android:gravity="center_vertical"
             android:drawableRight="@mipmap/ic_expand"
+            android:gravity="center_vertical"
             android:paddingRight="16dp" />
 
     </LinearLayout>
@@ -109,8 +109,8 @@
         <TextView
             android:id="@+id/btnChoseEducation"
             style="@style/EditEnroll"
-            android:gravity="center_vertical"
             android:drawableRight="@mipmap/ic_expand"
+            android:gravity="center_vertical"
             android:paddingRight="16dp" />
 
     </LinearLayout>
@@ -132,8 +132,8 @@
         <TextView
             android:id="@+id/btnChoseType"
             style="@style/EditEnroll"
-            android:gravity="center_vertical"
             android:drawableRight="@mipmap/ic_expand"
+            android:gravity="center_vertical"
             android:paddingRight="16dp" />
 
     </LinearLayout>
@@ -156,7 +156,9 @@
             android:id="@+id/editEnrollPs"
             style="@style/EditEnroll"
             android:gravity="top"
-            android:minLines="5" />
+            android:minLines="5"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp" />
     </LinearLayout>
 
     <View

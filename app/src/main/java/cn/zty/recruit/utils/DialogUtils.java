@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -20,6 +19,8 @@ import cn.zty.recruit.ui.fragment.AreaSelectFragment;
 import cn.zty.recruit.ui.fragment.SelectEducation;
 import cn.zty.recruit.ui.fragment.SelectSexFragment;
 import cn.zty.recruit.ui.fragment.learn.EnrollTypeFragment;
+import cn.zty.recruit.ui.fragment.learn.StudySchoolSelect;
+import cn.zty.recruit.ui.fragment.school.CallFragment;
 import cn.zty.recruit.ui.fragment.school.MajorSelectFragment;
 import cn.zty.recruit.ui.fragment.school.SchoolSelectFragment;
 
@@ -32,10 +33,13 @@ public class DialogUtils {
     public static final String AREA_SELECT = "areaSelectFragment";
     public static final String SCHOOL_SELECT = "schoolSelectFragment";
     public static final String MAJOR_SELECT = "majorSelectFragment";
+    public static final String STUDY_SELECT = "studySchoolSelect";
 
     public static final String SEX_SELECT = "sexFragment";
     public static final String EDUCATION_SELECT = "selectEducation";
     public static final String ENROLL_TYPE_SELECT = "enrollTypeFragment";
+
+    public static final String CALL = "callFragment";
 
     /**
      * 选择 省、市（type:0(省)；1（市））
@@ -57,6 +61,17 @@ public class DialogUtils {
             manager.beginTransaction().remove(fragment);
         SchoolSelectFragment schoolSelectFragment = SchoolSelectFragment.newInstance(topHeight);
         schoolSelectFragment.show(manager.beginTransaction(), SCHOOL_SELECT);
+    }
+
+    /**
+     * 择校
+     */
+    public static void showStudySelect(FragmentManager manager, int topHeight) {
+        Fragment fragment = manager.findFragmentByTag(STUDY_SELECT);
+        if (fragment != null)
+            manager.beginTransaction().remove(fragment);
+        StudySchoolSelect studySchoolSelect = StudySchoolSelect.newInstance(topHeight);
+        studySchoolSelect.show(manager.beginTransaction(), STUDY_SELECT);
     }
 
     /**
@@ -136,7 +151,7 @@ public class DialogUtils {
     }
 
     /**
-     * 选择学历
+     * 选择定金类型
      */
     public static void showEnrollTypeSelect(FragmentManager manager, EnrollTypeSelectListener listener) {
         Fragment fragment = manager.findFragmentByTag(ENROLL_TYPE_SELECT);
@@ -144,5 +159,16 @@ public class DialogUtils {
             manager.beginTransaction().remove(fragment);
         EnrollTypeFragment enrollTypeFragment = EnrollTypeFragment.newInstance(listener);
         enrollTypeFragment.show(manager.beginTransaction(), ENROLL_TYPE_SELECT);
+    }
+
+    /**
+     * 拨打电话
+     */
+    public static void showCall(FragmentManager manager, String phone) {
+        Fragment fragment = manager.findFragmentByTag(CALL);
+        if (fragment != null)
+            manager.beginTransaction().remove(fragment);
+        CallFragment callFragment = CallFragment.newInstance(phone);
+        callFragment.show(manager.beginTransaction(), CALL);
     }
 }

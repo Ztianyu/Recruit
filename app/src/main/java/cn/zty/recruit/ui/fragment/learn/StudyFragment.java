@@ -6,15 +6,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.droidlover.xrecyclerview.XRecyclerContentLayout;
+import cn.droidlover.xrecyclerview.XRecyclerView;
 import cn.zty.recruit.R;
+import cn.zty.recruit.adapter.StudySchoolAdapter;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.BaseFragment;
+import cn.zty.recruit.bean.StudySchoolModel;
 import cn.zty.recruit.listener.AreaSelectListener;
 import cn.zty.recruit.ui.activity.school.SearchActivity;
 import cn.zty.recruit.utils.DialogUtils;
+import cn.zty.recruit.widget.LoadMoreFooter;
 
 /**
  * Created by zty on 2017/3/16.
@@ -41,6 +48,14 @@ public class StudyFragment extends BaseFragment implements AreaSelectListener {
     @BindView(R.id.layoutSearchSchool)
     LinearLayout layoutSearchSchool;
 
+    StudySchoolAdapter adapter;
+
+    LoadMoreFooter loadMoreFooter;
+
+    int currentPage = 1;
+    int maxPage = 1;
+    int pageSize = 10;
+
     @Override
     protected int initLayoutId() {
         return R.layout.activity_school;
@@ -49,11 +64,45 @@ public class StudyFragment extends BaseFragment implements AreaSelectListener {
     @Override
     protected void initView() {
 
+        loadMoreFooter = new LoadMoreFooter(context);
+
+        adapter = new StudySchoolAdapter(context, false);
+
+        contentLayoutSchool.getRecyclerView().setRefreshEnabled(true);    //设置是否可刷新
+        contentLayoutSchool.getSwipeRefreshLayout().setColorSchemeResources(R.color.colorAccent, R.color.colorAccent, R.color.gray);
+        initAdapter(contentLayoutSchool.getRecyclerView());
+        contentLayoutSchool.refreshState(true);
+        contentLayoutSchool.refreshState(false);
     }
 
     @Override
     protected void initData() {
+        List<StudySchoolModel> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            list.add(new StudySchoolModel());
+        }
+        adapter.setData(list);
+    }
 
+    private void initAdapter(XRecyclerView recyclerView) {
+        recyclerView.verticalLayoutManager(context)
+                .setAdapter(adapter);
+        recyclerView.horizontalDivider(R.color.colorDiver, R.dimen.diverHeight);
+        recyclerView.setOnRefreshAndLoadMoreListener(new XRecyclerView.OnRefreshAndLoadMoreListener() {
+            @Override
+            public void onRefresh() {
+                currentPage = 1;
+                contentLayoutSchool.refreshState(false);
+            }
+
+            @Override
+            public void onLoadMore(int page) {
+                currentPage = page;
+                contentLayoutSchool.getRecyclerView().setPage(currentPage, maxPage);
+            }
+        });
+        recyclerView.setLoadMoreView(loadMoreFooter);
+        recyclerView.setLoadMoreUIHandler(loadMoreFooter);
     }
 
     @OnClick({R.id.btnSearchBack, R.id.textSearch, R.id.textSelectSchool, R.id.textProvinceTip, R.id.textCityTip, R.id.textMajorTip})
@@ -66,7 +115,7 @@ public class StudyFragment extends BaseFragment implements AreaSelectListener {
                 startActivity(new Intent(context, SearchActivity.class));
                 break;
             case R.id.textSelectSchool:
-                DialogUtils.showSchoolSelect(getChildFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight());
+                DialogUtils.showStudySelect(getChildFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight());
                 break;
             case R.id.textProvinceTip:
                 DialogUtils.showAreaSelect(getFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 0, this);

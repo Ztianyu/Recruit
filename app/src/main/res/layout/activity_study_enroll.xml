@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include layout="@layout/item_study_major_child" />
+                <include layout="@layout/view_major_detail_header" />
 
                 <View
                     android:layout_width="match_parent"

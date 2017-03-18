@@ -2,11 +2,8 @@ package cn.zty.recruit.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -16,19 +13,19 @@ import cn.droidlover.xrecyclerview.RecyclerAdapter;
 import cn.droidlover.xrecyclerview.XRecyclerView;
 import cn.zty.baselib.holder.ViewHolder;
 import cn.zty.recruit.R;
+import cn.zty.recruit.bean.StudySchoolModel;
 import cn.zty.recruit.bean.TipModel;
-import cn.zty.recruit.bean.UniversityModel;
-import cn.zty.recruit.ui.activity.school.SchoolDetailActivity;
+import cn.zty.recruit.ui.activity.learn.StudySchoolDetail;
 
 /**
- * Created by zty on 2017/3/14.
+ * Created by zty on 2017/3/18.
  */
 
-public class UniversityAdapter extends RecyclerAdapter<UniversityModel, ViewHolder> {
+public class StudySchoolAdapter extends RecyclerAdapter<StudySchoolModel, ViewHolder> {
 
     private boolean isHaveTip;
 
-    public UniversityAdapter(Context context, boolean isHaveTip) {
+    public StudySchoolAdapter(Context context, boolean isHaveTip) {
         super(context);
         this.isHaveTip = isHaveTip;
     }
@@ -53,7 +50,7 @@ public class UniversityAdapter extends RecyclerAdapter<UniversityModel, ViewHold
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, SchoolDetailActivity.class));
+                context.startActivity(new Intent(context, StudySchoolDetail.class));
             }
         });
 
@@ -64,6 +61,7 @@ public class UniversityAdapter extends RecyclerAdapter<UniversityModel, ViewHold
         recyclerView.horizontalLayoutManager(context)
                 .setAdapter(adapter);
         List<TipModel> list = new ArrayList<>();
+        list.add(new TipModel());
         list.add(new TipModel());
         list.add(new TipModel());
         adapter.setData(list);

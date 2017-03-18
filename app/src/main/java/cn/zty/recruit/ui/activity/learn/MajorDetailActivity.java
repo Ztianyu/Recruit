@@ -5,6 +5,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import com.ms.square.android.expandabletextview.ExpandableTextView;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.zty.recruit.R;
@@ -32,6 +34,8 @@ public class MajorDetailActivity extends BaseActivity {
     LabView labMajorFun2;
     @BindView(R.id.labMajorFun3)
     LabView labMajorFun3;
+    @BindView(R.id.expandText)
+    ExpandableTextView expandText;
 
     @Override
     protected int initLayoutId() {
@@ -46,6 +50,7 @@ public class MajorDetailActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        expandText.setText("计算机软件基础、英语、C语言数据库原理 SQLserver、C++程序设计、java核心编程、linux、websphere开发工具、DB2数据库高级管理、DB2数据库应用开发、ERWin数据库");
     }
 
     @OnClick({R.id.labMajorFun1, R.id.labMajorFun2, R.id.labMajorFun3})

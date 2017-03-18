@@ -7,13 +7,13 @@
 
     <include layout="@layout/tool_bar" />
 
-    <ExpandableListView
-        android:id="@+id/expandedMajor"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:childDivider="@color/colorDiver"
-        android:divider="@color/colorDiver"
-        android:dividerHeight="0.5dp"
-        android:groupIndicator="@null"></ExpandableListView>
+        android:layout_height="150dp"
+        android:background="@mipmap/ic_school_default" />
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></WebView>
 
 </LinearLayout>

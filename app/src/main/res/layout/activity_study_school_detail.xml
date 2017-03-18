@@ -7,13 +7,21 @@
 
     <include layout="@layout/tool_bar" />
 
-    <ExpandableListView
-        android:id="@+id/expandedMajor"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:childDivider="@color/colorDiver"
-        android:divider="@color/colorDiver"
-        android:dividerHeight="0.5dp"
-        android:groupIndicator="@null"></ExpandableListView>
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/view_school_message" />
+
+            <include layout="@layout/view_study_school_fun" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

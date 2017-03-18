@@ -2,6 +2,7 @@ package cn.zty.recruit.ui.activity.learn;
 
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,24 +20,16 @@ import cn.zty.recruit.listener.SexSelectListener;
 import cn.zty.recruit.utils.DialogUtils;
 
 /**
- * Created by zty on 2017/3/17.
+ * Created by zty on 2017/3/18.
  */
 
-public class EnrollActivity extends BaseActivity implements
+public class StudyEnrollActivity extends BaseActivity implements
         SexSelectListener,
         EducationSelectListener,
         EnrollTypeSelectListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.textMajorDetailName)
-    TextView textMajorDetailName;
-    @BindView(R.id.textMajorDetailCount)
-    TextView textMajorDetailCount;
-    @BindView(R.id.textMajorPrise)
-    TextView textMajorPrise;
-    @BindView(R.id.textMajorUnit)
-    TextView textMajorUnit;
     @BindView(R.id.editEnrollName)
     EditText editEnrollName;
     @BindView(R.id.btnChoseSex)
@@ -61,6 +54,14 @@ public class EnrollActivity extends BaseActivity implements
     ExpandableTextView expandText;
     @BindView(R.id.textStudyMajorIntroduction)
     TextView textStudyMajorIntroduction;
+    @BindView(R.id.textMajorChildName)
+    TextView textMajorChildName;
+    @BindView(R.id.textStudyLength)
+    TextView textStudyLength;
+    @BindView(R.id.textStudyEducation)
+    TextView textStudyEducation;
+    @BindView(R.id.textStudyPrise)
+    TextView textStudyPrise;
 
     private int sexType = -1;
     private int educationType = -1;
@@ -73,13 +74,33 @@ public class EnrollActivity extends BaseActivity implements
     @Override
     protected void initView() {
         toolbar.setTitle("在线报名");
-        initToolbar(toolbar);
+        toolbar.inflateMenu(R.menu.phone);
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.takePhone:
+                        DialogUtils.showCall(getSupportFragmentManager(), "0371-572333");
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
     protected void initData() {
-        expandText.setText("计算机软件基础、英语、C语言数据库原理 SQLserver、C++程序设计、java核心编程、linux、websphere开发工具、DB2数据库高级管理、DB2数据库应用开发、ERWin数据库");
-
+        textStudyMajorIntroduction.setText("专业介绍");
+        expandText.setText("培养目标:掌握计算机系统基础知识的基本原理，熟悉计算机系统常用软硬件工具，具有一定的硬件维护能力和较强的软件开发能力的应用型人才。\n" +
+                "主要课程：C语言程序设计、VB程序设计、Java面向对象程序设计、数据结构、计算机网络与通讯、网络操作系统、软件工程、多媒体技术与应用、大型数据库处理技术等。\n" +
+                "就业方向：可从事企事业一线直接参与计算机应用、软件开发的技术。");
     }
 
     @OnClick({R.id.btnChoseSex, R.id.btnChoseAge, R.id.btnChoseEducation, R.id.btnChoseType, R.id.btnSubmit})

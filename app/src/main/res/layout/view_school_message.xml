@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -15,7 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:background="@mipmap/ic_default"/>
 
         <TextView
             android:id="@+id/textSchoolName"
@@ -24,16 +26,16 @@
             android:layout_marginLeft="16dp"
             android:layout_toRightOf="@id/imgSchool"
             android:textColor="@color/textColor"
-            tools:text="广州汁职业术学校" />
+            android:text="广州汁职业术学校" />
 
-        <cn.zty.baselib.widget.AutoLinefeedLayout
+        <cn.droidlover.xrecyclerview.XRecyclerView
             android:id="@+id/autoLineLayout"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textSchoolName"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:layout_toRightOf="@id/imgSchool"></cn.zty.baselib.widget.AutoLinefeedLayout>
+            android:layout_toRightOf="@id/imgSchool"></cn.droidlover.xrecyclerview.XRecyclerView>
 
     </RelativeLayout>
 
@@ -56,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_marginLeft="8dp"
             android:textColor="@color/gray"
-            tools:text="广东 广州" />
+            android:text="广东 广州" />
     </LinearLayout>
 
     <LinearLayout
@@ -79,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_marginLeft="8dp"
             android:textColor="@color/gray"
-            tools:text="办公、办学" />
+            android:text="办公、办学" />
     </LinearLayout>
 
     <LinearLayout
@@ -102,7 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_marginLeft="8dp"
             android:textColor="@color/gray"
-            tools:text="1984年" />
+            android:text="1984年" />
     </LinearLayout>
 
     <LinearLayout
@@ -125,7 +127,57 @@
             android:layout_width="wrap_content"
             android:layout_marginLeft="8dp"
             android:textColor="@color/gray"
-            tools:text="广东省 广州市海珠区滨江东路112号" />
+            android:text="广东省 广州市海珠区滨江东路112号" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutBTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:visibility="gone">
+
+        <TextView
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:text="报名开始时间：" />
+
+        <TextView
+            android:id="@+id/textSchoolSignBTime"
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/gray"
+            android:text="2017-06-01" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutETime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:visibility="gone">
+
+        <TextView
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:text="报名截止时间：" />
+
+        <TextView
+            android:id="@+id/textSchoolSignETime"
+            style="@style/TipTextView"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/gray"
+            android:text="2017-08-30" />
     </LinearLayout>
 
     <View

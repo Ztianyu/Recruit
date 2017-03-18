@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:descendantFocusability="blocksDescendants"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -63,7 +64,12 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <include layout="@layout/view_school_lab" />
+            <cn.droidlover.xrecyclerview.XRecyclerView
+                android:id="@+id/recyclerViewHotSchool"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"></cn.droidlover.xrecyclerview.XRecyclerView>
+
         </LinearLayout>
 
     </LinearLayout>

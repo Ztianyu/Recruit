@@ -75,7 +75,7 @@ public class MajorListAdapter extends BaseExpandableListAdapter {
         } else {
             holder = (CollegeAdapter.ViewHolder) convertView.getTag();
         }
-        holder.name.setText("专业" + groupPosition);
+        holder.name.setText("专业" + (groupPosition + 1));
         if (isExpanded) {
             holder.indicator.setBackgroundResource(R.mipmap.ic_expand);
         } else {
@@ -97,7 +97,7 @@ public class MajorListAdapter extends BaseExpandableListAdapter {
             holder = (CollegeAdapter.ViewHolder2) convertView.getTag();
         }
 
-        holder.content.setText("专业简介" + groupPosition);
+        holder.content.setText("专业简介" + (groupPosition + 1));
         return convertView;
     }
 
