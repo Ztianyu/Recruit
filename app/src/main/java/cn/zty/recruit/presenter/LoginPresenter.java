@@ -6,10 +6,10 @@ import cn.zty.baselib.bean.ResultBean;
 import cn.zty.baselib.http.RequestParams;
 import cn.zty.baselib.http.RetrofitHelper;
 import cn.zty.baselib.presenter.IBasePresenter;
-import cn.zty.baselib.rx.RxManager;
-import cn.zty.baselib.rx.RxSubscriber;
 import cn.zty.recruit.base.RequestParamsHelper;
 import cn.zty.recruit.bean.LoginModel;
+import cn.zty.recruit.rx.RxManager;
+import cn.zty.recruit.rx.RxSubscriber;
 import cn.zty.recruit.service.LoginService;
 import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.LoginView;
@@ -28,12 +28,10 @@ public class LoginPresenter extends IBasePresenter<LoginView> {
     }
 
     private Observable<ResultBean<LoginModel>> submit(String loginName, String passWord) {
-
         RequestParams params = RequestParamsHelper.getInstance().getRequestParams();
         params.put("loginName", loginName);
         params.put("passWord", passWord);
         return service.login(params);
-
     }
 
     public void login(String loginName, String passWord) {
@@ -55,7 +53,6 @@ public class LoginPresenter extends IBasePresenter<LoginView> {
             ToastUtils.show("请输入密码");
             return false;
         }
-
         return true;
     }
 }

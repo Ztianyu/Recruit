@@ -22,7 +22,7 @@
         android:layout_marginTop="16dp"
         android:textColor="@color/colorAccent"
         android:textSize="18sp"
-        tools:text="0376-5632145" />
+        android:text="0376-5632145" />
 
     <TextView
         android:id="@+id/textCallTime"

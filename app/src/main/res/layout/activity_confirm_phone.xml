@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/loginHeight"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:id="@+id/editRegisterPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:drawableLeft="@drawable/login_user_tip"
+                    android:drawablePadding="8dp"
+                    android:hint="请输入手机号"
+                    android:inputType="phone"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textColor="@color/textColor"
+                    android:textColorHint="@color/gray"
+                    android:textCursorDrawable="@null"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/textRegisterPhoneTip"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/diverHeight"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorDiver" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/loginHeight"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="16dp">
+
+                <EditText
+                    android:id="@+id/editRegisterCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:drawableLeft="@drawable/register_code_tip"
+                    android:drawablePadding="8dp"
+                    android:hint="请输入验证码"
+                    android:inputType="number"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:textColor="@color/textColor"
+                    android:textColorHint="@color/gray"
+                    android:textCursorDrawable="@null"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/btnGetCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/bg_get_code"
+                    android:gravity="center"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="6dp"
+                    android:paddingRight="6dp"
+                    android:paddingTop="4dp"
+                    android:text="获取验证码"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textRegisterCodeTip"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/diverHeight"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorDiver" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/btnConfirmPhone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/loginHeight"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:text="下一步"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+
+

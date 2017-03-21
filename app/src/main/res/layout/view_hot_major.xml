@@ -42,11 +42,9 @@
         android:layout_height="0.5dp"
         android:background="@color/colorDiver" />
 
-    <cn.zty.baselib.widget.ExpandListView
+    <cn.droidlover.xrecyclerview.XRecyclerView
         android:id="@+id/listHotMajor"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="@color/colorDiver"
-        android:dividerHeight="0.5dp"></cn.zty.baselib.widget.ExpandListView>
+        android:layout_height="wrap_content"></cn.droidlover.xrecyclerview.XRecyclerView>
 
 </LinearLayout>

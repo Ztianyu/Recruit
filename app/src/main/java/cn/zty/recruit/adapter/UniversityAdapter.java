@@ -41,7 +41,7 @@ public class UniversityAdapter extends RecyclerAdapter<UniversityModel, ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.setText(R.id.itemSchoolTip, (position + 1) + "");
-        holder.setText(R.id.textSchoolName, (position + 1) + "学院");
+//        holder.setText(R.id.textSchoolName, (position + 1) + "学院");
 
         TextView itemSchoolTip = holder.getView(R.id.itemSchoolTip);
         if (isHaveTip) {
@@ -59,12 +59,11 @@ public class UniversityAdapter extends RecyclerAdapter<UniversityModel, ViewHold
 
         XRecyclerView recyclerView = holder.getView(R.id.recyclerViewHotSchool);
 
-        SchoolLabAdapter adapter = new SchoolLabAdapter(context);
+        SchoolLabAdapter adapter = new SchoolLabAdapter(context,true);
 
         recyclerView.horizontalLayoutManager(context)
                 .setAdapter(adapter);
         List<TipModel> list = new ArrayList<>();
-        list.add(new TipModel());
         list.add(new TipModel());
         adapter.setData(list);
     }

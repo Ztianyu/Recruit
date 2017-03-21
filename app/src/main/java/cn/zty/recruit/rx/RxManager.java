@@ -1,6 +1,9 @@
-package cn.zty.baselib.rx;
+package cn.zty.recruit.rx;
+
+import android.util.Log;
 
 import cn.zty.baselib.bean.ResultBean;
+import cn.zty.recruit.utils.ToastUtils;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -32,6 +35,18 @@ public class RxManager {
 
     public <T> Subscription doSubscribe1(Observable<ResultBean<T>> observable, Subscriber<T> subscriber) {
         return observable
+                .filter(new Func1<ResultBean<T>, Boolean>() {
+                    @Override
+                    public Boolean call(ResultBean<T> tResultBean) {
+                        if (tResultBean.getHead().getRet() == 0) {
+                            return true;
+                        } else {
+                            Log.e("error", tResultBean.getHead().getMsg());
+                            ToastUtils.show(tResultBean.getHead().getMsg());
+                            return false;
+                        }
+                    }
+                })
                 .map(new Func1<ResultBean<T>, T>() {
                     @Override
                     public T call(ResultBean<T> resultBean) {

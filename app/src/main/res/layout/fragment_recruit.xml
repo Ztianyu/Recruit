@@ -28,7 +28,7 @@
                 android:background="@color/white"
                 android:minHeight="200dp"
                 app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="0.5"></com.youth.banner.Banner>
+                app:layout_collapseParallaxMultiplier="0.1"></com.youth.banner.Banner>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -56,14 +56,14 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="16dp"
+                android:layout_height="10dp"
                 android:background="@color/colorBackground" />
 
             <include layout="@layout/view_hot_university" />
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="16dp"
+                android:layout_height="10dp"
                 android:background="@color/colorBackground" />
 
             <include layout="@layout/view_hot_major" />

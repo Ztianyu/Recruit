@@ -21,18 +21,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include layout="@layout/item_study_major_child" />
+                <include layout="@layout/view_major_detail_header" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="16dp"
+                    android:layout_height="10dp"
                     android:background="@color/colorBackground"></View>
 
                 <include layout="@layout/view_major_detail_introduction" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="16dp"
+                    android:layout_height="10dp"
                     android:background="@color/colorBackground"></View>
 
                 <TextView

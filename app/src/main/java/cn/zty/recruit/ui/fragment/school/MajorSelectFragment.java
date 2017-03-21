@@ -41,11 +41,12 @@ public class MajorSelectFragment extends DialogFragment {
 
     private MajorSelectListener listener;
 
-    public static MajorSelectFragment newInstance(int height) {
+    public static MajorSelectFragment newInstance(int height, MajorSelectListener listener) {
         MajorSelectFragment fragment = new MajorSelectFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("height", height);
         fragment.setArguments(bundle);
+        fragment.setListener(listener);
         return fragment;
     }
 
@@ -118,13 +119,11 @@ public class MajorSelectFragment extends DialogFragment {
         linkage.updateData(leftMenuEntities);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            listener = (MajorSelectListener) context;
-        } catch (ClassCastException e) {
-            dismiss();
-        }
+    public MajorSelectListener getListener() {
+        return listener;
+    }
+
+    public void setListener(MajorSelectListener listener) {
+        this.listener = listener;
     }
 }

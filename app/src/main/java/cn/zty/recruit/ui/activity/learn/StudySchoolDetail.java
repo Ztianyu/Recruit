@@ -77,7 +77,7 @@ public class StudySchoolDetail extends BaseActivity {
         layoutBTime.setVisibility(View.VISIBLE);
         layoutETime.setVisibility(View.VISIBLE);
 
-        labAdapter = new SchoolLabAdapter(this);
+        labAdapter = new SchoolLabAdapter(this,false);
         autoLineLayout.horizontalLayoutManager(this)
                 .setAdapter(labAdapter);
 

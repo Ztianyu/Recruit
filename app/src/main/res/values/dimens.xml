@@ -4,10 +4,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="toolbarHeight">56dp</dimen>
-
     <dimen name="toolbarHeight1">45dp</dimen>
-
     <dimen name="diverHeight">0.5dp</dimen>
-
     <dimen name="diverHeight2">8dp</dimen>
+    <dimen name="loginHeight">42dp</dimen>
 </resources>

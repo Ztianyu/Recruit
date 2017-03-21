@@ -68,7 +68,7 @@ public class SchoolDetailActivity extends BaseActivity {
         toolbar.setTitle("院校概况");
         initToolbar(toolbar);
 
-        labAdapter = new SchoolLabAdapter(this);
+        labAdapter = new SchoolLabAdapter(this, false);
         autoLineLayout.horizontalLayoutManager(this)
                 .setAdapter(labAdapter);
     }

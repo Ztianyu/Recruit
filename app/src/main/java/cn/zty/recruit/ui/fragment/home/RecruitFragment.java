@@ -15,9 +15,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.droidlover.xrecyclerview.XRecyclerView;
-import cn.zty.baselib.widget.ExpandListView;
 import cn.zty.recruit.R;
-import cn.zty.recruit.adapter.HotMajorAdapter;
+import cn.zty.recruit.adapter.MajorAdapter;
 import cn.zty.recruit.adapter.UniversityAdapter;
 import cn.zty.recruit.base.BaseFragment;
 import cn.zty.recruit.base.RecruitApplication;
@@ -57,10 +56,10 @@ public class RecruitFragment extends BaseFragment {
     @BindView(R.id.btnMoreMajor)
     TextView btnMoreMajor;
     @BindView(R.id.listHotMajor)
-    ExpandListView listHotMajor;
+    XRecyclerView listHotMajor;
 
     UniversityAdapter universityAdapter;
-    HotMajorAdapter hotMajorAdapter;
+    MajorAdapter majorAdapter;
 
     @Override
     protected int initLayoutId() {
@@ -73,14 +72,17 @@ public class RecruitFragment extends BaseFragment {
         ViewAdaptionUtils.CollapsingToolbarLayoutAdaptation(bannerRecruit, 400);
 
         universityAdapter = new UniversityAdapter(context, false);
-        hotMajorAdapter = new HotMajorAdapter(context);
+        majorAdapter = new MajorAdapter(context);
 
         listHotUniversity.setNestedScrollingEnabled(false);
         listHotUniversity.verticalLayoutManager(context)
                 .setAdapter(universityAdapter);
-        listHotUniversity.horizontalDivider(R.color.colorDiver,R.dimen.diverHeight);
+        listHotUniversity.horizontalDivider(R.color.colorDiver, R.dimen.diverHeight);
 
-        listHotMajor.setAdapter(hotMajorAdapter);
+        listHotMajor.setNestedScrollingEnabled(false);
+        listHotMajor.verticalLayoutManager(context)
+                .setAdapter(majorAdapter);
+        listHotMajor.horizontalDivider(R.color.colorDiver, R.dimen.diverHeight);
     }
 
     @Override
@@ -102,7 +104,7 @@ public class RecruitFragment extends BaseFragment {
         majorModels.add(new MajorModel());
         majorModels.add(new MajorModel());
         majorModels.add(new MajorModel());
-        hotMajorAdapter.setData(majorModels);
+        majorAdapter.setData(majorModels);
     }
 
     @OnClick({R.id.btnRecruitFun1, R.id.btnRecruitFun2, R.id.btnRecruitFun3, R.id.btnMoreUniversity, R.id.btnMoreMajor})

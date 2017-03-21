@@ -36,6 +36,12 @@ allprojects {
     }
 }
 
+repositories{
+    flatDir{
+        dirs 'libs' //就是你放aar的目录地址
+    }
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -48,6 +54,8 @@ dependencies {
     compile 'com.github.limedroid:ARecyclerView:v1.1.0'
     compile 'com.ms-square:expandableTextView:0.1.4'
     compile 'com.youth.banner:banner:1.4.5'
+    compile(name: 'SMSSDK-2.1.2', ext: 'aar')
+    compile(name: 'SMSSDKGUI-2.1.2', ext: 'aar')
     compile project(':baselib')
     compile project(':linkage')
 }

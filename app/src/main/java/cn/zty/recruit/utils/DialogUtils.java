@@ -14,10 +14,13 @@ import cn.zty.baselib.widget.StripViewNoImg;
 import cn.zty.recruit.listener.AreaSelectListener;
 import cn.zty.recruit.listener.EducationSelectListener;
 import cn.zty.recruit.listener.EnrollTypeSelectListener;
+import cn.zty.recruit.listener.MajorSelectListener;
 import cn.zty.recruit.listener.SexSelectListener;
+import cn.zty.recruit.listener.ToastSureListener;
 import cn.zty.recruit.ui.fragment.AreaSelectFragment;
 import cn.zty.recruit.ui.fragment.SelectEducation;
 import cn.zty.recruit.ui.fragment.SelectSexFragment;
+import cn.zty.recruit.ui.fragment.ToastFragment;
 import cn.zty.recruit.ui.fragment.learn.EnrollTypeFragment;
 import cn.zty.recruit.ui.fragment.learn.StudySchoolSelect;
 import cn.zty.recruit.ui.fragment.school.CallFragment;
@@ -40,6 +43,7 @@ public class DialogUtils {
     public static final String ENROLL_TYPE_SELECT = "enrollTypeFragment";
 
     public static final String CALL = "callFragment";
+    public static final String TOAST = "toastFragment";
 
     /**
      * 选择 省、市（type:0(省)；1（市））
@@ -77,11 +81,11 @@ public class DialogUtils {
     /**
      * 选择专业
      */
-    public static void showMajorSelect(FragmentManager manager, int topHeight) {
+    public static void showMajorSelect(FragmentManager manager, int topHeight, MajorSelectListener listener) {
         Fragment fragment = manager.findFragmentByTag(MAJOR_SELECT);
         if (fragment != null)
             manager.beginTransaction().remove(fragment);
-        MajorSelectFragment majorSelectFragment = MajorSelectFragment.newInstance(topHeight);
+        MajorSelectFragment majorSelectFragment = MajorSelectFragment.newInstance(topHeight, listener);
         majorSelectFragment.show(manager.beginTransaction(), MAJOR_SELECT);
     }
 
@@ -170,5 +174,16 @@ public class DialogUtils {
             manager.beginTransaction().remove(fragment);
         CallFragment callFragment = CallFragment.newInstance(phone);
         callFragment.show(manager.beginTransaction(), CALL);
+    }
+
+    /**
+     * 询问对话框
+     */
+    public static void showToast(FragmentManager manager, String toast, ToastSureListener listener) {
+        Fragment fragment = manager.findFragmentByTag(TOAST);
+        if (fragment != null)
+            manager.beginTransaction().remove(fragment);
+        ToastFragment toastFragment = ToastFragment.newInstance(toast, listener);
+        toastFragment.show(manager.beginTransaction(), toast);
     }
 }

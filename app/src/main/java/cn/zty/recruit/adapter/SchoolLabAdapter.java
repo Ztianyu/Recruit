@@ -14,8 +14,12 @@ import cn.zty.recruit.bean.TipModel;
  */
 
 public class SchoolLabAdapter extends RecyclerAdapter<TipModel, ViewHolder> {
-    public SchoolLabAdapter(Context context) {
+
+    private boolean isOnly;
+
+    public SchoolLabAdapter(Context context, boolean isOnly) {
         super(context);
+        this.isOnly = isOnly;
     }
 
     @Override
@@ -35,6 +39,11 @@ public class SchoolLabAdapter extends RecyclerAdapter<TipModel, ViewHolder> {
         } else if ((position + 1) % 3 == 0) {
             resId = R.drawable.shape_school_lab3;
         }
+
+        if (isOnly)
+            resId = R.drawable.shape_school_lab4;
+
+
         holder.setBgRes(R.id.textLab, resId);
     }
 }

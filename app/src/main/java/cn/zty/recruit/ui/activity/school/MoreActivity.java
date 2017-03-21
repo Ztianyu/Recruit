@@ -5,6 +5,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.droidlover.xrecyclerview.RecyclerAdapter;
@@ -14,6 +17,8 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.MajorAdapter;
 import cn.zty.recruit.adapter.UniversityAdapter;
 import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.bean.MajorModel;
+import cn.zty.recruit.bean.UniversityModel;
 import cn.zty.recruit.widget.LoadMoreFooter;
 
 /**
@@ -77,7 +82,19 @@ public class MoreActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        if (type == 0) {
+            List<UniversityModel> list = new ArrayList<>();
+            for (int i = 0; i < 10; i++) {
+                list.add(new UniversityModel());
+            }
+            adapter.setData(list);
+        } else {
+            List<MajorModel> majorModels = new ArrayList<>();
+            for (int i = 0; i < 10; i++) {
+                majorModels.add(new MajorModel());
+            }
+            adapter.setData(majorModels);
+        }
     }
 
     private void initAdapter(XRecyclerView recyclerView) {

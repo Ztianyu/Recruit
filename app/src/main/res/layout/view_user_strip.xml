@@ -49,12 +49,14 @@
         app:textName="@string/userStrip4"
         app:textNameColor="@color/textColor"></cn.zty.baselib.widget.StripMenuView>
 
+
     <cn.zty.baselib.widget.StripMenuView
         android:id="@+id/strip5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:imgSrc="@mipmap/ic_person_exit"
-        app:isHasBottomLine="true"
+        app:isHasBottomLine="false"
+        android:layout_marginTop="10dp"
         app:isHasTopLine="false"
         app:lineMargin="16"
         app:textName="@string/userStrip5"

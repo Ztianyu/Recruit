@@ -1,4 +1,4 @@
-package cn.zty.baselib.rx;
+package cn.zty.recruit.rx;
 
 
 import android.util.Log;

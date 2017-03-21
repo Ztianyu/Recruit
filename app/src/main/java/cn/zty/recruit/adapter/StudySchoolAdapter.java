@@ -56,7 +56,7 @@ public class StudySchoolAdapter extends RecyclerAdapter<StudySchoolModel, ViewHo
 
         XRecyclerView recyclerView = holder.getView(R.id.recyclerViewHotSchool);
 
-        SchoolLabAdapter adapter = new SchoolLabAdapter(context);
+        SchoolLabAdapter adapter = new SchoolLabAdapter(context, false);
 
         recyclerView.horizontalLayoutManager(context)
                 .setAdapter(adapter);

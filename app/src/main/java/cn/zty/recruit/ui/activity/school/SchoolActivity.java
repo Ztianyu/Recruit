@@ -6,14 +6,21 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.droidlover.xrecyclerview.XRecyclerContentLayout;
+import cn.droidlover.xrecyclerview.XRecyclerView;
 import cn.zty.recruit.R;
+import cn.zty.recruit.adapter.UniversityAdapter;
 import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.bean.UniversityModel;
 import cn.zty.recruit.listener.AreaSelectListener;
 import cn.zty.recruit.listener.MajorSelectListener;
 import cn.zty.recruit.utils.DialogUtils;
+import cn.zty.recruit.widget.LoadMoreFooter;
 
 /**
  * Created by zty on 2017/3/9.
@@ -42,6 +49,14 @@ public class SchoolActivity extends BaseActivity implements
     @BindView(R.id.layoutSearchSchool)
     LinearLayout layoutSearchSchool;
 
+    LoadMoreFooter loadMoreFooter;
+
+    int currentPage = 1;
+    int maxPage = 1;
+    int pageSize = 10;
+
+    UniversityAdapter adapter;
+
     @Override
     protected int initLayoutId() {
         return R.layout.activity_school;
@@ -49,10 +64,48 @@ public class SchoolActivity extends BaseActivity implements
 
     @Override
     protected void initView() {
+
+        loadMoreFooter = new LoadMoreFooter(this);
+
+        adapter = new UniversityAdapter(this, false);
+
+        contentLayoutSchool.getRecyclerView().setRefreshEnabled(true);    //设置是否可刷新
+        contentLayoutSchool.getSwipeRefreshLayout().setColorSchemeResources(R.color.colorAccent, R.color.colorAccent, R.color.gray);
+        initAdapter(contentLayoutSchool.getRecyclerView());
+        contentLayoutSchool.refreshState(true);
+
+        contentLayoutSchool.refreshState(false);
+    }
+
+    private void initAdapter(XRecyclerView recyclerView) {
+        recyclerView.verticalLayoutManager(this)
+                .setAdapter(adapter);
+        recyclerView.horizontalDivider(R.color.colorDiver, R.dimen.diverHeight);
+        recyclerView.setOnRefreshAndLoadMoreListener(new XRecyclerView.OnRefreshAndLoadMoreListener() {
+            @Override
+            public void onRefresh() {
+                currentPage = 1;
+                contentLayoutSchool.refreshState(false);
+            }
+
+            @Override
+            public void onLoadMore(int page) {
+                currentPage = page;
+
+                contentLayoutSchool.getRecyclerView().setPage(currentPage, maxPage);
+            }
+        });
+        recyclerView.setLoadMoreView(loadMoreFooter);
+        recyclerView.setLoadMoreUIHandler(loadMoreFooter);
     }
 
     @Override
     protected void initData() {
+        List<UniversityModel> list = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            list.add(new UniversityModel());
+        }
+        adapter.setData(list);
     }
 
     @OnClick({R.id.textProvinceTip, R.id.textCityTip, R.id.textMajorTip, R.id.btnSearchBack, R.id.textSearch, R.id.textSelectSchool})
@@ -74,7 +127,7 @@ public class SchoolActivity extends BaseActivity implements
                 DialogUtils.showAreaSelect(getSupportFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 1, this);
                 break;
             case R.id.textMajorTip:
-                DialogUtils.showMajorSelect(getSupportFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight());
+                DialogUtils.showMajorSelect(getSupportFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), this);
                 break;
         }
     }
@@ -90,6 +143,6 @@ public class SchoolActivity extends BaseActivity implements
 
     @Override
     public void onMajorSelect(String code, String value) {
-
+        textMajorTip.setText(value);
     }
 }

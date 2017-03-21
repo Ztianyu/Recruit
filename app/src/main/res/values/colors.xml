@@ -15,4 +15,7 @@
     <color name="labColor1">#f04848</color>
     <color name="labColor2">#f2af3e</color>
     <color name="labColor3">#a3de15</color>
+    <color name="labColor4">#48d1b1</color>
+
+    <color name="integralColor">#5b83ff</color>
 </resources>

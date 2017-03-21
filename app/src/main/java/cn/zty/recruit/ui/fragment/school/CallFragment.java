@@ -17,7 +17,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.zty.recruit.R;
-import cn.zty.recruit.base.BaseActivity;
 
 /**
  * Created by zty on 2017/3/15.

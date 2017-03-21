@@ -5,10 +5,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:paddingBottom="8dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="8dp">
+    android:padding="16dp">
 
     <TextView
         android:id="@+id/itemMajorTip"
@@ -28,7 +25,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/textColor"
         android:textSize="14sp"
-        tools:text="广州汁职业术学校" />
+        android:text="广州汁职业术学校" />
 
     <TextView
         android:layout_width="0dp"
@@ -40,7 +37,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/gray"
         android:textSize="14sp"
-        tools:text="开设院校" />
+        android:text="开设院校" />
 
     <TextView
         android:id="@+id/itemMajorCount"
@@ -48,14 +45,13 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:background="@drawable/shape_lab2"
-        android:minWidth="40dp"
-        android:paddingBottom="3dp"
-        android:paddingLeft="6dp"
-        android:paddingRight="6dp"
-        android:paddingTop="3dp"
+        android:paddingBottom="2dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:paddingTop="2dp"
         android:textColor="@color/white"
-        android:textSize="14sp"
-        tools:text="85个" />
+        android:textSize="12sp"
+        android:text="85个" />
 
 
 </LinearLayout>

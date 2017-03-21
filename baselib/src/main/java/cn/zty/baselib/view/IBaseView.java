@@ -5,5 +5,5 @@ package cn.zty.baselib.view;
  */
 
 public interface IBaseView {
-    void onError(String error);
+//    void onError(String error);
 }

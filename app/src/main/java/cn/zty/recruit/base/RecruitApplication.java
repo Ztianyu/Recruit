@@ -1,11 +1,15 @@
 package cn.zty.recruit.base;
 
 import android.app.Application;
+import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.cookie.store.PersistentCookieStore;
 
 import cn.zty.baselib.http.RetrofitHelper;
+import cn.zty.recruit.bean.UserModel;
+import cn.zty.recruit.utils.SharedPrefUtils;
 
 /**
  * Created by zty on 2017/3/4.
@@ -17,6 +21,13 @@ public class RecruitApplication extends Application {
 
     private int statusBarHeight;
 
+    private boolean isHaveUser = false;
+
+    private UserModel userModel;
+    private String userId;
+    private String tokenId;
+    private String loginName;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -24,6 +35,8 @@ public class RecruitApplication extends Application {
         instance = this;
         initHttp();
         getStatusHeight();
+
+        setCurrentUser();
     }
 
     public static RecruitApplication getInstance() {
@@ -45,6 +58,26 @@ public class RecruitApplication extends Application {
                 .setCookieStore(new PersistentCookieStore());     //cookie持久化存储，如果cookie不过期，则一直有效;
     }
 
+    private void setCurrentUser() {
+
+        userId = SharedPrefUtils.getString(this, SharedPrefUtils.USER_ID);
+        tokenId = SharedPrefUtils.getString(this, SharedPrefUtils.TOKEN_ID);
+        loginName = SharedPrefUtils.getString(this, SharedPrefUtils.LOGIN_NAME);
+
+        String userMessage = SharedPrefUtils.getString(this, SharedPrefUtils.USER_MESSAGE);
+        if (!TextUtils.isEmpty(userMessage))
+            userModel = new Gson().fromJson(userMessage, UserModel.class);
+    }
+
+    public void setCurrentUser(String userMessage) {
+        SharedPrefUtils.setString(this, SharedPrefUtils.USER_MESSAGE, userMessage);
+        userModel = new Gson().fromJson(userMessage, UserModel.class);
+    }
+
+    public void clearUser() {
+        this.userModel = null;
+    }
+
     private void getStatusHeight() {
         int identifier = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (identifier > 0) {
@@ -58,5 +91,46 @@ public class RecruitApplication extends Application {
 
     public void setStatusBarHeight(int statusBarHeight) {
         this.statusBarHeight = statusBarHeight;
+    }
+
+
+    public boolean isHaveUser() {
+        return isHaveUser;
+    }
+
+    public void setHaveUser(boolean haveUser) {
+        isHaveUser = haveUser;
+    }
+
+    public UserModel getUserModel() {
+        return userModel;
+    }
+
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getTokenId() {
+        return tokenId;
+    }
+
+    public void setTokenId(String tokenId) {
+        this.tokenId = tokenId;
+    }
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.widget.Button;
+import android.widget.TextView;
 
 import cn.zty.baselib.utils.ValidateUtil;
 import cn.zty.recruit.R;
@@ -15,11 +16,11 @@ import cn.zty.recruit.R;
 public class SMSUtils {
 
     static int i = 30;
-    static Button btnSendCode;
+    static TextView btnSendCode;
 
-    static int enable = R.drawable.btn_get_code;
+    static int enable = R.drawable.bg_get_code;
 
-    static int unEnable = R.drawable.btn_not_get_code;
+    static int unEnable = R.drawable.bg_no_get_code;
 
     /**
      * 发送验证码按钮显示信息 获取验证码------>重新发送(i)
@@ -42,7 +43,7 @@ public class SMSUtils {
     /**
      * 点击发送验证码
      */
-    public static void getCode(Context context, Button btn, String phone) {
+    public static void getCode(Context context, TextView btn, String phone) {
 
         btnSendCode = btn;
         i = 30;

@@ -68,7 +68,7 @@ public class StudyEnrollActivity extends BaseActivity implements
 
     @Override
     protected int initLayoutId() {
-        return R.layout.activity_class_enroll;
+        return R.layout.activity_study_major_enroll;
     }
 
     @Override

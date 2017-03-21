@@ -8,8 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.zty.baselib.presenter.IBasePresenter;
 
 /**
  * Created by zty on 2017/2/21.
@@ -19,6 +23,8 @@ public abstract class BaseFragment extends Fragment {
     protected Context context;
     protected View mRootView;
     protected Unbinder unbinder;
+
+    protected List<IBasePresenter> presenters;
 
     protected abstract int initLayoutId();
 
@@ -36,6 +42,7 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.context = getActivity();
+        presenters = new ArrayList<>();
     }
 
     @Override
@@ -57,6 +64,12 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         unbinder.unbind();
+
+        if (presenters.size() > 0) {
+            for (IBasePresenter presenter : presenters) {
+                presenter.detach();
+            }
+        }
         super.onDestroyView();
     }
 }
