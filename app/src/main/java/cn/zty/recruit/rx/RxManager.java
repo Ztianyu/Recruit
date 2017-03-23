@@ -33,8 +33,10 @@ public class RxManager {
                 .subscribe(subscriber);
     }
 
-    public <T> Subscription doSubscribe1(Observable<ResultBean<T>> observable, Subscriber<T> subscriber) {
+    public <T> Subscription doSubscribe1(Observable<ResultBean<T>> observable, Subscriber<T> subscriber, final boolean isShowError) {
         return observable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .filter(new Func1<ResultBean<T>, Boolean>() {
                     @Override
                     public Boolean call(ResultBean<T> tResultBean) {
@@ -42,18 +44,19 @@ public class RxManager {
                             return true;
                         } else {
                             Log.e("error", tResultBean.getHead().getMsg());
-                            ToastUtils.show(tResultBean.getHead().getMsg());
+                            if (isShowError)
+                                ToastUtils.show(tResultBean.getHead().getMsg());
                             return false;
                         }
                     }
                 })
+                .subscribeOn(Schedulers.io())
                 .map(new Func1<ResultBean<T>, T>() {
                     @Override
                     public T call(ResultBean<T> resultBean) {
                         return resultBean.getResult();
                     }
                 })
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(subscriber);
     }

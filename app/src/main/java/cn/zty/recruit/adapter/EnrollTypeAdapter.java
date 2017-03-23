@@ -7,14 +7,14 @@ import android.view.ViewGroup;
 import cn.droidlover.xrecyclerview.RecyclerAdapter;
 import cn.zty.baselib.holder.ViewHolder;
 import cn.zty.recruit.R;
-import cn.zty.recruit.bean.EnrollTypeModel;
+import cn.zty.recruit.bean.DepositSystemModel;
 import cn.zty.recruit.listener.EnrollTypeSelectListener;
 
 /**
  * Created by zty on 2017/3/17.
  */
 
-public class EnrollTypeAdapter extends RecyclerAdapter<EnrollTypeModel, ViewHolder> {
+public class EnrollTypeAdapter extends RecyclerAdapter<DepositSystemModel, ViewHolder> {
 
     private EnrollTypeSelectListener listener;
 

@@ -24,7 +24,6 @@ import cn.zty.recruit.view.LoginView;
 public class LoginActivity extends BaseActivity implements View.OnFocusChangeListener,
         LoginView {
 
-    LoginPresenter loginPresenter;
     @BindView(R.id.editLoginName)
     EditText editLoginName;
     @BindView(R.id.textLoginUserTip)
@@ -40,6 +39,8 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
     @BindView(R.id.btnForgetPw)
     TextView btnForgetPw;
 
+    LoginPresenter loginPresenter;
+
     @Override
     protected int initLayoutId() {
         return R.layout.activity_login;
@@ -47,9 +48,9 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
 
     @Override
     protected void initView() {
-//        loginPresenter = new LoginPresenter();
-//        loginPresenter.attach(this);
-//        presenters.add(loginPresenter);
+        loginPresenter = new LoginPresenter();
+        loginPresenter.attach(this);
+        presenters.add(loginPresenter);
 
         editLoginName.setOnFocusChangeListener(this);
         editLoginPw.setOnFocusChangeListener(this);
@@ -61,14 +62,17 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
     }
 
     @Override
-    public void onSuccess(LoginModel loginModel) {
-
+    public void onLoginSuccess(LoginModel loginModel) {
+        AppManager.getInstance().finishAllActivity();
+        startActivity(new Intent(this, MainActivity.class));
+        RecruitApplication.getInstance().setHaveUser(true);
     }
 
     @OnClick({R.id.btnLogin, R.id.btnRegister, R.id.btnForgetPw})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnLogin:
+                loginPresenter.login(editLoginName.getText().toString(), editLoginPw.getText().toString());
                 AppManager.getInstance().finishAllActivity();
                 startActivity(new Intent(this, MainActivity.class));
                 RecruitApplication.getInstance().setHaveUser(true);

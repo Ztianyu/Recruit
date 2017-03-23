@@ -39,9 +39,9 @@ public class LoginPresenter extends IBasePresenter<LoginView> {
             mSubscription = RxManager.getInstance().doSubscribe1(submit(loginName, passWord), new RxSubscriber<LoginModel>() {
                 @Override
                 protected void _onNext(LoginModel loginModel) {
-                    mView.onSuccess(loginModel);
+                    mView.onLoginSuccess(loginModel);
                 }
-            });
+            },true);
     }
 
     private boolean checkData(String loginName, String passWord) {

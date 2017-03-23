@@ -8,5 +8,5 @@ import cn.zty.recruit.bean.LoginModel;
  */
 
 public interface LoginView extends IBaseView {
-    void onSuccess(LoginModel loginModel);
+    void onLoginSuccess(LoginModel loginModel);
 }

@@ -1,7 +1,6 @@
 package cn.zty.recruit.ui.fragment.school;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,26 +19,38 @@ import cn.zty.linkage.LinkageView;
 import cn.zty.linkage.model.ILinkage;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.LeftMenuListAdapter;
-import cn.zty.recruit.adapter.RightContentListAdapter;
+import cn.zty.recruit.adapter.RightMajorListAdapter;
 import cn.zty.recruit.base.BaseActivity;
-import cn.zty.recruit.bean.LeftMenuEntity;
-import cn.zty.recruit.bean.RightContentEntity;
+import cn.zty.recruit.base.Constants;
+import cn.zty.recruit.bean.MajorModel;
+import cn.zty.recruit.bean.TipModel;
 import cn.zty.recruit.listener.MajorSelectListener;
+import cn.zty.recruit.presenter.DictPresenter;
+import cn.zty.recruit.presenter.HotMajorPresenter;
+import cn.zty.recruit.view.DictListView;
+import cn.zty.recruit.view.HotMajorView;
 
 /**
  * 选择专业
  * Created by zty on 2017/3/9.
  */
 
-public class MajorSelectFragment extends DialogFragment {
+public class MajorSelectFragment extends DialogFragment implements
+        DictListView,
+        HotMajorView {
 
     int height;
     LeftMenuListAdapter leftMenuListAdapter;
-    RightContentListAdapter rightContentListAdapter;
+    RightMajorListAdapter rightMajorListAdapter;
     @BindView(R.id.linkage)
     LinkageView linkage;
 
     private MajorSelectListener listener;
+
+    private DictPresenter dictPresenter;
+    private HotMajorPresenter hotMajorPresenter;
+
+    private String discipline;//学科门类id
 
     public static MajorSelectFragment newInstance(int height, MajorSelectListener listener) {
         MajorSelectFragment fragment = new MajorSelectFragment();
@@ -54,6 +65,13 @@ public class MajorSelectFragment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         height = getArguments().getInt("height");
+
+        dictPresenter = new DictPresenter();
+        dictPresenter.attach(this);
+
+        hotMajorPresenter = new HotMajorPresenter();
+        hotMajorPresenter.attach(this);
+
     }
 
     @NonNull
@@ -84,39 +102,34 @@ public class MajorSelectFragment extends DialogFragment {
         windowParams.height = (int) (BaseActivity.screenHeight * 0.6);
         window.setAttributes(windowParams);
 
-        leftMenuListAdapter = new LeftMenuListAdapter(getActivity(), new ArrayList<LeftMenuEntity>());
+        leftMenuListAdapter = new LeftMenuListAdapter(getActivity(), new ArrayList<TipModel>());
         linkage.setLeftMenuAdapter(leftMenuListAdapter);
 
-        rightContentListAdapter = new RightContentListAdapter(getActivity(), new ArrayList<RightContentEntity>());
-        linkage.setRightContentAdapter(rightContentListAdapter);
+        rightMajorListAdapter = new RightMajorListAdapter(getActivity(), new ArrayList<MajorModel>());
+        linkage.setRightContentAdapter(rightMajorListAdapter);
 
         linkage.setOnItemClickListener(new ILinkage.OnItemClickListener() {
             @Override
             public void onLeftClick(View itemView, int position) {
-                List<RightContentEntity> rightContentEntities = new ArrayList<>();
-                rightContentEntities.add(new RightContentEntity());
-                rightContentEntities.add(new RightContentEntity());
-                rightContentEntities.add(new RightContentEntity());
-                rightContentEntities.add(new RightContentEntity());
-                rightContentEntities.add(new RightContentEntity());
-                rightContentEntities.add(new RightContentEntity());
-
-                rightContentListAdapter.setList(rightContentEntities);
+                discipline = leftMenuListAdapter.getList().get(position).getKey();
+                hotMajorPresenter.getHotMajorList(0, discipline, 1, 100);
             }
 
             @Override
             public void onRightClick(View itemView, int position) {
                 dismiss();
-                listener.onMajorSelect("", "" + (position + 1));
+                listener.onMajorSelect(rightMajorListAdapter.getList().get(position));
             }
         });
 
+        dictPresenter.getDictList(Constants.DICT_TYPE1);
+    }
 
-        List<LeftMenuEntity> leftMenuEntities = new ArrayList<>();
-        leftMenuEntities.add(new LeftMenuEntity());
-        leftMenuEntities.add(new LeftMenuEntity());
-        leftMenuEntities.add(new LeftMenuEntity());
-        linkage.updateData(leftMenuEntities);
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        dictPresenter.detach();
+        hotMajorPresenter.detach();
     }
 
     public MajorSelectListener getListener() {
@@ -125,5 +138,15 @@ public class MajorSelectFragment extends DialogFragment {
 
     public void setListener(MajorSelectListener listener) {
         this.listener = listener;
+    }
+
+    @Override
+    public void onHotMajorSuccess(List<MajorModel> majorModels) {
+        rightMajorListAdapter.setList(majorModels);
+    }
+
+    @Override
+    public void onDictSuccess(String type, List<TipModel> models) {
+        linkage.updateData(models);
     }
 }

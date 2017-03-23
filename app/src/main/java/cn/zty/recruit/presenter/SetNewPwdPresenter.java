@@ -41,7 +41,7 @@ public class SetNewPwdPresenter extends IBasePresenter<StringView> {
                 protected void _onNext(String msg) {
                     mView.onSuccess(msg);
                 }
-            });
+            },false);
     }
 
     private boolean checkData(String password, String surePassword) {

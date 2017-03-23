@@ -8,17 +8,17 @@ import android.widget.TextView;
 
 import cn.zty.baselib.adapter.MyBaseAdapter;
 import cn.zty.recruit.R;
-import cn.zty.recruit.bean.AreaModel;
+import cn.zty.recruit.bean.TipModel;
 
 /**
  * Created by zty on 2017/3/15.
  */
 
-public class AreaAdapter extends MyBaseAdapter<AreaModel> {
+public class DictAdapter extends MyBaseAdapter<TipModel> {
 
     private int type;
 
-    public AreaAdapter(Context context, int type) {
+    public DictAdapter(Context context, int type) {
         super(context);
         this.type = type;
     }
@@ -34,13 +34,7 @@ public class AreaAdapter extends MyBaseAdapter<AreaModel> {
         } else {
             holder = (Holder) convertView.getTag();
         }
-        if (type == 0) {
-            holder.itemText.setText((position + 1) + "省");
-        } else if (type == 1) {
-            holder.itemText.setText((position + 1) + "地区");
-        } else if (type == 2) {
-            holder.itemText.setText((position + 1) + "项目分类");
-        }
+        holder.itemText.setText(mData.get(position).getValue());
         return convertView;
     }
 

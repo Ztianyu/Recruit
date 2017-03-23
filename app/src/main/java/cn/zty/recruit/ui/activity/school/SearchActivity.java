@@ -10,6 +10,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.droidlover.xrecyclerview.XRecyclerView;
 import cn.zty.baselib.utils.AutoLineLayoutManager;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.SearchContentAdapter;
@@ -22,7 +23,7 @@ import cn.zty.recruit.bean.TipModel;
 
 public class SearchActivity extends BaseActivity {
     @BindView(R.id.autoLineRecycler)
-    RecyclerView autoLineRecycler;
+    XRecyclerView autoLineRecycler;
     @BindView(R.id.btnSearchBack)
     ImageView btnSearchBack;
     @BindView(R.id.editSearch)

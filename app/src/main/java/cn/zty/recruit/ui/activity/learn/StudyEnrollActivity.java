@@ -13,7 +13,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
-import cn.zty.recruit.bean.EnrollTypeModel;
+import cn.zty.recruit.base.Constants;
+import cn.zty.recruit.bean.DepositSystemModel;
 import cn.zty.recruit.listener.EducationSelectListener;
 import cn.zty.recruit.listener.EnrollTypeSelectListener;
 import cn.zty.recruit.listener.SexSelectListener;
@@ -116,7 +117,7 @@ public class StudyEnrollActivity extends BaseActivity implements
                 DialogUtils.showEducationSelect(getSupportFragmentManager(), educationType, this);
                 break;
             case R.id.btnChoseType:
-                DialogUtils.showEnrollTypeSelect(getSupportFragmentManager(), this);
+                DialogUtils.showEnrollTypeSelect(getSupportFragmentManager(), this, Constants.OFFICE_TYPE2);
                 break;
             case R.id.btnSubmit:
                 break;
@@ -136,7 +137,7 @@ public class StudyEnrollActivity extends BaseActivity implements
     }
 
     @Override
-    public void onEnrollTypeSelect(EnrollTypeModel enrollTypeModel) {
+    public void onEnrollTypeSelect(DepositSystemModel enrollTypeModel) {
         btnChoseType.setText("500（可抵1000元）");
         DialogFragment dialogFragment = (DialogFragment) getSupportFragmentManager().findFragmentByTag(DialogUtils.ENROLL_TYPE_SELECT);
         dialogFragment.dismiss();

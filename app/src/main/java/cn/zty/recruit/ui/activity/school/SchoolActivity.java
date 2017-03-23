@@ -16,19 +16,27 @@ import cn.droidlover.xrecyclerview.XRecyclerView;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.UniversityAdapter;
 import cn.zty.recruit.base.BaseActivity;
-import cn.zty.recruit.bean.UniversityModel;
+import cn.zty.recruit.bean.MajorModel;
+import cn.zty.recruit.bean.VocationalModel;
 import cn.zty.recruit.listener.AreaSelectListener;
 import cn.zty.recruit.listener.MajorSelectListener;
+import cn.zty.recruit.listener.SchoolSelectListener;
+import cn.zty.recruit.presenter.VocationalListPresenter;
 import cn.zty.recruit.utils.DialogUtils;
+import cn.zty.recruit.view.VocationalListView;
 import cn.zty.recruit.widget.LoadMoreFooter;
 
 /**
+ * 学校
  * Created by zty on 2017/3/9.
  */
 
 public class SchoolActivity extends BaseActivity implements
         AreaSelectListener,
-        MajorSelectListener {
+        MajorSelectListener,
+        VocationalListView,
+        SchoolSelectListener,
+        XRecyclerView.OnRefreshAndLoadMoreListener {
 
     @BindView(R.id.textProvinceTip)
     TextView textProvinceTip;
@@ -57,6 +65,16 @@ public class SchoolActivity extends BaseActivity implements
 
     UniversityAdapter adapter;
 
+    private String provinceId;
+    private String cityId;
+    private MajorModel majorModel;
+    private String score;
+    private String examinationType;
+
+    private VocationalListPresenter presenter;
+
+    private boolean isSearchByArea = true;
+
     @Override
     protected int initLayoutId() {
         return R.layout.activity_school;
@@ -64,6 +82,9 @@ public class SchoolActivity extends BaseActivity implements
 
     @Override
     protected void initView() {
+        presenter = new VocationalListPresenter();
+        presenter.attach(this);
+        presenters.add(presenter);
 
         loadMoreFooter = new LoadMoreFooter(this);
 
@@ -72,40 +93,19 @@ public class SchoolActivity extends BaseActivity implements
         contentLayoutSchool.getRecyclerView().setRefreshEnabled(true);    //设置是否可刷新
         contentLayoutSchool.getSwipeRefreshLayout().setColorSchemeResources(R.color.colorAccent, R.color.colorAccent, R.color.gray);
         initAdapter(contentLayoutSchool.getRecyclerView());
-        contentLayoutSchool.refreshState(true);
-
-        contentLayoutSchool.refreshState(false);
     }
 
     private void initAdapter(XRecyclerView recyclerView) {
         recyclerView.verticalLayoutManager(this)
                 .setAdapter(adapter);
         recyclerView.horizontalDivider(R.color.colorDiver, R.dimen.diverHeight);
-        recyclerView.setOnRefreshAndLoadMoreListener(new XRecyclerView.OnRefreshAndLoadMoreListener() {
-            @Override
-            public void onRefresh() {
-                currentPage = 1;
-                contentLayoutSchool.refreshState(false);
-            }
-
-            @Override
-            public void onLoadMore(int page) {
-                currentPage = page;
-
-                contentLayoutSchool.getRecyclerView().setPage(currentPage, maxPage);
-            }
-        });
+        recyclerView.setOnRefreshAndLoadMoreListener(this);
         recyclerView.setLoadMoreView(loadMoreFooter);
         recyclerView.setLoadMoreUIHandler(loadMoreFooter);
     }
 
     @Override
     protected void initData() {
-        List<UniversityModel> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(new UniversityModel());
-        }
-        adapter.setData(list);
     }
 
     @OnClick({R.id.textProvinceTip, R.id.textCityTip, R.id.textMajorTip, R.id.btnSearchBack, R.id.textSearch, R.id.textSelectSchool})
@@ -118,15 +118,19 @@ public class SchoolActivity extends BaseActivity implements
                 startActivity(new Intent(this, SearchActivity.class));
                 break;
             case R.id.textSelectSchool:
-                DialogUtils.showSchoolSelect(getSupportFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight());
+                isSearchByArea = false;
+                DialogUtils.showSchoolSelect(getSupportFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), this);
                 break;
             case R.id.textProvinceTip:
-                DialogUtils.showAreaSelect(getSupportFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 0, this);
+                isSearchByArea = true;
+                DialogUtils.showAreaSelect(getSupportFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 0, this, provinceId);
                 break;
             case R.id.textCityTip:
-                DialogUtils.showAreaSelect(getSupportFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 1, this);
+                isSearchByArea = true;
+                DialogUtils.showAreaSelect(getSupportFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 1, this, provinceId);
                 break;
             case R.id.textMajorTip:
+                isSearchByArea = true;
                 DialogUtils.showMajorSelect(getSupportFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), this);
                 break;
         }
@@ -135,14 +139,78 @@ public class SchoolActivity extends BaseActivity implements
     @Override
     public void onAreaSelect(String code, String value, int type) {
         if (type == 0) {
+            provinceId = code;
             textProvinceTip.setText(value);
         } else {
+            cityId = code;
             textCityTip.setText(value);
+        }
+        presenter.getVocationList(null, code, null, null, null, null, 0, currentPage);
+    }
+
+    @Override
+    public void onMajorSelect(MajorModel majorModel) {
+        this.majorModel = majorModel;
+//        textMajorTip.setText(value);
+    }
+
+    @Override
+    public void onVocationalListSuccess(List<VocationalModel> models) {
+        contentLayoutSchool.refreshState(false);
+        if (models != null && models.size() > 0) {
+            if (currentPage == 1) {
+                adapter.setData(models);
+            } else {
+                adapter.addData(models);
+            }
+
+            if (models.size() < pageSize) {
+                maxPage = currentPage;
+            } else {
+                maxPage = currentPage + 1;
+            }
+            contentLayoutSchool.getRecyclerView().setPage(currentPage, maxPage);
+        } else {
+            contentLayoutSchool.getRecyclerView().setPage(currentPage, currentPage);
         }
     }
 
     @Override
-    public void onMajorSelect(String code, String value) {
-        textMajorTip.setText(value);
+    public void onSchoolSelect(String provinceId, MajorModel majorModel, String score, String examinationType) {
+        this.provinceId = provinceId;
+        this.majorModel = majorModel;
+        this.score = score;
+        this.examinationType = examinationType;
+        getDataByScore();
+
     }
+
+    @Override
+    public void onRefresh() {
+        currentPage = 1;
+        getData();
+    }
+
+    @Override
+    public void onLoadMore(int page) {
+        currentPage = page;
+        getData();
+    }
+
+    private void getData() {
+        if (isSearchByArea) {
+            if (majorModel != null) {
+                presenter.getVocationList(null, cityId, majorModel.getDiscipline(), majorModel.getId(), null, null, 0, currentPage);
+            } else {
+                presenter.getVocationList(null, provinceId, cityId, null, null, null, 0, currentPage);
+            }
+        } else {
+            getDataByScore();
+        }
+    }
+
+    private void getDataByScore() {
+        presenter.getVocationList(null, provinceId, majorModel.getDiscipline(), majorModel.getId(), examinationType, score, 0, currentPage);
+    }
+
 }

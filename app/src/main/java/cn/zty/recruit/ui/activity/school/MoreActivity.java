@@ -18,7 +18,7 @@ import cn.zty.recruit.adapter.MajorAdapter;
 import cn.zty.recruit.adapter.UniversityAdapter;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.bean.MajorModel;
-import cn.zty.recruit.bean.UniversityModel;
+import cn.zty.recruit.bean.VocationalModel;
 import cn.zty.recruit.widget.LoadMoreFooter;
 
 /**
@@ -83,9 +83,9 @@ public class MoreActivity extends BaseActivity {
     @Override
     protected void initData() {
         if (type == 0) {
-            List<UniversityModel> list = new ArrayList<>();
+            List<VocationalModel> list = new ArrayList<>();
             for (int i = 0; i < 10; i++) {
-                list.add(new UniversityModel());
+                list.add(new VocationalModel());
             }
             adapter.setData(list);
         } else {

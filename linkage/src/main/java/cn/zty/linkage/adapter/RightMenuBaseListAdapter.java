@@ -87,4 +87,7 @@ public abstract class RightMenuBaseListAdapter<T extends BaseListViewHolder, K> 
      */
     public abstract int getLayoutId();
 
+    public List<K> getList() {
+        return list;
+    }
 }

@@ -8,5 +8,5 @@ import cn.zty.recruit.bean.UserModel;
  */
 
 public interface UserView extends IBaseView {
-    void onSuccess(UserModel userModel);
+    void onUserSuccess(UserModel userModel);
 }

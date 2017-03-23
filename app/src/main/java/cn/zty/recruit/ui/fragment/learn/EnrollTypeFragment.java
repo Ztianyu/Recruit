@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -18,14 +17,17 @@ import butterknife.ButterKnife;
 import cn.droidlover.xrecyclerview.XRecyclerView;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.EnrollTypeAdapter;
-import cn.zty.recruit.bean.EnrollTypeModel;
+import cn.zty.recruit.bean.DepositSystemModel;
 import cn.zty.recruit.listener.EnrollTypeSelectListener;
+import cn.zty.recruit.presenter.DepositSystemPresenter;
+import cn.zty.recruit.view.DepositSystemView;
 
 /**
+ * 报名定金
  * Created by zty on 2017/3/17.
  */
 
-public class EnrollTypeFragment extends DialogFragment {
+public class EnrollTypeFragment extends DialogFragment implements DepositSystemView {
 
     @BindView(R.id.recyclerView)
     XRecyclerView recyclerView;
@@ -33,9 +35,15 @@ public class EnrollTypeFragment extends DialogFragment {
     private EnrollTypeAdapter adapter;
 
     private EnrollTypeSelectListener listener;
+    private String office;
 
-    public static EnrollTypeFragment newInstance(EnrollTypeSelectListener listener) {
+    private DepositSystemPresenter presenter;
+
+    public static EnrollTypeFragment newInstance(EnrollTypeSelectListener listener, String office) {
         EnrollTypeFragment fragment = new EnrollTypeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("office", office);
+        fragment.setArguments(bundle);
         fragment.setListener(listener);
         return fragment;
     }
@@ -60,16 +68,30 @@ public class EnrollTypeFragment extends DialogFragment {
         windowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(windowParams);
 
+        office = getArguments().getString("office");
+
+        presenter = new DepositSystemPresenter();
+        presenter.attach(this);
+
+
         adapter = new EnrollTypeAdapter(getContext(), listener);
 
         recyclerView.verticalLayoutManager(getContext())
                 .setAdapter(adapter);
         recyclerView.horizontalDivider(R.color.colorDiver, R.dimen.diverHeight);
 
-        List<EnrollTypeModel> list = new ArrayList<>();
-        list.add(new EnrollTypeModel());
-        list.add(new EnrollTypeModel());
-        adapter.setData(list);
+        presenter.getDepositSystemList(office);
+    }
+
+    @Override
+    public void onDepositSystemSuccess(List<DepositSystemModel> models) {
+        adapter.setData(models);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.detach();
     }
 
     public EnrollTypeSelectListener getListener() {
@@ -79,4 +101,5 @@ public class EnrollTypeFragment extends DialogFragment {
     public void setListener(EnrollTypeSelectListener listener) {
         this.listener = listener;
     }
+
 }

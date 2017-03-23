@@ -40,9 +40,9 @@ public class RegisterPresenter extends IBasePresenter<LoginView> {
             mSubscription = RxManager.getInstance().doSubscribe1(submit(mobile, password, inviteCode), new RxSubscriber<LoginModel>() {
                 @Override
                 protected void _onNext(LoginModel loginModel) {
-                    mView.onSuccess(loginModel);
+                    mView.onLoginSuccess(loginModel);
                 }
-            });
+            },true);
     }
 
     private boolean checkData(String password, String surePassword) {

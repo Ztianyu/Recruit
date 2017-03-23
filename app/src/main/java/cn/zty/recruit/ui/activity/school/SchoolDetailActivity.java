@@ -16,15 +16,18 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.SchoolLabAdapter;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.bean.TipModel;
+import cn.zty.recruit.bean.VocationalModel;
+import cn.zty.recruit.presenter.VocationPresenter;
 import cn.zty.recruit.ui.activity.WebActivity;
 import cn.zty.recruit.utils.DialogUtils;
+import cn.zty.recruit.view.VocationView;
 import cn.zty.recruit.widget.LabView;
 
 /**
  * Created by zty on 2017/3/13.
  */
 
-public class SchoolDetailActivity extends BaseActivity {
+public class SchoolDetailActivity extends BaseActivity implements VocationView {
     @BindView(R.id.textTitle)
     TextView textTitle;
     @BindView(R.id.toolbar)
@@ -58,6 +61,10 @@ public class SchoolDetailActivity extends BaseActivity {
 
     SchoolLabAdapter labAdapter;
 
+    VocationPresenter presenter;
+
+    private String schoolId;
+
     @Override
     protected int initLayoutId() {
         return R.layout.activity_school_detail;
@@ -68,9 +75,17 @@ public class SchoolDetailActivity extends BaseActivity {
         toolbar.setTitle("院校概况");
         initToolbar(toolbar);
 
+        schoolId = getIntent().getStringExtra("schoolId");
+
+        presenter = new VocationPresenter();
+        presenter.attach(this);
+        presenters.add(presenter);
+
         labAdapter = new SchoolLabAdapter(this, false);
         autoLineLayout.horizontalLayoutManager(this)
                 .setAdapter(labAdapter);
+
+        presenter.getVocationalSchool(schoolId);
     }
 
     @Override
@@ -104,5 +119,10 @@ public class SchoolDetailActivity extends BaseActivity {
                 DialogUtils.showCall(getSupportFragmentManager(), "0371-573233");
                 break;
         }
+    }
+
+    @Override
+    public void onVocationSuccess(VocationalModel model) {
+
     }
 }

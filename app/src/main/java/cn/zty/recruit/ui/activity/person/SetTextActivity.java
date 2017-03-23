@@ -1,8 +1,10 @@
 package cn.zty.recruit.ui.activity.person;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -10,6 +12,7 @@ import android.widget.EditText;
 import butterknife.BindView;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.utils.ToastUtils;
 
 /**
  * Created by zty on 2017/1/9.
@@ -24,12 +27,8 @@ public class SetTextActivity extends BaseActivity {
     private String message;
     private String url;
     private String strTitle;
-    private String key;
 
-    private int type;//0：字符串；1：数字；2：电话
-
-    private String id;
-
+    private int type;//0：字符串；1：电话；2：数字
 
     @Override
     protected int initLayoutId() {
@@ -42,7 +41,6 @@ public class SetTextActivity extends BaseActivity {
         Bundle bundle = getIntent().getExtras();
         message = bundle.getString("message");
         strTitle = bundle.getString("title");
-        key = bundle.getString("key");
         type = bundle.getInt("type");
 
         if (type == 1) {
@@ -65,6 +63,7 @@ public class SetTextActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.save:
+                        callBack();
                         finish();
                         return true;
                 }
@@ -76,6 +75,26 @@ public class SetTextActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        editSetText.setText(message);
+    }
 
+    private void callBack() {
+        String strContent = editSetText.getText().toString();
+        String strToast = "";
+
+        if (!TextUtils.isEmpty(strContent)) {
+            Intent intent = new Intent();
+            intent.putExtra("value", strContent);
+            intent.putExtra("type", type);
+            setResult(1, intent);
+        } else {
+            if (type == 0) {
+                strToast = "请输入姓名";
+            }
+            if (type == 1) {
+                strToast = "请输入手机号码";
+            }
+            ToastUtils.show(strToast);
+        }
     }
 }

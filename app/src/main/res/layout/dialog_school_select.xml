@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,6 +20,24 @@
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spinnerSpace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TipTextView"
+            android:text="@string/discipline" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinnerDiscipline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp" />
@@ -71,11 +90,17 @@
             style="@style/TipTextView"
             android:text="@string/tuitionRange" />
 
-        <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/spinnerTuitionRange"
+        <EditText
+            android:id="@+id/editScore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp" />
+            android:layout_marginLeft="8dp"
+            android:background="@color/white"
+            android:inputType="number"
+            android:maxLength="5"
+            android:paddingLeft="4dp"
+            android:textCursorDrawable="@null"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <Button

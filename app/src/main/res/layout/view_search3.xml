@@ -19,7 +19,7 @@
         android:id="@+id/textSearch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="16dp"
         android:layout_weight="1"
         android:background="@mipmap/bg_search"
         android:drawableLeft="@drawable/ic_search_gray_24dp"

@@ -15,6 +15,7 @@ import cn.zty.recruit.bean.RadioModel;
 import cn.zty.recruit.widget.LoadMoreFooter;
 
 /**
+ * 在线试听
  * Created by zty on 2017/3/17.
  */
 

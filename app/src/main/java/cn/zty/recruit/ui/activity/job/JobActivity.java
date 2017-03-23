@@ -20,9 +20,7 @@ import cn.zty.recruit.utils.DialogUtils;
  * Created by zty on 2017/3/18.
  */
 
-public class JobActivity extends BaseActivity implements
-        AreaSelectListener,
-        MajorSelectListener {
+public class JobActivity extends BaseActivity {
     @BindView(R.id.btnSearchBack)
     ImageView btnSearchBack;
     @BindView(R.id.textSearch)
@@ -78,19 +76,5 @@ public class JobActivity extends BaseActivity implements
 //                DialogUtils.showMajorSelect(getSupportFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), this);
                 break;
         }
-    }
-
-    @Override
-    public void onAreaSelect(String code, String value, int type) {
-        if (type == 0) {
-            textProvinceTip.setText(value);
-        } else {
-            textCityTip.setText(value);
-        }
-    }
-
-    @Override
-    public void onMajorSelect(String code, String value) {
-
     }
 }

@@ -18,8 +18,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.zty.recruit.R;
-import cn.zty.recruit.adapter.AreaAdapter;
-import cn.zty.recruit.bean.AreaModel;
+import cn.zty.recruit.adapter.DictAdapter;
+import cn.zty.recruit.bean.TipModel;
 import cn.zty.recruit.listener.AreaSelectListener;
 
 /**
@@ -32,7 +32,7 @@ public class LearnProjectFragment extends DialogFragment {
 
     private int height;
     private int type;//0:省；1：市:2:项目分类
-    private AreaAdapter areaAdapter;
+    private DictAdapter dictAdapter;
 
     private AreaSelectListener listener;
 
@@ -78,13 +78,13 @@ public class LearnProjectFragment extends DialogFragment {
         windowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(windowParams);
 
-        areaAdapter = new AreaAdapter(getActivity(), type);
-        areaList.setAdapter(areaAdapter);
-        List<AreaModel> list = new ArrayList<>();
+        dictAdapter = new DictAdapter(getActivity(), type);
+        areaList.setAdapter(dictAdapter);
+        List<TipModel> list = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            list.add(new AreaModel());
+            list.add(new TipModel());
         }
-        areaAdapter.setData(list);
+        dictAdapter.setData(list);
     }
 
     @Override

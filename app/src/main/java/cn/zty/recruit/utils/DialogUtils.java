@@ -10,11 +10,12 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
-import cn.zty.baselib.widget.StripViewNoImg;
 import cn.zty.recruit.listener.AreaSelectListener;
+import cn.zty.recruit.listener.BirthSelectListener;
 import cn.zty.recruit.listener.EducationSelectListener;
 import cn.zty.recruit.listener.EnrollTypeSelectListener;
 import cn.zty.recruit.listener.MajorSelectListener;
+import cn.zty.recruit.listener.SchoolSelectListener;
 import cn.zty.recruit.listener.SexSelectListener;
 import cn.zty.recruit.listener.ToastSureListener;
 import cn.zty.recruit.ui.fragment.AreaSelectFragment;
@@ -48,22 +49,22 @@ public class DialogUtils {
     /**
      * 选择 省、市（type:0(省)；1（市））
      */
-    public static void showAreaSelect(FragmentManager manager, int topHeight, int type, AreaSelectListener listener) {
+    public static void showAreaSelect(FragmentManager manager, int topHeight, int type, AreaSelectListener listener, String provinceId) {
         Fragment fragment = manager.findFragmentByTag(AREA_SELECT);
         if (fragment != null)
             manager.beginTransaction().remove(fragment);
-        AreaSelectFragment areaSelectFragment = AreaSelectFragment.newInstance(topHeight, type, listener);
+        AreaSelectFragment areaSelectFragment = AreaSelectFragment.newInstance(topHeight, type, provinceId, listener);
         areaSelectFragment.show(manager.beginTransaction(), AREA_SELECT);
     }
 
     /**
      * 择校
      */
-    public static void showSchoolSelect(FragmentManager manager, int topHeight) {
+    public static void showSchoolSelect(FragmentManager manager, int topHeight, SchoolSelectListener listener) {
         Fragment fragment = manager.findFragmentByTag(SCHOOL_SELECT);
         if (fragment != null)
             manager.beginTransaction().remove(fragment);
-        SchoolSelectFragment schoolSelectFragment = SchoolSelectFragment.newInstance(topHeight);
+        SchoolSelectFragment schoolSelectFragment = SchoolSelectFragment.newInstance(topHeight, listener);
         schoolSelectFragment.show(manager.beginTransaction(), SCHOOL_SELECT);
     }
 
@@ -92,7 +93,7 @@ public class DialogUtils {
     /**
      * 日期选择控件
      */
-    public static void showDataSelect(Context context, final StripViewNoImg editText) {
+    public static void showDataSelect(Context context, final BirthSelectListener listener) {
         Calendar c = Calendar.getInstance();
         new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
 
@@ -105,7 +106,7 @@ public class DialogUtils {
                         .append((monthOfYear + 1) < 10 ? "0" + (monthOfYear + 1) : (monthOfYear + 1))
                         .append("-")
                         .append(dayOfMonth < 10 ? "0" + dayOfMonth : dayOfMonth);
-                editText.setAdditionText(sb.toString());
+                listener.onDateSelect(sb.toString());
             }
         }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH)).show();
     }
@@ -157,11 +158,11 @@ public class DialogUtils {
     /**
      * 选择定金类型
      */
-    public static void showEnrollTypeSelect(FragmentManager manager, EnrollTypeSelectListener listener) {
+    public static void showEnrollTypeSelect(FragmentManager manager, EnrollTypeSelectListener listener, String office) {
         Fragment fragment = manager.findFragmentByTag(ENROLL_TYPE_SELECT);
         if (fragment != null)
             manager.beginTransaction().remove(fragment);
-        EnrollTypeFragment enrollTypeFragment = EnrollTypeFragment.newInstance(listener);
+        EnrollTypeFragment enrollTypeFragment = EnrollTypeFragment.newInstance(listener, office);
         enrollTypeFragment.show(manager.beginTransaction(), ENROLL_TYPE_SELECT);
     }
 

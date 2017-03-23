@@ -20,21 +20,31 @@ import cn.zty.recruit.adapter.MajorAdapter;
 import cn.zty.recruit.adapter.UniversityAdapter;
 import cn.zty.recruit.base.BaseFragment;
 import cn.zty.recruit.base.RecruitApplication;
+import cn.zty.recruit.bean.AdsModel;
 import cn.zty.recruit.bean.MajorModel;
-import cn.zty.recruit.bean.UniversityModel;
+import cn.zty.recruit.bean.VocationalModel;
+import cn.zty.recruit.presenter.GetAdsPresenter;
+import cn.zty.recruit.presenter.HotMajorPresenter;
+import cn.zty.recruit.presenter.VocationalListPresenter;
 import cn.zty.recruit.ui.activity.job.JobActivity;
 import cn.zty.recruit.ui.activity.learn.LearnActivity;
 import cn.zty.recruit.ui.activity.school.MoreActivity;
 import cn.zty.recruit.ui.activity.school.SchoolActivity;
 import cn.zty.recruit.utils.BannerUtils;
 import cn.zty.recruit.utils.ViewAdaptionUtils;
+import cn.zty.recruit.view.AdsView;
+import cn.zty.recruit.view.HotMajorView;
+import cn.zty.recruit.view.VocationalListView;
 import cn.zty.recruit.widget.LabView;
 
 /**
  * Created by zty on 2017/3/6.
  */
 
-public class RecruitFragment extends BaseFragment {
+public class RecruitFragment extends BaseFragment implements
+        AdsView,
+        HotMajorView,
+        VocationalListView {
     @BindView(R.id.bannerRecruit)
     Banner bannerRecruit;
     @BindView(R.id.toolbar)
@@ -61,6 +71,10 @@ public class RecruitFragment extends BaseFragment {
     UniversityAdapter universityAdapter;
     MajorAdapter majorAdapter;
 
+    private GetAdsPresenter getAdsPresenter;
+    private HotMajorPresenter hotMajorPresenter;
+    private VocationalListPresenter vocationalListPresenter;
+
     @Override
     protected int initLayoutId() {
         return R.layout.fragment_recruit;
@@ -83,6 +97,18 @@ public class RecruitFragment extends BaseFragment {
         listHotMajor.verticalLayoutManager(context)
                 .setAdapter(majorAdapter);
         listHotMajor.horizontalDivider(R.color.colorDiver, R.dimen.diverHeight);
+
+        getAdsPresenter = new GetAdsPresenter();
+        getAdsPresenter.attach(this);
+        presenters.add(getAdsPresenter);
+
+        hotMajorPresenter = new HotMajorPresenter();
+        hotMajorPresenter.attach(this);
+        presenters.add(hotMajorPresenter);
+
+        vocationalListPresenter = new VocationalListPresenter();
+        vocationalListPresenter.attach(this);
+        presenters.add(vocationalListPresenter);
     }
 
     @Override
@@ -93,18 +119,6 @@ public class RecruitFragment extends BaseFragment {
         images.add(R.drawable.ic_advise);
         images.add(R.drawable.ic_advise);
         BannerUtils.initBanner1(bannerRecruit, images, 1, 2);
-
-        List<UniversityModel> universityModels = new ArrayList<>();
-        universityModels.add(new UniversityModel());
-        universityModels.add(new UniversityModel());
-        universityModels.add(new UniversityModel());
-        universityAdapter.setData(universityModels);
-
-        List<MajorModel> majorModels = new ArrayList<>();
-        majorModels.add(new MajorModel());
-        majorModels.add(new MajorModel());
-        majorModels.add(new MajorModel());
-        majorAdapter.setData(majorModels);
     }
 
     @OnClick({R.id.btnRecruitFun1, R.id.btnRecruitFun2, R.id.btnRecruitFun3, R.id.btnMoreUniversity, R.id.btnMoreMajor})
@@ -126,5 +140,20 @@ public class RecruitFragment extends BaseFragment {
                 startActivity(new Intent(context, MoreActivity.class).putExtra("type", MoreActivity.TYPE_HOT_MAJOR));
                 break;
         }
+    }
+
+    @Override
+    public void onAdsSuccess(List<AdsModel> models) {
+
+    }
+
+    @Override
+    public void onHotMajorSuccess(List<MajorModel> majorModels) {
+        majorAdapter.setData(majorModels);
+    }
+
+    @Override
+    public void onVocationalListSuccess(List<VocationalModel> models) {
+        universityAdapter.setData(models);
     }
 }

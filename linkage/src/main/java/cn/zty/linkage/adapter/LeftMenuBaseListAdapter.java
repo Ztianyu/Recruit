@@ -99,6 +99,9 @@ public abstract class LeftMenuBaseListAdapter<T extends BaseListViewHolder, K ex
      */
     public abstract int getIndicatorResId();
 
+    public List<K> getList() {
+        return list;
+    }
 
     public void setSelection(int i) {
         for (K data : list) {

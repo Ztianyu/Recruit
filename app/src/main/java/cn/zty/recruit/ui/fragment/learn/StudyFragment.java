@@ -56,6 +56,8 @@ public class StudyFragment extends BaseFragment implements AreaSelectListener {
     int maxPage = 1;
     int pageSize = 10;
 
+    private String provinceId;
+
     @Override
     protected int initLayoutId() {
         return R.layout.activity_school;
@@ -118,13 +120,13 @@ public class StudyFragment extends BaseFragment implements AreaSelectListener {
                 DialogUtils.showStudySelect(getChildFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight());
                 break;
             case R.id.textProvinceTip:
-                DialogUtils.showAreaSelect(getFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 0, this);
+                DialogUtils.showAreaSelect(getFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 0, this, provinceId);
                 break;
             case R.id.textCityTip:
-                DialogUtils.showAreaSelect(getFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 1, this);
+                DialogUtils.showAreaSelect(getFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 1, this, provinceId);
                 break;
             case R.id.textMajorTip:
-                DialogUtils.showAreaSelect(getFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 2, this);
+                DialogUtils.showAreaSelect(getFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 2, this, provinceId);
                 break;
         }
     }
