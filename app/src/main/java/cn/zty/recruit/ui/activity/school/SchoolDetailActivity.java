@@ -124,5 +124,6 @@ public class SchoolDetailActivity extends BaseActivity implements VocationView {
     @Override
     public void onVocationSuccess(VocationalModel model) {
 
+
     }
 }

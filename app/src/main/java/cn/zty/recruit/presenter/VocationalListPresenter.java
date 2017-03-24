@@ -46,6 +46,9 @@ public class VocationalListPresenter extends IBasePresenter<VocationalListView> 
             params.put("examinationType", examinationType);
         if (!TextUtils.isEmpty(score))
             params.put("score", score);
+        if (isHot == 1) {
+            params.put("pageSize", 100);
+        }
         params.put("isHot", isHot);
         params.put("pageNo", pageNo);
         return service.getVocationalSchoolList(params);

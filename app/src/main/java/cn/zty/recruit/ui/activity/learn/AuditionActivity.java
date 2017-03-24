@@ -1,90 +1,68 @@
 package cn.zty.recruit.ui.activity.learn;
 
-import android.support.v7.widget.Toolbar;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.net.Uri;
 
 import butterknife.BindView;
-import cn.droidlover.xrecyclerview.XRecyclerContentLayout;
-import cn.droidlover.xrecyclerview.XRecyclerView;
 import cn.zty.recruit.R;
-import cn.zty.recruit.adapter.RadioAdapter;
 import cn.zty.recruit.base.BaseActivity;
-import cn.zty.recruit.bean.RadioModel;
-import cn.zty.recruit.widget.LoadMoreFooter;
+import io.vov.vitamio.MediaPlayer;
+import io.vov.vitamio.widget.MediaController;
+import io.vov.vitamio.widget.VideoView;
 
 /**
  * 在线试听
  * Created by zty on 2017/3/17.
  */
 
-public class AuditionActivity extends BaseActivity {
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.layoutContent)
-    XRecyclerContentLayout layoutContent;
+public class AuditionActivity extends BaseActivity implements
+        MediaPlayer.OnPreparedListener,
+        MediaPlayer.OnErrorListener,
+        MediaPlayer.OnCompletionListener {
 
-    RadioAdapter adapter;
+    @BindView(R.id.videoView)
+    VideoView videoView;
 
-    LoadMoreFooter loadMoreFooter;
+    private MediaController mMediaController;
 
-    int currentPage = 1;
-    int maxPage = 1;
-    int pageSize = 10;
+    private String PATH_URL1 = "http://gslb.miaopai.com/stream/3D~8BM-7CZqjZscVBEYr5g__.mp4";
 
     @Override
     protected int initLayoutId() {
-        return R.layout.view_content;
+        return R.layout.view_video;
     }
 
     @Override
     protected void initView() {
-        toolbar.setTitle("在线试听");
-        initToolbar(toolbar);
 
-        loadMoreFooter = new LoadMoreFooter(this);
+        setTitleBar();
 
-        adapter = new RadioAdapter(this);
-
-        layoutContent.getRecyclerView().setRefreshEnabled(true);    //设置是否可刷新
-        layoutContent.getSwipeRefreshLayout().setColorSchemeResources(R.color.colorAccent, R.color.colorAccent, R.color.gray);
-        initAdapter(layoutContent.getRecyclerView());
-        layoutContent.refreshState(true);
-
+        videoView.setVideoURI(Uri.parse(PATH_URL1)); //实例化控制器
+        mMediaController = new MediaController(this); //绑定控制器
+        videoView.setMediaController(mMediaController); //控制器显示9s后自动隐藏 mMediaController.show(9000); //设置播放画质 高画质
+        videoView.setVideoQuality(MediaPlayer.VIDEOQUALITY_HIGH);
+        videoView.setVideoLayout(VideoView.VIDEO_LAYOUT_STRETCH, 0); //取得焦点 mVideoView.requestFocus(); //设置相关的监听
+        videoView.setOnPreparedListener(this);
+        videoView.setOnErrorListener(this);
+        videoView.setOnCompletionListener(this);
     }
 
     @Override
     protected void initData() {
 
-        List<RadioModel> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(new RadioModel());
-        }
-        adapter.setData(list);
-
-        layoutContent.refreshState(false);
     }
 
-    private void initAdapter(XRecyclerView recyclerView) {
-        recyclerView.verticalLayoutManager(this)
-                .setAdapter(adapter);
-        recyclerView.horizontalDivider(R.color.colorDiver, R.dimen.diverHeight);
-        recyclerView.setOnRefreshAndLoadMoreListener(new XRecyclerView.OnRefreshAndLoadMoreListener() {
-            @Override
-            public void onRefresh() {
-                currentPage = 1;
-                layoutContent.refreshState(false);
-            }
-
-            @Override
-            public void onLoadMore(int page) {
-                currentPage = page;
-                layoutContent.getRecyclerView().setPage(currentPage, maxPage);
-            }
-        });
-        recyclerView.setLoadMoreView(loadMoreFooter);
-        recyclerView.setLoadMoreUIHandler(loadMoreFooter);
+    @Override
+    public void onPrepared(MediaPlayer mp) {
+        videoView.start();
     }
 
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+
+    }
+
+    @Override
+    public boolean onError(MediaPlayer mp, int what, int extra) {
+        return false;
+    }
 }

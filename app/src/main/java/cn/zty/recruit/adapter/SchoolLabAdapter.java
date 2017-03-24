@@ -29,7 +29,7 @@ public class SchoolLabAdapter extends RecyclerAdapter<TipModel, ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.setText(R.id.textLab, "类别" + (position + 1));
+        holder.setText(R.id.textLab, data.get(position).getValue());
 
         int resId = 0;
         if ((position + 1) % 3 == 1) {

@@ -10,6 +10,7 @@ import com.lzy.okhttputils.cookie.store.PersistentCookieStore;
 import cn.zty.baselib.http.RetrofitHelper;
 import cn.zty.recruit.bean.UserModel;
 import cn.zty.recruit.utils.SharedPrefUtils;
+import io.vov.vitamio.Vitamio;
 
 /**
  * Created by zty on 2017/3/4.
@@ -35,6 +36,8 @@ public class RecruitApplication extends Application {
         instance = this;
         initHttp();
         getStatusHeight();
+
+        Vitamio.isInitialized(this);
 
         setCurrentUser();
     }

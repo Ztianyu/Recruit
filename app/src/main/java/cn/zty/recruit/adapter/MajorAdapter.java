@@ -2,6 +2,7 @@ package cn.zty.recruit.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -27,14 +28,19 @@ public class MajorAdapter extends RecyclerAdapter<MajorModel, ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.setText(R.id.itemMajorTip, (position + 1) + "");
-//        holder.setText(R.id.itemMajorName, (position + 1) + "专业");
+        holder.setText(R.id.itemMajorName, data.get(position).getName());
+        holder.setText(R.id.itemMajorCount, data.get(position).getNumber() + "个");
 
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, MajorSchoolActivity.class));
+                Bundle bundle = new Bundle();
+                bundle.putString("discipline", data.get(position).getDiscipline());
+                bundle.putString("name", data.get(position).getName());
+                bundle.putString("majorId", data.get(position).getId());
+                context.startActivity(new Intent(context, MajorSchoolActivity.class).putExtras(bundle));
             }
         });
     }

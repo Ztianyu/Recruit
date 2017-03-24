@@ -6,7 +6,7 @@ package cn.zty.recruit.base;
 
 public class Urls {
 
-    public static final String HOST = "http://community.nug-hospital.com:8085/communityhealthNew/";
+    public static final String HOST = "http://14.29.68.166:8181/recruitStudents/";
 
     public static final String HOST_ADMIN = "admin/ws/";
 

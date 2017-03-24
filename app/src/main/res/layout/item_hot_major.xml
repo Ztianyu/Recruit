@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/textColor"
         android:textSize="14sp"
-        android:text="广州汁职业术学校" />
+        tools:text="广州汁职业术学校" />
 
     <TextView
         android:layout_width="0dp"
@@ -51,7 +51,7 @@
         android:paddingTop="2dp"
         android:textColor="@color/white"
         android:textSize="12sp"
-        android:text="85个" />
+        tools:text="85个" />
 
 
 </LinearLayout>

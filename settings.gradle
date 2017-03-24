@@ -1,1 +1,1 @@
-include ':app', ':baselib', ':linkage'
+include ':app', ':baselib', ':linkage', ':vitamio_lib'

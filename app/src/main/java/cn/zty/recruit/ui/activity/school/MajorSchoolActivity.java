@@ -1,8 +1,8 @@
 package cn.zty.recruit.ui.activity.school;
 
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -12,13 +12,15 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.UniversityAdapter;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.bean.VocationalModel;
+import cn.zty.recruit.presenter.VocationalListPresenter;
+import cn.zty.recruit.view.VocationalListView;
 import cn.zty.recruit.widget.LoadMoreFooter;
 
 /**
  * Created by zty on 2017/3/21.
  */
 
-public class MajorSchoolActivity extends BaseActivity {
+public class MajorSchoolActivity extends BaseActivity implements VocationalListView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.layoutContent)
@@ -32,6 +34,12 @@ public class MajorSchoolActivity extends BaseActivity {
 
     UniversityAdapter adapter;
 
+    private String discipline;
+    private String name;
+    private String majorId;
+
+    private VocationalListPresenter vocationalListPresenter;
+
     @Override
     protected int initLayoutId() {
         return R.layout.view_content;
@@ -39,8 +47,17 @@ public class MajorSchoolActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        toolbar.setTitle("软件工程");
+        Bundle bundle = getIntent().getExtras();
+        discipline = bundle.getString("discipline");
+        name = bundle.getString("name");
+        majorId = bundle.getString("majorId");
+
+        toolbar.setTitle(name);
         initToolbar(toolbar);
+
+        vocationalListPresenter = new VocationalListPresenter();
+        vocationalListPresenter.attach(this);
+        presenters.add(vocationalListPresenter);
 
         adapter = new UniversityAdapter(this, false);
 
@@ -49,19 +66,12 @@ public class MajorSchoolActivity extends BaseActivity {
         layoutContent.getRecyclerView().setRefreshEnabled(true);    //设置是否可刷新
         layoutContent.getSwipeRefreshLayout().setColorSchemeResources(R.color.colorAccent, R.color.colorAccent, R.color.gray);
         initAdapter(layoutContent.getRecyclerView());
-        layoutContent.refreshState(true);
-
-        layoutContent.refreshState(false);
-
     }
 
     @Override
     protected void initData() {
-        List<VocationalModel> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(new VocationalModel());
-        }
-        adapter.setData(list);
+        layoutContent.refreshState(true);
+        vocationalListPresenter.getVocationList(null, null, discipline, majorId, null, null, 0, currentPage);
     }
 
     private void initAdapter(XRecyclerView recyclerView) {
@@ -72,18 +82,38 @@ public class MajorSchoolActivity extends BaseActivity {
             @Override
             public void onRefresh() {
                 currentPage = 1;
-                layoutContent.refreshState(false);
+                vocationalListPresenter.getVocationList(null, null, discipline, majorId, null, null, 0, currentPage);
             }
 
             @Override
             public void onLoadMore(int page) {
                 currentPage = page;
-
-                layoutContent.getRecyclerView().setPage(currentPage, maxPage);
+                vocationalListPresenter.getVocationList(null, null, discipline, majorId, null, null, 0, currentPage);
             }
         });
         recyclerView.setLoadMoreView(loadMoreFooter);
         recyclerView.setLoadMoreUIHandler(loadMoreFooter);
     }
 
+    @Override
+    public void onVocationalListSuccess(List<VocationalModel> models) {
+        layoutContent.refreshState(false);
+        if (models != null && models.size() > 0) {
+            if (currentPage == 1) {
+                adapter.setData(models);
+            } else {
+                adapter.addData(models);
+            }
+
+            if (models.size() < pageSize) {
+                maxPage = currentPage;
+            } else {
+                maxPage = currentPage + 1;
+            }
+            layoutContent.getRecyclerView().setPage(currentPage, maxPage);
+        } else {
+            layoutContent.getRecyclerView().setPage(currentPage, currentPage);
+        }
+
+    }
 }

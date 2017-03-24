@@ -113,12 +113,12 @@ public class RecruitFragment extends BaseFragment implements
 
     @Override
     protected void initData() {
-        List<Integer> images = new ArrayList<>();
-        images.add(R.drawable.ic_advise);
-        images.add(R.drawable.ic_advise);
-        images.add(R.drawable.ic_advise);
-        images.add(R.drawable.ic_advise);
-        BannerUtils.initBanner1(bannerRecruit, images, 1, 2);
+
+        getAdsPresenter.getAds();
+
+        vocationalListPresenter.getVocationList(null, null, null, null, null, null, 1, 1);
+
+        hotMajorPresenter.getHotMajorList(1, null, 1, 100);
     }
 
     @OnClick({R.id.btnRecruitFun1, R.id.btnRecruitFun2, R.id.btnRecruitFun3, R.id.btnMoreUniversity, R.id.btnMoreMajor})
@@ -144,7 +144,13 @@ public class RecruitFragment extends BaseFragment implements
 
     @Override
     public void onAdsSuccess(List<AdsModel> models) {
-
+        if (models != null && models.size() > 0) {
+            List<String> images = new ArrayList<>();
+            for (AdsModel adsModel : models) {
+                images.add(adsModel.getImgUrl());
+            }
+            BannerUtils.initBanner(bannerRecruit, images, 1, 2);
+        }
     }
 
     @Override

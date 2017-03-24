@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:descendantFocusability="blocksDescendants"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingBottom="16dp"
@@ -24,9 +24,8 @@
 
     <ImageView
         android:id="@+id/itemSchoolImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/ic_default" />
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,7 +39,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/textColor"
             android:textSize="14sp"
-            android:text="广州汁职业术学校" />
+            tools:text="广州汁职业术学校" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,9 +54,9 @@
                 android:layout_gravity="center_vertical"
                 android:drawableLeft="@mipmap/ic_position"
                 android:drawablePadding="6dp"
+                android:text="广东-广州"
                 android:textColor="@color/gray"
-                android:textSize="13sp"
-                android:text="广东-广州" />
+                android:textSize="13sp" />
 
             <TextView
                 android:layout_width="0dp"

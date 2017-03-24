@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.zty.baselib.utils.MyImageLoader;
 import cn.zty.baselib.widget.CircleImageView;
 import cn.zty.baselib.widget.StripMenuView;
 import cn.zty.recruit.R;
@@ -91,6 +92,7 @@ public class PersonalFragment extends BaseFragment implements ToastSureListener 
         } else {
             textLogin.setVisibility(View.VISIBLE);
             layoutUser.setVisibility(View.INVISIBLE);
+            MyImageLoader.load(context, R.mipmap.ic_default_header, imgHeader);
         }
     }
 
