@@ -1,6 +1,7 @@
 package cn.zty.recruit.ui.activity.learn;
 
 import android.net.Uri;
+import android.view.KeyEvent;
 
 import butterknife.BindView;
 import cn.zty.recruit.R;
@@ -10,7 +11,7 @@ import io.vov.vitamio.widget.MediaController;
 import io.vov.vitamio.widget.VideoView;
 
 /**
- * 在线试听
+ * 视频播放
  * Created by zty on 2017/3/17.
  */
 
@@ -25,6 +26,7 @@ public class AuditionActivity extends BaseActivity implements
     private MediaController mMediaController;
 
     private String PATH_URL1 = "http://gslb.miaopai.com/stream/3D~8BM-7CZqjZscVBEYr5g__.mp4";
+    private String videoUrl;
 
     @Override
     protected int initLayoutId() {
@@ -33,6 +35,7 @@ public class AuditionActivity extends BaseActivity implements
 
     @Override
     protected void initView() {
+        videoUrl = getIntent().getStringExtra("videoUrl");
 
         setTitleBar();
 
@@ -58,11 +61,19 @@ public class AuditionActivity extends BaseActivity implements
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-
     }
 
     @Override
     public boolean onError(MediaPlayer mp, int what, int extra) {
         return false;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.KEYCODE_BACK) {
+
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

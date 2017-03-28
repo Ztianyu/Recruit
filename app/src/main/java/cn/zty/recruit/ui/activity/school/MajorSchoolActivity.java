@@ -11,6 +11,7 @@ import cn.droidlover.xrecyclerview.XRecyclerView;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.UniversityAdapter;
 import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.bean.VocationalModel;
 import cn.zty.recruit.presenter.VocationalListPresenter;
 import cn.zty.recruit.view.VocationalListView;
@@ -70,8 +71,9 @@ public class MajorSchoolActivity extends BaseActivity implements VocationalListV
 
     @Override
     protected void initData() {
-        layoutContent.refreshState(true);
-        vocationalListPresenter.getVocationList(null, null, discipline, majorId, null, null, 0, currentPage);
+        if (currentPage == 1)
+            layoutContent.refreshState(true);
+        vocationalListPresenter.getVocationList(null, null, discipline, majorId, null, null, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
     }
 
     private void initAdapter(XRecyclerView recyclerView) {
@@ -82,13 +84,13 @@ public class MajorSchoolActivity extends BaseActivity implements VocationalListV
             @Override
             public void onRefresh() {
                 currentPage = 1;
-                vocationalListPresenter.getVocationList(null, null, discipline, majorId, null, null, 0, currentPage);
+                initData();
             }
 
             @Override
             public void onLoadMore(int page) {
                 currentPage = page;
-                vocationalListPresenter.getVocationList(null, null, discipline, majorId, null, null, 0, currentPage);
+                initData();
             }
         });
         recyclerView.setLoadMoreView(loadMoreFooter);

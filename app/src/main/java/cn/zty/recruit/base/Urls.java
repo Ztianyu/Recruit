@@ -38,7 +38,7 @@ public class Urls {
     public static final String getSchoolMajorList = HOST_ADMIN + "schoolMajor/getSchoolMajorList";
 
     //获取行业类型列表
-    public static final String getIndustryTypeList = HOST_ADMIN + "schoolMajor/getSchoolMajorList";
+    public static final String getIndustryTypeList = HOST_ADMIN + "industryType/getIndustryTypeList";
     //获取培训机构列表
     public static final String getTrainOrgList = HOST_ADMIN + "trainOrg/getTrainOrgList";
 
@@ -83,7 +83,7 @@ public class Urls {
     public static final String getIntegralRecordList = HOST_ADMIN + "integralRecord/getIntegralRecordList";
 
     //数据字典
-    public static final String getDictList = HOST_ADMIN_1 + "dict/getDictList";
+    public static final String getDictList = HOST_ADMIN + "dict/getDictList";
 
 
     //上传文件（语音文件、图片文件）

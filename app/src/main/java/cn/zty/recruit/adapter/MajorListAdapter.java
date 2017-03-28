@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.zty.recruit.R;
-import cn.zty.recruit.bean.MajorModel;
+import cn.zty.recruit.bean.DepartmentMajorModel;
 
 /**
  * 专业介绍 列表
@@ -21,7 +21,7 @@ import cn.zty.recruit.bean.MajorModel;
 
 public class MajorListAdapter extends BaseExpandableListAdapter {
     private Context mContext;
-    private List<MajorModel> mData;
+    private List<DepartmentMajorModel> mData;
 
     public MajorListAdapter(Context context) {
         this.mContext = context;
@@ -75,7 +75,7 @@ public class MajorListAdapter extends BaseExpandableListAdapter {
         } else {
             holder = (CollegeAdapter.ViewHolder) convertView.getTag();
         }
-        holder.name.setText("专业" + (groupPosition + 1));
+        holder.name.setText(mData.get(groupPosition).getMajorNm());
         if (isExpanded) {
             holder.indicator.setBackgroundResource(R.mipmap.ic_expand);
         } else {
@@ -97,7 +97,7 @@ public class MajorListAdapter extends BaseExpandableListAdapter {
             holder = (CollegeAdapter.ViewHolder2) convertView.getTag();
         }
 
-        holder.content.setText("专业简介" + (groupPosition + 1));
+        holder.content.setText("　　" + mData.get(groupPosition).getRemarks());
         return convertView;
     }
 
@@ -106,7 +106,7 @@ public class MajorListAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
-    public void setData(List<MajorModel> models) {
+    public void setData(List<DepartmentMajorModel> models) {
         this.mData.clear();
         mData.addAll(models);
         notifyDataSetChanged();

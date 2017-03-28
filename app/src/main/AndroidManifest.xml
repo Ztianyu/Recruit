@@ -95,9 +95,6 @@
             android:name=".ui.activity.person.SetPositionActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".ui.activity.school.SchoolIntroductionActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.activity.school.PanoramaActivity"
             android:screenOrientation="portrait" />
 
@@ -180,6 +177,13 @@
 
         <activity
             android:name=".ui.activity.person.SetNewPwActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.school.PanoramaDetailActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".ui.activity.school.SchoolSearchActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

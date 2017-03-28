@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -16,6 +15,7 @@ import cn.droidlover.xrecyclerview.XRecyclerView;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.UniversityAdapter;
 import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.bean.MajorModel;
 import cn.zty.recruit.bean.VocationalModel;
 import cn.zty.recruit.listener.AreaSelectListener;
@@ -106,6 +106,7 @@ public class SchoolActivity extends BaseActivity implements
 
     @Override
     protected void initData() {
+        getData();
     }
 
     @OnClick({R.id.textProvinceTip, R.id.textCityTip, R.id.textMajorTip, R.id.btnSearchBack, R.id.textSearch, R.id.textSelectSchool})
@@ -115,7 +116,7 @@ public class SchoolActivity extends BaseActivity implements
                 finish();
                 break;
             case R.id.textSearch:
-                startActivity(new Intent(this, SearchActivity.class));
+                startActivity(new Intent(this, SchoolSearchActivity.class));
                 break;
             case R.id.textSelectSchool:
                 isSearchByArea = false;
@@ -123,14 +124,17 @@ public class SchoolActivity extends BaseActivity implements
                 break;
             case R.id.textProvinceTip:
                 isSearchByArea = true;
+                provinceId = "";
                 DialogUtils.showAreaSelect(getSupportFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 0, this, provinceId);
                 break;
             case R.id.textCityTip:
                 isSearchByArea = true;
+                provinceId = "";
                 DialogUtils.showAreaSelect(getSupportFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 1, this, provinceId);
                 break;
             case R.id.textMajorTip:
                 isSearchByArea = true;
+                provinceId = "";
                 DialogUtils.showMajorSelect(getSupportFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), this);
                 break;
         }
@@ -145,13 +149,18 @@ public class SchoolActivity extends BaseActivity implements
             cityId = code;
             textCityTip.setText(value);
         }
-        presenter.getVocationList(null, code, null, null, null, null, 0, currentPage);
+        presenter.getVocationList(null, code, null, null, null, null, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
     }
 
     @Override
     public void onMajorSelect(MajorModel majorModel) {
         this.majorModel = majorModel;
-//        textMajorTip.setText(value);
+        if (majorModel != null) {
+            textMajorTip.setText(majorModel.getName());
+        } else {
+            textMajorTip.setText("专业");
+        }
+        getData();
     }
 
     @Override
@@ -171,7 +180,7 @@ public class SchoolActivity extends BaseActivity implements
             }
             contentLayoutSchool.getRecyclerView().setPage(currentPage, maxPage);
         } else {
-            contentLayoutSchool.getRecyclerView().setPage(currentPage, currentPage);
+            adapter.clearData();
         }
     }
 
@@ -182,7 +191,6 @@ public class SchoolActivity extends BaseActivity implements
         this.score = score;
         this.examinationType = examinationType;
         getDataByScore();
-
     }
 
     @Override
@@ -200,9 +208,9 @@ public class SchoolActivity extends BaseActivity implements
     private void getData() {
         if (isSearchByArea) {
             if (majorModel != null) {
-                presenter.getVocationList(null, cityId, majorModel.getDiscipline(), majorModel.getId(), null, null, 0, currentPage);
+                presenter.getVocationList(null, cityId, majorModel.getDiscipline(), majorModel.getId(), null, null, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
             } else {
-                presenter.getVocationList(null, provinceId, cityId, null, null, null, 0, currentPage);
+                presenter.getVocationList(null, provinceId, cityId, null, null, null, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
             }
         } else {
             getDataByScore();
@@ -210,7 +218,11 @@ public class SchoolActivity extends BaseActivity implements
     }
 
     private void getDataByScore() {
-        presenter.getVocationList(null, provinceId, majorModel.getDiscipline(), majorModel.getId(), examinationType, score, 0, currentPage);
+        if (majorModel != null) {
+            presenter.getVocationList(null, provinceId, majorModel.getDiscipline(), majorModel.getId(), examinationType, score, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
+        } else {
+            presenter.getVocationList(null, provinceId, null, null, examinationType, score, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
+        }
     }
 
 }

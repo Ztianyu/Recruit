@@ -1,4 +1,4 @@
-package cn.zty.recruit.ui.fragment;
+package cn.zty.recruit.ui.fragment.learn;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -18,42 +18,35 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.zty.recruit.R;
-import cn.zty.recruit.adapter.DictAdapter;
+import cn.zty.recruit.adapter.IndustryTypeAdapter;
 import cn.zty.recruit.base.BaseActivity;
-import cn.zty.recruit.bean.TipModel;
-import cn.zty.recruit.listener.AreaSelectListener;
-import cn.zty.recruit.presenter.GetCityPresenter;
-import cn.zty.recruit.presenter.GetProvincePresenter;
-import cn.zty.recruit.view.AreaView;
+import cn.zty.recruit.bean.IndustryTypeModel;
+import cn.zty.recruit.listener.IndustryTypeListener;
+import cn.zty.recruit.presenter.IndustryTypePresenter;
+import cn.zty.recruit.view.IndustryTypeView;
 
 /**
- * Created by zty on 2017/3/15.
+ * 培训机构行业类型列表
+ * Created by zty on 2017/3/28.
  */
 
-public class AreaSelectFragment extends DialogFragment implements AreaView {
-
+public class IndustryTypeFragment extends DialogFragment implements IndustryTypeView {
     @BindView(R.id.areaList)
     ListView areaList;
 
     Unbinder unbinder;
 
     private int height;
-    private int type;//0:省；1：市
-    private DictAdapter dictAdapter;
+    private IndustryTypeAdapter adapter;
 
-    private AreaSelectListener listener;
+    private IndustryTypeListener listener;
 
-    private GetProvincePresenter getProvincePresenter;
-    private GetCityPresenter getCityPresenter;
+    private IndustryTypePresenter presenter;
 
-    private String provinceId;
-
-    public static AreaSelectFragment newInstance(int height, int type, @Nullable String provinceId, AreaSelectListener listener) {
-        AreaSelectFragment fragment = new AreaSelectFragment();
+    public static IndustryTypeFragment newInstance(int height, IndustryTypeListener listener) {
+        IndustryTypeFragment fragment = new IndustryTypeFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("height", height);
-        bundle.putInt("type", type);
-        bundle.putString("provinceId", provinceId);
         fragment.setListener(listener);
         fragment.setArguments(bundle);
         return fragment;
@@ -63,14 +56,10 @@ public class AreaSelectFragment extends DialogFragment implements AreaView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         height = getArguments().getInt("height");
-        type = getArguments().getInt("type");
-        provinceId = getArguments().getString("provinceId");
 
-        getProvincePresenter = new GetProvincePresenter();
-        getProvincePresenter.attach(this);
+        presenter = new IndustryTypePresenter();
+        presenter.attach(this);
 
-        getCityPresenter = new GetCityPresenter();
-        getCityPresenter.attach(this);
     }
 
     @NonNull
@@ -99,43 +88,38 @@ public class AreaSelectFragment extends DialogFragment implements AreaView {
         windowParams.height = (int) (BaseActivity.screenHeight * 0.6);
         window.setAttributes(windowParams);
 
-        dictAdapter = new DictAdapter(getActivity(), type);
-        areaList.setAdapter(dictAdapter);
+        adapter = new IndustryTypeAdapter(getActivity());
+        areaList.setAdapter(adapter);
 
         areaList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 dismiss();
-                listener.onAreaSelect(dictAdapter.getData().get(position).getKey(),
-                        dictAdapter.getData().get(position).getValue(), type);
+                listener.onIndustryTypeSelect(adapter.getData().get(position).getId(),
+                        adapter.getData().get(position).getName());
             }
         });
 
-        if (type == 0) {
-            getProvincePresenter.getProvince();
-        } else {
-            getCityPresenter.getCity(provinceId);
-        }
+        presenter.getIndustryTypeList();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
-        getCityPresenter.detach();
-        getProvincePresenter.detach();
+        presenter.detach();
     }
 
-    public AreaSelectListener getListener() {
+    public IndustryTypeListener getListener() {
         return listener;
     }
 
-    public void setListener(AreaSelectListener listener) {
+    public void setListener(IndustryTypeListener listener) {
         this.listener = listener;
     }
 
     @Override
-    public void onAreaSuccess(int type, List<TipModel> models) {
-        dictAdapter.setData(models);
+    public void onIndustryTypeSuccess(List<IndustryTypeModel> models) {
+        adapter.setData(models);
     }
 }

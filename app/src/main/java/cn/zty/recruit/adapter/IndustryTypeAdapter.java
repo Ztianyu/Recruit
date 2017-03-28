@@ -9,15 +9,15 @@ import android.widget.TextView;
 import cn.zty.baselib.adapter.MyBaseAdapter;
 import cn.zty.baselib.utils.ResourceUtil;
 import cn.zty.recruit.R;
-import cn.zty.recruit.bean.MajorModel;
+import cn.zty.recruit.bean.IndustryTypeModel;
 
 /**
- * Created by zty on 2017/3/23.
+ * Created by zty on 2017/3/28.
  */
 
-public class MajorNameAdapter extends MyBaseAdapter<MajorModel> {
+public class IndustryTypeAdapter extends MyBaseAdapter<IndustryTypeModel> {
 
-    public MajorNameAdapter(Context context) {
+    public IndustryTypeAdapter(Context context) {
         super(context);
     }
 

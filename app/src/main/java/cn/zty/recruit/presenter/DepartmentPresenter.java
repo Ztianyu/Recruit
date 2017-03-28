@@ -11,6 +11,7 @@ import cn.zty.recruit.service.DepartmentListService;
 import cn.zty.recruit.view.DepartmentListView;
 
 /**
+ * 学校院系
  * Created by zty on 2017/3/22.
  */
 

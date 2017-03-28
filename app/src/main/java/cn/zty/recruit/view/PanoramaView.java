@@ -1,5 +1,7 @@
 package cn.zty.recruit.view;
 
+import java.util.List;
+
 import cn.zty.baselib.view.IBaseView;
 import cn.zty.recruit.bean.PanoramaModel;
 
@@ -8,5 +10,5 @@ import cn.zty.recruit.bean.PanoramaModel;
  */
 
 public interface PanoramaView extends IBaseView {
-    void onPanoramaSuccess(PanoramaModel model);
+    void onPanoramaSuccess(List<PanoramaModel> models);
 }

@@ -18,6 +18,7 @@ import cn.zty.recruit.view.TrainOrgListView;
 import rx.Observable;
 
 /**
+ * 培训机构
  * Created by zty on 2017/3/22.
  */
 
@@ -28,7 +29,7 @@ public class TrainOrgListPresenter extends IBasePresenter<TrainOrgListView> {
         service = RetrofitHelper.getInstance().getRetrofit().create(GetTrainOrgListService.class);
     }
 
-    private Observable<ResultBean<List<TrainingModel>>> submit(String name, String province, String city, String industryId) {
+    private Observable<ResultBean<List<TrainingModel>>> submit(String name, String province, String city, String industryId, int pageNo) {
         RequestParams params = RequestParamsHelper.getInstance().getRequestParams();
         if (!TextUtils.isEmpty(name))
             params.put("name", name);
@@ -38,13 +39,13 @@ public class TrainOrgListPresenter extends IBasePresenter<TrainOrgListView> {
             params.put("city", city);
         if (!TextUtils.isEmpty(industryId))
             params.put("industryId", industryId);
-
+        params.put("pageNo", pageNo);
         return service.getTrainOrgList(params);
     }
 
     public void getTrainOrgList(@Nullable String name, @Nullable String province,
-                                @Nullable String city, @Nullable String industryId) {
-        mSubscription = RxManager.getInstance().doSubscribe1(submit(name, province, city, industryId), new RxSubscriber<List<TrainingModel>>() {
+                                @Nullable String city, @Nullable String industryId, int pageNo) {
+        mSubscription = RxManager.getInstance().doSubscribe1(submit(name, province, city, industryId, pageNo), new RxSubscriber<List<TrainingModel>>() {
             @Override
             protected void _onNext(List<TrainingModel> models) {
                 mView.onTrainOrgListSuccess(models);

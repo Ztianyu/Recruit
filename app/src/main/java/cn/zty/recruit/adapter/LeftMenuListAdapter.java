@@ -28,13 +28,12 @@ public class LeftMenuListAdapter extends LeftMenuBaseListAdapter<LeftListViewHol
 
     @Override
     public void bindView(LeftListViewHolder leftListViewHolder, View itemView) {
-//        ViewUtil.scaleContentView((ViewGroup) itemView.findViewById(R.id.layoutText));
         leftListViewHolder.itemText = (TextView) itemView.findViewById(R.id.itemText);
     }
 
     @Override
     public void bindData(LeftListViewHolder leftListViewHolder, int position) {
-        leftListViewHolder.itemText.setText("" + position + 1);
+        leftListViewHolder.itemText.setText(list.get(position).getValue());
     }
 
     @Override

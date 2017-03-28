@@ -4,7 +4,7 @@ import java.util.List;
 
 import cn.zty.baselib.bean.ResultBean;
 import cn.zty.recruit.base.Urls;
-import cn.zty.recruit.bean.MajorModel;
+import cn.zty.recruit.bean.DepartmentMajorModel;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -16,5 +16,5 @@ import rx.Observable;
 public interface MajorListService {
 
     @GET(Urls.getSchoolMajorList)
-    Observable<ResultBean<List<MajorModel>>> getSchoolMajorList(@Query("departmentId") String departmentId);
+    Observable<ResultBean<List<DepartmentMajorModel>>> getSchoolMajorList(@Query("departmentId") String departmentId);
 }

@@ -10,84 +10,93 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/white"
+        android:background="@drawable/edit_shape"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
             style="@style/TipTextView"
-            android:text="地　　区" />
+            android:layout_marginLeft="4dp"
+            android:text="地　　区:" />
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spinnerSpace"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp" />
+            android:layout_marginLeft="4dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/white"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/edit_shape"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
             style="@style/TipTextView"
+            android:layout_marginLeft="4dp"
             android:text="@string/discipline" />
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spinnerDiscipline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp" />
+            android:layout_marginLeft="4dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/white"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/edit_shape"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
             style="@style/TipTextView"
+            android:layout_marginLeft="4dp"
             android:text="@string/majorType" />
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spinnerMajorType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp" />
+            android:layout_marginLeft="4dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/white"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/edit_shape"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
             style="@style/TipTextView"
+            android:layout_marginLeft="4dp"
             android:text="@string/testType" />
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spinnerTestType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp" />
+            android:layout_marginLeft="4dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/white"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/edit_shape"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
             style="@style/TipTextView"
+            android:layout_marginLeft="4dp"
             android:text="@string/tuitionRange" />
 
         <EditText
@@ -97,19 +106,23 @@
             android:layout_marginLeft="8dp"
             android:background="@color/white"
             android:inputType="number"
+            android:textColor="@color/gray"
+            android:layout_marginRight="4dp"
             android:maxLength="5"
-            android:paddingLeft="4dp"
+            android:paddingLeft="8dp"
             android:textCursorDrawable="@null"
             android:textSize="14sp" />
     </LinearLayout>
 
-    <Button
+    <TextView
         android:id="@+id/btnSure"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@color/colorPrimary"
         android:text="确　　定"
+        android:gravity="center"
         android:textColor="@color/white" />
 
 </LinearLayout>

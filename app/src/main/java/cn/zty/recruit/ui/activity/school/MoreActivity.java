@@ -17,15 +17,22 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.MajorAdapter;
 import cn.zty.recruit.adapter.UniversityAdapter;
 import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.bean.MajorModel;
 import cn.zty.recruit.bean.VocationalModel;
+import cn.zty.recruit.presenter.HotMajorPresenter;
+import cn.zty.recruit.presenter.VocationalListPresenter;
+import cn.zty.recruit.view.HotMajorView;
+import cn.zty.recruit.view.VocationalListView;
 import cn.zty.recruit.widget.LoadMoreFooter;
 
 /**
  * Created by zty on 2017/3/14.
  */
 
-public class MoreActivity extends BaseActivity {
+public class MoreActivity extends BaseActivity implements
+        VocationalListView,
+        HotMajorView {
 
     public static final int TYPE_HOT_SCHOOL = 1;
     public static final int TYPE_HOT_MAJOR = 2;
@@ -49,6 +56,9 @@ public class MoreActivity extends BaseActivity {
     int maxPage = 1;
     int pageSize = 10;
 
+    private VocationalListPresenter vocationalListPresenter;
+    private HotMajorPresenter hotMajorPresenter;
+
     @Override
     protected int initLayoutId() {
         return R.layout.activity_more;
@@ -62,11 +72,19 @@ public class MoreActivity extends BaseActivity {
                 if (universityAdapter == null)
                     universityAdapter = new UniversityAdapter(this, true);
                 adapter = universityAdapter;
+
+                vocationalListPresenter = new VocationalListPresenter();
+                vocationalListPresenter.attach(this);
+                presenters.add(vocationalListPresenter);
                 break;
             case TYPE_HOT_MAJOR:
                 if (majorAdapter == null)
                     majorAdapter = new MajorAdapter(this);
                 adapter = majorAdapter;
+
+                hotMajorPresenter = new HotMajorPresenter();
+                hotMajorPresenter.attach(this);
+                presenters.add(hotMajorPresenter);
                 break;
         }
 
@@ -75,25 +93,17 @@ public class MoreActivity extends BaseActivity {
         moreContent.getRecyclerView().setRefreshEnabled(true);    //设置是否可刷新
         moreContent.getSwipeRefreshLayout().setColorSchemeResources(R.color.colorAccent, R.color.colorAccent, R.color.gray);
         initAdapter(moreContent.getRecyclerView());
-        moreContent.refreshState(true);
-
-        moreContent.refreshState(false);
     }
 
     @Override
     protected void initData() {
-        if (type == 0) {
-            List<VocationalModel> list = new ArrayList<>();
-            for (int i = 0; i < 10; i++) {
-                list.add(new VocationalModel());
-            }
-            adapter.setData(list);
-        } else {
-            List<MajorModel> majorModels = new ArrayList<>();
-            for (int i = 0; i < 10; i++) {
-                majorModels.add(new MajorModel());
-            }
-            adapter.setData(majorModels);
+        if (currentPage == 1)
+            moreContent.refreshState(true);
+
+        if (type == TYPE_HOT_SCHOOL) {
+            vocationalListPresenter.getVocationList(null, null, null, null, null, null, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
+        } else if (type == TYPE_HOT_MAJOR) {
+            hotMajorPresenter.getHotMajorList(-1, null, currentPage, Constants.DEFAULT_PAGE_SIZE);
         }
     }
 
@@ -105,14 +115,13 @@ public class MoreActivity extends BaseActivity {
             @Override
             public void onRefresh() {
                 currentPage = 1;
-                moreContent.refreshState(false);
+                initData();
             }
 
             @Override
             public void onLoadMore(int page) {
                 currentPage = page;
-
-                moreContent.getRecyclerView().setPage(currentPage, maxPage);
+                initData();
             }
         });
         recyclerView.setLoadMoreView(loadMoreFooter);
@@ -128,6 +137,48 @@ public class MoreActivity extends BaseActivity {
             case R.id.textSearch:
                 startActivity(new Intent(this, SearchActivity.class));
                 break;
+        }
+    }
+
+    @Override
+    public void onVocationalListSuccess(List<VocationalModel> models) {
+        moreContent.refreshState(false);
+        if (models != null && models.size() > 0) {
+            if (currentPage == 1) {
+                adapter.setData(models);
+            } else {
+                adapter.addData(models);
+            }
+
+            if (models.size() < pageSize) {
+                maxPage = currentPage;
+            } else {
+                maxPage = currentPage + 1;
+            }
+            moreContent.getRecyclerView().setPage(currentPage, maxPage);
+        } else {
+            moreContent.getRecyclerView().setPage(currentPage, currentPage);
+        }
+    }
+
+    @Override
+    public void onHotMajorSuccess(List<MajorModel> majorModels) {
+        moreContent.refreshState(false);
+        if (majorModels != null && majorModels.size() > 0) {
+            if (currentPage == 1) {
+                adapter.setData(majorModels);
+            } else {
+                adapter.addData(majorModels);
+            }
+
+            if (majorModels.size() < pageSize) {
+                maxPage = currentPage;
+            } else {
+                maxPage = currentPage + 1;
+            }
+            moreContent.getRecyclerView().setPage(currentPage, maxPage);
+        } else {
+            moreContent.getRecyclerView().setPage(currentPage, currentPage);
         }
     }
 }

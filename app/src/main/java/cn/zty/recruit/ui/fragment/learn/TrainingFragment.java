@@ -6,7 +6,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,15 +18,23 @@ import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.BaseFragment;
 import cn.zty.recruit.bean.TrainingModel;
 import cn.zty.recruit.listener.AreaSelectListener;
+import cn.zty.recruit.listener.IndustryTypeListener;
+import cn.zty.recruit.presenter.TrainOrgListPresenter;
 import cn.zty.recruit.ui.activity.school.SearchActivity;
 import cn.zty.recruit.utils.DialogUtils;
+import cn.zty.recruit.view.TrainOrgListView;
 import cn.zty.recruit.widget.LoadMoreFooter;
 
 /**
+ * 培训机构列表
  * Created by zty on 2017/3/16.
  */
 
-public class TrainingFragment extends BaseFragment implements AreaSelectListener {
+public class TrainingFragment extends BaseFragment implements
+        AreaSelectListener,
+        IndustryTypeListener,
+        TrainOrgListView {
+
     @BindView(R.id.btnSearchBack)
     ImageView btnSearchBack;
     @BindView(R.id.textSearch)
@@ -55,7 +62,11 @@ public class TrainingFragment extends BaseFragment implements AreaSelectListener
     int maxPage = 1;
     int pageSize = 10;
 
-    private String provinceId;
+    private String province;
+    private String city;
+    private String industryId;
+
+    TrainOrgListPresenter trainOrgListPresenter;
 
     @Override
     protected int initLayoutId() {
@@ -67,6 +78,11 @@ public class TrainingFragment extends BaseFragment implements AreaSelectListener
         textMajorTip.setText("项目分类");
         textSelectSchool.setVisibility(View.GONE);
 
+        trainOrgListPresenter = new TrainOrgListPresenter();
+        trainOrgListPresenter.attach(this);
+        presenters.add(trainOrgListPresenter);
+
+
         loadMoreFooter = new LoadMoreFooter(context);
 
         adapter = new TrainAdapter(context);
@@ -74,18 +90,13 @@ public class TrainingFragment extends BaseFragment implements AreaSelectListener
         contentLayoutSchool.getRecyclerView().setRefreshEnabled(true);    //设置是否可刷新
         contentLayoutSchool.getSwipeRefreshLayout().setColorSchemeResources(R.color.colorAccent, R.color.colorAccent, R.color.gray);
         initAdapter(contentLayoutSchool.getRecyclerView());
-        contentLayoutSchool.refreshState(true);
-
-        contentLayoutSchool.refreshState(false);
     }
 
     @Override
     protected void initData() {
-        List<TrainingModel> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(new TrainingModel());
-        }
-        adapter.setData(list);
+        if (currentPage == 1)
+            contentLayoutSchool.refreshState(true);
+        trainOrgListPresenter.getTrainOrgList(null, province, city, industryId, currentPage);
     }
 
     private void initAdapter(XRecyclerView recyclerView) {
@@ -96,13 +107,13 @@ public class TrainingFragment extends BaseFragment implements AreaSelectListener
             @Override
             public void onRefresh() {
                 currentPage = 1;
-                contentLayoutSchool.refreshState(false);
+                initData();
             }
 
             @Override
             public void onLoadMore(int page) {
                 currentPage = page;
-                contentLayoutSchool.getRecyclerView().setPage(currentPage, maxPage);
+                initData();
             }
         });
         recyclerView.setLoadMoreView(loadMoreFooter);
@@ -119,13 +130,13 @@ public class TrainingFragment extends BaseFragment implements AreaSelectListener
                 startActivity(new Intent(context, SearchActivity.class));
                 break;
             case R.id.textProvinceTip:
-                DialogUtils.showAreaSelect(getChildFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 0, this, provinceId);
+                DialogUtils.showAreaSelect(getChildFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 0, this, province);
                 break;
             case R.id.textCityTip:
-                DialogUtils.showAreaSelect(getChildFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 1, this, provinceId);
+                DialogUtils.showAreaSelect(getChildFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 1, this, province);
                 break;
             case R.id.textMajorTip:
-                DialogUtils.showAreaSelect(getChildFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 2, this,provinceId);
+                DialogUtils.showIndustryType(getChildFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), this);
                 break;
         }
     }
@@ -133,11 +144,40 @@ public class TrainingFragment extends BaseFragment implements AreaSelectListener
     @Override
     public void onAreaSelect(String code, String value, int type) {
         if (type == 0) {
+            province = code;
             textProvinceTip.setText(value);
         } else if (type == 1) {
+            city = code;
             textCityTip.setText(value);
-        } else if (type == 2) {
-            textMajorTip.setText(value);
+        }
+        initData();
+    }
+
+    @Override
+    public void onIndustryTypeSelect(String id, String name) {
+        industryId = id;
+        textMajorTip.setText(name);
+        initData();
+    }
+
+    @Override
+    public void onTrainOrgListSuccess(List<TrainingModel> models) {
+        contentLayoutSchool.refreshState(false);
+        if (models != null && models.size() > 0) {
+            if (currentPage == 1) {
+                adapter.setData(models);
+            } else {
+                adapter.addData(models);
+            }
+
+            if (models.size() < pageSize) {
+                maxPage = currentPage;
+            } else {
+                maxPage = currentPage + 1;
+            }
+            contentLayoutSchool.getRecyclerView().setPage(currentPage, maxPage);
+        } else {
+            adapter.clearData();
         }
     }
 }

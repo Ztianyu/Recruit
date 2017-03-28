@@ -1,5 +1,7 @@
 package cn.zty.recruit.presenter;
 
+import java.util.List;
+
 import cn.zty.baselib.http.RetrofitHelper;
 import cn.zty.baselib.presenter.IBasePresenter;
 import cn.zty.recruit.bean.PanoramaModel;
@@ -20,10 +22,10 @@ public class PanoramaPresenter extends IBasePresenter<PanoramaView> {
     }
 
     public void getSchoolPanorama(String schoolId) {
-        mSubscription = RxManager.getInstance().doSubscribe1(service.getSchoolPanorama(schoolId), new RxSubscriber<PanoramaModel>() {
+        mSubscription = RxManager.getInstance().doSubscribe1(service.getSchoolPanorama(schoolId), new RxSubscriber<List<PanoramaModel>>() {
             @Override
-            protected void _onNext(PanoramaModel model) {
-                mView.onPanoramaSuccess(model);
+            protected void _onNext(List<PanoramaModel> panoramaModels) {
+                mView.onPanoramaSuccess(panoramaModels);
             }
         }, false);
     }

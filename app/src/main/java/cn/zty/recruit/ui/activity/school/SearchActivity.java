@@ -1,6 +1,5 @@
 package cn.zty.recruit.ui.activity.school;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,6 +32,7 @@ public class SearchActivity extends BaseActivity {
 
     SearchContentAdapter adapter;
 
+
     @Override
     protected int initLayoutId() {
         return R.layout.activity_search;
@@ -40,7 +40,6 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
         AutoLineLayoutManager layoutManager = new AutoLineLayoutManager();
         layoutManager.setAutoMeasureEnabled(true);
         autoLineRecycler.setLayoutManager(layoutManager);

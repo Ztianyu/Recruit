@@ -6,15 +6,20 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import cn.zty.linkage.LinkageView;
 import cn.zty.linkage.model.ILinkage;
 import cn.zty.recruit.R;
@@ -39,11 +44,16 @@ public class MajorSelectFragment extends DialogFragment implements
         DictListView,
         HotMajorView {
 
-    int height;
-    LeftMenuListAdapter leftMenuListAdapter;
-    RightMajorListAdapter rightMajorListAdapter;
     @BindView(R.id.linkage)
     LinkageView linkage;
+    @BindView(R.id.textAllMajor)
+    TextView textAllMajor;
+    Unbinder unbinder;
+
+    int height;
+
+    LeftMenuListAdapter leftMenuListAdapter;
+    RightMajorListAdapter rightMajorListAdapter;
 
     private MajorSelectListener listener;
 
@@ -85,7 +95,7 @@ public class MajorSelectFragment extends DialogFragment implements
         dialog.setContentView(R.layout.view_major_select);
         dialog.setCanceledOnTouchOutside(true); // 外部点击取消
 
-        ButterKnife.bind(this, dialog);
+        unbinder = ButterKnife.bind(this, dialog);
         return dialog;
     }
 
@@ -112,7 +122,7 @@ public class MajorSelectFragment extends DialogFragment implements
             @Override
             public void onLeftClick(View itemView, int position) {
                 discipline = leftMenuListAdapter.getList().get(position).getKey();
-                hotMajorPresenter.getHotMajorList(0, discipline, 1, 100);
+                hotMajorPresenter.getHotMajorList(-1, discipline, 1, Constants.MAX_PAGE_SIZE);
             }
 
             @Override
@@ -148,5 +158,17 @@ public class MajorSelectFragment extends DialogFragment implements
     @Override
     public void onDictSuccess(String type, List<TipModel> models) {
         linkage.updateData(models);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @OnClick(R.id.textAllMajor)
+    public void onViewClicked() {
+        dismiss();
+        listener.onMajorSelect(null);
     }
 }

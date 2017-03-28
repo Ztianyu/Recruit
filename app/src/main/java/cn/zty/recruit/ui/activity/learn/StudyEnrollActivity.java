@@ -88,7 +88,7 @@ public class StudyEnrollActivity extends BaseActivity implements
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.takePhone:
-                        DialogUtils.showCall(getSupportFragmentManager(), "0371-572333");
+                        DialogUtils.showCall(getSupportFragmentManager(), "0371-572333","09:00 - 18:00");
                         return true;
                 }
                 return false;

@@ -7,9 +7,37 @@
 
     <include layout="@layout/view_search2" />
 
-    <cn.droidlover.xrecyclerview.XRecyclerView
-        android:id="@+id/autoLineRecycler"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></cn.droidlover.xrecyclerview.XRecyclerView>
+        android:layout_height="match_parent">
+
+        <cn.droidlover.xrecyclerview.XRecyclerContentLayout
+            android:id="@+id/searchContentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"></cn.droidlover.xrecyclerview.XRecyclerContentLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutAutoLine"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/textColor"
+                android:text="热门搜索"/>
+
+            <cn.droidlover.xrecyclerview.XRecyclerView
+                android:id="@+id/autoLineRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"></cn.droidlover.xrecyclerview.XRecyclerView>
+
+        </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

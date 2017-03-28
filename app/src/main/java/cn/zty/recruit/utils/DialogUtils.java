@@ -14,6 +14,7 @@ import cn.zty.recruit.listener.AreaSelectListener;
 import cn.zty.recruit.listener.BirthSelectListener;
 import cn.zty.recruit.listener.EducationSelectListener;
 import cn.zty.recruit.listener.EnrollTypeSelectListener;
+import cn.zty.recruit.listener.IndustryTypeListener;
 import cn.zty.recruit.listener.MajorSelectListener;
 import cn.zty.recruit.listener.SchoolSelectListener;
 import cn.zty.recruit.listener.SexSelectListener;
@@ -23,6 +24,7 @@ import cn.zty.recruit.ui.fragment.SelectEducation;
 import cn.zty.recruit.ui.fragment.SelectSexFragment;
 import cn.zty.recruit.ui.fragment.ToastFragment;
 import cn.zty.recruit.ui.fragment.learn.EnrollTypeFragment;
+import cn.zty.recruit.ui.fragment.learn.IndustryTypeFragment;
 import cn.zty.recruit.ui.fragment.learn.StudySchoolSelect;
 import cn.zty.recruit.ui.fragment.school.CallFragment;
 import cn.zty.recruit.ui.fragment.school.MajorSelectFragment;
@@ -45,6 +47,8 @@ public class DialogUtils {
 
     public static final String CALL = "callFragment";
     public static final String TOAST = "toastFragment";
+
+    public static final String INDUSTRY_TYPE = "industryTypeFragment";
 
     /**
      * 选择 省、市（type:0(省)；1（市））
@@ -169,11 +173,11 @@ public class DialogUtils {
     /**
      * 拨打电话
      */
-    public static void showCall(FragmentManager manager, String phone) {
+    public static void showCall(FragmentManager manager, String phone, String time) {
         Fragment fragment = manager.findFragmentByTag(CALL);
         if (fragment != null)
             manager.beginTransaction().remove(fragment);
-        CallFragment callFragment = CallFragment.newInstance(phone);
+        CallFragment callFragment = CallFragment.newInstance(phone, time);
         callFragment.show(manager.beginTransaction(), CALL);
     }
 
@@ -185,6 +189,17 @@ public class DialogUtils {
         if (fragment != null)
             manager.beginTransaction().remove(fragment);
         ToastFragment toastFragment = ToastFragment.newInstance(toast, listener);
-        toastFragment.show(manager.beginTransaction(), toast);
+        toastFragment.show(manager.beginTransaction(), TOAST);
+    }
+
+    /**
+     * 培训机构行业类型列表
+     */
+    public static void showIndustryType(FragmentManager manager, int height, IndustryTypeListener listener) {
+        Fragment fragment = manager.findFragmentByTag(INDUSTRY_TYPE);
+        if (fragment != null)
+            manager.beginTransaction().remove(fragment);
+        IndustryTypeFragment industryTypeFragment = IndustryTypeFragment.newInstance(height, listener);
+        industryTypeFragment.show(manager.beginTransaction(), INDUSTRY_TYPE);
     }
 }

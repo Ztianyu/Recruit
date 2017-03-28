@@ -87,7 +87,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private void setPermissions() {
+    public void setPermissions() {
         PackageManager pm = getPackageManager();
         boolean hasCamera = (PackageManager.PERMISSION_GRANTED == pm.checkPermission("android.permission.CAMERA", "com.elink.lifeservice"));
         boolean hasStorage = (PackageManager.PERMISSION_GRANTED == pm.checkPermission("android.permission.WRITE_EXTERNAL_STORAGE", "com.elink.lifeservice"));

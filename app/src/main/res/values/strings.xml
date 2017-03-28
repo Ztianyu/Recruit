@@ -34,12 +34,12 @@
     <string name="city">城市</string>
     <string name="major">专业</string>
 
-    <string name="space">地　　区</string>
-    <string name="discipline">学科门类</string>
-    <string name="majorType">意向专业</string>
-    <string name="testType">考试类型</string>
-    <string name="testAccount">考试分数</string>
-    <string name="tuitionRange">考试分数</string>
+    <string name="space">地　　区:</string>
+    <string name="discipline">学科门类:</string>
+    <string name="majorType">意向专业:</string>
+    <string name="testType">考试类型:</string>
+    <string name="testAccount">考试分数:</string>
+    <string name="tuitionRange">考试分数:</string>
 
     <string name="labSchool1">院校简介</string>
     <string name="labSchool2">学校全景</string>

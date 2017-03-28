@@ -22,7 +22,7 @@
         android:layout_marginTop="16dp"
         android:textColor="@color/colorAccent"
         android:textSize="18sp"
-        android:text="0376-5632145" />
+        tools:text="0376-5632145" />
 
     <TextView
         android:id="@+id/textCallTime"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:text="咨询时间：09:00 - 17:00"
+        android:text="咨询时间："
         android:textColor="@color/gray"
         android:textSize="14sp" />
 

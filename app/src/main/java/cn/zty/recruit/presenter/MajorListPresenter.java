@@ -4,7 +4,7 @@ import java.util.List;
 
 import cn.zty.baselib.http.RetrofitHelper;
 import cn.zty.baselib.presenter.IBasePresenter;
-import cn.zty.recruit.bean.MajorModel;
+import cn.zty.recruit.bean.DepartmentMajorModel;
 import cn.zty.recruit.rx.RxManager;
 import cn.zty.recruit.rx.RxSubscriber;
 import cn.zty.recruit.service.MajorListService;
@@ -23,9 +23,9 @@ public class MajorListPresenter extends IBasePresenter<MajorListView> {
     }
 
     public void getSchoolMajorList(String departmentId) {
-        mSubscription = RxManager.getInstance().doSubscribe1(service.getSchoolMajorList(departmentId), new RxSubscriber<List<MajorModel>>() {
+        mSubscription = RxManager.getInstance().doSubscribe1(service.getSchoolMajorList(departmentId), new RxSubscriber<List<DepartmentMajorModel>>() {
             @Override
-            protected void _onNext(List<MajorModel> majorModels) {
+            protected void _onNext(List<DepartmentMajorModel> majorModels) {
                 mView.onMajorListSuccess(majorModels);
             }
         }, false);

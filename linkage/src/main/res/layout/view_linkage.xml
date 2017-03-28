@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="#f1f1f1"
-        android:divider="@android:color/white"
+        android:divider="@android:color/transparent"
         android:dividerHeight="1px"
         android:scrollbars="none" />
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import cn.zty.baselib.adapter.MyBaseAdapter;
+import cn.zty.baselib.utils.ResourceUtil;
 import cn.zty.recruit.R;
 import cn.zty.recruit.bean.TipModel;
 
@@ -34,6 +35,7 @@ public class DictAdapter extends MyBaseAdapter<TipModel> {
         } else {
             holder = (Holder) convertView.getTag();
         }
+        holder.itemText.setTextColor(ResourceUtil.resToColor(context, R.color.gray));
         holder.itemText.setText(mData.get(position).getValue());
         return convertView;
     }

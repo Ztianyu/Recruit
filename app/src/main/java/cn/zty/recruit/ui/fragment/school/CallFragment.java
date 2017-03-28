@@ -34,11 +34,13 @@ public class CallFragment extends DialogFragment {
     TextView btnCall;
 
     private String phone;
+    private String time;
 
-    public static CallFragment newInstance(String phone) {
+    public static CallFragment newInstance(String phone, String time) {
         CallFragment fragment = new CallFragment();
         Bundle bundle = new Bundle();
         bundle.putString("phone", phone);
+        bundle.putString("time", time);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -47,15 +49,14 @@ public class CallFragment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         phone = getArguments().getString("phone");
+        time = getArguments().getString("time");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_call, null);
-
         ButterKnife.bind(this, view);
-
         return view;
     }
 
@@ -69,6 +70,9 @@ public class CallFragment extends DialogFragment {
         windowParams.width = WindowManager.LayoutParams.MATCH_PARENT;
         windowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(windowParams);
+
+        textSchoolPhone.setText(phone);
+        textCallTime.setText("咨询时间：" + time);
     }
 
     @OnClick({R.id.btnNotCall, R.id.btnCall})

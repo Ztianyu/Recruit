@@ -1,22 +1,40 @@
 package cn.zty.recruit.ui.activity;
 
 import android.support.v7.widget.Toolbar;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import butterknife.BindView;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.bean.IntroductionModel;
+import cn.zty.recruit.presenter.SchoolFacultyPresenter;
+import cn.zty.recruit.presenter.SchoolIntroductionPresenter;
+import cn.zty.recruit.utils.WebLoadHtmlUtils;
+import cn.zty.recruit.view.IntroductionView;
 
 /**
  * Created by zty on 2017/3/14.
  */
 
-public class WebActivity extends BaseActivity {
+public class WebActivity extends BaseActivity implements
+        IntroductionView {
+
+    public static final int TYPE1 = 0;//院校概述
+    public static final int TYPE2 = 1;//师资力量
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.webView)
     WebView webView;
+
+    private String schoolId;
+    private String title;
+    private int type;
+
+    private SchoolIntroductionPresenter schoolIntroductionPresenter;
+
+    private SchoolFacultyPresenter schoolFacultyPresenter;
 
     @Override
     protected int initLayoutId() {
@@ -25,21 +43,43 @@ public class WebActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        toolbar.setTitle("院校简介");
+        title = getIntent().getStringExtra("title");
+        schoolId = getIntent().getStringExtra("schoolId");
+        type = getIntent().getIntExtra("type", -1);
+
+        toolbar.setTitle(title);
         initToolbar(toolbar);
 
-        // 启用javascript
-        webView.getSettings().setJavaScriptEnabled(true);
-        // 从assets目录下面的加载html
-        webView.loadUrl("file:///android_asset/web.html");
-        webView.addJavascriptInterface(this, "android");
+        // 设置加载进来的页面自适应手机屏幕
+        webView.getSettings().setUseWideViewPort(true);
+        webView.getSettings().setLoadWithOverviewMode(true);
     }
 
     @Override
     protected void initData() {
+        switch (type) {
+            case TYPE1:
+                schoolIntroductionPresenter = new SchoolIntroductionPresenter();
+                schoolIntroductionPresenter.attach(this);
+                presenters.add(schoolIntroductionPresenter);
 
-        // 传递参数调用JS的方法
-        webView.loadUrl("javascript:javacalljswith(" + "'http://blog.csdn.net/Leejizhou'" + ")");
+                schoolIntroductionPresenter.getSchoolIntroduction(schoolId);
+                break;
+            case TYPE2:
+                schoolFacultyPresenter = new SchoolFacultyPresenter();
+                schoolFacultyPresenter.attach(this);
+                presenters.add(schoolFacultyPresenter);
 
+                schoolFacultyPresenter.getSchoolFaculty(schoolId);
+                break;
+        }
+    }
+
+    @Override
+    public void onIntroductionSuccess(IntroductionModel model) {
+        webView.loadDataWithBaseURL("file:///android_asset/",
+                WebLoadHtmlUtils.loadHtml(model.getTitle(),
+                        model.getContent()),
+                "text/html", "utf-8", null);
     }
 }

@@ -29,9 +29,11 @@ public class StartActivity extends BaseActivity implements DictListView {
 
     @Override
     protected void initView() {
-        dictPresenter = new DictPresenter();
-        dictPresenter.attach(this);
-        presenters.add(dictPresenter);
+//        dictPresenter = new DictPresenter();
+//        dictPresenter.attach(this);
+//        presenters.add(dictPresenter);
+
+//        setPermissions();
     }
 
     @Override

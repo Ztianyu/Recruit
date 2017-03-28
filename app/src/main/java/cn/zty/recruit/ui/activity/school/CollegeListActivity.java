@@ -11,18 +11,24 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.CollegeListAdapter;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.bean.CollegeModel;
+import cn.zty.recruit.presenter.DepartmentPresenter;
+import cn.zty.recruit.view.DepartmentListView;
 
 /**
  * Created by zty on 2017/3/15.
  */
 
-public class CollegeListActivity extends BaseActivity {
+public class CollegeListActivity extends BaseActivity implements DepartmentListView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.recyclerView)
     XRecyclerView recyclerView;
 
     CollegeListAdapter adapter;
+
+    DepartmentPresenter presenter;
+
+    private String schoolId;
 
     @Override
     protected int initLayoutId() {
@@ -31,8 +37,14 @@ public class CollegeListActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        schoolId = getIntent().getStringExtra("schoolId");
+
         toolbar.setTitle("所有院系");
         initToolbar(toolbar);
+
+        presenter = new DepartmentPresenter();
+        presenter.attach(this);
+        presenters.add(presenter);
 
         adapter = new CollegeListAdapter(this);
         recyclerView.verticalLayoutManager(this)
@@ -42,11 +54,11 @@ public class CollegeListActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        List<CollegeModel> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(new CollegeModel());
-        }
-        adapter.setData(list);
+        presenter.getDepartmentList(schoolId);
     }
 
+    @Override
+    public void onDepartmentSuccess(List<CollegeModel> models) {
+        adapter.setData(models);
+    }
 }

@@ -1,5 +1,7 @@
 package cn.zty.recruit.service;
 
+import java.util.List;
+
 import cn.zty.baselib.bean.ResultBean;
 import cn.zty.recruit.base.Urls;
 import cn.zty.recruit.bean.PanoramaModel;
@@ -13,5 +15,5 @@ import rx.Observable;
 
 public interface PanoramaService {
     @GET(Urls.getSchoolPanorama)
-    Observable<ResultBean<PanoramaModel>> getSchoolPanorama(@Query("schoolId") String schoolId);
+    Observable<ResultBean<List<PanoramaModel>>> getSchoolPanorama(@Query("schoolId") String schoolId);
 }

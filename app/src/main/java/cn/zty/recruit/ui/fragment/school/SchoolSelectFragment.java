@@ -11,14 +11,15 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.DictAdapter;
 import cn.zty.recruit.adapter.MajorNameAdapter;
@@ -54,10 +55,11 @@ public class SchoolSelectFragment extends DialogFragment implements
     @BindView(R.id.spinnerDiscipline)
     AppCompatSpinner spinnerDiscipline;
     @BindView(R.id.btnSure)
-    Button btnSure;
+    TextView btnSure;
+
+    Unbinder unbinder;
 
     int height;
-
 
     private GetProvincePresenter getProvincePresenter;
     private DictPresenter dictPresenter;
@@ -97,9 +99,6 @@ public class SchoolSelectFragment extends DialogFragment implements
 
         hotMajorPresenter = new HotMajorPresenter();
         hotMajorPresenter.attach(this);
-
-
-
     }
 
     @NonNull
@@ -110,7 +109,7 @@ public class SchoolSelectFragment extends DialogFragment implements
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // 设置Content前设定
         dialog.setContentView(R.layout.dialog_school_select);
         dialog.setCanceledOnTouchOutside(true); // 外部点击取消
-        ButterKnife.bind(this, dialog);
+        unbinder = ButterKnife.bind(this, dialog);
         return dialog;
     }
 
@@ -149,6 +148,7 @@ public class SchoolSelectFragment extends DialogFragment implements
     @Override
     public void onDestroy() {
         super.onDestroy();
+        unbinder.unbind();
         getProvincePresenter.detach();
         dictPresenter.detach();
         hotMajorPresenter.detach();
@@ -180,14 +180,14 @@ public class SchoolSelectFragment extends DialogFragment implements
                 provinceId = areaAdapter.getData().get(position).getKey();
                 break;
             case R.id.spinnerDiscipline:
-                discipline = areaAdapter.getData().get(position).getKey();
-                hotMajorPresenter.getHotMajorList(0, discipline, 1, 100);
+                discipline = disciplineAdapter.getData().get(position).getKey();
+                hotMajorPresenter.getHotMajorList(-1, discipline, 1, Constants.MAX_PAGE_SIZE);
                 break;
             case R.id.spinnerMajorType:
                 majorModel = majorAdapter.getData().get(position);
                 break;
             case R.id.spinnerTestType:
-                examinationType = areaAdapter.getData().get(position).getKey();
+                examinationType = examinationAdapter.getData().get(position).getKey();
                 break;
         }
     }
@@ -199,7 +199,8 @@ public class SchoolSelectFragment extends DialogFragment implements
 
     @OnClick(R.id.btnSure)
     public void onClick() {
-        listener.onSchoolSelect(provinceId, majorModel, editScore.getText().toString(),examinationType);
+        dismiss();
+        listener.onSchoolSelect(provinceId, majorModel, editScore.getText().toString(), examinationType);
     }
 
     public SchoolSelectListener getListener() {

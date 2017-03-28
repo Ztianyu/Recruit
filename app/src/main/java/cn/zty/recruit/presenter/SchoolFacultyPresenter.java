@@ -9,6 +9,7 @@ import cn.zty.recruit.service.SchoolFacultyService;
 import cn.zty.recruit.view.IntroductionView;
 
 /**
+ * 师资力量
  * Created by zty on 2017/3/22.
  */
 

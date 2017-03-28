@@ -1,21 +1,31 @@
 package cn.zty.recruit.ui.activity.school;
 
+import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.zty.baselib.utils.MyImageLoader;
 import cn.zty.baselib.widget.StripMenuView;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.base.Constants;
+import cn.zty.recruit.bean.PanoramaModel;
+import cn.zty.recruit.presenter.PanoramaPresenter;
+import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.utils.ViewAdaptionUtils;
+import cn.zty.recruit.view.PanoramaView;
 
 /**
  * Created by zty on 2017/3/15.
  */
 
-public class PanoramaActivity extends BaseActivity {
+public class PanoramaActivity extends BaseActivity implements
+        PanoramaView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.imgSchoolGate)
@@ -33,6 +43,11 @@ public class PanoramaActivity extends BaseActivity {
     @BindView(R.id.panoramaStrip6)
     StripMenuView panoramaStrip6;
 
+    private String schoolId;
+    private String schoolGate;
+
+    PanoramaPresenter presenter;
+
     @Override
     protected int initLayoutId() {
         return R.layout.activity_panorama;
@@ -43,29 +58,84 @@ public class PanoramaActivity extends BaseActivity {
         toolbar.setTitle("校园全景");
         initToolbar(toolbar);
 
+        schoolId = getIntent().getStringExtra("schoolId");
+        schoolGate = getIntent().getStringExtra("schoolGate");
+
         ViewAdaptionUtils.LinearLayoutAdaptation(imgSchoolGate, 400);
+
+        presenter = new PanoramaPresenter();
+        presenter.attach(this);
+        presenters.add(presenter);
     }
 
     @Override
     protected void initData() {
+        MyImageLoader.load(this, schoolGate, imgSchoolGate);
 
+        presenter.getSchoolPanorama(schoolId);
     }
 
     @OnClick({R.id.panoramaStrip1, R.id.panoramaStrip2, R.id.panoramaStrip3, R.id.panoramaStrip4, R.id.panoramaStrip5, R.id.panoramaStrip6})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.panoramaStrip1:
+                toDetail(panoramaModel1);
                 break;
             case R.id.panoramaStrip2:
+                toDetail(panoramaModel2);
                 break;
             case R.id.panoramaStrip3:
+                toDetail(panoramaModel3);
                 break;
             case R.id.panoramaStrip4:
+                toDetail(panoramaModel4);
                 break;
             case R.id.panoramaStrip5:
+                toDetail(panoramaModel5);
                 break;
             case R.id.panoramaStrip6:
+                toDetail(panoramaModel6);
                 break;
         }
     }
+
+    private void toDetail(PanoramaModel panoramaModel) {
+        if (panoramaModel != null) {
+            startActivity(new Intent(this, PanoramaDetailActivity.class).putExtra("panoramaModel", panoramaModel));
+        } else {
+            ToastUtils.show("暂无资源");
+        }
+    }
+
+    @Override
+    public void onPanoramaSuccess(List<PanoramaModel> models) {
+        if (models != null && models.size() > 0) {
+            for (PanoramaModel panoramaModel : models) {
+                if (panoramaModel.getPlace().equals(Constants.panorama1)) {
+                    panoramaModel1 = panoramaModel;
+                }
+                if (panoramaModel.getPlace().equals(Constants.panorama2)) {
+                    panoramaModel2 = panoramaModel;
+                }
+                if (panoramaModel.getPlace().equals(Constants.panorama3)) {
+                    panoramaModel3 = panoramaModel;
+                }
+                if (panoramaModel.getPlace().equals(Constants.panorama4)) {
+                    panoramaModel4 = panoramaModel;
+                }
+                if (panoramaModel.getPlace().equals(Constants.panorama5)) {
+                    panoramaModel5 = panoramaModel;
+                }
+                if (panoramaModel.getPlace().equals(Constants.panorama6)) {
+                    panoramaModel6 = panoramaModel;
+                }
+            }
+        }
+    }
+    private PanoramaModel panoramaModel1;
+    private PanoramaModel panoramaModel2;
+    private PanoramaModel panoramaModel3;
+    private PanoramaModel panoramaModel4;
+    private PanoramaModel panoramaModel5;
+    private PanoramaModel panoramaModel6;
 }

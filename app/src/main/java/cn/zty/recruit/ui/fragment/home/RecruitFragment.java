@@ -19,6 +19,7 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.MajorAdapter;
 import cn.zty.recruit.adapter.UniversityAdapter;
 import cn.zty.recruit.base.BaseFragment;
+import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.AdsModel;
 import cn.zty.recruit.bean.MajorModel;
@@ -116,9 +117,9 @@ public class RecruitFragment extends BaseFragment implements
 
         getAdsPresenter.getAds();
 
-        vocationalListPresenter.getVocationList(null, null, null, null, null, null, 1, 1);
+        vocationalListPresenter.getVocationList(null, null, null, null, null, null, 1, 1, Constants.HOT_PAGE_SIZE);
 
-        hotMajorPresenter.getHotMajorList(1, null, 1, 100);
+        hotMajorPresenter.getHotMajorList(1, null, 1, Constants.HOT_PAGE_SIZE);
     }
 
     @OnClick({R.id.btnRecruitFun1, R.id.btnRecruitFun2, R.id.btnRecruitFun3, R.id.btnMoreUniversity, R.id.btnMoreMajor})
