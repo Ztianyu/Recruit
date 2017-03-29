@@ -151,11 +151,11 @@ public class DialogUtils {
     /**
      * 选择学历
      */
-    public static void showEducationSelect(FragmentManager manager, int type, EducationSelectListener listener) {
+    public static void showEducationSelect(FragmentManager manager, String education, EducationSelectListener listener) {
         Fragment fragment = manager.findFragmentByTag(EDUCATION_SELECT);
         if (fragment != null)
             manager.beginTransaction().remove(fragment);
-        SelectEducation selectEducation = SelectEducation.newInstance(type, listener);
+        SelectEducation selectEducation = SelectEducation.newInstance(education, listener);
         selectEducation.show(manager.beginTransaction(), EDUCATION_SELECT);
     }
 

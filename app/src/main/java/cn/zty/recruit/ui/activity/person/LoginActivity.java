@@ -8,6 +8,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.zty.baselib.utils.AppManager;
+import cn.zty.baselib.utils.MyTextUtils;
 import cn.zty.baselib.utils.ResourceUtil;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
@@ -15,6 +16,7 @@ import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.LoginModel;
 import cn.zty.recruit.presenter.LoginPresenter;
 import cn.zty.recruit.ui.activity.MainActivity;
+import cn.zty.recruit.utils.UserUtils;
 import cn.zty.recruit.view.LoginView;
 
 /**
@@ -58,11 +60,18 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
 
     @Override
     protected void initData() {
-
+        editLoginName.setText(MyTextUtils.notNullStr(RecruitApplication.getInstance().getLoginName()));
     }
 
     @Override
     public void onLoginSuccess(LoginModel loginModel) {
+
+        UserUtils.saveUser(this, loginModel, editLoginName.getText().toString());
+
+        RecruitApplication.getInstance().setHaveUser(true);
+        RecruitApplication.getInstance().setUserId(loginModel.getUserId());
+        RecruitApplication.getInstance().setTokenId(loginModel.getTokenId());
+
         AppManager.getInstance().finishAllActivity();
         startActivity(new Intent(this, MainActivity.class));
         RecruitApplication.getInstance().setHaveUser(true);
@@ -73,9 +82,6 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
         switch (view.getId()) {
             case R.id.btnLogin:
                 loginPresenter.login(editLoginName.getText().toString(), editLoginPw.getText().toString());
-                AppManager.getInstance().finishAllActivity();
-                startActivity(new Intent(this, MainActivity.class));
-                RecruitApplication.getInstance().setHaveUser(true);
                 break;
             case R.id.btnRegister:
                 startActivity(new Intent(this, ConfirmPhoneActivity.class).putExtra("type", 0));

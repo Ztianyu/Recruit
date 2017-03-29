@@ -26,6 +26,8 @@ public class MajorPlanAdapter extends RecyclerAdapter<PlanModel, ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.setText(R.id.textClassCount, position + "学时");
-
+        holder.setText(R.id.textClassName, data.get(position).getName());
+        holder.setText(R.id.textClassNum, data.get(position).getCodeNm());
+        holder.setText(R.id.textClassCount, data.get(position).getHours() + "");
     }
 }

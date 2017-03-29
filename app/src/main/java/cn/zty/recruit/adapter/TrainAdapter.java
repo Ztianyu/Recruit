@@ -26,15 +26,16 @@ public class TrainAdapter extends RecyclerAdapter<TrainingModel, ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.setImage(context,R.id.itemSchoolImg,data.get(position).getImgUrl());
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        holder.setImage(context, R.id.itemSchoolImg, data.get(position).getImgUrl());
         holder.setText(R.id.textTrainingName, data.get(position).getName());
-        holder.setText(R.id.itemTrainingPosition,data.get(position).getAreaNm());
+        holder.setText(R.id.itemTrainingPosition, data.get(position).getAreaNm());
 
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, InstitutionDetailActivity.class));
+                context.startActivity(new Intent(context, InstitutionDetailActivity.class)
+                        .putExtra("orgId", data.get(position).getId()));
             }
         });
     }

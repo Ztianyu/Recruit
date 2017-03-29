@@ -30,11 +30,7 @@ public class EnrollTypeAdapter extends RecyclerAdapter<DepositSystemModel, ViewH
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        if (position == 0) {
-            holder.setText(R.id.itemText, "500(可抵1000元)");
-        } else {
-            holder.setText(R.id.itemText, "1000(可抵2000元)");
-        }
+        holder.setText(R.id.itemText, (int) data.get(position).getAmount() + "(可抵" + (int) data.get(position).getDeductibleAmount() + "元)");
 
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override

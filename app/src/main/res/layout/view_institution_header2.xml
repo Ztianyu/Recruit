@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textInstitutionIntroduction"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorBackground"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:drawableLeft="@mipmap/ic_line_tip"
+    android:drawablePadding="6dp"
+    android:drawableRight="@mipmap/ic_expand_normal"
+    android:gravity="center_vertical"
+    android:text="机构简介"
+    android:textColor="@color/textColor"
+    android:textSize="14sp" />

@@ -30,7 +30,7 @@ public class LoginPresenter extends IBasePresenter<LoginView> {
     private Observable<ResultBean<LoginModel>> submit(String loginName, String passWord) {
         RequestParams params = RequestParamsHelper.getInstance().getRequestParams();
         params.put("loginName", loginName);
-        params.put("passWord", passWord);
+        params.put("password", passWord);
         return service.login(params);
     }
 

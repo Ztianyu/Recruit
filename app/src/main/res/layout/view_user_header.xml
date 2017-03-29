@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:textSize="15sp"
-                android:text="春暖花开" />
+                tools:text="春暖花开" />
 
             <TextView
                 android:id="@+id/textSex"
@@ -44,7 +44,7 @@
                 android:layout_marginTop="8dp"
                 android:textColor="@color/white"
                 android:textSize="15sp"
-                android:text="女" />
+                tools:text="女" />
         </LinearLayout>
 
         <TextView

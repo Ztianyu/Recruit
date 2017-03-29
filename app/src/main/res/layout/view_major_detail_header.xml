@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/textColor"
         android:textSize="16sp"
-        android:text="ASP.NET 实训" />
+        tools:text="ASP.NET 实训" />
 
     <TextView
         android:id="@+id/textMajorDetailCount"
@@ -25,7 +25,7 @@
         android:layout_marginTop="4dp"
         android:textColor="@color/gray"
         android:textSize="14sp"
-        android:text="总学时：180" />
+        tools:text="总学时：180" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
             android:id="@+id/textMajorPrise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1500"
+            tools:text="1500"
             android:textColor="@color/colorAccent"
             android:textSize="14sp" />
 
@@ -45,7 +45,7 @@
             android:id="@+id/textMajorUnit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="元/学期"
+            tools:text="元/学期"
             android:textColor="@color/gray"
             android:textSize="12sp" />
     </LinearLayout>

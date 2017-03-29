@@ -22,13 +22,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="16dp"></View>
-
-            <include layout="@layout/view_major_detail_introduction" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="16dp"></View>
+                android:layout_height="8dp"></View>
 
             <include layout="@layout/view_major_plan" />
 

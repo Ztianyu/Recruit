@@ -3,13 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="vertical"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp">
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="@color/colorBackground"></View>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginLeft="16dp"
         android:text="课程表"
         android:textColor="@color/colorAccent"
@@ -20,6 +24,5 @@
         android:layout_height="0.5dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorDiver"></View>
-
 
 </LinearLayout>

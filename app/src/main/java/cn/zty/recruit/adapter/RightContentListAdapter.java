@@ -34,7 +34,7 @@ public class RightContentListAdapter extends RightMenuBaseListAdapter<LeftListVi
 
     @Override
     public void bindData(LeftListViewHolder leftListViewHolder, int position) {
-        leftListViewHolder.itemText.setText("" + position + 1);
+        leftListViewHolder.itemText.setText(list.get(position).getValue());
     }
 
     @Override

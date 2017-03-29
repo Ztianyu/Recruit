@@ -62,19 +62,12 @@ public class RecruitApplication extends Application {
     }
 
     private void setCurrentUser() {
-
         userId = SharedPrefUtils.getString(this, SharedPrefUtils.USER_ID);
         tokenId = SharedPrefUtils.getString(this, SharedPrefUtils.TOKEN_ID);
         loginName = SharedPrefUtils.getString(this, SharedPrefUtils.LOGIN_NAME);
 
-        String userMessage = SharedPrefUtils.getString(this, SharedPrefUtils.USER_MESSAGE);
-        if (!TextUtils.isEmpty(userMessage))
-            userModel = new Gson().fromJson(userMessage, UserModel.class);
-    }
-
-    public void setCurrentUser(String userMessage) {
-        SharedPrefUtils.setString(this, SharedPrefUtils.USER_MESSAGE, userMessage);
-        userModel = new Gson().fromJson(userMessage, UserModel.class);
+        if (!TextUtils.isEmpty(userId))
+            setHaveUser(true);
     }
 
     public void clearUser() {

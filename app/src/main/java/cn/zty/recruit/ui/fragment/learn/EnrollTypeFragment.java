@@ -73,7 +73,6 @@ public class EnrollTypeFragment extends DialogFragment implements DepositSystemV
         presenter = new DepositSystemPresenter();
         presenter.attach(this);
 
-
         adapter = new EnrollTypeAdapter(getContext(), listener);
 
         recyclerView.verticalLayoutManager(getContext())

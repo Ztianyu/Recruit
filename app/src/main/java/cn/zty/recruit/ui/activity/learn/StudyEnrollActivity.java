@@ -15,6 +15,7 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.bean.DepositSystemModel;
+import cn.zty.recruit.bean.TipModel;
 import cn.zty.recruit.listener.EducationSelectListener;
 import cn.zty.recruit.listener.EnrollTypeSelectListener;
 import cn.zty.recruit.listener.SexSelectListener;
@@ -65,7 +66,8 @@ public class StudyEnrollActivity extends BaseActivity implements
     TextView textStudyPrise;
 
     private int sexType = -1;
-    private int educationType = -1;
+    private TipModel educationModel;
+    private String educationName;
 
     @Override
     protected int initLayoutId() {
@@ -114,7 +116,7 @@ public class StudyEnrollActivity extends BaseActivity implements
                 DialogUtils.showDataSelect(this, btnChoseAge);
                 break;
             case R.id.btnChoseEducation:
-                DialogUtils.showEducationSelect(getSupportFragmentManager(), educationType, this);
+                DialogUtils.showEducationSelect(getSupportFragmentManager(), educationName, this);
                 break;
             case R.id.btnChoseType:
                 DialogUtils.showEnrollTypeSelect(getSupportFragmentManager(), this, Constants.OFFICE_TYPE2);
@@ -131,15 +133,14 @@ public class StudyEnrollActivity extends BaseActivity implements
     }
 
     @Override
-    public void onEducationListener(String education, int type) {
-        educationType = type;
-        btnChoseEducation.setText(education);
-    }
-
-    @Override
     public void onEnrollTypeSelect(DepositSystemModel enrollTypeModel) {
         btnChoseType.setText("500（可抵1000元）");
         DialogFragment dialogFragment = (DialogFragment) getSupportFragmentManager().findFragmentByTag(DialogUtils.ENROLL_TYPE_SELECT);
         dialogFragment.dismiss();
+    }
+
+    @Override
+    public void onEducationListener(TipModel tipModel) {
+        btnChoseEducation.setText(tipModel.getValue());
     }
 }

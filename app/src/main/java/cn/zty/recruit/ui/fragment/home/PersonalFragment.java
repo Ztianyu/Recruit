@@ -13,7 +13,9 @@ import cn.zty.baselib.widget.StripMenuView;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseFragment;
 import cn.zty.recruit.base.RecruitApplication;
+import cn.zty.recruit.bean.UserModel;
 import cn.zty.recruit.listener.ToastSureListener;
+import cn.zty.recruit.presenter.GetUserPresenter;
 import cn.zty.recruit.ui.activity.person.ArchivesActivity;
 import cn.zty.recruit.ui.activity.person.IntegralActivity;
 import cn.zty.recruit.ui.activity.person.LoginActivity;
@@ -22,14 +24,19 @@ import cn.zty.recruit.ui.activity.person.OrderActivity;
 import cn.zty.recruit.ui.activity.person.ResetPwActivity;
 import cn.zty.recruit.ui.activity.person.VersionActivity;
 import cn.zty.recruit.utils.DialogUtils;
+import cn.zty.recruit.utils.UserUtils;
 import cn.zty.recruit.utils.ViewAdaptionUtils;
+import cn.zty.recruit.view.UserView;
 import cn.zty.recruit.widget.LabView;
 
 /**
  * Created by zty on 2017/3/4.
  */
 
-public class PersonalFragment extends BaseFragment implements ToastSureListener {
+public class PersonalFragment extends BaseFragment implements
+        ToastSureListener,
+        UserView {
+
     @BindView(R.id.imgHeader)
     CircleImageView imgHeader;
     @BindView(R.id.textName)
@@ -65,7 +72,11 @@ public class PersonalFragment extends BaseFragment implements ToastSureListener 
     @BindView(R.id.layoutHeader)
     LinearLayout layoutHeader;
 
+    private GetUserPresenter presenter;
+
     private boolean isHaveUser = false;
+
+    private UserModel userModel;
 
     @Override
     protected int initLayoutId() {
@@ -75,6 +86,10 @@ public class PersonalFragment extends BaseFragment implements ToastSureListener 
     @Override
     protected void initView() {
         ViewAdaptionUtils.LinearLayoutAdaptation(layoutHeader, 256);
+
+        presenter = new GetUserPresenter();
+        presenter.attach(this);
+        presenters.add(presenter);
     }
 
     @Override
@@ -85,8 +100,15 @@ public class PersonalFragment extends BaseFragment implements ToastSureListener 
     public void onResume() {
         super.onResume();
         isHaveUser = RecruitApplication.getInstance().isHaveUser();
+        userModel = RecruitApplication.getInstance().getUserModel();
 
         if (isHaveUser) {
+            if (userModel != null) {
+                setUser(userModel);
+            } else {
+                presenter.getUser(RecruitApplication.getInstance().getTokenId(),
+                        RecruitApplication.getInstance().getUserId());
+            }
             textLogin.setVisibility(View.GONE);
             layoutUser.setVisibility(View.VISIBLE);
         } else {
@@ -94,6 +116,12 @@ public class PersonalFragment extends BaseFragment implements ToastSureListener 
             layoutUser.setVisibility(View.INVISIBLE);
             MyImageLoader.load(context, R.mipmap.ic_default_header, imgHeader);
         }
+    }
+
+    private void setUser(UserModel model) {
+        MyImageLoader.load(context, model.getPhoto(), imgHeader);
+        textName.setText(model.getNickNm());
+        textSex.setText(model.getSex());
     }
 
     @OnClick({R.id.imgHeader, R.id.textLogin, R.id.labOrder1, R.id.labOrder2, R.id.labOrder3, R.id.labResume1, R.id.labResume2, R.id.labResume3, R.id.strip1, R.id.strip2, R.id.strip3, R.id.strip4, R.id.strip5})
@@ -163,6 +191,15 @@ public class PersonalFragment extends BaseFragment implements ToastSureListener 
     @Override
     public void onSure() {
         RecruitApplication.getInstance().setHaveUser(false);
+        UserUtils.clearUser(context);
         onResume();
+    }
+
+    @Override
+    public void onUserSuccess(UserModel userModel) {
+        if (userModel != null) {
+            RecruitApplication.getInstance().setUserModel(userModel);
+            setUser(userModel);
+        }
     }
 }

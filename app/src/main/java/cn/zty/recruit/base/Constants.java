@@ -34,4 +34,7 @@ public class Constants {
     public static final int MAX_PAGE_SIZE = 1000;
     public static final int HOT_PAGE_SIZE = 5;
 
+    public static final String chargeStandard1 = "学年";
+    public static final String chargeStandard2 = "学期";
+
 }

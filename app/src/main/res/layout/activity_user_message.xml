@@ -20,6 +20,7 @@
 
             <include layout="@layout/view_user_message_header" />
 
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
@@ -27,10 +28,21 @@
                 android:background="@color/colorDiver"></View>
 
             <cn.zty.baselib.widget.StripViewNoImg
-                android:id="@+id/textUserName"
+                android:id="@+id/textUserNickName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:isHasBottomLine="false"
+                app:isHasTopLine="false"
+                app:lineMargin="16"
+                app:textAdditionColor="@color/gray"
+                app:textName="昵 称"
+                app:textNameColor="@color/textColor"></cn.zty.baselib.widget.StripViewNoImg>
+
+            <cn.zty.baselib.widget.StripViewNoImg
+                android:id="@+id/textUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isHasBottomLine="true"
                 app:isHasTopLine="false"
                 app:lineMargin="16"
                 app:textAdditionColor="@color/gray"
@@ -59,11 +71,22 @@
                 app:textName="出生日期"
                 app:textNameColor="@color/textColor"></cn.zty.baselib.widget.StripViewNoImg>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDiver"></View>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorDiver"></View>
+
             <cn.zty.baselib.widget.StripViewNoImg
                 android:id="@+id/textUserPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:isHasBottomLine="true"
+                app:isHasBottomLine="false"
                 app:isHasTopLine="false"
                 app:lineMargin="16"
                 app:textAdditionColor="@color/gray"

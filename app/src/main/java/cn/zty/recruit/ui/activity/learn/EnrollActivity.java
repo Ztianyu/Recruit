@@ -10,10 +10,13 @@ import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.zty.baselib.utils.MyTextUtils;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.bean.DepositSystemModel;
+import cn.zty.recruit.bean.InstitutionMajorModel;
+import cn.zty.recruit.bean.TipModel;
 import cn.zty.recruit.listener.EducationSelectListener;
 import cn.zty.recruit.listener.EnrollTypeSelectListener;
 import cn.zty.recruit.listener.SexSelectListener;
@@ -64,7 +67,11 @@ public class EnrollActivity extends BaseActivity implements
     TextView textStudyMajorIntroduction;
 
     private int sexType = -1;
-    private int educationType = -1;
+    private DepositSystemModel enrollTypeModel;
+    private TipModel educationModel;
+    private String educationName;
+
+    private InstitutionMajorModel majorModel;
 
     @Override
     protected int initLayoutId() {
@@ -73,13 +80,27 @@ public class EnrollActivity extends BaseActivity implements
 
     @Override
     protected void initView() {
+        majorModel = getIntent().getParcelableExtra("model");
+
         toolbar.setTitle("在线报名");
         initToolbar(toolbar);
     }
 
     @Override
     protected void initData() {
-        expandText.setText("计算机软件基础、英语、C语言数据库原理 SQLserver、C++程序设计、java核心编程、linux、websphere开发工具、DB2数据库高级管理、DB2数据库应用开发、ERWin数据库");
+        expandText.setText(MyTextUtils.notNullStr(majorModel.getRemarks()));
+        textMajorDetailName.setText(majorModel.getName());
+        textMajorDetailCount.setText("总学时：" + majorModel.getHours());
+        textMajorPrise.setText(majorModel.getMoney() + "");
+
+        String unit = "";
+        if (majorModel.getChargeStandard().equals("1")) {
+            unit = Constants.chargeStandard1;
+        }
+        if (majorModel.getChargeStandard().equals("2")) {
+            unit = Constants.chargeStandard2;
+        }
+        textMajorUnit.setText("元/" + unit);
     }
 
     @OnClick({R.id.btnChoseSex, R.id.btnChoseAge, R.id.btnChoseEducation, R.id.btnChoseType, R.id.btnSubmit})
@@ -92,7 +113,7 @@ public class EnrollActivity extends BaseActivity implements
                 DialogUtils.showDataSelect(this, btnChoseAge);
                 break;
             case R.id.btnChoseEducation:
-                DialogUtils.showEducationSelect(getSupportFragmentManager(), educationType, this);
+                DialogUtils.showEducationSelect(getSupportFragmentManager(), educationName, this);
                 break;
             case R.id.btnChoseType:
                 DialogUtils.showEnrollTypeSelect(getSupportFragmentManager(), this, Constants.OFFICE_TYPE1);
@@ -109,15 +130,19 @@ public class EnrollActivity extends BaseActivity implements
     }
 
     @Override
-    public void onEducationListener(String education, int type) {
-        educationType = type;
-        btnChoseEducation.setText(education);
+    public void onEnrollTypeSelect(DepositSystemModel enrollTypeModel) {
+        this.enrollTypeModel = enrollTypeModel;
+        btnChoseType.setText((int) enrollTypeModel.getAmount() + "(可抵" + (int) enrollTypeModel.getDeductibleAmount() + "元)");
+        DialogFragment dialogFragment = (DialogFragment) getSupportFragmentManager().findFragmentByTag(DialogUtils.ENROLL_TYPE_SELECT);
+        dialogFragment.dismiss();
     }
 
     @Override
-    public void onEnrollTypeSelect(DepositSystemModel enrollTypeModel) {
-        btnChoseType.setText("500（可抵1000元）");
-        DialogFragment dialogFragment = (DialogFragment) getSupportFragmentManager().findFragmentByTag(DialogUtils.ENROLL_TYPE_SELECT);
+    public void onEducationListener(TipModel tipModel) {
+        this.educationModel = tipModel;
+        educationName = tipModel.getValue();
+        btnChoseEducation.setText(tipModel.getValue());
+        DialogFragment dialogFragment = (DialogFragment) getSupportFragmentManager().findFragmentByTag(DialogUtils.EDUCATION_SELECT);
         dialogFragment.dismiss();
     }
 }

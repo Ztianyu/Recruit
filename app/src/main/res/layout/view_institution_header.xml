@@ -10,7 +10,7 @@
         android:id="@+id/imgInstitution"
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:background="@mipmap/ic_train_default" />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/textInstitutionName"

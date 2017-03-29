@@ -29,32 +29,29 @@ public class StartActivity extends BaseActivity implements DictListView {
 
     @Override
     protected void initView() {
-//        dictPresenter = new DictPresenter();
-//        dictPresenter.attach(this);
-//        presenters.add(dictPresenter);
+        dictPresenter = new DictPresenter();
+        dictPresenter.attach(this);
+        presenters.add(dictPresenter);
 
-//        setPermissions();
+        setTitleBar();
     }
 
     @Override
     protected void initData() {
+        dictPresenter.getDictList(Constants.DICT_TYPE5);
 
-        startActivity(new Intent(StartActivity.this, MainActivity.class));
-        finish();
-//        dictPresenter.getDictList(Constants.DICT_TYPE3);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(100);
+                    handler.sendEmptyMessage(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    Thread.sleep(1000);
-//                    handler.sendEmptyMessage(1);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        }).start();
+            }
+        }).start();
     }
 
     Handler handler = new Handler() {
@@ -69,9 +66,6 @@ public class StartActivity extends BaseActivity implements DictListView {
 
     @Override
     public void onDictSuccess(String type, List<TipModel> models) {
-        if (type.equals(Constants.DICT_TYPE3)) {
-            BaseData.educations.addAll(models);
-            handler.sendEmptyMessage(1);
-        }
+        BaseData.educations.addAll(models);
     }
 }

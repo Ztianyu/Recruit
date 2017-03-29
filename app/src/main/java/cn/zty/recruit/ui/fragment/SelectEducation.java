@@ -1,7 +1,6 @@
 package cn.zty.recruit.ui.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
@@ -10,44 +9,45 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.zty.baselib.utils.ResourceUtil;
+import butterknife.Unbinder;
+import cn.droidlover.xrecyclerview.XRecyclerView;
 import cn.zty.recruit.R;
+import cn.zty.recruit.adapter.EducationSelectAdapter;
+import cn.zty.recruit.base.BaseData;
+import cn.zty.recruit.base.Constants;
+import cn.zty.recruit.bean.TipModel;
 import cn.zty.recruit.listener.EducationSelectListener;
+import cn.zty.recruit.presenter.DictPresenter;
+import cn.zty.recruit.view.DictListView;
 
 /**
  * Created by zty on 2017/3/17.
  */
 
-public class SelectEducation extends DialogFragment implements RadioGroup.OnCheckedChangeListener {
+public class SelectEducation extends DialogFragment implements DictListView {
 
-    @BindView(R.id.radioPrimarySchool)
-    RadioButton radioPrimarySchool;
-    @BindView(R.id.radioMiddleSchool)
-    RadioButton radioMiddleSchool;
-    @BindView(R.id.radioHighSchool)
-    RadioButton radioHighSchool;
-    @BindView(R.id.radioUndergraduate)
-    RadioButton radioUndergraduate;
-    @BindView(R.id.radioMaster)
-    RadioButton radioMaster;
-    @BindView(R.id.radioDoctor)
-    RadioButton radioDoctor;
-    @BindView(R.id.radioGroupEducation)
-    RadioGroup radioGroupEducation;
+    @BindView(R.id.recyclerViewSelect)
+    XRecyclerView recyclerViewSelect;
+    Unbinder unbind;
 
-    private int type;//0：小学；1：初中；2：高中；3：本科；4：硕士；5：博士
+    private DictPresenter presenter;
+
+    private EducationSelectAdapter adapter;
 
     private EducationSelectListener listener;
 
-    public static SelectEducation newInstance(int type, EducationSelectListener listener) {
+    private String education;
+
+    public static SelectEducation newInstance(String education, EducationSelectListener listener) {
         SelectEducation fragment = new SelectEducation();
         Bundle bundle = new Bundle();
-        bundle.putInt("type", type);
+        bundle.putString("education", education);
         fragment.setArguments(bundle);
         fragment.setListener(listener);
         return fragment;
@@ -57,7 +57,7 @@ public class SelectEducation extends DialogFragment implements RadioGroup.OnChec
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.view_education_select, null);
-        ButterKnife.bind(this, view);
+        unbind = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -73,57 +73,29 @@ public class SelectEducation extends DialogFragment implements RadioGroup.OnChec
         windowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(windowParams);
 
-        type = getArguments().getInt("type");
+        education = getArguments().getString("education");
 
-        switch (type) {
-            case 0:
-                radioPrimarySchool.setChecked(true);
-                break;
-            case 1:
-                radioMiddleSchool.setChecked(true);
-                break;
-            case 2:
-                radioHighSchool.setChecked(true);
-                break;
-            case 3:
-                radioUndergraduate.setChecked(true);
-                break;
-            case 4:
-                radioMaster.setChecked(true);
-                break;
-            case 5:
-                radioDoctor.setChecked(true);
-                break;
-            default:
-                break;
+        adapter = new EducationSelectAdapter(getActivity(), listener);
+
+        recyclerViewSelect.verticalLayoutManager(getContext())
+                .setAdapter(adapter);
+        recyclerViewSelect.horizontalDivider(R.color.colorDiver, R.dimen.diverHeight);
+
+        presenter = new DictPresenter();
+        presenter.attach(this);
+
+        if (BaseData.educations.size() <= 0) {
+            presenter.getDictList(Constants.DICT_TYPE5);
+        } else {
+            for (TipModel tipModel : BaseData.educations) {
+                if (tipModel.getValue().equals(education)) {
+                    tipModel.setSelected(true);
+                } else {
+                    tipModel.setSelected(false);
+                }
+            }
+            adapter.setData(BaseData.educations);
         }
-
-        radioGroupEducation.setOnCheckedChangeListener(this);
-    }
-
-    @Override
-    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-        switch (checkedId) {
-            case R.id.radioPrimarySchool:
-                listener.onEducationListener(ResourceUtil.resToStr(getContext(), R.string.primarySchool), 0);
-                break;
-            case R.id.radioMiddleSchool:
-                listener.onEducationListener(ResourceUtil.resToStr(getContext(), R.string.middleSchool), 1);
-                break;
-            case R.id.radioHighSchool:
-                listener.onEducationListener(ResourceUtil.resToStr(getContext(), R.string.highSchool), 2);
-                break;
-            case R.id.radioUndergraduate:
-                listener.onEducationListener(ResourceUtil.resToStr(getContext(), R.string.undergraduate), 3);
-                break;
-            case R.id.radioMaster:
-                listener.onEducationListener(ResourceUtil.resToStr(getContext(), R.string.master), 4);
-                break;
-            case R.id.radioDoctor:
-                listener.onEducationListener(ResourceUtil.resToStr(getContext(), R.string.doctor), 5);
-                break;
-        }
-        dismiss();
     }
 
     public EducationSelectListener getListener() {
@@ -132,5 +104,28 @@ public class SelectEducation extends DialogFragment implements RadioGroup.OnChec
 
     public void setListener(EducationSelectListener listener) {
         this.listener = listener;
+    }
+
+    @Override
+    public void onDictSuccess(String type, List<TipModel> models) {
+
+        BaseData.educations.clear();
+        BaseData.educations.addAll(models);
+
+        for (TipModel tipModel : BaseData.educations) {
+            if (tipModel.getValue().equals(education)) {
+                tipModel.setSelected(true);
+            } else {
+                tipModel.setSelected(false);
+            }
+        }
+        adapter.setData(BaseData.educations);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbind.unbind();
+        presenter.detach();
     }
 }

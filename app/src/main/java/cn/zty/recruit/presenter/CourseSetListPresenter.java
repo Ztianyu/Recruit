@@ -23,8 +23,8 @@ public class CourseSetListPresenter extends IBasePresenter<CourseSetListView> {
         service = RetrofitHelper.getInstance().getRetrofit().create(CourseSetListService.class);
     }
 
-    public void getCourseSetList(String schoolId) {
-        mSubscription = RxManager.getInstance().doSubscribe1(service.getCourseSetList(schoolId), new RxSubscriber<List<InstitutionMajorModel>>() {
+    public void getCourseSetList(String schoolId, int pageNo) {
+        mSubscription = RxManager.getInstance().doSubscribe1(service.getCourseSetList(schoolId, pageNo), new RxSubscriber<List<InstitutionMajorModel>>() {
             @Override
             protected void _onNext(List<InstitutionMajorModel> majorModels) {
                 mView.onCourseSetSuccess(majorModels);

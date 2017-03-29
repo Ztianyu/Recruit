@@ -13,12 +13,6 @@ public class SharedPrefUtils {
     public static final String TOKEN_ID = "tokenId";
 
     public static final String LOGIN_NAME = "loginName";
-    public static final String LOGIN_PASSWORD = "passWord";
-
-    public static final String SEX = "sex";
-    public static final String NUM = "num";
-
-    public static final String USER_MESSAGE = "userMessage";
 
 
     /**

@@ -1,97 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:scrollbars="none">
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:layout_marginTop="16dp"
+        android:text="学历"
+        android:textColor="@color/textColor"
+        android:textSize="18sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="学历"
-            android:textColor="@color/textColor"
-            android:textSize="18sp" />
+    <cn.droidlover.xrecyclerview.XRecyclerView
+        android:id="@+id/recyclerViewSelect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></cn.droidlover.xrecyclerview.XRecyclerView>
 
-        <RadioGroup
-            android:id="@+id/radioGroupEducation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:orientation="vertical">
-
-            <RadioButton
-                android:id="@+id/radioPrimarySchool"
-                style="@style/MyRadioButton"
-                android:text="@string/primarySchool" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:background="@color/colorDiver"></View>
-
-            <RadioButton
-                android:id="@+id/radioMiddleSchool"
-                style="@style/MyRadioButton"
-                android:text="@string/middleSchool" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:background="@color/colorDiver"></View>
-
-            <RadioButton
-                android:id="@+id/radioHighSchool"
-                style="@style/MyRadioButton"
-                android:text="@string/highSchool" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:background="@color/colorDiver"></View>
-
-            <RadioButton
-                android:id="@+id/radioUndergraduate"
-                style="@style/MyRadioButton"
-                android:text="@string/undergraduate" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:background="@color/colorDiver"></View>
-
-            <RadioButton
-                android:id="@+id/radioMaster"
-                style="@style/MyRadioButton"
-                android:text="@string/master" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:background="@color/colorDiver"></View>
-
-            <RadioButton
-                android:id="@+id/radioDoctor"
-                style="@style/MyRadioButton"
-                android:text="@string/doctor" />
-        </RadioGroup>
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

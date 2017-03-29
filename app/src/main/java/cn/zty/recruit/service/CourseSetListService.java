@@ -15,5 +15,6 @@ import rx.Observable;
 
 public interface CourseSetListService {
     @GET(Urls.getCourseSetList)
-    Observable<ResultBean<List<InstitutionMajorModel>>> getCourseSetList(@Query("schoolId") String schoolId);
+    Observable<ResultBean<List<InstitutionMajorModel>>> getCourseSetList(@Query("schoolId") String schoolId,
+                                                                         @Query("pageNo") int pageNo);
 }
