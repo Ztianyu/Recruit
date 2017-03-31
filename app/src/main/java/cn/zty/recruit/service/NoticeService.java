@@ -6,6 +6,7 @@ import cn.zty.baselib.bean.ResultBean;
 import cn.zty.recruit.base.Urls;
 import cn.zty.recruit.bean.NoticeModel;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -14,5 +15,5 @@ import rx.Observable;
 
 public interface NoticeService {
     @GET(Urls.getNoticeList)
-    Observable<ResultBean<List<NoticeModel>>> getNoticeList();
+    Observable<ResultBean<List<NoticeModel>>> getNoticeList(@Query("pageNo") int pageNo);
 }

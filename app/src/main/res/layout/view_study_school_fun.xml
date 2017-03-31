@@ -37,8 +37,8 @@
                 android:id="@+id/labSchool2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:lab_img="@mipmap/ic_school_lab2"
-                app:lab_text="@string/labSchool2"></cn.zty.recruit.widget.LabView>
+                app:lab_img="@mipmap/ic_school_lab3"
+                app:lab_text="@string/labSchool3"></cn.zty.recruit.widget.LabView>
         </LinearLayout>
 
         <LinearLayout

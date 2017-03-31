@@ -6,7 +6,6 @@ import cn.zty.baselib.bean.ResultBean;
 import cn.zty.baselib.http.RequestParams;
 import cn.zty.baselib.http.RetrofitHelper;
 import cn.zty.baselib.presenter.IBasePresenter;
-import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.base.RequestParamsHelper;
 import cn.zty.recruit.rx.RxManager;
 import cn.zty.recruit.rx.RxSubscriber;
@@ -27,21 +26,21 @@ public class SetNewPwdPresenter extends IBasePresenter<StringView> {
         service = RetrofitHelper.getInstance().getRetrofit().create(SetNewPwdService.class);
     }
 
-    private Observable<ResultBean<String>> submit(String newPassword) {
+    private Observable<ResultBean<String>> submit(String loginName,String newPassword) {
         RequestParams params = RequestParamsHelper.getInstance().getRequestParams();
-        params.put("loginName", RecruitApplication.getInstance().getLoginName());
+        params.put("loginName",loginName);
         params.put("newPassword", newPassword);
         return service.setNewPwd(params);
     }
 
-    public void setNewPwd(String newPassword, String surePassword) {
+    public void setNewPwd(String loginName,String newPassword, String surePassword) {
         if (checkData(newPassword, surePassword))
-            mSubscription = RxManager.getInstance().doSubscribe1(submit(newPassword), new RxSubscriber<String>() {
+            mSubscription = RxManager.getInstance().doSubscribe1(submit(loginName,newPassword), new RxSubscriber<String>() {
                 @Override
                 protected void _onNext(String msg) {
                     mView.onSuccess(msg);
                 }
-            },false);
+            },true);
     }
 
     private boolean checkData(String password, String surePassword) {

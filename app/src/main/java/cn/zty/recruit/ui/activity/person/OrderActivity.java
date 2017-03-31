@@ -47,9 +47,9 @@ public class OrderActivity extends BaseActivity {
         titles.add("已预订");
         titles.add("已完成");
 
-        fragments.add(new OrderFragment());
-        fragments.add(new OrderFragment());
-        fragments.add(new OrderFragment());
+        fragments.add(OrderFragment.newInstance(0));
+        fragments.add(OrderFragment.newInstance(1));
+        fragments.add(OrderFragment.newInstance(2));
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.setFragments(fragments);

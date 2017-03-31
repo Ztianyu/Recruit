@@ -1,7 +1,9 @@
 package cn.zty.recruit.ui.activity.learn;
 
+import android.content.Intent;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -11,15 +13,24 @@ import com.ms.square.android.expandabletextview.ExpandableTextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.zty.baselib.utils.MyTextUtils;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.base.BaseData;
 import cn.zty.recruit.base.Constants;
+import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.DepositSystemModel;
+import cn.zty.recruit.bean.StudyMajorModel;
 import cn.zty.recruit.bean.TipModel;
+import cn.zty.recruit.bean.UserModel;
 import cn.zty.recruit.listener.EducationSelectListener;
 import cn.zty.recruit.listener.EnrollTypeSelectListener;
 import cn.zty.recruit.listener.SexSelectListener;
+import cn.zty.recruit.presenter.SubmitOrderPresenter;
+import cn.zty.recruit.ui.activity.PayActivity;
 import cn.zty.recruit.utils.DialogUtils;
+import cn.zty.recruit.utils.ToastUtils;
+import cn.zty.recruit.view.StringView;
 
 /**
  * Created by zty on 2017/3/18.
@@ -28,7 +39,8 @@ import cn.zty.recruit.utils.DialogUtils;
 public class StudyEnrollActivity extends BaseActivity implements
         SexSelectListener,
         EducationSelectListener,
-        EnrollTypeSelectListener {
+        EnrollTypeSelectListener,
+        StringView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -65,9 +77,16 @@ public class StudyEnrollActivity extends BaseActivity implements
     @BindView(R.id.textStudyPrise)
     TextView textStudyPrise;
 
+    private StudyMajorModel studyMajorModel;
+
     private int sexType = -1;
-    private TipModel educationModel;
+    private DepositSystemModel enrollTypeModel;
     private String educationName;
+    private String educationCode;
+
+    private SubmitOrderPresenter submitOrderPresenter;
+
+    private UserModel userModel;
 
     @Override
     protected int initLayoutId() {
@@ -76,6 +95,9 @@ public class StudyEnrollActivity extends BaseActivity implements
 
     @Override
     protected void initView() {
+
+        studyMajorModel = getIntent().getParcelableExtra("majorModel");
+
         toolbar.setTitle("在线报名");
         toolbar.inflateMenu(R.menu.phone);
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
@@ -90,20 +112,48 @@ public class StudyEnrollActivity extends BaseActivity implements
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.takePhone:
-                        DialogUtils.showCall(getSupportFragmentManager(), "0371-572333","09:00 - 18:00");
+                        DialogUtils.showCall(getSupportFragmentManager(), BaseData.studySchoolPhone, BaseData.studySchoolTime);
                         return true;
                 }
                 return false;
             }
         });
+
+        submitOrderPresenter = new SubmitOrderPresenter();
+        submitOrderPresenter.attach(this);
+        presenters.add(submitOrderPresenter);
     }
 
     @Override
     protected void initData() {
         textStudyMajorIntroduction.setText("专业介绍");
-        expandText.setText("培养目标:掌握计算机系统基础知识的基本原理，熟悉计算机系统常用软硬件工具，具有一定的硬件维护能力和较强的软件开发能力的应用型人才。\n" +
-                "主要课程：C语言程序设计、VB程序设计、Java面向对象程序设计、数据结构、计算机网络与通讯、网络操作系统、软件工程、多媒体技术与应用、大型数据库处理技术等。\n" +
-                "就业方向：可从事企事业一线直接参与计算机应用、软件开发的技术。");
+        if (studyMajorModel != null) {
+            textMajorChildName.setText(studyMajorModel.getMajorNm());
+            textStudyLength.setText("学制" + studyMajorModel.getSchoolLength() + "年");
+            textStudyEducation.setText(studyMajorModel.getStudyTypeLabel());
+            textStudyPrise.setText(studyMajorModel.getRegistrationFee() + "元/" +
+                    studyMajorModel.getChargeStandardLabel().replace("按", "").replace("收", ""));
+
+            expandText.setText(MyTextUtils.notNullStr(studyMajorModel.getRemarks()));
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        userModel = RecruitApplication.getInstance().getUserModel();
+        if (userModel != null) {
+            editEnrollName.setText(MyTextUtils.notNullStr(userModel.getFullNm()));
+            btnChoseSex.setText(MyTextUtils.notNullStr(userModel.getSex()));
+            btnChoseAge.setText(MyTextUtils.notNullStr(userModel.getBirthDate()));
+            editEnrollPhone.setText(MyTextUtils.notNullStr(userModel.getMobile()));
+            editEnrollName.setText(MyTextUtils.notNullStr(userModel.getFullNm()));
+            btnChoseEducation.setText(MyTextUtils.notNullStr(userModel.getEducationLabel()));
+
+            educationName = MyTextUtils.notNullStr(userModel.getEducationLabel());
+            educationCode = MyTextUtils.notNullStr(userModel.getEducation());
+        }
     }
 
     @OnClick({R.id.btnChoseSex, R.id.btnChoseAge, R.id.btnChoseEducation, R.id.btnChoseType, R.id.btnSubmit})
@@ -122,8 +172,48 @@ public class StudyEnrollActivity extends BaseActivity implements
                 DialogUtils.showEnrollTypeSelect(getSupportFragmentManager(), this, Constants.OFFICE_TYPE2);
                 break;
             case R.id.btnSubmit:
+                submitOrder();
                 break;
         }
+    }
+
+    private void submitOrder() {
+        if (check())
+            submitOrderPresenter.submitOrder(Constants.OFFICE_TYPE2, studyMajorModel.getId(), enrollTypeModel.getId(),
+                    editEnrollName.getText().toString(),
+                    btnChoseSex.getText().toString(),
+                    btnChoseAge.getText().toString(),
+                    editEnrollPhone.getText().toString(),
+                    educationCode,
+                    editEnrollPs.getText().toString());
+    }
+
+    public boolean check() {
+        if (enrollTypeModel == null) {
+            ToastUtils.show("请选择定金类型");
+            return false;
+        }
+        if (TextUtils.isEmpty(editEnrollName.getText().toString())) {
+            ToastUtils.show("请输入姓名");
+            return false;
+        }
+        if (TextUtils.isEmpty(btnChoseSex.getText().toString())) {
+            ToastUtils.show("请选择性别");
+            return false;
+        }
+        if (TextUtils.isEmpty(btnChoseAge.getText().toString())) {
+            ToastUtils.show("请选择出生日期");
+            return false;
+        }
+        if (TextUtils.isEmpty(editEnrollPhone.getText().toString())) {
+            ToastUtils.show("请填写手机号码");
+            return false;
+        }
+        if (TextUtils.isEmpty(educationCode)) {
+            ToastUtils.show("请选择学历");
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -134,13 +224,31 @@ public class StudyEnrollActivity extends BaseActivity implements
 
     @Override
     public void onEnrollTypeSelect(DepositSystemModel enrollTypeModel) {
-        btnChoseType.setText("500（可抵1000元）");
+        this.enrollTypeModel = enrollTypeModel;
+        btnChoseType.setText((int) enrollTypeModel.getAmount() + "(可抵" + (int) enrollTypeModel.getDeductibleAmount() + "元)");
+
+        textBillMoney.setText((int) enrollTypeModel.getAmount() + "");
+        textBillTip.setText("(可抵" + (int) enrollTypeModel.getDeductibleAmount() + "元)");
+
         DialogFragment dialogFragment = (DialogFragment) getSupportFragmentManager().findFragmentByTag(DialogUtils.ENROLL_TYPE_SELECT);
         dialogFragment.dismiss();
     }
 
     @Override
     public void onEducationListener(TipModel tipModel) {
+        educationName = tipModel.getValue();
+        educationCode = tipModel.getKey();
+
         btnChoseEducation.setText(tipModel.getValue());
+        DialogFragment dialogFragment = (DialogFragment) getSupportFragmentManager().findFragmentByTag(DialogUtils.EDUCATION_SELECT);
+        dialogFragment.dismiss();
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        startActivity(new Intent(this, PayActivity.class)
+                .putExtra("orderCode", msg)
+                .putExtra("money", enrollTypeModel.getAmount() + ""));
+        finish();
     }
 }

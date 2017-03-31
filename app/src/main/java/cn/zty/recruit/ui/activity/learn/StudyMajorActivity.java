@@ -4,7 +4,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ExpandableListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -13,18 +12,31 @@ import cn.zty.recruit.adapter.StudyEnrollAdapter;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.bean.CollegeModel;
 import cn.zty.recruit.bean.StudyMajorModel;
+import cn.zty.recruit.presenter.DepartmentPresenter;
+import cn.zty.recruit.presenter.MajorSettingPresenter;
+import cn.zty.recruit.view.DepartmentListView;
+import cn.zty.recruit.view.StudyMajorView;
 
 /**
  * Created by zty on 2017/3/18.
  */
 
-public class StudyMajorActivity extends BaseActivity implements ExpandableListView.OnGroupClickListener {
+public class StudyMajorActivity extends BaseActivity implements
+        ExpandableListView.OnGroupClickListener,
+        DepartmentListView,
+        StudyMajorView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.expandedMajor)
     ExpandableListView expandedMajor;
 
     StudyEnrollAdapter adapter;
+
+    private DepartmentPresenter departmentPresenter;
+
+    private MajorSettingPresenter majorSettingPresenter;
+
+    private String schoolId;
 
     private int handleGroupPosition;
 
@@ -35,22 +47,28 @@ public class StudyMajorActivity extends BaseActivity implements ExpandableListVi
 
     @Override
     protected void initView() {
-        toolbar.setTitle("所有院系");
+        schoolId = getIntent().getStringExtra("schoolId");
+
+        toolbar.setTitle("专业报名");
         initToolbar(toolbar);
 
         adapter = new StudyEnrollAdapter(this);
         expandedMajor.setAdapter(adapter);
 
         expandedMajor.setOnGroupClickListener(this);
+
+        departmentPresenter = new DepartmentPresenter();
+        departmentPresenter.attach(this);
+        presenters.add(departmentPresenter);
+
+        majorSettingPresenter = new MajorSettingPresenter();
+        majorSettingPresenter.attach(this);
+        presenters.add(majorSettingPresenter);
     }
 
     @Override
     protected void initData() {
-        List<CollegeModel> list = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            list.add(new CollegeModel());
-        }
-        adapter.setData(list);
+        departmentPresenter.getDepartmentList(schoolId);
     }
 
     @Override
@@ -60,15 +78,23 @@ public class StudyMajorActivity extends BaseActivity implements ExpandableListVi
         if (!expanded) {
             if (adapter.getChildData().get(groupPosition) == null) {
                 // 加载child 数据
-                List<StudyMajorModel> list = new ArrayList<>();
-                for (int i = 0; i < 5; i++) {
-                    list.add(new StudyMajorModel());
-                }
-                adapter.setChildData(list, groupPosition);
+                majorSettingPresenter.getMajorList(adapter.getData().get(groupPosition).getId());
+            } else {
+                expandedMajor.expandGroup(handleGroupPosition);
             }
-            expandedMajor.expandGroup(handleGroupPosition);
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onDepartmentSuccess(List<CollegeModel> models) {
+        adapter.setData(models);
+    }
+
+    @Override
+    public void onStudyMajorList(List<StudyMajorModel> majorModels) {
+        adapter.setChildData(majorModels, handleGroupPosition);
+        expandedMajor.expandGroup(handleGroupPosition);
     }
 }

@@ -1,6 +1,7 @@
 package cn.zty.recruit.ui.fragment.learn;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,6 +23,7 @@ import cn.zty.recruit.listener.IndustryTypeListener;
 import cn.zty.recruit.presenter.TrainOrgListPresenter;
 import cn.zty.recruit.ui.activity.school.SearchActivity;
 import cn.zty.recruit.utils.DialogUtils;
+import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.TrainOrgListView;
 import cn.zty.recruit.widget.LoadMoreFooter;
 
@@ -133,7 +135,11 @@ public class TrainingFragment extends BaseFragment implements
                 DialogUtils.showAreaSelect(getChildFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 0, this, province);
                 break;
             case R.id.textCityTip:
-                DialogUtils.showAreaSelect(getChildFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 1, this, province);
+                if (!TextUtils.isEmpty(province)) {
+                    DialogUtils.showAreaSelect(getChildFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 1, this, province);
+                } else {
+                    ToastUtils.show("请选择省份");
+                }
                 break;
             case R.id.textMajorTip:
                 DialogUtils.showIndustryType(getChildFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), this);

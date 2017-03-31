@@ -4,18 +4,19 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:orientation="vertical"
-    android:padding="8dp">
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/white"
+        android:background="@drawable/edit_shape"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
             style="@style/TipTextView"
-            android:text="地　　区" />
+            android:text="地　　区:" />
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spinnerSpace"
@@ -27,16 +28,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/white"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/edit_shape"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
             style="@style/TipTextView"
-            android:text="学校类型" />
+            android:text="学校类型:" />
 
         <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/spinnerStudyType"
+            android:id="@+id/spinnerSchoolType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp" />
@@ -45,13 +47,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/white"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/edit_shape"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
             style="@style/TipTextView"
-            android:text="进修学历" />
+            android:text="进修学历:" />
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spinnerStudyEducation"
@@ -63,13 +66,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/white"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/edit_shape"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
             style="@style/TipTextView"
-            android:text="学科门类" />
+            android:text="学科门类:" />
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spinnerSubjectType"
@@ -81,13 +85,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/white"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/edit_shape"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <TextView
             style="@style/TipTextView"
-            android:text="意向专业" />
+            android:text="意向专业:" />
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spinnerIntentionMajor"
@@ -99,7 +104,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/white"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/edit_shape"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 

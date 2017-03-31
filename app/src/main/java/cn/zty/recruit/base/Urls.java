@@ -66,6 +66,14 @@ public class Urls {
     //报名定金类型
     public static final String getDepositSystemList = HOST_ADMIN + "depositSystem/getDepositSystemList";
 
+    //进修学校信息列表
+    public static final String getStudySchoolInfoList = HOST_ADMIN + "studySchoolInfo/getStudySchoolInfoList";
+
+    //进修学校信息
+    public static final String getStudySchoolInfo = HOST_ADMIN + "studySchoolInfo/getStudySchoolInfo";
+
+    //进修学校 学院专业设置
+    public static final String getMajorSettingList = HOST_ADMIN + "majorSetting/getMajorSettingList";
 
 
     //获取省份
@@ -87,6 +95,6 @@ public class Urls {
 
 
     //上传文件（语音文件、图片文件）
-    public static final String uploadAndroidServlet = HOST_ADMIN_1 + "uploadAndroidServlet";
+    public static final String uploadAndroidServlet = "uploadAndroidServlet";
 
 }

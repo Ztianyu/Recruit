@@ -36,9 +36,11 @@ public class StudySchoolAdapter extends RecyclerAdapter<StudySchoolModel, ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.setText(R.id.itemSchoolTip, (position + 1) + "");
-        holder.setText(R.id.textSchoolName, (position + 1) + "学院");
+        holder.setImage(context, R.id.itemSchoolImg, data.get(position).getImgUrl());
+        holder.setText(R.id.textSchoolName, data.get(position).getName());
+        holder.setText(R.id.itemSchoolPosition, data.get(position).getAreaNm());
 
         TextView itemSchoolTip = holder.getView(R.id.itemSchoolTip);
         if (isHaveTip) {
@@ -50,7 +52,9 @@ public class StudySchoolAdapter extends RecyclerAdapter<StudySchoolModel, ViewHo
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, StudySchoolDetail.class));
+                context.startActivity(new Intent(context, StudySchoolDetail.class)
+                        .putExtra("schoolId", data.get(position).getId())
+                        .putExtra("schoolName", data.get(position).getName()));
             }
         });
 
@@ -61,9 +65,12 @@ public class StudySchoolAdapter extends RecyclerAdapter<StudySchoolModel, ViewHo
         recyclerView.horizontalLayoutManager(context)
                 .setAdapter(adapter);
         List<TipModel> list = new ArrayList<>();
-        list.add(new TipModel());
-        list.add(new TipModel());
-        list.add(new TipModel());
+        String[] educationTypes = data.get(position).getSchoolTypeLabel().split(",");
+        for (int i = 0; i < educationTypes.length; i++) {
+            TipModel model = new TipModel();
+            model.setValue(educationTypes[i]);
+            list.add(model);
+        }
         adapter.setData(list);
     }
 }

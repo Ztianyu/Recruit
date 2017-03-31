@@ -14,17 +14,21 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.LoginModel;
+import cn.zty.recruit.bean.UserModel;
+import cn.zty.recruit.presenter.GetUserPresenter;
 import cn.zty.recruit.presenter.LoginPresenter;
 import cn.zty.recruit.ui.activity.MainActivity;
 import cn.zty.recruit.utils.UserUtils;
 import cn.zty.recruit.view.LoginView;
+import cn.zty.recruit.view.UserView;
 
 /**
  * Created by zty on 2017/3/4.
  */
 
 public class LoginActivity extends BaseActivity implements View.OnFocusChangeListener,
-        LoginView {
+        LoginView,
+        UserView {
 
     @BindView(R.id.editLoginName)
     EditText editLoginName;
@@ -43,6 +47,8 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
 
     LoginPresenter loginPresenter;
 
+    private GetUserPresenter presenter;
+
     @Override
     protected int initLayoutId() {
         return R.layout.activity_login;
@@ -54,12 +60,21 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
         loginPresenter.attach(this);
         presenters.add(loginPresenter);
 
+        presenter = new GetUserPresenter();
+        presenter.attach(this);
+        presenters.add(presenter);
+
         editLoginName.setOnFocusChangeListener(this);
         editLoginPw.setOnFocusChangeListener(this);
     }
 
     @Override
     protected void initData() {
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         editLoginName.setText(MyTextUtils.notNullStr(RecruitApplication.getInstance().getLoginName()));
     }
 
@@ -67,6 +82,8 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
     public void onLoginSuccess(LoginModel loginModel) {
 
         UserUtils.saveUser(this, loginModel, editLoginName.getText().toString());
+
+        presenter.getUser(loginModel.getTokenId(), loginModel.getUserId());
 
         RecruitApplication.getInstance().setHaveUser(true);
         RecruitApplication.getInstance().setUserId(loginModel.getUserId());
@@ -110,5 +127,11 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onUserSuccess(UserModel userModel) {
+        if (userModel != null)
+            RecruitApplication.getInstance().setUserModel(userModel);
     }
 }

@@ -21,6 +21,9 @@ public class Constants {
     public static final String DICT_TYPE3 = "education_type";//教育类型
     public static final String DICT_TYPE4 = "examination_type";//考试类型
     public static final String DICT_TYPE5 = "education";//学历
+    public static final String DICT_TYPE6 = "study_type";//进修类型
+    public static final String DICT_TYPE7 = "tuition_range";//学费范围
+    public static final String DICT_TYPE8 = "school_type";//学费范围
 
     //学校全景
     public static final String panorama1 = "360度机构全景";
@@ -34,7 +37,7 @@ public class Constants {
     public static final int MAX_PAGE_SIZE = 1000;
     public static final int HOT_PAGE_SIZE = 5;
 
-    public static final String chargeStandard1 = "学年";
+    public static final String chargeStandard1 = "年";
     public static final String chargeStandard2 = "学期";
 
 }

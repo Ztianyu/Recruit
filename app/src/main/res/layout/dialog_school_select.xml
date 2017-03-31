@@ -97,7 +97,7 @@
         <TextView
             style="@style/TipTextView"
             android:layout_marginLeft="4dp"
-            android:text="@string/tuitionRange" />
+            android:text="@string/testAccount" />
 
         <EditText
             android:id="@+id/editScore"

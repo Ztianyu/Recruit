@@ -22,8 +22,8 @@ public class NoticePresenter extends IBasePresenter<NoticeView> {
         service = RetrofitHelper.getInstance().getRetrofit().create(NoticeService.class);
     }
 
-    public void getNotice() {
-        mSubscription = RxManager.getInstance().doSubscribe1(service.getNoticeList(), new RxSubscriber<List<NoticeModel>>() {
+    public void getNotice(int pageNo) {
+        mSubscription = RxManager.getInstance().doSubscribe1(service.getNoticeList(pageNo), new RxSubscriber<List<NoticeModel>>() {
             @Override
             protected void _onNext(List<NoticeModel> models) {
                 mView.onNoticeSuccess(models);

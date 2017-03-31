@@ -1,5 +1,6 @@
 package cn.zty.recruit.ui.activity.person;
 
+import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
@@ -10,12 +11,17 @@ import butterknife.OnClick;
 import cn.zty.baselib.utils.ResourceUtil;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.presenter.UpdatePwdPresenter;
+import cn.zty.recruit.utils.UserUtils;
+import cn.zty.recruit.view.StringView;
 
 /**
  * Created by zty on 2017/3/21.
  */
 
-public class ResetPwActivity extends BaseActivity implements View.OnFocusChangeListener {
+public class ResetPwActivity extends BaseActivity implements
+        View.OnFocusChangeListener,
+        StringView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.editOldPw)
@@ -33,6 +39,8 @@ public class ResetPwActivity extends BaseActivity implements View.OnFocusChangeL
     @BindView(R.id.btnReset)
     TextView btnReset;
 
+    private UpdatePwdPresenter updatePwdPresenter;
+
     @Override
     protected int initLayoutId() {
         return R.layout.activity_reset_pw;
@@ -42,6 +50,10 @@ public class ResetPwActivity extends BaseActivity implements View.OnFocusChangeL
     protected void initView() {
         toolbar.setTitle("修改密码");
         initToolbar(toolbar);
+
+        updatePwdPresenter = new UpdatePwdPresenter();
+        updatePwdPresenter.attach(this);
+        presenters.add(updatePwdPresenter);
 
         editOldPw.setOnFocusChangeListener(this);
         editNewPw.setOnFocusChangeListener(this);
@@ -55,7 +67,9 @@ public class ResetPwActivity extends BaseActivity implements View.OnFocusChangeL
 
     @OnClick(R.id.btnReset)
     public void onClick() {
-        finish();
+        updatePwdPresenter.updatePwd(editOldPw.getText().toString(),
+                editNewPw.getText().toString(),
+                editSurePw.getText().toString());
     }
 
     @Override
@@ -84,5 +98,12 @@ public class ResetPwActivity extends BaseActivity implements View.OnFocusChangeL
                 break;
         }
 
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        UserUtils.clearUser(this);
+        startActivity(new Intent(this,LoginActivity.class));
+        finish();
     }
 }

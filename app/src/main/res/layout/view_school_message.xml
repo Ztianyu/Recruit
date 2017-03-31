@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_toRightOf="@id/imgSchool"
-            android:text="广州汁职业术学校"
+            tools:text="广州汁职业术学校"
             android:textColor="@color/textColor" />
 
         <cn.droidlover.xrecyclerview.XRecyclerView
@@ -57,7 +57,7 @@
             style="@style/TipTextView"
             android:layout_width="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="广东 广州"
+            tools:text="广东 广州"
             android:textColor="@color/gray" />
     </LinearLayout>
 
@@ -80,7 +80,7 @@
             style="@style/TipTextView"
             android:layout_width="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="办公、办学"
+            tools:text="办公、办学"
             android:textColor="@color/gray" />
     </LinearLayout>
 
@@ -103,7 +103,7 @@
             style="@style/TipTextView"
             android:layout_width="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="1984年"
+            tools:text="1984年"
             android:textColor="@color/gray" />
     </LinearLayout>
 
@@ -126,7 +126,7 @@
             style="@style/TipTextView"
             android:layout_width="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="广东省 广州市海珠区滨江东路112号"
+            tools:text="广东省 广州市海珠区滨江东路112号"
             android:textColor="@color/gray" />
     </LinearLayout>
 
@@ -151,7 +151,7 @@
             style="@style/TipTextView"
             android:layout_width="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="2017-06-01"
+            tools:text="2017-06-01"
             android:textColor="@color/gray" />
     </LinearLayout>
 
@@ -176,7 +176,7 @@
             style="@style/TipTextView"
             android:layout_width="wrap_content"
             android:layout_marginLeft="8dp"
-            android:text="2017-08-30"
+            tools:text="2017-08-30"
             android:textColor="@color/gray" />
     </LinearLayout>
 

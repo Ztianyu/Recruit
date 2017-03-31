@@ -82,7 +82,7 @@ public class StudyEnrollAdapter extends BaseExpandableListAdapter {
         } else {
             holder = (CollegeAdapter.ViewHolder) convertView.getTag();
         }
-        holder.name.setText("学院" + groupPosition);
+        holder.name.setText(groupData.get(groupPosition).getName());
         if (isExpanded) {
             holder.indicator.setBackgroundResource(R.mipmap.ic_expand);
         } else {
@@ -92,7 +92,7 @@ public class StudyEnrollAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
         ChildHolder holder = null;
         if (convertView == null) {
@@ -108,13 +108,20 @@ public class StudyEnrollAdapter extends BaseExpandableListAdapter {
         }
 
         if (childData.get(groupPosition) != null) {
-            holder.textMajorChildName.setText("专业名" + (groupPosition + 1) + "----" + (childPosition + 1));
+            holder.textMajorChildName.setText(childData.get(groupPosition).get(childPosition).getMajorNm());
+            holder.textStudyLength.setText("学制" + childData.get(groupPosition).get(childPosition).getSchoolLength() + "年");
+            holder.textStudyEducation.setText(childData.get(groupPosition).get(childPosition).getStudyTypeLabel());
+            holder.textStudyPrise.setText(childData.get(groupPosition).get(childPosition).getRegistrationFee() +
+                    "元/" +
+                    childData.get(groupPosition).get(childPosition).getChargeStandardLabel()
+                            .replace("按", "").replace("收", ""));
         }
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, StudyEnrollActivity.class));
+                mContext.startActivity(new Intent(mContext, StudyEnrollActivity.class)
+                        .putExtra("majorModel", childData.get(groupPosition).get(childPosition)));
             }
         });
         return convertView;
@@ -133,6 +140,10 @@ public class StudyEnrollAdapter extends BaseExpandableListAdapter {
         this.groupData.clear();
         groupData.addAll(models);
         notifyDataSetChanged();
+    }
+
+    public List<CollegeModel> getData() {
+        return this.groupData;
     }
 
     public void setChildData(List<StudyMajorModel> models, int groupPosition) {

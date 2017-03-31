@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/stubOrderTop"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/loginHeight">
+
+        <TextView
+            android:id="@+id/textOrderTop"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/loginHeight"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical"
+            android:text="报名编号：57GTSHBJ"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorDiver" />
+    </RelativeLayout>
+
+    <include layout="@layout/view_order_item_content" />
+
+    <RelativeLayout
+        android:id="@+id/stubOrderBottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/loginHeight">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/loginHeight"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="16dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="实付金额："
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textOrderBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13000"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="元"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorDiver" />
+    </RelativeLayout>
+
+</LinearLayout>

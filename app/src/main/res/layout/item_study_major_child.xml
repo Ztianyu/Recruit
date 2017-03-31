@@ -25,9 +25,8 @@
 
         <TextView
             android:id="@+id/textStudyLength"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:drawableLeft="@mipmap/ic_study_length"
             android:drawablePadding="6dp"
             android:gravity="center_vertical"
@@ -36,10 +35,14 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/textStudyEducation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textStudyEducation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:drawableLeft="@mipmap/ic_study_education"
             android:drawablePadding="6dp"
             android:gravity="center_vertical"
@@ -48,10 +51,14 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/textStudyPrise"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textStudyPrise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:drawableLeft="@mipmap/ic_study_prise"
             android:drawablePadding="6dp"
             android:gravity="center_vertical"

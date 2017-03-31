@@ -28,7 +28,7 @@ public class SetTextActivity extends BaseActivity {
     private String url;
     private String strTitle;
 
-    private int type;//0：字符串；1：电话；2：数字
+    private int type;//0：姓名；1：电话；2：昵称
 
     @Override
     protected int initLayoutId() {
@@ -45,8 +45,6 @@ public class SetTextActivity extends BaseActivity {
 
         if (type == 1) {
             editSetText.setInputType(InputType.TYPE_CLASS_NUMBER);
-        } else if (type == 2) {
-            editSetText.setInputType(InputType.TYPE_CLASS_PHONE);
         }
 
         toolbar.setTitle(strTitle);
@@ -93,6 +91,9 @@ public class SetTextActivity extends BaseActivity {
             }
             if (type == 1) {
                 strToast = "请输入手机号码";
+            }
+            if (type == 2) {
+                strToast = "请输入昵称";
             }
             ToastUtils.show(strToast);
         }

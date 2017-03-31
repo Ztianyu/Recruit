@@ -60,4 +60,5 @@ public class SubmitOrderPresenter extends IBasePresenter<StringView> {
             }
         }, true);
     }
+
 }

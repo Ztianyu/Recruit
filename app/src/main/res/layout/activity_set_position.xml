@@ -6,6 +6,6 @@
 
     <include layout="@layout/tool_bar" />
 
-    <include layout="@layout/view_major_select"></include>
+    <include layout="@layout/view_position_select"></include>
 
 </LinearLayout>

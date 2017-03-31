@@ -14,6 +14,8 @@ public class SharedPrefUtils {
 
     public static final String LOGIN_NAME = "loginName";
 
+    public static final String inviteCode = "inviteCode";
+
 
     /**
      * 从SharedPreferences 获取一个boolean值，默认为false

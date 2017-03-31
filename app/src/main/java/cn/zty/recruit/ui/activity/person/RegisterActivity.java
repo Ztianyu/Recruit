@@ -7,15 +7,24 @@ import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.zty.baselib.utils.MyTextUtils;
 import cn.zty.baselib.utils.ResourceUtil;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.base.RecruitApplication;
+import cn.zty.recruit.bean.LoginModel;
+import cn.zty.recruit.presenter.RegisterPresenter;
+import cn.zty.recruit.utils.SharedPrefUtils;
+import cn.zty.recruit.utils.ToastUtils;
+import cn.zty.recruit.view.LoginView;
 
 /**
  * Created by zty on 2017/3/21.
  */
 
-public class RegisterActivity extends BaseActivity implements View.OnFocusChangeListener {
+public class RegisterActivity extends BaseActivity implements
+        View.OnFocusChangeListener,
+        LoginView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.editRegisterPw)
@@ -33,6 +42,8 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
     @BindView(R.id.btnRegister)
     TextView btnRegister;
 
+    private RegisterPresenter registerPresenter;
+
     private String mobile;
 
     @Override
@@ -47,6 +58,10 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
         toolbar.setTitle("设置密码");
         initToolbar(toolbar);
 
+        registerPresenter = new RegisterPresenter();
+        registerPresenter.attach(this);
+        presenters.add(registerPresenter);
+
         editRegisterPw.setOnFocusChangeListener(this);
         editRegisterSurePw.setOnFocusChangeListener(this);
         editRegisterCode.setOnFocusChangeListener(this);
@@ -54,12 +69,15 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
 
     @Override
     protected void initData() {
-
+        editRegisterCode.setText(MyTextUtils.notNullStr(SharedPrefUtils.getString(this, SharedPrefUtils.inviteCode)));
     }
 
     @OnClick(R.id.btnRegister)
     public void onClick() {
-        finish();
+        registerPresenter.register(mobile,
+                editRegisterPw.getText().toString(),
+                editRegisterSurePw.getText().toString(),
+                editRegisterCode.getText().toString());
     }
 
     @Override
@@ -87,5 +105,12 @@ public class RegisterActivity extends BaseActivity implements View.OnFocusChange
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onLoginSuccess(LoginModel loginModel) {
+        RecruitApplication.getInstance().setLoginName(mobile);
+        finish();
+        ToastUtils.show("注册成功！");
     }
 }

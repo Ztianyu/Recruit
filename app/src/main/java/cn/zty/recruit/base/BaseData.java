@@ -12,4 +12,8 @@ import cn.zty.recruit.bean.TipModel;
 public class BaseData {
 
     public static List<TipModel> educations = new ArrayList<>();
+
+    public static String studySchoolPhone;
+
+    public static String studySchoolTime = "09:00 - 17:30";
 }

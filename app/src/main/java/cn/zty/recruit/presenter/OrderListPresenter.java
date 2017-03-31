@@ -1,5 +1,8 @@
 package cn.zty.recruit.presenter;
 
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
+
 import java.util.List;
 
 import cn.zty.baselib.bean.ResultBean;
@@ -27,24 +30,28 @@ public class OrderListPresenter extends IBasePresenter<OrderListView> {
         service = RetrofitHelper.getInstance().getRetrofit().create(OrderService.class);
     }
 
-    private Observable<ResultBean<List<OrderModel>>> submit(int state) {
+    private Observable<ResultBean<List<OrderModel>>> submit(int state, int pageNo) {
         RequestParams params = RequestParamsHelper.getInstance().getRequestParams();
         params.put("tokenId", RecruitApplication.getInstance().getTokenId());
         params.put("userId", RecruitApplication.getInstance().getUserId());
         params.put("state", state);
+        params.put("pageNo", pageNo);
         return service.getOrderList(params);
     }
 
-    private Observable<ResultBean<OrderModel>> submit1(String orderId) {
+    private Observable<ResultBean<OrderModel>> submit1(String orderId, String orderCode) {
         RequestParams params = RequestParamsHelper.getInstance().getRequestParams();
         params.put("tokenId", RecruitApplication.getInstance().getTokenId());
         params.put("userId", RecruitApplication.getInstance().getUserId());
-        params.put("state", orderId);
+        if (!TextUtils.isEmpty(orderId))
+            params.put("orderId", orderId);
+        if (!TextUtils.isEmpty(orderCode))
+            params.put("orderCode", orderCode);
         return service.getOrder(params);
     }
 
-    public void getOrderList(int state) {
-        mSubscription = RxManager.getInstance().doSubscribe1(submit(state), new RxSubscriber<List<OrderModel>>() {
+    public void getOrderList(int state, int pageNo) {
+        mSubscription = RxManager.getInstance().doSubscribe1(submit(state, pageNo), new RxSubscriber<List<OrderModel>>() {
             @Override
             protected void _onNext(List<OrderModel> models) {
                 mView.onOrderListSuccess(models);
@@ -52,8 +59,8 @@ public class OrderListPresenter extends IBasePresenter<OrderListView> {
         }, false);
     }
 
-    public void getOrderList(String orderId) {
-        mSubscription = RxManager.getInstance().doSubscribe1(submit1(orderId), new RxSubscriber<OrderModel>() {
+    public void getOrder(@Nullable String orderId, @Nullable String orderCode) {
+        mSubscription = RxManager.getInstance().doSubscribe1(submit1(orderId, orderCode), new RxSubscriber<OrderModel>() {
             @Override
             protected void _onNext(OrderModel orderModel) {
                 mView.onOrderDetail(orderModel);

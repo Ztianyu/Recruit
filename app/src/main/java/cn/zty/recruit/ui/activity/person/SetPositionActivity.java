@@ -23,7 +23,7 @@ import cn.zty.recruit.view.AreaView;
  * Created by zty on 2017/3/15.
  */
 
-public class SetPositionActivity extends BaseActivity implements AreaView{
+public class SetPositionActivity extends BaseActivity implements AreaView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.linkage)
@@ -37,6 +37,8 @@ public class SetPositionActivity extends BaseActivity implements AreaView{
 
     private String selectProvinceKey;
     private String selectCityKey;
+    private String selectProvince;
+    private String selectCity;
 
     @Override
     protected int initLayoutId() {
@@ -45,12 +47,12 @@ public class SetPositionActivity extends BaseActivity implements AreaView{
 
     @Override
     protected void initView() {
-        toolbar.setTitle("位置");
+        toolbar.setTitle("位 置");
         initToolbar(toolbar);
 
         getProvincePresenter = new GetProvincePresenter();
         getProvincePresenter.attach(this);
-        presenters.add(getCityPresenter);
+        presenters.add(getProvincePresenter);
 
         getCityPresenter = new GetCityPresenter();
         getCityPresenter.attach(this);
@@ -66,12 +68,14 @@ public class SetPositionActivity extends BaseActivity implements AreaView{
             @Override
             public void onLeftClick(View itemView, int position) {
                 selectProvinceKey = leftMenuListAdapter.getList().get(position).getKey();
+                selectProvince = leftMenuListAdapter.getList().get(position).getValue();
                 getCityPresenter.getCity(selectProvinceKey);
             }
 
             @Override
             public void onRightClick(View itemView, int position) {
                 selectCityKey = rightContentListAdapter.getList().get(position).getKey();
+                selectCity = rightContentListAdapter.getList().get(position).getValue();
                 callBack();
             }
         });
@@ -84,17 +88,19 @@ public class SetPositionActivity extends BaseActivity implements AreaView{
 
     private void callBack() {
         Intent intent = new Intent();
-        intent.putExtra("province", selectProvinceKey);
-        intent.putExtra("city", selectCityKey);
+        intent.putExtra("provinceKey", selectProvinceKey);
+        intent.putExtra("cityKey", selectCityKey);
+        intent.putExtra("province", selectProvince);
+        intent.putExtra("city", selectCity);
         setResult(1, intent);
         finish();
     }
 
     @Override
     public void onAreaSuccess(int type, List<TipModel> models) {
-        if(type ==0){
+        if (type == 0) {
             linkage.updateData(models);
-        }else{
+        } else {
             rightContentListAdapter.setList(models);
         }
     }

@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#f04848</color>
     <color name="colorAccent">#f04848</color>
 
+    <color name="red">#FFC93437</color>
+
     <color name="white">@android:color/white</color>
 
     <color name="colorBackground">#fcf8f5</color>
@@ -18,4 +20,6 @@
     <color name="labColor4">#48d1b1</color>
 
     <color name="integralColor">#5b83ff</color>
+
+    <color name="gray2">#666666</color>
 </resources>

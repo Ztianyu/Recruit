@@ -74,7 +74,7 @@ public class SchoolSelectFragment extends DialogFragment implements
 
     private String provinceId;
     private String discipline;
-    private MajorModel majorModel;
+    private String majorId;
     private String examinationType;
 
     public static SchoolSelectFragment newInstance(int height, SchoolSelectListener listener) {
@@ -184,7 +184,7 @@ public class SchoolSelectFragment extends DialogFragment implements
                 hotMajorPresenter.getHotMajorList(-1, discipline, 1, Constants.MAX_PAGE_SIZE);
                 break;
             case R.id.spinnerMajorType:
-                majorModel = majorAdapter.getData().get(position);
+                majorId = majorAdapter.getData().get(position).getId();
                 break;
             case R.id.spinnerTestType:
                 examinationType = examinationAdapter.getData().get(position).getKey();
@@ -200,7 +200,7 @@ public class SchoolSelectFragment extends DialogFragment implements
     @OnClick(R.id.btnSure)
     public void onClick() {
         dismiss();
-        listener.onSchoolSelect(provinceId, majorModel, editScore.getText().toString(), examinationType);
+        listener.onSchoolSelect(provinceId, discipline, majorId, editScore.getText().toString(), examinationType);
     }
 
     public SchoolSelectListener getListener() {

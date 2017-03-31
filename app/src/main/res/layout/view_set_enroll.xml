@@ -25,6 +25,15 @@
         <EditText
             android:id="@+id/editEnrollName"
             style="@style/EditEnroll" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:minWidth="8dp"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -47,6 +56,15 @@
             android:drawableRight="@mipmap/ic_expand"
             android:gravity="center_vertical"
             android:paddingRight="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:minWidth="8dp"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -71,6 +89,15 @@
             android:gravity="center_vertical"
             android:paddingRight="16dp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:minWidth="8dp"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="18sp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -90,6 +117,15 @@
         <EditText
             android:id="@+id/editEnrollPhone"
             style="@style/EditEnroll" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:minWidth="8dp"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -112,6 +148,15 @@
             android:drawableRight="@mipmap/ic_expand"
             android:gravity="center_vertical"
             android:paddingRight="16dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:minWidth="8dp"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -136,6 +181,15 @@
             android:gravity="center_vertical"
             android:paddingRight="16dp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:minWidth="8dp"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="18sp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -149,6 +203,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="备　　注："
+            android:layout_gravity="top"
+            android:layout_marginTop="8dp"
             android:textColor="@color/textColor"
             android:textSize="14sp" />
 
@@ -159,6 +215,16 @@
             android:minLines="5"
             android:paddingBottom="4dp"
             android:paddingTop="4dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:minWidth="8dp"
+            android:text="*"
+            android:textColor="@color/red"
+            android:textSize="18sp"
+            android:visibility="invisible" />
     </LinearLayout>
 
     <View

@@ -1,5 +1,7 @@
 package cn.zty.recruit.base;
 
+import android.text.TextUtils;
+
 import cn.zty.baselib.http.RequestParams;
 
 
@@ -23,6 +25,10 @@ public class RequestParamsHelper {
 
     public RequestParams getRequestParams() {
         RequestParams params = new RequestParams();
+        if (!TextUtils.isEmpty(RecruitApplication.getInstance().getUserId()))
+            params.put("userId", RecruitApplication.getInstance().getUserId());
+        if (!TextUtils.isEmpty(RecruitApplication.getInstance().getTokenId()))
+            params.put("tokenId", RecruitApplication.getInstance().getTokenId());
         return params;
     }
 }

@@ -10,12 +10,18 @@ import butterknife.OnClick;
 import cn.zty.baselib.utils.ResourceUtil;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.base.RecruitApplication;
+import cn.zty.recruit.presenter.SetNewPwdPresenter;
+import cn.zty.recruit.utils.ToastUtils;
+import cn.zty.recruit.view.StringView;
 
 /**
  * Created by zty on 2017/3/21.
  */
 
-public class SetNewPwActivity extends BaseActivity  implements View.OnFocusChangeListener {
+public class SetNewPwActivity extends BaseActivity implements
+        View.OnFocusChangeListener,
+        StringView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.editRegisterPw)
@@ -31,6 +37,8 @@ public class SetNewPwActivity extends BaseActivity  implements View.OnFocusChang
 
     private String mobile;
 
+    private SetNewPwdPresenter setNewPwdPresenter;
+
     @Override
     protected int initLayoutId() {
         return R.layout.activity_set_new_pw;
@@ -42,6 +50,10 @@ public class SetNewPwActivity extends BaseActivity  implements View.OnFocusChang
 
         toolbar.setTitle("设置密码");
         initToolbar(toolbar);
+
+        setNewPwdPresenter = new SetNewPwdPresenter();
+        setNewPwdPresenter.attach(this);
+        presenters.add(setNewPwdPresenter);
 
         editRegisterPw.setOnFocusChangeListener(this);
         editRegisterSurePw.setOnFocusChangeListener(this);
@@ -55,6 +67,9 @@ public class SetNewPwActivity extends BaseActivity  implements View.OnFocusChang
 
     @OnClick(R.id.btnRegister)
     public void onClick() {
+        setNewPwdPresenter.setNewPwd(mobile,
+                editRegisterPw.getText().toString(),
+                editRegisterSurePw.getText().toString());
     }
 
     @Override
@@ -75,5 +90,11 @@ public class SetNewPwActivity extends BaseActivity  implements View.OnFocusChang
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        RecruitApplication.getInstance().setLoginName(mobile);
+        finish();
     }
 }

@@ -1,6 +1,5 @@
 package cn.zty.recruit.ui.activity.person;
 
-import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.ViewPagerAdapter;
 import cn.zty.recruit.base.BaseActivity;
@@ -61,12 +59,5 @@ public class IntegralActivity extends BaseActivity {
     @Override
     protected void initData() {
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

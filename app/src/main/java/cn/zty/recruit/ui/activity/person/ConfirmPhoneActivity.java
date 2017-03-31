@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -75,16 +76,16 @@ public class ConfirmPhoneActivity extends BaseActivity implements View.OnFocusCh
             case R.id.btnGetCode:
                 if (ValidateUtil.isPhone(editRegisterPhone.getText().toString())) {
                     SMSSDK.getVerificationCode("86", editRegisterPhone.getText().toString());
+                    sendCode();
                 } else {
                     ToastUtils.show("请输入正确的手机号码");
                 }
                 break;
             case R.id.btnConfirmPhone:
-                finish();
-                if (type == 0) {
-                    startActivity(new Intent(this, RegisterActivity.class).putExtra("mobile", editRegisterPhone.getText().toString()));
+                if (!TextUtils.isEmpty(editRegisterCode.getText().toString())) {
+                    SMSSDK.submitVerificationCode("86", editRegisterPhone.getText().toString(), editRegisterCode.getText().toString());
                 } else {
-                    startActivity(new Intent(this, SetNewPwActivity.class).putExtra("mobile", editRegisterPhone.getText().toString()));
+                    ToastUtils.show("请输入验证码");
                 }
                 break;
         }
@@ -93,6 +94,7 @@ public class ConfirmPhoneActivity extends BaseActivity implements View.OnFocusCh
     private void sendCode() {
         btnGetCode.setClickable(false);
         btnGetCode.setBackgroundResource(R.drawable.bg_no_get_code);
+        btnGetCode.setTextColor(ResourceUtil.resToColor(this, R.color.gray));
         btnGetCode.setText("重新发送(" + i + ")");
 
         new Thread(new Runnable() {
@@ -121,11 +123,13 @@ public class ConfirmPhoneActivity extends BaseActivity implements View.OnFocusCh
             super.handleMessage(msg);
 
             if (msg.what == -9) {
-                btnGetCode.setText("重新发送(" + i + ")");
+                if (btnGetCode != null)
+                    btnGetCode.setText("重新发送(" + i + ")");
             } else if (msg.what == -8) {
                 btnGetCode.setBackgroundResource(R.drawable.bg_get_code);
                 btnGetCode.setText("获取验证码");
                 btnGetCode.setClickable(true);
+                btnGetCode.setTextColor(ResourceUtil.resToColor(ConfirmPhoneActivity.this, R.color.colorAccent));
                 i = 30;
             }
         }
@@ -155,14 +159,20 @@ public class ConfirmPhoneActivity extends BaseActivity implements View.OnFocusCh
             if (result == SMSSDK.RESULT_COMPLETE) {
                 //提交验证码成功
                 if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                    finish();
+                    if (type == 0) {
+                        startActivity(new Intent(ConfirmPhoneActivity.this, RegisterActivity.class).putExtra("mobile", editRegisterPhone.getText().toString()));
+                    } else {
+                        startActivity(new Intent(ConfirmPhoneActivity.this, SetNewPwActivity.class).putExtra("mobile", editRegisterPhone.getText().toString()));
+                    }
                     //获取验证码成功
                 } else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-                    sendCode();
                     //返回支持发送验证码的国家列表
                 } else if (event == SMSSDK.EVENT_GET_SUPPORTED_COUNTRIES) {
 
                 }
             } else {
+                ToastUtils.show("验证码有误");
                 ((Throwable) data).printStackTrace();
             }
         }
@@ -188,4 +198,9 @@ public class ConfirmPhoneActivity extends BaseActivity implements View.OnFocusCh
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SMSSDK.unregisterEventHandler(eventHandler);
+    }
 }

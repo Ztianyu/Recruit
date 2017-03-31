@@ -185,6 +185,18 @@
         <activity
             android:name=".ui.activity.school.SchoolSearchActivity"
             android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.person.NoticeDetailActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.PayActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.person.OrderDetailActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

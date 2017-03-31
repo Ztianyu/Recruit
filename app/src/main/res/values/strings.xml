@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Recruit</string>
+    <string name="app_name">学程通</string>
     <string name="title_home">首页</string>
     <string name="title_dashboard">直播</string>
     <string name="title_notifications">生活</string>
@@ -39,7 +39,7 @@
     <string name="majorType">意向专业:</string>
     <string name="testType">考试类型:</string>
     <string name="testAccount">考试分数:</string>
-    <string name="tuitionRange">考试分数:</string>
+    <string name="tuitionRange">学费范围:</string>
 
     <string name="labSchool1">院校简介</string>
     <string name="labSchool2">学校全景</string>

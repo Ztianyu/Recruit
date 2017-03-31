@@ -1,11 +1,17 @@
 package cn.zty.recruit.ui.activity;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
+import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import butterknife.BindView;
+import cn.zty.baselib.utils.AppManager;
 import cn.zty.baselib.widget.BottomNavigationViewEx;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
@@ -96,4 +102,30 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         }
         currentFragment = fragment;
     }
+
+    private boolean bExit = false;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (bExit) {
+                AppManager.getInstance().AppExit(this, false);
+                finish();
+                return true;
+            }
+            bExit = true;
+            mHandler.sendEmptyMessageDelayed(0x100, 2000);
+            Toast.makeText(this, "再按一次退出程序",
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private Handler mHandler = new Handler(Looper.getMainLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            bExit = false;
+        }
+    };
 }

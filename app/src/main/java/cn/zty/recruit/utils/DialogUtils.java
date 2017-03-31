@@ -18,6 +18,7 @@ import cn.zty.recruit.listener.IndustryTypeListener;
 import cn.zty.recruit.listener.MajorSelectListener;
 import cn.zty.recruit.listener.SchoolSelectListener;
 import cn.zty.recruit.listener.SexSelectListener;
+import cn.zty.recruit.listener.StudySchoolListener;
 import cn.zty.recruit.listener.ToastSureListener;
 import cn.zty.recruit.ui.fragment.AreaSelectFragment;
 import cn.zty.recruit.ui.fragment.SelectEducation;
@@ -75,11 +76,11 @@ public class DialogUtils {
     /**
      * 择校
      */
-    public static void showStudySelect(FragmentManager manager, int topHeight) {
+    public static void showStudySelect(FragmentManager manager, int topHeight, StudySchoolListener listener) {
         Fragment fragment = manager.findFragmentByTag(STUDY_SELECT);
         if (fragment != null)
             manager.beginTransaction().remove(fragment);
-        StudySchoolSelect studySchoolSelect = StudySchoolSelect.newInstance(topHeight);
+        StudySchoolSelect studySchoolSelect = StudySchoolSelect.newInstance(topHeight,listener);
         studySchoolSelect.show(manager.beginTransaction(), STUDY_SELECT);
     }
 

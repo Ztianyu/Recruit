@@ -18,6 +18,7 @@ public class UserModel {
      * mobile : 13023454312
      * birthDate : 2013-03-14
      * education : 1
+     * educationLabel:
      * province : 150000
      * city : 150600
      * areaNm : 内蒙古自治区•鄂尔多斯市
@@ -45,6 +46,15 @@ public class UserModel {
     private String inviteCode;
     private String createDate;
     private String updateDate;
+    private String educationLabel;
+
+    public String getEducationLabel() {
+        return educationLabel;
+    }
+
+    public void setEducationLabel(String educationLabel) {
+        this.educationLabel = educationLabel;
+    }
 
     public String getId() {
         return id;
