@@ -65,6 +65,8 @@ public class RegisterActivity extends BaseActivity implements
         editRegisterPw.setOnFocusChangeListener(this);
         editRegisterSurePw.setOnFocusChangeListener(this);
         editRegisterCode.setOnFocusChangeListener(this);
+
+        editRegisterCode.setText(MyTextUtils.notNullStr(SharedPrefUtils.getString(this, SharedPrefUtils.inviteCode)));
     }
 
     @Override

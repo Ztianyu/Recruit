@@ -40,4 +40,12 @@ public class Constants {
     public static final String chargeStandard1 = "年";
     public static final String chargeStandard2 = "学期";
 
+    public static final String ORDER_STATE1 = "0";
+    public static final String ORDER_STATE2 = "1";
+    public static final String ORDER_STATE3 = "2";
+
+    public static final String ORDER_STATE_VALUE1 = "待付款";
+    public static final String ORDER_STATE_VALUE2 = "已预订";
+    public static final String ORDER_STATE_VALUE3 = "已完成";
+
 }

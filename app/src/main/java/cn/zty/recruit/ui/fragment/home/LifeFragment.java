@@ -4,7 +4,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.BindView;
-import cn.droidlover.xrecyclerview.XRecyclerContentLayout;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseFragment;
 import cn.zty.recruit.base.RecruitApplication;
@@ -16,14 +15,12 @@ import cn.zty.recruit.base.RecruitApplication;
 public class LifeFragment extends BaseFragment {
     @BindView(R.id.title)
     TextView title;
-    @BindView(R.id.fragmentContentLayout)
-    XRecyclerContentLayout fragmentContentLayout;
     @BindView(R.id.layoutStatus)
     LinearLayout layoutStatus;
 
     @Override
     protected int initLayoutId() {
-        return R.layout.fragment_content;
+        return R.layout.fragment_life;
     }
 
     @Override

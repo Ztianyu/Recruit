@@ -37,7 +37,7 @@ public class PanoramaDetailActivity extends BaseActivity {
 
         panoramaModel = getIntent().getParcelableExtra("panoramaModel");
 
-        if (TextUtils.isEmpty(panoramaModel.getPlace())) {
+        if (!TextUtils.isEmpty(panoramaModel.getPlace())) {
             toolbar.setTitle(panoramaModel.getPlace());
         }
 

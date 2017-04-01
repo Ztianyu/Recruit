@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutBill"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@mipmap/bg_black_48dp"
@@ -7,32 +9,33 @@
     android:orientation="horizontal">
 
     <TextView
+        android:id="@+id/textPayStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:text="定金："
         android:textColor="@color/white"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        tools:text="定金：" />
 
     <TextView
         android:id="@+id/textBillMoney"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
-        android:text="500元"
         android:textColor="@color/white"
         android:textSize="17sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:text="500元" />
 
     <TextView
         android:id="@+id/textBillTip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
-        android:text="(可抵1000元)"
         android:textColor="@color/colorAccent"
         android:textSize="14sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        tools:text="(可抵1000元)" />
 
     <TextView
         android:layout_width="0dp"
@@ -44,11 +47,11 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginLeft="4dp"
-        android:text="提交并支付"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
         android:background="@color/colorAccent"
         android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="提交并支付"
         android:textColor="@color/white"
         android:textSize="14sp"
         android:textStyle="bold" />

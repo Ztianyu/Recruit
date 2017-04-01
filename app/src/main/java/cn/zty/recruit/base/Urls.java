@@ -19,6 +19,9 @@ public class Urls {
     public static final String getUserDataDetail = HOST_ADMIN + "userData/getUserDataDetail";
     public static final String update = HOST_ADMIN + "userData/update";
 
+    //验证邀请码
+    public static final String checkInviteCode = HOST_ADMIN + "user/checkInviteCode";
+
     //热门专业列表
     public static final String getHotMajorList = HOST_ADMIN + "hotMajor/getHotMajorList";
     //职业学校列表

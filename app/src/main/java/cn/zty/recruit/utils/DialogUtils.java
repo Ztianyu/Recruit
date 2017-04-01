@@ -21,6 +21,7 @@ import cn.zty.recruit.listener.SexSelectListener;
 import cn.zty.recruit.listener.StudySchoolListener;
 import cn.zty.recruit.listener.ToastSureListener;
 import cn.zty.recruit.ui.fragment.AreaSelectFragment;
+import cn.zty.recruit.ui.fragment.PayFragment;
 import cn.zty.recruit.ui.fragment.SelectEducation;
 import cn.zty.recruit.ui.fragment.SelectSexFragment;
 import cn.zty.recruit.ui.fragment.ToastFragment;
@@ -51,6 +52,8 @@ public class DialogUtils {
 
     public static final String INDUSTRY_TYPE = "industryTypeFragment";
 
+    public static final String PAY = "payFragment";
+
     /**
      * 选择 省、市（type:0(省)；1（市））
      */
@@ -80,7 +83,7 @@ public class DialogUtils {
         Fragment fragment = manager.findFragmentByTag(STUDY_SELECT);
         if (fragment != null)
             manager.beginTransaction().remove(fragment);
-        StudySchoolSelect studySchoolSelect = StudySchoolSelect.newInstance(topHeight,listener);
+        StudySchoolSelect studySchoolSelect = StudySchoolSelect.newInstance(topHeight, listener);
         studySchoolSelect.show(manager.beginTransaction(), STUDY_SELECT);
     }
 
@@ -202,5 +205,16 @@ public class DialogUtils {
             manager.beginTransaction().remove(fragment);
         IndustryTypeFragment industryTypeFragment = IndustryTypeFragment.newInstance(height, listener);
         industryTypeFragment.show(manager.beginTransaction(), INDUSTRY_TYPE);
+    }
+
+    /**
+     * 支付
+     */
+    public static void showPayDialog(FragmentManager manager) {
+        Fragment fragment = manager.findFragmentByTag(PAY);
+        if (fragment != null)
+            manager.beginTransaction().remove(fragment);
+        PayFragment payFragment = PayFragment.newInstance();
+        payFragment.show(manager.beginTransaction(), PAY);
     }
 }

@@ -38,7 +38,7 @@ public class UpdateUserPresenter extends IBasePresenter<UserView> {
         if (RecruitApplication.getInstance().getUserModel() != null)
             params.put("id", RecruitApplication.getInstance().getUserModel().getId());
         if (!TextUtils.isEmpty(nickName))
-            params.put("nickName", nickName);
+            params.put("nickNm", nickName);
         if (!TextUtils.isEmpty(fullNm))
             params.put("fullNm", fullNm);
         if (!TextUtils.isEmpty(sex))

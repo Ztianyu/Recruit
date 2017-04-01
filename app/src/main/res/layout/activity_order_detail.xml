@@ -7,24 +7,41 @@
 
     <include layout="@layout/tool_bar" />
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:scrollbars="none">
 
-            <include layout="@layout/view_order_header" />
-
-            <View
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="8dp" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-            <include layout="@layout/view_order_content" />
-        </LinearLayout>
-    </ScrollView>
+                <include layout="@layout/view_order_header" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp" />
+
+                <include layout="@layout/view_order_content" />
+
+                <include layout="@layout/view_order_bill" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <include
+            layout="@layout/view_bill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"></include>
+    </FrameLayout>
 
 </LinearLayout>

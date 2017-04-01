@@ -2,6 +2,7 @@ package cn.zty.recruit.ui.activity.school;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,6 +14,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.droidlover.xrecyclerview.XRecyclerContentLayout;
 import cn.droidlover.xrecyclerview.XRecyclerView;
+import cn.zty.baselib.utils.AppManager;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.UniversityAdapter;
 import cn.zty.recruit.base.BaseActivity;
@@ -23,6 +25,7 @@ import cn.zty.recruit.listener.AreaSelectListener;
 import cn.zty.recruit.listener.MajorSelectListener;
 import cn.zty.recruit.listener.SchoolSelectListener;
 import cn.zty.recruit.presenter.VocationalListPresenter;
+import cn.zty.recruit.ui.activity.MainActivity;
 import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.VocationalListView;
@@ -132,7 +135,7 @@ public class SchoolActivity extends BaseActivity implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnSearchBack:
-                finish();
+                backEvent();
                 break;
             case R.id.textSearch:
                 startActivity(new Intent(this, SchoolSearchActivity.class));
@@ -229,4 +232,21 @@ public class SchoolActivity extends BaseActivity implements
         initData();
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            backEvent();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void backEvent() {
+        if (AppManager.getInstance().isHasActivity(MainActivity.class)) {
+            finish();
+        } else {
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }
+    }
 }

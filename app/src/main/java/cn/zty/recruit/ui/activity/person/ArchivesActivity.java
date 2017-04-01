@@ -191,8 +191,7 @@ public class ArchivesActivity extends BaseActivity implements OnSelectListener,
                     SelectPicUtils.startPhotoZoom(this, data.getData());
                 break;
             case SelectPicUtils.PHOTO_REQUEST_TAKE_PHOTO:
-                if (data != null)
-                    SelectPicUtils.startPhotoZoom(this, Uri.fromFile(tempFile));
+                SelectPicUtils.startPhotoZoom(this, Uri.fromFile(tempFile));
                 break;
             case SelectPicUtils.PHOTO_REQUEST_CUT:
                 if (data != null)

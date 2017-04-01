@@ -20,6 +20,7 @@ public class OrderModel {
      * orderCode : 20170330165622
      * courseId : f943adc8aa444eb382abda1325cc7330
      * courseNm : 市场营销
+     * departmentNm ：信息学院
      * schoolNm : 广州市蓝天技工学校
      * imgUrl : /trainOrg/2017/03/07f5dd0b8d0547229ee6e11f6e93a86e.jpg
      * thumbImg : /trainOrg/2017/03/07f5dd0b8d0547229ee6e11f6e93a86e_small.jpg
@@ -35,6 +36,8 @@ public class OrderModel {
      * state : 0
      * createDate : 2017-03-30 16:56
      * updateDate : 2017-03-30 16:56
+     * remarks ：
+     * studyTypeLabel :
      */
 
     private String id;
@@ -64,6 +67,33 @@ public class OrderModel {
     private String state;
     private String createDate;
     private String updateDate;
+    private String departmentNm;
+    private String remarks;
+    private String studyTypeLabel;
+
+    public String getStudyTypeLabel() {
+        return studyTypeLabel;
+    }
+
+    public void setStudyTypeLabel(String studyTypeLabel) {
+        this.studyTypeLabel = studyTypeLabel;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getDepartmentNm() {
+        return departmentNm;
+    }
+
+    public void setDepartmentNm(String departmentNm) {
+        this.departmentNm = departmentNm;
+    }
 
     public String getId() {
         return id;

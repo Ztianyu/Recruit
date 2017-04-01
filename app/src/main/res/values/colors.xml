@@ -21,5 +21,6 @@
 
     <color name="integralColor">#5b83ff</color>
 
+    <color name="gray3">#ddffffff</color>
     <color name="gray2">#666666</color>
 </resources>

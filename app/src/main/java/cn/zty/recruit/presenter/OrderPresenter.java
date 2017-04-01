@@ -15,18 +15,18 @@ import cn.zty.recruit.bean.OrderModel;
 import cn.zty.recruit.rx.RxManager;
 import cn.zty.recruit.rx.RxSubscriber;
 import cn.zty.recruit.service.OrderService;
-import cn.zty.recruit.view.OrderListView;
+import cn.zty.recruit.view.OrderView;
 import rx.Observable;
 
 /**
  * Created by zty on 2017/3/23.
  */
 
-public class OrderListPresenter extends IBasePresenter<OrderListView> {
+public class OrderPresenter extends IBasePresenter<OrderView> {
 
     OrderService service;
 
-    public OrderListPresenter() {
+    public OrderPresenter() {
         service = RetrofitHelper.getInstance().getRetrofit().create(OrderService.class);
     }
 

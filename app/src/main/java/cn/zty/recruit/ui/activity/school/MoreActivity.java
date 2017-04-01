@@ -54,7 +54,7 @@ public class MoreActivity extends BaseActivity implements
 
     int currentPage = 1;
     int maxPage = 1;
-    int pageSize = 10;
+    int pageSize = 15;
 
     private VocationalListPresenter vocationalListPresenter;
     private HotMajorPresenter hotMajorPresenter;
@@ -101,9 +101,9 @@ public class MoreActivity extends BaseActivity implements
             moreContent.refreshState(true);
 
         if (type == TYPE_HOT_SCHOOL) {
-            vocationalListPresenter.getVocationList(null, null, null, null, null, null, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
+            vocationalListPresenter.getVocationList(null, null, null, null, null, null, -1, currentPage, pageSize);
         } else if (type == TYPE_HOT_MAJOR) {
-            hotMajorPresenter.getHotMajorList(-1, null, currentPage, Constants.DEFAULT_PAGE_SIZE);
+            hotMajorPresenter.getHotMajorList(-1, null, currentPage, pageSize);
         }
     }
 

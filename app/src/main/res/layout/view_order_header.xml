@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:padding="8dp">
@@ -32,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="张娜"
+                tools:text="张娜"
                 android:textColor="@color/textColor"
                 android:textSize="15sp" />
 
@@ -46,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="高中"
+                tools:text="高中"
                 android:textColor="@color/colorAccent"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -66,7 +68,7 @@
                 android:drawableLeft="@mipmap/ic_age_tip"
                 android:drawablePadding="6dp"
                 android:gravity="center_vertical"
-                android:text="18岁"
+                tools:text="18岁"
                 android:textColor="@color/gray"
                 android:textSize="14sp" />
 
@@ -87,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
                 android:gravity="center_vertical"
-                android:text="女"
+                tools:text="女"
                 android:textColor="@color/gray"
                 android:textSize="14sp" />
 
@@ -103,7 +105,7 @@
                 android:drawableLeft="@mipmap/ic_phone_tip"
                 android:drawablePadding="6dp"
                 android:gravity="center_vertical"
-                android:text="15687423152"
+                tools:text="15687423152"
                 android:textColor="@color/gray"
                 android:textSize="14sp" />
         </LinearLayout>

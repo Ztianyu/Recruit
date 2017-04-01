@@ -69,5 +69,11 @@
     <string name="majorFun2">在线试听</string>
     <string name="majorFun3">在线报名</string>
 
+    <string name="lifeFun1">快乾公益</string>
+    <string name="lifeFun2">圈子活动</string>
+    <string name="lifeFun3">助学金</string>
+    <string name="lifeFun4">社区服务</string>
+    <string name="lifeFun5">生活缴费</string>
+    <string name="lifeFun6">孵化器</string>
 
 </resources>

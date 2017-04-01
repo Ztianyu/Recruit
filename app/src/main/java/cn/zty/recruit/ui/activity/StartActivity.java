@@ -8,21 +8,19 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.zty.baselib.utils.ResourceUtil;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
-import cn.zty.recruit.base.BaseData;
-import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.base.RecruitApplication;
-import cn.zty.recruit.bean.TipModel;
 import cn.zty.recruit.bean.UserModel;
-import cn.zty.recruit.presenter.DictPresenter;
+import cn.zty.recruit.presenter.CheckInviteCodePresenter;
 import cn.zty.recruit.presenter.GetUserPresenter;
-import cn.zty.recruit.view.DictListView;
+import cn.zty.recruit.ui.activity.school.SchoolActivity;
+import cn.zty.recruit.utils.SharedPrefUtils;
+import cn.zty.recruit.utils.ToastUtils;
+import cn.zty.recruit.view.StringView;
 import cn.zty.recruit.view.UserView;
 
 /**
@@ -32,8 +30,8 @@ import cn.zty.recruit.view.UserView;
 
 public class StartActivity extends BaseActivity implements
         View.OnFocusChangeListener,
-        DictListView,
-        UserView {
+        UserView,
+        StringView {
 
     @BindView(R.id.editStartCode)
     EditText editStartCode;
@@ -41,10 +39,12 @@ public class StartActivity extends BaseActivity implements
     TextView textStartCodeTip;
     @BindView(R.id.btnSureCode)
     TextView btnSureCode;
+    @BindView(R.id.btnSkip)
+    TextView btnSkip;
 
-    private DictPresenter dictPresenter;
+    private GetUserPresenter presenter;
 
-    GetUserPresenter presenter;
+    private CheckInviteCodePresenter checkInviteCodePresenter;
 
     @Override
     protected int initLayoutId() {
@@ -53,13 +53,13 @@ public class StartActivity extends BaseActivity implements
 
     @Override
     protected void initView() {
-        dictPresenter = new DictPresenter();
-        dictPresenter.attach(this);
-        presenters.add(dictPresenter);
-
         presenter = new GetUserPresenter();
         presenter.attach(this);
         presenters.add(presenter);
+
+        checkInviteCodePresenter = new CheckInviteCodePresenter();
+        checkInviteCodePresenter.attach(this);
+        presenters.add(checkInviteCodePresenter);
 
         setTitleBar();
 
@@ -68,7 +68,6 @@ public class StartActivity extends BaseActivity implements
 
     @Override
     protected void initData() {
-        dictPresenter.getDictList(Constants.DICT_TYPE5);
 
         if (!TextUtils.isEmpty(RecruitApplication.getInstance().getTokenId()))
             presenter.getUser(RecruitApplication.getInstance().getTokenId(), RecruitApplication.getInstance().getUserId());
@@ -92,7 +91,7 @@ public class StartActivity extends BaseActivity implements
         }).start();
     }
 
-    int i = 3;
+    int i = 7;
 
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -100,14 +99,15 @@ public class StartActivity extends BaseActivity implements
             if (msg.what == 1) {
                 startActivity(new Intent(StartActivity.this, MainActivity.class));
                 finish();
+            } else if (msg.what == 2) {
+                startActivity(new Intent(StartActivity.this, SchoolActivity.class));
+                finish();
+            } else {
+                if (btnSkip != null)
+                    btnSkip.setText("跳( " + i + " )过");
             }
         }
     };
-
-    @Override
-    public void onDictSuccess(String type, List<TipModel> models) {
-        BaseData.educations.addAll(models);
-    }
 
     @Override
     public void onUserSuccess(UserModel userModel) {
@@ -115,8 +115,21 @@ public class StartActivity extends BaseActivity implements
             RecruitApplication.getInstance().setUserModel(userModel);
     }
 
-    @OnClick(R.id.btnSureCode)
-    public void onViewClicked() {
+    @OnClick({R.id.btnSureCode, R.id.btnSkip})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btnSureCode:
+                if (!TextUtils.isEmpty(editStartCode.getText().toString())) {
+                    checkInviteCodePresenter.check(editStartCode.getText().toString());
+                } else {
+                    ToastUtils.show("请输入邀请码");
+                }
+                break;
+            case R.id.btnSkip:
+                handler.sendEmptyMessage(1);
+                break;
+        }
+
     }
 
     @Override
@@ -128,5 +141,11 @@ public class StartActivity extends BaseActivity implements
             } else {
                 textStartCodeTip.setBackgroundColor(ResourceUtil.resToColor(this, R.color.gray));
             }
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        SharedPrefUtils.setString(this, SharedPrefUtils.inviteCode, editStartCode.getText().toString());
+        handler.sendEmptyMessage(2);
     }
 }

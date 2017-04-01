@@ -11,8 +11,8 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.OrderAdapter;
 import cn.zty.recruit.base.BaseFragment;
 import cn.zty.recruit.bean.OrderModel;
-import cn.zty.recruit.presenter.OrderListPresenter;
-import cn.zty.recruit.view.OrderListView;
+import cn.zty.recruit.presenter.OrderPresenter;
+import cn.zty.recruit.view.OrderView;
 import cn.zty.recruit.widget.LoadMoreFooter;
 
 /**
@@ -21,7 +21,7 @@ import cn.zty.recruit.widget.LoadMoreFooter;
 
 public class OrderFragment extends BaseFragment implements
         XRecyclerView.OnRefreshAndLoadMoreListener,
-        OrderListView {
+        OrderView {
 
     @BindView(R.id.layoutContent)
     XRecyclerContentLayout layoutContent;
@@ -34,7 +34,7 @@ public class OrderFragment extends BaseFragment implements
 
     private int state;
 
-    private OrderListPresenter orderListPresenter;
+    private OrderPresenter orderPresenter;
 
     private OrderAdapter adapter;
 
@@ -53,9 +53,9 @@ public class OrderFragment extends BaseFragment implements
 
     @Override
     protected void initView() {
-        orderListPresenter = new OrderListPresenter();
-        orderListPresenter.attach(this);
-        presenters.add(orderListPresenter);
+        orderPresenter = new OrderPresenter();
+        orderPresenter.attach(this);
+        presenters.add(orderPresenter);
 
         loadMoreFooter = new LoadMoreFooter(context);
 
@@ -73,7 +73,7 @@ public class OrderFragment extends BaseFragment implements
         if (currentPage == 1)
             layoutContent.refreshState(true);
 
-        orderListPresenter.getOrderList(state, currentPage);
+        orderPresenter.getOrderList(state, currentPage);
     }
 
     private void initAdapter(XRecyclerView recyclerView) {
