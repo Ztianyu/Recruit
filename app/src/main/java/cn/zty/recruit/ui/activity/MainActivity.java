@@ -16,12 +16,17 @@ import cn.zty.baselib.widget.BottomNavigationViewEx;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.BaseFragment;
+import cn.zty.recruit.bean.VersionModel;
+import cn.zty.recruit.presenter.VersionPresenter;
 import cn.zty.recruit.ui.fragment.home.LifeFragment;
 import cn.zty.recruit.ui.fragment.home.LiveFragment;
 import cn.zty.recruit.ui.fragment.home.PersonalFragment;
 import cn.zty.recruit.ui.fragment.home.RecruitFragment;
+import cn.zty.recruit.view.VersionView;
 
-public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements
+        BottomNavigationView.OnNavigationItemSelectedListener,
+        VersionView {
 
     @BindView(R.id.navigation)
     BottomNavigationViewEx navigation;
@@ -32,6 +37,8 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     PersonalFragment personalFragment;
 
     BaseFragment currentFragment;
+
+    VersionPresenter versionPresenter;
 
     @Override
     protected int initLayoutId() {
@@ -47,6 +54,10 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         navigation.enableAnimation(false);
         navigation.enableShiftingMode(false);
         navigation.enableItemShiftingMode(false);
+
+        versionPresenter = new VersionPresenter();
+        versionPresenter.attach(this);
+        presenters.add(versionPresenter);
     }
 
     @Override
@@ -58,6 +69,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
             currentFragment = recruitFragment;
         }
 
+        versionPresenter.getVersion();
     }
 
     @Override
@@ -128,4 +140,10 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
             bExit = false;
         }
     };
+
+    @Override
+    public void onSuccess(VersionModel versionModel) {
+        if (versionModel != null)
+            versionPresenter.showDialog(getSupportFragmentManager(), this, versionModel, false);
+    }
 }

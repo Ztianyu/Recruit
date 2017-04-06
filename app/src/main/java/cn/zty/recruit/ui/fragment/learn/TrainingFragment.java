@@ -21,7 +21,7 @@ import cn.zty.recruit.bean.TrainingModel;
 import cn.zty.recruit.listener.AreaSelectListener;
 import cn.zty.recruit.listener.IndustryTypeListener;
 import cn.zty.recruit.presenter.TrainOrgListPresenter;
-import cn.zty.recruit.ui.activity.school.SearchActivity;
+import cn.zty.recruit.ui.activity.learn.TrainSearchActivity;
 import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.TrainOrgListView;
@@ -129,7 +129,7 @@ public class TrainingFragment extends BaseFragment implements
                 ((BaseActivity) context).finish();
                 break;
             case R.id.textSearch:
-                startActivity(new Intent(context, SearchActivity.class));
+                startActivity(new Intent(context, TrainSearchActivity.class));
                 break;
             case R.id.textProvinceTip:
                 DialogUtils.showAreaSelect(getChildFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 0, this, province);

@@ -6,6 +6,11 @@ package cn.zty.recruit.base;
 
 public class Constants {
 
+    //百度发布
+    public static final String BAIDU_APP_ID = "9482760";
+    public static final String BAIDU_APP_Key = "Kbt27AGUn8lW1Fn24pL8DtFXbi7ucGPj";
+    public static final String BAIDU_SECRET_Key = "ecOLVdStNc39HTortwryRO6XznmerVkE";
+
 
     //短信验证
     public static final String MOB_APP_KEY = "1c8060a77f512";

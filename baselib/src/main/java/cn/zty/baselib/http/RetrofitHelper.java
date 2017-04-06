@@ -52,6 +52,15 @@ public class RetrofitHelper {
                 .build();
     }
 
+//    public Retrofit getXMLRetrofit(String url){
+//        return new Retrofit.Builder()
+//                .baseUrl(url)
+//                .client(client)
+//                .addConverterFactory(SimpleXmlConverterFactory.create())
+//                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+//                .build();
+//    }
+
     public Retrofit getRetrofit() {
         return mRetrofit;
     }

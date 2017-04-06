@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -17,7 +16,6 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.MajorAdapter;
 import cn.zty.recruit.adapter.UniversityAdapter;
 import cn.zty.recruit.base.BaseActivity;
-import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.bean.MajorModel;
 import cn.zty.recruit.bean.VocationalModel;
 import cn.zty.recruit.presenter.HotMajorPresenter;
@@ -101,9 +99,9 @@ public class MoreActivity extends BaseActivity implements
             moreContent.refreshState(true);
 
         if (type == TYPE_HOT_SCHOOL) {
-            vocationalListPresenter.getVocationList(null, null, null, null, null, null, -1, currentPage, pageSize);
+            vocationalListPresenter.getVocationList(null, null, null, null, null, null, 1, currentPage, pageSize);
         } else if (type == TYPE_HOT_MAJOR) {
-            hotMajorPresenter.getHotMajorList(-1, null, currentPage, pageSize);
+            hotMajorPresenter.getHotMajorList(null, 1, null, currentPage, pageSize);
         }
     }
 
@@ -135,7 +133,11 @@ public class MoreActivity extends BaseActivity implements
                 finish();
                 break;
             case R.id.textSearch:
-                startActivity(new Intent(this, SearchActivity.class));
+                if (type == TYPE_HOT_SCHOOL) {
+                    startActivity(new Intent(this, SchoolSearchActivity.class));
+                } else {
+                    startActivity(new Intent(this, MajorSearchActivity.class));
+                }
                 break;
         }
     }

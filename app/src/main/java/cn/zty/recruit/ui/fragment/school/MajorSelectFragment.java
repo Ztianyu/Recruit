@@ -122,7 +122,7 @@ public class MajorSelectFragment extends DialogFragment implements
             @Override
             public void onLeftClick(View itemView, int position) {
                 discipline = leftMenuListAdapter.getList().get(position).getKey();
-                hotMajorPresenter.getHotMajorList(-1, discipline, 1, Constants.MAX_PAGE_SIZE);
+                hotMajorPresenter.getHotMajorList(null,-1, discipline, 1, Constants.MAX_PAGE_SIZE);
             }
 
             @Override

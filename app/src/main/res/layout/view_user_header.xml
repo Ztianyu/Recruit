@@ -15,7 +15,7 @@
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:background="@mipmap/ic_default_header"
-        app:border_color="@color/colorHeaderBorder"
+        app:border_color="@color/white"
         app:border_width="0.5dp" />
 
     <FrameLayout

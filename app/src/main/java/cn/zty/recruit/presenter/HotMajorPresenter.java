@@ -29,10 +29,12 @@ public class HotMajorPresenter extends IBasePresenter<HotMajorView> {
         service = RetrofitHelper.getInstance().getRetrofit().create(HotMajorService.class);
     }
 
-    private Observable<ResultBean<List<MajorModel>>> submit(int isHot, String discipline, int pageNo, int pageSize) {
+    private Observable<ResultBean<List<MajorModel>>> submit(String name, int isHot, String discipline, int pageNo, int pageSize) {
         RequestParams params = RequestParamsHelper.getInstance().getRequestParams();
         if (isHot >= 0)
             params.put("isHot", isHot);
+        if (!TextUtils.isEmpty(name))
+            params.put("name", name);
         if (!TextUtils.isEmpty(discipline))
             params.put("discipline", discipline);
         params.put("pageNo", pageNo);
@@ -40,8 +42,8 @@ public class HotMajorPresenter extends IBasePresenter<HotMajorView> {
         return service.getHotMajorList(params);
     }
 
-    public void getHotMajorList(int isHot, @Nullable String discipline, int pageNo, int pageSize) {
-        mSubscription = RxManager.getInstance().doSubscribe1(submit(isHot, discipline, pageNo, pageSize), new RxSubscriber<List<MajorModel>>() {
+    public void getHotMajorList(@Nullable String name, int isHot, @Nullable String discipline, int pageNo, int pageSize) {
+        mSubscription = RxManager.getInstance().doSubscribe1(submit(name, isHot, discipline, pageNo, pageSize), new RxSubscriber<List<MajorModel>>() {
             @Override
             protected void _onNext(List<MajorModel> majorModels) {
                 mView.onHotMajorSuccess(majorModels);

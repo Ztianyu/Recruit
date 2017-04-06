@@ -47,6 +47,9 @@ public class ToastFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+
         toast = getArguments().getString("toast");
     }
 

@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dp"
-        android:background="@mipmap/ic_school_tip"
+        android:background="@mipmap/ic_major_tip"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="13sp"

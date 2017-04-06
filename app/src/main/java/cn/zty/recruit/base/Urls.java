@@ -100,4 +100,12 @@ public class Urls {
     //上传文件（语音文件、图片文件）
     public static final String uploadAndroidServlet = "uploadAndroidServlet";
 
+    //版本更新
+    public static final String requestApp = HOST_ADMIN + "user/requestApp";
+
+
+    public static final String weChatPay = "https://api.mch.weixin.qq.com/pay/";
+
+    public static final String unifiedorder = "unifiedorder";
+
 }

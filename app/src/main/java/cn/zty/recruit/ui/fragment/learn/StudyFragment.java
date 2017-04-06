@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -18,14 +17,13 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.StudySchoolAdapter;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.BaseFragment;
-import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.bean.MajorModel;
 import cn.zty.recruit.bean.StudySchoolModel;
 import cn.zty.recruit.listener.AreaSelectListener;
 import cn.zty.recruit.listener.MajorSelectListener;
 import cn.zty.recruit.listener.StudySchoolListener;
 import cn.zty.recruit.presenter.StudySchoolListPresenter;
-import cn.zty.recruit.ui.activity.school.SearchActivity;
+import cn.zty.recruit.ui.activity.learn.StudySearchActivity;
 import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.StudySchoolView;
@@ -148,7 +146,7 @@ public class StudyFragment extends BaseFragment implements
                 ((BaseActivity) context).finish();
                 break;
             case R.id.textSearch:
-                startActivity(new Intent(context, SearchActivity.class));
+                startActivity(new Intent(context, StudySearchActivity.class));
                 break;
             case R.id.textSelectSchool:
                 isSearchByArea = false;

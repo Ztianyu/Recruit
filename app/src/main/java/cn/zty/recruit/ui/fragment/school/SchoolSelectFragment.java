@@ -181,7 +181,7 @@ public class SchoolSelectFragment extends DialogFragment implements
                 break;
             case R.id.spinnerDiscipline:
                 discipline = disciplineAdapter.getData().get(position).getKey();
-                hotMajorPresenter.getHotMajorList(-1, discipline, 1, Constants.MAX_PAGE_SIZE);
+                hotMajorPresenter.getHotMajorList(null,-1, discipline, 1, Constants.MAX_PAGE_SIZE);
                 break;
             case R.id.spinnerMajorType:
                 majorId = majorAdapter.getData().get(position).getId();

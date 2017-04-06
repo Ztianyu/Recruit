@@ -16,6 +16,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.zty.baselib.widget.StripMenuView;
 import cn.zty.recruit.R;
+import cn.zty.recruit.pay.Payment;
 
 /**
  * Created by zty on 2017/4/1.
@@ -77,6 +78,8 @@ public class PayFragment extends DialogFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.payAli:
+                Payment payment = new Payment(getActivity());
+                payment.payNow();
                 dismiss();
                 break;
             case R.id.payWeChat:

@@ -72,26 +72,30 @@ public class StartActivity extends BaseActivity implements
         if (!TextUtils.isEmpty(RecruitApplication.getInstance().getTokenId()))
             presenter.getUser(RecruitApplication.getInstance().getTokenId(), RecruitApplication.getInstance().getUserId());
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (; i > 0; i--) {
-                    handler.sendEmptyMessage(-1);
-                    if (i <= 0) {
-                        break;
-                    }
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                handler.sendEmptyMessage(1);
-            }
-        }).start();
+        thread.start();
     }
 
+    Thread thread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            for (; i > 0; i--) {
+                handler.sendEmptyMessage(-1);
+                if (i <= 0) {
+                    break;
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            handler.sendEmptyMessage(style);
+        }
+    });
+
     int i = 7;
+
+    int style = 1;//1：跳转到主页  ；2： 跳转到 学校界面
 
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
@@ -126,7 +130,7 @@ public class StartActivity extends BaseActivity implements
                 }
                 break;
             case R.id.btnSkip:
-                handler.sendEmptyMessage(1);
+                i = 0;
                 break;
         }
 
@@ -146,6 +150,7 @@ public class StartActivity extends BaseActivity implements
     @Override
     public void onSuccess(String msg) {
         SharedPrefUtils.setString(this, SharedPrefUtils.inviteCode, editStartCode.getText().toString());
-        handler.sendEmptyMessage(2);
+        style = 2;
+        i = 0;
     }
 }

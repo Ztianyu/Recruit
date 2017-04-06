@@ -11,10 +11,7 @@ import butterknife.OnClick;
 import cn.droidlover.xrecyclerview.XRecyclerContentLayout;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
-import cn.zty.recruit.listener.AreaSelectListener;
-import cn.zty.recruit.listener.MajorSelectListener;
 import cn.zty.recruit.ui.activity.school.SearchActivity;
-import cn.zty.recruit.utils.DialogUtils;
 
 /**
  * Created by zty on 2017/3/18.
@@ -47,6 +44,7 @@ public class JobActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        textSearch.setVisibility(View.GONE);
         textMajorTip.setText("行业类别");
     }
 

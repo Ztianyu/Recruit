@@ -9,13 +9,16 @@ import cn.zty.baselib.utils.VersionUtils;
 import cn.zty.baselib.widget.StripViewNoImg;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
-import cn.zty.recruit.utils.ToastUtils;
+import cn.zty.recruit.bean.VersionModel;
+import cn.zty.recruit.presenter.VersionPresenter;
+import cn.zty.recruit.view.VersionView;
 
 /**
  * Created by zty on 2017/3/21.
  */
 
-public class VersionActivity extends BaseActivity {
+public class VersionActivity extends BaseActivity implements
+        VersionView {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.textVersion)
@@ -25,6 +28,8 @@ public class VersionActivity extends BaseActivity {
 
     String strVersion;
     int versionCode;
+
+    VersionPresenter versionPresenter;
 
     @Override
     protected int initLayoutId() {
@@ -38,6 +43,10 @@ public class VersionActivity extends BaseActivity {
         strVersion = VersionUtils.getVersion(this);
         versionCode = VersionUtils.getVersionCode(this);
         textVersion.setText("版本号：" + strVersion);
+
+        versionPresenter = new VersionPresenter();
+        versionPresenter.attach(this);
+        presenters.add(versionPresenter);
     }
 
     @Override
@@ -47,6 +56,12 @@ public class VersionActivity extends BaseActivity {
 
     @OnClick(R.id.textVersionUpdate)
     public void onClick() {
-        ToastUtils.show("已经是最新版本了");
+        versionPresenter.getVersion();
+    }
+
+    @Override
+    public void onSuccess(VersionModel versionModel) {
+        if (versionModel != null)
+            versionPresenter.showDialog(getSupportFragmentManager(), this, versionModel, true);
     }
 }

@@ -1,10 +1,10 @@
 package cn.zty.recruit.ui.fragment.home;
 
 import android.content.Intent;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.Toolbar;
+import android.graphics.Color;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.youth.banner.Banner;
@@ -36,6 +36,7 @@ import cn.zty.recruit.utils.ViewAdaptionUtils;
 import cn.zty.recruit.view.AdsView;
 import cn.zty.recruit.view.HotMajorView;
 import cn.zty.recruit.view.VocationalListView;
+import cn.zty.recruit.widget.GradationNestedScrollView;
 import cn.zty.recruit.widget.LabView;
 
 /**
@@ -45,13 +46,14 @@ import cn.zty.recruit.widget.LabView;
 public class RecruitFragment extends BaseFragment implements
         AdsView,
         HotMajorView,
-        VocationalListView {
+        VocationalListView,
+        SwipeRefreshLayout.OnRefreshListener,
+        GradationNestedScrollView.ScrollViewListener {
+
+    @BindView(R.id.textTitle)
+    TextView textTitle;
     @BindView(R.id.bannerRecruit)
     Banner bannerRecruit;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.collapsingToolbarLayout)
-    CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.btnRecruitFun1)
     LabView btnRecruitFun1;
     @BindView(R.id.btnRecruitFun2)
@@ -59,7 +61,7 @@ public class RecruitFragment extends BaseFragment implements
     @BindView(R.id.btnRecruitFun3)
     LabView btnRecruitFun3;
     @BindView(R.id.scrollView)
-    NestedScrollView scrollView;
+    GradationNestedScrollView scrollView;
     @BindView(R.id.btnMoreUniversity)
     TextView btnMoreUniversity;
     @BindView(R.id.listHotUniversity)
@@ -68,13 +70,18 @@ public class RecruitFragment extends BaseFragment implements
     TextView btnMoreMajor;
     @BindView(R.id.listHotMajor)
     XRecyclerView listHotMajor;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     UniversityAdapter universityAdapter;
     MajorAdapter majorAdapter;
 
+
     private GetAdsPresenter getAdsPresenter;
     private HotMajorPresenter hotMajorPresenter;
     private VocationalListPresenter vocationalListPresenter;
+
+    private int height;
 
     @Override
     protected int initLayoutId() {
@@ -83,8 +90,12 @@ public class RecruitFragment extends BaseFragment implements
 
     @Override
     protected void initView() {
-        toolbar.setPadding(0, RecruitApplication.getInstance().getStatusBarHeight(), 0, 0);
-        ViewAdaptionUtils.CollapsingToolbarLayoutAdaptation(bannerRecruit, 400);
+
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorAccent, R.color.gray);
+        swipeRefreshLayout.setOnRefreshListener(this);
+
+        textTitle.setPadding(0, RecruitApplication.getInstance().getStatusBarHeight(), 0, 0);
+        ViewAdaptionUtils.LinearLayoutAdaptation(bannerRecruit, 400);
 
         universityAdapter = new UniversityAdapter(context, false);
         majorAdapter = new MajorAdapter(context);
@@ -110,16 +121,34 @@ public class RecruitFragment extends BaseFragment implements
         vocationalListPresenter = new VocationalListPresenter();
         vocationalListPresenter.attach(this);
         presenters.add(vocationalListPresenter);
+
+        bannerRecruit.setFocusable(true);
+        bannerRecruit.setFocusableInTouchMode(true);
+        bannerRecruit.requestFocus();
+
+        ViewTreeObserver vto = bannerRecruit.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                bannerRecruit.getViewTreeObserver().removeGlobalOnLayoutListener(
+                        this);
+                height = bannerRecruit.getHeight();
+
+                scrollView.setScrollViewListener(RecruitFragment.this);
+            }
+        });
     }
 
     @Override
     protected void initData() {
 
+        swipeRefreshLayout.setRefreshing(true);
+
         getAdsPresenter.getAds();
 
         vocationalListPresenter.getVocationList(null, null, null, null, null, null, 1, 1, Constants.HOT_PAGE_SIZE);
 
-        hotMajorPresenter.getHotMajorList(1, null, 1, Constants.HOT_PAGE_SIZE);
+        hotMajorPresenter.getHotMajorList(null, 1, null, 1, Constants.HOT_PAGE_SIZE);
     }
 
     @OnClick({R.id.btnRecruitFun1, R.id.btnRecruitFun2, R.id.btnRecruitFun3, R.id.btnMoreUniversity, R.id.btnMoreMajor})
@@ -162,5 +191,25 @@ public class RecruitFragment extends BaseFragment implements
     @Override
     public void onVocationalListSuccess(List<VocationalModel> models) {
         universityAdapter.setData(models);
+        swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefresh() {
+        initData();
+    }
+
+    @Override
+    public void onScrollChanged(GradationNestedScrollView scrollView, int x, int y, int oldx, int oldy) {
+        if (y <= 0) {   //设置标题的背景颜色
+            textTitle.setBackgroundColor(Color.argb(0, 240, 72, 72));
+        } else if (y > 0 && y <= height) { //滑动距离小于banner图的高度时，设置背景和字体颜色颜色透明度渐变
+            float scale = (float) y / height;
+            float alpha = (255 * scale);
+            textTitle.setTextColor(Color.argb((int) alpha, 255, 255, 255));
+            textTitle.setBackgroundColor(Color.argb((int) alpha, 240, 72, 72));
+        } else {    //滑动到banner下面设置普通颜色
+            textTitle.setBackgroundColor(Color.argb(255, 240, 72, 72));
+        }
     }
 }

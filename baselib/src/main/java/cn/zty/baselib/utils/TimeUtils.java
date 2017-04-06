@@ -126,10 +126,12 @@ public class TimeUtils {
         long ago = (now - time) / ONE_MINUTE;
         long todayStart = dateToStamp(getDate() + " 00:00:00") / 1000;
 
-        if (todayStart <= time && ago > 10) {
-            res = strTime.substring(11, 16);
-        } else if (todayStart > time) {
-            res = strTime.substring(0, 16);
+        if (todayStart <= time) {
+            res = "今天\n" + strTime.substring(11, 16);
+        } else if (todayStart > time && time > (todayStart - ONE_DAY)) {
+            res = "昨天\n" + strTime.substring(11, 16);
+        } else {
+            res = strTime.substring(0, 11);
         }
         return res;
     }

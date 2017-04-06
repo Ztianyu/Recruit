@@ -47,6 +47,9 @@ public class SelectSexFragment extends DialogFragment implements RadioGroup.OnCh
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+
         type = getArguments().getInt("type", -1);
     }
 

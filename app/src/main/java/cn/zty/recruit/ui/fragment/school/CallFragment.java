@@ -48,6 +48,9 @@ public class CallFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+
         phone = getArguments().getString("phone");
         time = getArguments().getString("time");
     }

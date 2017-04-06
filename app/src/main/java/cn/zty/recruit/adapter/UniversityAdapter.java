@@ -13,7 +13,6 @@ import cn.droidlover.xrecyclerview.RecyclerAdapter;
 import cn.droidlover.xrecyclerview.XRecyclerView;
 import cn.zty.baselib.holder.ViewHolder;
 import cn.zty.recruit.R;
-import cn.zty.recruit.base.BaseData;
 import cn.zty.recruit.bean.TipModel;
 import cn.zty.recruit.bean.VocationalModel;
 import cn.zty.recruit.ui.activity.school.SchoolDetailActivity;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
@@ -40,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
-                android:text="1024"
+                tools:text="1024"
                 android:textColor="@color/integralColor"
                 android:textSize="32dp"
                 android:textStyle="bold" />
@@ -53,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:text="邀请码：CYGT6942"
+            tools:text="邀请码：CYGT6942"
             android:textColor="@color/textColor"
             android:textSize="14sp" />
     </RelativeLayout>
