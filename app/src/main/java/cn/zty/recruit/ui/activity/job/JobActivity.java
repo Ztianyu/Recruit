@@ -1,6 +1,5 @@
 package cn.zty.recruit.ui.activity.job;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,7 +10,6 @@ import butterknife.OnClick;
 import cn.droidlover.xrecyclerview.XRecyclerContentLayout;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
-import cn.zty.recruit.ui.activity.school.SearchActivity;
 
 /**
  * Created by zty on 2017/3/18.
@@ -60,7 +58,7 @@ public class JobActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.textSearch:
-                startActivity(new Intent(this, SearchActivity.class));
+//                startActivity(new Intent(this, SearchActivity.class));
                 break;
             case R.id.textSelectSchool:
                 break;

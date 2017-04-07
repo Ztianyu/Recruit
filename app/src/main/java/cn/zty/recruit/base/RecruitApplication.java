@@ -3,16 +3,12 @@ package cn.zty.recruit.base;
 import android.app.Application;
 import android.text.TextUtils;
 
-import com.google.gson.Gson;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.cookie.store.PersistentCookieStore;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import cn.zty.baselib.http.RetrofitHelper;
 import cn.zty.recruit.bean.UserModel;
 import cn.zty.recruit.utils.SharedPrefUtils;
-import cn.zty.recruit.wechat.Keys;
 import io.vov.vitamio.Vitamio;
 
 /**
@@ -32,8 +28,6 @@ public class RecruitApplication extends Application {
     private String tokenId;
     private String loginName;
 
-    private IWXAPI api;
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -46,8 +40,8 @@ public class RecruitApplication extends Application {
 
         setCurrentUser();
 
-        api = WXAPIFactory.createWXAPI(this, Keys.APP_ID);
-        api.registerApp(Keys.APP_ID);
+        MyException crashHandler = MyException.getInstance();
+        crashHandler.init(getApplicationContext());
     }
 
     public static RecruitApplication getInstance() {
@@ -138,11 +132,4 @@ public class RecruitApplication extends Application {
         this.loginName = loginName;
     }
 
-    public IWXAPI getApi() {
-        return api;
-    }
-
-    public void setApi(IWXAPI api) {
-        this.api = api;
-    }
 }

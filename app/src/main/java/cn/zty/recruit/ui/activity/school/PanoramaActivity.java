@@ -10,6 +10,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.zty.baselib.utils.MyImageLoader;
+import cn.zty.baselib.utils.ResourceUtil;
 import cn.zty.baselib.widget.StripMenuView;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
@@ -111,27 +112,28 @@ public class PanoramaActivity extends BaseActivity implements
     public void onPanoramaSuccess(List<PanoramaModel> models) {
         if (models != null && models.size() > 0) {
             for (PanoramaModel panoramaModel : models) {
-                if (panoramaModel.getPlace().equals(Constants.panorama1)) {
+                if (panoramaModel.getPlace().equals(ResourceUtil.resToStr(this, R.string.panoramaStrip1))) {
                     panoramaModel1 = panoramaModel;
                 }
-                if (panoramaModel.getPlace().equals(Constants.panorama2)) {
+                if (panoramaModel.getPlace().equals(ResourceUtil.resToStr(this, R.string.panoramaStrip2))) {
                     panoramaModel2 = panoramaModel;
                 }
-                if (panoramaModel.getPlace().equals(Constants.panorama3)) {
+                if (panoramaModel.getPlace().equals(ResourceUtil.resToStr(this, R.string.panoramaStrip3))) {
                     panoramaModel3 = panoramaModel;
                 }
-                if (panoramaModel.getPlace().equals(Constants.panorama4)) {
+                if (panoramaModel.getPlace().equals(ResourceUtil.resToStr(this, R.string.panoramaStrip4))) {
                     panoramaModel4 = panoramaModel;
                 }
-                if (panoramaModel.getPlace().equals(Constants.panorama5)) {
+                if (panoramaModel.getPlace().equals(ResourceUtil.resToStr(this, R.string.panoramaStrip5))) {
                     panoramaModel5 = panoramaModel;
                 }
-                if (panoramaModel.getPlace().equals(Constants.panorama6)) {
+                if (panoramaModel.getPlace().equals(ResourceUtil.resToStr(this, R.string.panoramaStrip6))) {
                     panoramaModel6 = panoramaModel;
                 }
             }
         }
     }
+
     private PanoramaModel panoramaModel1;
     private PanoramaModel panoramaModel2;
     private PanoramaModel panoramaModel3;

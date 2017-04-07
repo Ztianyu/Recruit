@@ -166,8 +166,15 @@ public class SchoolActivity extends BaseActivity implements
     @Override
     public void onAreaSelect(String code, String value, int type) {
         if (type == 0) {
-            areaProvinceId = code;
-            textProvinceTip.setText(value);
+            if (value.equals("全部")) {
+                areaProvinceId = null;
+                areaCityId = null;
+                textProvinceTip.setText("省份");
+                textCityTip.setText("城市");
+            } else {
+                areaProvinceId = code;
+                textProvinceTip.setText(value);
+            }
         } else {
             areaCityId = code;
             textCityTip.setText(value);
@@ -177,12 +184,13 @@ public class SchoolActivity extends BaseActivity implements
 
     @Override
     public void onMajorSelect(MajorModel majorModel) {
-        this.areaDiscipline = majorModel.getDiscipline();
-        this.areaMajorId = majorModel.getId();
-
         if (majorModel != null) {
+            this.areaDiscipline = majorModel.getDiscipline();
+            this.areaMajorId = majorModel.getId();
             textMajorTip.setText(majorModel.getName());
         } else {
+            this.areaDiscipline = null;
+            this.areaMajorId = null;
             textMajorTip.setText("专业");
         }
         initData();

@@ -30,14 +30,6 @@ public class Constants {
     public static final String DICT_TYPE7 = "tuition_range";//学费范围
     public static final String DICT_TYPE8 = "school_type";//学费范围
 
-    //学校全景
-    public static final String panorama1 = "360度机构全景";
-    public static final String panorama2 = "食堂";
-    public static final String panorama3 = "宿舍";
-    public static final String panorama4 = "教室";
-    public static final String panorama5 = "运动场所";
-    public static final String panorama6 = "周边环境";
-
     public static final int DEFAULT_PAGE_SIZE = 10;
     public static final int MAX_PAGE_SIZE = 1000;
     public static final int HOT_PAGE_SIZE = 5;

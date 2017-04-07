@@ -34,6 +34,7 @@ public class PanoramaModel implements Parcelable{
         content = in.readString();
         createDate = in.readString();
         updateDate = in.readString();
+        videoUrl = in.readString();
     }
 
     public static final Creator<PanoramaModel> CREATOR = new Creator<PanoramaModel>() {
@@ -117,5 +118,6 @@ public class PanoramaModel implements Parcelable{
         dest.writeString(content);
         dest.writeString(createDate);
         dest.writeString(updateDate);
+        dest.writeString(videoUrl);
     }
 }

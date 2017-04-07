@@ -11,7 +11,7 @@ import butterknife.BindView;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.bean.PanoramaModel;
-import cn.zty.recruit.ui.activity.learn.AuditionActivity;
+import cn.zty.recruit.ui.activity.learn.VideoActivity;
 import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.utils.WebLoadHtmlUtils;
 
@@ -54,7 +54,9 @@ public class PanoramaDetailActivity extends BaseActivity {
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.video) {
                     if (!TextUtils.isEmpty(panoramaModel.getVideoUrl())) {
-                        startActivity(new Intent(PanoramaDetailActivity.this, AuditionActivity.class));
+                        startActivity(new Intent(PanoramaDetailActivity.this, VideoActivity.class)
+                                .putExtra("videoUrl", panoramaModel.getVideoUrl())
+                                .putExtra("videoName", panoramaModel.getPlace()));
                     } else {
                         ToastUtils.show("暂无视频资源");
                     }

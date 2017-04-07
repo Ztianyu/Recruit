@@ -136,6 +136,12 @@ public class AreaSelectFragment extends DialogFragment implements AreaView {
 
     @Override
     public void onAreaSuccess(int type, List<TipModel> models) {
-        dictAdapter.setData(models);
+        if (type == 0) {
+            TipModel tipModel = new TipModel();
+            tipModel.setKey("-1");
+            tipModel.setValue("全部");
+            dictAdapter.addListAtEnd(tipModel);
+        }
+        dictAdapter.addListAtEnd(models);
     }
 }

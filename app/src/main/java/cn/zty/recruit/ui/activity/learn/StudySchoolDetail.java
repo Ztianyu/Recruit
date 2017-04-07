@@ -192,9 +192,10 @@ public class StudySchoolDetail extends BaseActivity implements
     public void onPanoramaSuccess(List<PanoramaModel> models) {
         if (models != null && models.size() > 0) {
             PanoramaModel panoramaModel = models.get(0);
-            if (TextUtils.isEmpty(panoramaModel.getVideoUrl())) {
-                startActivity(new Intent(this, AuditionActivity.class)
-                        .putExtra("videoUrl", panoramaModel.getVideoUrl()));
+            if (!TextUtils.isEmpty(panoramaModel.getVideoUrl())) {
+                startActivity(new Intent(this, VideoActivity.class)
+                        .putExtra("videoUrl", panoramaModel.getVideoUrl())
+                        .putExtra("videoName", panoramaModel.getPlace()));
             } else {
                 ToastUtils.show("暂无宣传视频");
             }

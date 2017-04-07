@@ -15,12 +15,18 @@
 
     </FrameLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/colorDiver"></View>
+
     <cn.zty.baselib.widget.BottomNavigationViewEx
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@android:color/white"
+        app:elevation="0dp"
         app:itemTextColor="@drawable/bottom_color"
         app:menu="@menu/navigation"></cn.zty.baselib.widget.BottomNavigationViewEx>
 

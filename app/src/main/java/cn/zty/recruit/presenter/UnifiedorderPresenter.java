@@ -24,6 +24,7 @@ import cn.zty.recruit.utils.HostIPUtils;
 import cn.zty.recruit.view.StringView;
 import cn.zty.recruit.wechat.Keys;
 import cn.zty.recruit.wechat.MD5;
+import cn.zty.recruit.wechat.WeChatPayManager;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -46,9 +47,6 @@ public class UnifiedorderPresenter extends IBasePresenter<StringView> {
                 .create(UnifiedorderService.class);
     }
 
-    private String getNonceStr() {
-        return UUID.randomUUID().toString().replace("-", "").toUpperCase();
-    }
 
     public void unifiedorder(String body, String nonce_str, String out_trade_no, String total_fee) {
 
@@ -56,12 +54,12 @@ public class UnifiedorderPresenter extends IBasePresenter<StringView> {
         params.put("appid", Keys.APP_ID);
         params.put("mch_id", Keys.PARTNER_ID);
         params.put("nonce_str", nonce_str);
-        params.put("sign", Keys.SIGN);
+        params.put("sign", WeChatPayManager.getInstance().getUnifiedOrderSign(Keys.APP_ID, body, Keys.PARTNER_ID, nonce_str, Urls.weChatNotifyUrl, out_trade_no, HostIPUtils.getHostIP(), total_fee, "APP"));
         params.put("body", body);
         params.put("out_trade_no", out_trade_no);
         params.put("total_fee", total_fee);
         params.put("spbill_create_ip", HostIPUtils.getHostIP());
-        params.put("notify_url", "");
+        params.put("notify_url", Urls.weChatNotifyUrl);
         params.put("trade_type", "APP");
 
         mSubscription = RxManager.getInstance().doSubscribe(service.unifiedorder(params), new RxSubscriber<String>() {
@@ -70,11 +68,6 @@ public class UnifiedorderPresenter extends IBasePresenter<StringView> {
                 mView.onSuccess(s);
             }
         });
-    }
-
-    private String getSign(String appid, String body, String mch_id, String nonce_str, String out_trade_no, String total_fee) {
-
-        return MD5.EncoderByMd5("");
     }
 
     public WeChatPayModel pullParser(String str) {

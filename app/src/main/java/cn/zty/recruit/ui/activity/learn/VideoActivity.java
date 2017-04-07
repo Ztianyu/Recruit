@@ -15,7 +15,7 @@ import io.vov.vitamio.widget.VideoView;
  * Created by zty on 2017/3/17.
  */
 
-public class AuditionActivity extends BaseActivity implements
+public class VideoActivity extends BaseActivity implements
         MediaPlayer.OnPreparedListener,
         MediaPlayer.OnErrorListener,
         MediaPlayer.OnCompletionListener {
@@ -25,8 +25,9 @@ public class AuditionActivity extends BaseActivity implements
 
     private MediaController mMediaController;
 
-    private String PATH_URL1 = "http://gslb.miaopai.com/stream/3D~8BM-7CZqjZscVBEYr5g__.mp4";
+    //    private String PATH_URL1 = "http://gslb.miaopai.com/stream/3D~8BM-7CZqjZscVBEYr5g__.mp4";
     private String videoUrl;
+    private String videoName;
 
     @Override
     protected int initLayoutId() {
@@ -36,13 +37,15 @@ public class AuditionActivity extends BaseActivity implements
     @Override
     protected void initView() {
         videoUrl = getIntent().getStringExtra("videoUrl");
+        videoName = getIntent().getStringExtra("videoName");
 
         setTitleBar();
 
-        videoView.setVideoURI(Uri.parse(PATH_URL1)); //实例化控制器
+        videoView.setVideoURI(Uri.parse(videoUrl)); //实例化控制器
         mMediaController = new MediaController(this); //绑定控制器
-        videoView.setMediaController(mMediaController); //控制器显示9s后自动隐藏 mMediaController.show(9000); //设置播放画质 高画质
-        videoView.setVideoQuality(MediaPlayer.VIDEOQUALITY_HIGH);
+        videoView.setMediaController(mMediaController); //控制器显示9s后自动隐藏 mMediaController.show(9000);
+        mMediaController.setFileName(videoName);
+        videoView.setVideoQuality(MediaPlayer.VIDEOQUALITY_HIGH); //设置播放画质 高画质
         videoView.setVideoLayout(VideoView.VIDEO_LAYOUT_STRETCH, 0); //取得焦点 mVideoView.requestFocus(); //设置相关的监听
         videoView.setOnPreparedListener(this);
         videoView.setOnErrorListener(this);

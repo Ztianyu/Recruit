@@ -66,6 +66,8 @@ public class MajorSearchActivity extends BaseActivity implements
 
     @Override
     protected void initView() {
+        editSearch.setHint("搜索专业名称");
+        
         AutoLineLayoutManager layoutManager = new AutoLineLayoutManager();
         layoutManager.setAutoMeasureEnabled(true);
         autoLineRecycler.setLayoutManager(layoutManager);

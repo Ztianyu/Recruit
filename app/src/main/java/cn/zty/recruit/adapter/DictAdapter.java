@@ -35,7 +35,8 @@ public class DictAdapter extends MyBaseAdapter<TipModel> {
         } else {
             holder = (Holder) convertView.getTag();
         }
-        holder.itemText.setTextColor(ResourceUtil.resToColor(context, R.color.gray));
+        if (type == -1)
+            holder.itemText.setTextColor(ResourceUtil.resToColor(context, R.color.gray));
         holder.itemText.setText(mData.get(position).getValue());
         return convertView;
     }

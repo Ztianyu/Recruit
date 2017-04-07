@@ -130,10 +130,10 @@ public class SchoolSelectFragment extends DialogFragment implements
         spinnerMajorType.setOnItemSelectedListener(this);
         spinnerTestType.setOnItemSelectedListener(this);
 
-        areaAdapter = new DictAdapter(getActivity(), 0);
-        disciplineAdapter = new DictAdapter(getActivity(), 3);
+        areaAdapter = new DictAdapter(getActivity(), -1);
+        disciplineAdapter = new DictAdapter(getActivity(), -1);
         majorAdapter = new MajorNameAdapter(getActivity());
-        examinationAdapter = new DictAdapter(getActivity(), 5);
+        examinationAdapter = new DictAdapter(getActivity(), -1);
 
         spinnerSpace.setAdapter(areaAdapter);
         spinnerDiscipline.setAdapter(disciplineAdapter);

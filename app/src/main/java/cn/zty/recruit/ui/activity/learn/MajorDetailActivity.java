@@ -82,7 +82,9 @@ public class MajorDetailActivity extends BaseActivity {
                 break;
             case R.id.labMajorFun2:
                 if (!TextUtils.isEmpty(majorModel.getVideoUrl())) {
-                    startActivity(new Intent(this, AuditionActivity.class));
+                    startActivity(new Intent(this, VideoActivity.class)
+                            .putExtra("videoUrl", majorModel.getVideoUrl())
+                            .putExtra("videoName", majorModel.getName()));
                 } else {
                     ToastUtils.show("暂无试听视频");
                 }

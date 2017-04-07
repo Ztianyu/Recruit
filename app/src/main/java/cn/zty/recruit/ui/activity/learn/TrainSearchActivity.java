@@ -62,6 +62,8 @@ public class TrainSearchActivity extends BaseActivity implements
     @Override
     protected void initView() {
 
+        editSearch.setHint("搜索学校名称");
+
         loadMoreFooter = new LoadMoreFooter(this);
 
         trainAdapter = new TrainAdapter(this);

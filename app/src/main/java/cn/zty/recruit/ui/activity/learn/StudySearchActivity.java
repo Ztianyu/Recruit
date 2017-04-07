@@ -62,6 +62,8 @@ public class StudySearchActivity extends BaseActivity implements
     @Override
     protected void initView() {
 
+        editSearch.setHint("搜索培训机构名称");
+
         loadMoreFooter = new LoadMoreFooter(this);
 
         adapter = new StudySchoolAdapter(this, false);

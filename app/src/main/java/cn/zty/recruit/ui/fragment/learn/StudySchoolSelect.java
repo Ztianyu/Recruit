@@ -141,12 +141,12 @@ public class StudySchoolSelect extends DialogFragment implements
         spinnerIntentionMajor.setOnItemSelectedListener(this);
         spinnerTuitionRange.setOnItemSelectedListener(this);
 
-        areaAdapter = new DictAdapter(getActivity(), 0);
-        schoolTypeAdapter = new DictAdapter(getActivity(), 1);
-        studyTypeAdapter = new DictAdapter(getActivity(), 2);
-        disciplineAdapter = new DictAdapter(getActivity(), 3);
+        areaAdapter = new DictAdapter(getActivity(), -1);
+        schoolTypeAdapter = new DictAdapter(getActivity(), -1);
+        studyTypeAdapter = new DictAdapter(getActivity(), -1);
+        disciplineAdapter = new DictAdapter(getActivity(), -1);
         majorAdapter = new MajorNameAdapter(getActivity());
-        tuitionAdapter = new DictAdapter(getActivity(), 4);
+        tuitionAdapter = new DictAdapter(getActivity(), -1);
 
         spinnerSpace.setAdapter(areaAdapter);
         spinnerSchoolType.setAdapter(schoolTypeAdapter);

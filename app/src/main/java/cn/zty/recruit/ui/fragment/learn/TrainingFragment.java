@@ -150,8 +150,15 @@ public class TrainingFragment extends BaseFragment implements
     @Override
     public void onAreaSelect(String code, String value, int type) {
         if (type == 0) {
-            province = code;
-            textProvinceTip.setText(value);
+            if (value.equals("全部")) {
+                province = null;
+                city = null;
+                textProvinceTip.setText("省份");
+                textCityTip.setText("城市");
+            } else {
+                province = code;
+                textProvinceTip.setText(value);
+            }
         } else if (type == 1) {
             city = code;
             textCityTip.setText(value);
