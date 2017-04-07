@@ -34,6 +34,7 @@ import cn.zty.recruit.presenter.LoadFilePresenter;
 import cn.zty.recruit.presenter.UpdateUserPresenter;
 import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.utils.FileUtil;
+import cn.zty.recruit.utils.SnackbarUtils;
 import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.LoadFileView;
 import cn.zty.recruit.view.UserView;
@@ -249,7 +250,8 @@ public class ArchivesActivity extends BaseActivity implements OnSelectListener,
     @Override
     public void onUserSuccess(final UserModel userModel) {
         if (userModel != null) {
-            ToastUtils.show("修改成功");
+
+            SnackbarUtils.showShort(toolbar,"修改成功");
             RecruitApplication.getInstance().setUserModel(userModel);
 
 //            runOnUiThread(new Runnable() {

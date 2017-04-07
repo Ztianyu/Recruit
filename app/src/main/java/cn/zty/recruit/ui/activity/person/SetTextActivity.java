@@ -12,6 +12,7 @@ import android.widget.EditText;
 import butterknife.BindView;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.utils.SnackbarUtils;
 import cn.zty.recruit.utils.ToastUtils;
 
 /**
@@ -95,7 +96,7 @@ public class SetTextActivity extends BaseActivity {
             if (type == 2) {
                 strToast = "请输入昵称";
             }
-            ToastUtils.show(strToast);
+            SnackbarUtils.showShort(toolbar,strToast);
         }
     }
 }

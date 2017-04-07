@@ -15,7 +15,7 @@ public class WebLoadHtmlUtils {
         html.append("<title>" + title + "</title>");
         html.append("<style> img { width: 100%; }</style>");
         html.append("</head>");
-        html.append("<body style=\"color:#666666;font-size:90%;line-height:150%;\">" + content + "</body>");
+        html.append("<body style=\"color:#666666;font-size:95%;line-height:150%;\">" + content + "</body>");
         html.append("</html>");
         return html.toString();
     }

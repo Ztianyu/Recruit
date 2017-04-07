@@ -82,4 +82,11 @@ public class WebActivity extends BaseActivity implements
                         model.getContent()),
                 "text/html", "utf-8", null);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (webView != null)
+            webView.destroy();
+    }
 }

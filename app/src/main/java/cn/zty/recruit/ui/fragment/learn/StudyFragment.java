@@ -25,6 +25,7 @@ import cn.zty.recruit.listener.StudySchoolListener;
 import cn.zty.recruit.presenter.StudySchoolListPresenter;
 import cn.zty.recruit.ui.activity.learn.StudySearchActivity;
 import cn.zty.recruit.utils.DialogUtils;
+import cn.zty.recruit.utils.SnackbarUtils;
 import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.StudySchoolView;
 import cn.zty.recruit.widget.LoadMoreFooter;
@@ -161,7 +162,7 @@ public class StudyFragment extends BaseFragment implements
                 if (!TextUtils.isEmpty(areaProvinceId)) {
                     DialogUtils.showAreaSelect(getFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 1, this, areaProvinceId);
                 } else {
-                    ToastUtils.show("请选择省份");
+                    SnackbarUtils.showShort(contentLayoutSchool,"请选择省份");
                 }
                 break;
             case R.id.textMajorTip:

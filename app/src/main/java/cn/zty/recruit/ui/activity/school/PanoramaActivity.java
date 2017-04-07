@@ -17,6 +17,7 @@ import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.bean.PanoramaModel;
 import cn.zty.recruit.presenter.PanoramaPresenter;
+import cn.zty.recruit.utils.SnackbarUtils;
 import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.utils.ViewAdaptionUtils;
 import cn.zty.recruit.view.PanoramaView;
@@ -104,7 +105,7 @@ public class PanoramaActivity extends BaseActivity implements
         if (panoramaModel != null) {
             startActivity(new Intent(this, PanoramaDetailActivity.class).putExtra("panoramaModel", panoramaModel));
         } else {
-            ToastUtils.show("暂无资源");
+            SnackbarUtils.showShort(toolbar,"暂无资源");
         }
     }
 

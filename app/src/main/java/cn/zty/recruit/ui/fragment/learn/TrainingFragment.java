@@ -23,7 +23,7 @@ import cn.zty.recruit.listener.IndustryTypeListener;
 import cn.zty.recruit.presenter.TrainOrgListPresenter;
 import cn.zty.recruit.ui.activity.learn.TrainSearchActivity;
 import cn.zty.recruit.utils.DialogUtils;
-import cn.zty.recruit.utils.ToastUtils;
+import cn.zty.recruit.utils.SnackbarUtils;
 import cn.zty.recruit.view.TrainOrgListView;
 import cn.zty.recruit.widget.LoadMoreFooter;
 
@@ -138,7 +138,7 @@ public class TrainingFragment extends BaseFragment implements
                 if (!TextUtils.isEmpty(province)) {
                     DialogUtils.showAreaSelect(getChildFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 1, this, province);
                 } else {
-                    ToastUtils.show("请选择省份");
+                    SnackbarUtils.showShort(contentLayoutSchool, "请选择省份");
                 }
                 break;
             case R.id.textMajorTip:
@@ -168,8 +168,13 @@ public class TrainingFragment extends BaseFragment implements
 
     @Override
     public void onIndustryTypeSelect(String id, String name) {
-        industryId = id;
-        textMajorTip.setText(name);
+        if (name.equals("全部")) {
+            industryId = null;
+            textMajorTip.setText("项目分类");
+        } else {
+            industryId = id;
+            textMajorTip.setText(name);
+        }
         initData();
     }
 

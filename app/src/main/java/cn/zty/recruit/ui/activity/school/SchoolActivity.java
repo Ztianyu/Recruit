@@ -27,6 +27,7 @@ import cn.zty.recruit.listener.SchoolSelectListener;
 import cn.zty.recruit.presenter.VocationalListPresenter;
 import cn.zty.recruit.ui.activity.MainActivity;
 import cn.zty.recruit.utils.DialogUtils;
+import cn.zty.recruit.utils.SnackbarUtils;
 import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.VocationalListView;
 import cn.zty.recruit.widget.LoadMoreFooter;
@@ -153,7 +154,7 @@ public class SchoolActivity extends BaseActivity implements
                 if (!TextUtils.isEmpty(areaProvinceId)) {
                     DialogUtils.showAreaSelect(getSupportFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 1, this, areaProvinceId);
                 } else {
-                    ToastUtils.show("请选择省份");
+                    SnackbarUtils.showShort(contentLayoutSchool,"请选择省份");
                 }
                 break;
             case R.id.textMajorTip:

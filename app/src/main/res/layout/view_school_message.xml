@@ -126,6 +126,7 @@
             style="@style/TipTextView"
             android:layout_width="wrap_content"
             android:layout_marginLeft="8dp"
+            android:gravity="left"
             tools:text="广东省 广州市海珠区滨江东路112号"
             android:textColor="@color/gray" />
     </LinearLayout>

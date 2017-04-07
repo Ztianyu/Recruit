@@ -12,6 +12,7 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.bean.PanoramaModel;
 import cn.zty.recruit.ui.activity.learn.VideoActivity;
+import cn.zty.recruit.utils.SnackbarUtils;
 import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.utils.WebLoadHtmlUtils;
 
@@ -58,7 +59,8 @@ public class PanoramaDetailActivity extends BaseActivity {
                                 .putExtra("videoUrl", panoramaModel.getVideoUrl())
                                 .putExtra("videoName", panoramaModel.getPlace()));
                     } else {
-                        ToastUtils.show("暂无视频资源");
+                        SnackbarUtils.showShort(webView, "暂无视频资源");
+//                        ToastUtils.show("暂无视频资源");
                     }
                     return true;
                 }
@@ -69,6 +71,7 @@ public class PanoramaDetailActivity extends BaseActivity {
         // 设置加载进来的页面自适应手机屏幕
         webView.getSettings().setUseWideViewPort(true);
         webView.getSettings().setLoadWithOverviewMode(true);
+
     }
 
     @Override
@@ -79,5 +82,12 @@ public class PanoramaDetailActivity extends BaseActivity {
                             panoramaModel.getContent()),
                     "text/html", "utf-8", null);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (webView != null)
+            webView.destroy();
     }
 }

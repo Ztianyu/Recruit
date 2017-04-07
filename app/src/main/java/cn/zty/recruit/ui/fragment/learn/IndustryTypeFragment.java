@@ -21,6 +21,7 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.IndustryTypeAdapter;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.bean.IndustryTypeModel;
+import cn.zty.recruit.bean.TipModel;
 import cn.zty.recruit.listener.IndustryTypeListener;
 import cn.zty.recruit.presenter.IndustryTypePresenter;
 import cn.zty.recruit.view.IndustryTypeView;
@@ -120,6 +121,11 @@ public class IndustryTypeFragment extends DialogFragment implements IndustryType
 
     @Override
     public void onIndustryTypeSuccess(List<IndustryTypeModel> models) {
-        adapter.setData(models);
+
+        IndustryTypeModel tipModel = new IndustryTypeModel();
+        tipModel.setId("-1");
+        tipModel.setName("全部");
+        adapter.addListAtEnd(tipModel);
+        adapter.addListAtEnd(models);
     }
 }

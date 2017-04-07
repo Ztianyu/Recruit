@@ -32,7 +32,6 @@ public class IndustryTypeAdapter extends MyBaseAdapter<IndustryTypeModel> {
         } else {
             holder = (DictAdapter.Holder) convertView.getTag();
         }
-        holder.itemText.setTextColor(ResourceUtil.resToColor(context, R.color.gray));
         holder.itemText.setText(mData.get(position).getName());
         return convertView;
     }

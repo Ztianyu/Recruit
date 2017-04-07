@@ -27,6 +27,7 @@ import cn.zty.recruit.presenter.PanoramaPresenter;
 import cn.zty.recruit.presenter.StudySchoolInfoPresenter;
 import cn.zty.recruit.ui.activity.WebActivity;
 import cn.zty.recruit.ui.activity.school.CollegeActivity;
+import cn.zty.recruit.utils.SnackbarUtils;
 import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.PanoramaView;
 import cn.zty.recruit.view.StudySchoolView;
@@ -197,10 +198,10 @@ public class StudySchoolDetail extends BaseActivity implements
                         .putExtra("videoUrl", panoramaModel.getVideoUrl())
                         .putExtra("videoName", panoramaModel.getPlace()));
             } else {
-                ToastUtils.show("暂无宣传视频");
+                SnackbarUtils.showShort(toolbar,"暂无宣传视频");
             }
         } else {
-            ToastUtils.show("暂无宣传视频");
+            SnackbarUtils.showShort(toolbar,"暂无宣传视频");
         }
     }
 }

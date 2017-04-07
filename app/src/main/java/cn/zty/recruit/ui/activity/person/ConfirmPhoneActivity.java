@@ -18,6 +18,7 @@ import cn.zty.baselib.utils.ValidateUtil;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.Constants;
+import cn.zty.recruit.utils.SnackbarUtils;
 import cn.zty.recruit.utils.ToastUtils;
 
 /**
@@ -78,14 +79,14 @@ public class ConfirmPhoneActivity extends BaseActivity implements View.OnFocusCh
                     SMSSDK.getVerificationCode("86", editRegisterPhone.getText().toString());
                     sendCode();
                 } else {
-                    ToastUtils.show("请输入正确的手机号码");
+                    SnackbarUtils.showShort(toolbar,"请输入正确的手机号码");
                 }
                 break;
             case R.id.btnConfirmPhone:
                 if (!TextUtils.isEmpty(editRegisterCode.getText().toString())) {
                     SMSSDK.submitVerificationCode("86", editRegisterPhone.getText().toString(), editRegisterCode.getText().toString());
                 } else {
-                    ToastUtils.show("请输入验证码");
+                    SnackbarUtils.showShort(toolbar,"请输入验证码");
                 }
                 break;
         }
@@ -172,7 +173,7 @@ public class ConfirmPhoneActivity extends BaseActivity implements View.OnFocusCh
 
                 }
             } else {
-                ToastUtils.show("验证码有误");
+                SnackbarUtils.showShort(toolbar,"验证码有误");
                 ((Throwable) data).printStackTrace();
             }
         }
