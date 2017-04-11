@@ -89,8 +89,8 @@
                 android:id="@+id/labSchool5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:lab_img="@mipmap/ic_school_lab5"
-                app:lab_text="@string/labSchool5"></cn.zty.recruit.widget.LabView>
+                app:lab_img="@mipmap/ic_school_lab8"
+                app:lab_text="@string/labSchool8"></cn.zty.recruit.widget.LabView>
         </LinearLayout>
 
         <LinearLayout

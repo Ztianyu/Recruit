@@ -1,6 +1,7 @@
 package cn.zty.recruit.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,43 +10,49 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cn.zty.recruit.R;
+import cn.zty.recruit.bean.CollegeModel;
 import cn.zty.recruit.bean.DepartmentMajorModel;
+import cn.zty.recruit.ui.activity.learn.StudyEnrollActivity;
 
 /**
- * 专业介绍 列表
+ * 职业学校 专业报名 列表
  * Created by zty on 2017/3/15.
  */
 
 public class MajorListAdapter extends BaseExpandableListAdapter {
     private Context mContext;
-    private List<DepartmentMajorModel> mData;
+    private List<CollegeModel> groupData;
+    private Map<Integer, List<DepartmentMajorModel>> childData;
 
     public MajorListAdapter(Context context) {
         this.mContext = context;
-        this.mData = new ArrayList<>();
+        this.groupData = new ArrayList<>();
+        this.childData = new HashMap<>();
     }
 
     @Override
     public int getGroupCount() {
-        return mData == null ? 0 : mData.size();
+        return groupData == null ? 0 : groupData.size();
     }
 
     @Override
     public int getChildrenCount(int i) {
-        return 1;
+        return childData.get(i).size();
     }
 
     @Override
     public Object getGroup(int i) {
-        return mData.get(i);
+        return groupData.get(i);
     }
 
     @Override
     public Object getChild(int i, int i1) {
-        return mData.get(i);
+        return childData.get(i).get(i1);
     }
 
     @Override
@@ -55,7 +62,7 @@ public class MajorListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public long getChildId(int i, int i1) {
-        return 0;
+        return i1;
     }
 
     @Override
@@ -68,14 +75,14 @@ public class MajorListAdapter extends BaseExpandableListAdapter {
         CollegeAdapter.ViewHolder holder = null;
         if (convertView == null) {
             holder = new CollegeAdapter.ViewHolder();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_expand_major_group, null);
-            holder.name = (TextView) convertView.findViewById(R.id.textMajorExpandGroup);
-            holder.indicator = (ImageView) convertView.findViewById(R.id.imgMajorExpandGroup);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_college_list, null);
+            holder.name = (TextView) convertView.findViewById(R.id.textCollegeListName);
+            holder.indicator = (ImageView) convertView.findViewById(R.id.imgCollegeExpand);
             convertView.setTag(holder);
         } else {
             holder = (CollegeAdapter.ViewHolder) convertView.getTag();
         }
-        holder.name.setText(mData.get(groupPosition).getMajorNm());
+        holder.name.setText(groupData.get(groupPosition).getName());
         if (isExpanded) {
             holder.indicator.setBackgroundResource(R.mipmap.ic_expand);
         } else {
@@ -85,19 +92,39 @@ public class MajorListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
-        CollegeAdapter.ViewHolder2 holder = null;
+        StudyEnrollAdapter.ChildHolder holder = null;
         if (convertView == null) {
-            holder = new CollegeAdapter.ViewHolder2();
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_expand_content, null);
-            holder.content = (TextView) convertView.findViewById(R.id.textExpandContent);
+            holder = new StudyEnrollAdapter.ChildHolder();
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_study_major_child, null);
+            holder.textMajorChildName = (TextView) convertView.findViewById(R.id.textMajorChildName);
+            holder.textStudyLength = (TextView) convertView.findViewById(R.id.textStudyLength);
+            holder.textStudyEducation = (TextView) convertView.findViewById(R.id.textStudyEducation);
+            holder.textStudyPrise = (TextView) convertView.findViewById(R.id.textStudyPrise);
             convertView.setTag(holder);
         } else {
-            holder = (CollegeAdapter.ViewHolder2) convertView.getTag();
+            holder = (StudyEnrollAdapter.ChildHolder) convertView.getTag();
         }
 
-        holder.content.setText("　　" + mData.get(groupPosition).getRemarks());
+        if (childData.get(groupPosition) != null) {
+            holder.textMajorChildName.setText(childData.get(groupPosition).get(childPosition).getMajorNm());
+            holder.textStudyLength.setText("学制" + childData.get(groupPosition).get(childPosition).getSchoolLength() + "年");
+//            holder.textStudyEducation.setText(childData.get(groupPosition).get(childPosition).getStudyTypeLabel());
+//            holder.textStudyPrise.setText(childData.get(groupPosition).get(childPosition).getRegistrationFee() +
+//                    "元/" +
+//                    childData.get(groupPosition).get(childPosition).getChargeStandardLabel()
+//                            .replace("按", "").replace("收", ""));
+        }
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, StudyEnrollActivity.class)
+                        .putExtra("majorModel", childData.get(groupPosition).get(childPosition))
+                        .putExtra("office", ""));
+            }
+        });
         return convertView;
     }
 
@@ -106,9 +133,21 @@ public class MajorListAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
-    public void setData(List<DepartmentMajorModel> models) {
-        this.mData.clear();
-        mData.addAll(models);
+    public Map<Integer, List<DepartmentMajorModel>> getChildData() {
+        return childData;
+    }
+
+    public void setData(List<CollegeModel> models) {
+        this.groupData.clear();
+        groupData.addAll(models);
         notifyDataSetChanged();
+    }
+
+    public List<CollegeModel> getData() {
+        return this.groupData;
+    }
+
+    public void setChildData(List<DepartmentMajorModel> models, int groupPosition) {
+        childData.put(groupPosition, models);
     }
 }

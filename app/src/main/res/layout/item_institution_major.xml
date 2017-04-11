@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/textColor"
                 android:textSize="14sp"
+                android:textStyle="bold"
                 tools:text="ASP.NET 开发实训" />
 
             <TextView

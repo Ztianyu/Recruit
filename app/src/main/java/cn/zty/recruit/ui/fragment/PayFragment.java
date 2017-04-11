@@ -16,6 +16,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.zty.baselib.widget.StripMenuView;
 import cn.zty.recruit.R;
+import cn.zty.recruit.bean.OrderModel;
+import cn.zty.recruit.listener.PayListener;
 import cn.zty.recruit.pay.Payment;
 
 /**
@@ -31,14 +33,24 @@ public class PayFragment extends DialogFragment {
 
     Unbinder unbinder;
 
-    public static PayFragment newInstance() {
+    private OrderModel orderModel;
+
+    private PayListener payListener;
+
+    public static PayFragment newInstance(OrderModel orderModel, PayListener payListener) {
         PayFragment fragment = new PayFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("orderModel", orderModel);
+        fragment.setArguments(bundle);
+        fragment.setPayListener(payListener);
         return fragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        orderModel = getArguments().getParcelable("orderModel");
     }
 
     @NonNull
@@ -78,7 +90,8 @@ public class PayFragment extends DialogFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.payAli:
-                Payment payment = new Payment(getActivity());
+                Payment payment = new Payment(getActivity(), payListener);
+                payment.setPayModel(orderModel);
                 payment.payNow();
                 dismiss();
                 break;
@@ -86,5 +99,13 @@ public class PayFragment extends DialogFragment {
                 dismiss();
                 break;
         }
+    }
+
+    public PayListener getPayListener() {
+        return payListener;
+    }
+
+    public void setPayListener(PayListener payListener) {
+        this.payListener = payListener;
     }
 }

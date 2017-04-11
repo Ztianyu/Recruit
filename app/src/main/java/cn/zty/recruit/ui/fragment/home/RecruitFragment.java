@@ -8,6 +8,7 @@ import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ import cn.zty.recruit.bean.VocationalModel;
 import cn.zty.recruit.presenter.GetAdsPresenter;
 import cn.zty.recruit.presenter.HotMajorPresenter;
 import cn.zty.recruit.presenter.VocationalListPresenter;
+import cn.zty.recruit.ui.activity.WebActivity;
 import cn.zty.recruit.ui.activity.job.JobActivity;
 import cn.zty.recruit.ui.activity.learn.LearnActivity;
 import cn.zty.recruit.ui.activity.school.MoreActivity;
@@ -48,7 +50,8 @@ public class RecruitFragment extends BaseFragment implements
         HotMajorView,
         VocationalListView,
         SwipeRefreshLayout.OnRefreshListener,
-        GradationNestedScrollView.ScrollViewListener {
+        GradationNestedScrollView.ScrollViewListener,
+        OnBannerClickListener {
 
     @BindView(R.id.textTitle)
     TextView textTitle;
@@ -82,6 +85,8 @@ public class RecruitFragment extends BaseFragment implements
     private VocationalListPresenter vocationalListPresenter;
 
     private int height;
+
+    private List<AdsModel> adsModels = new ArrayList<>();
 
     @Override
     protected int initLayoutId() {
@@ -126,6 +131,8 @@ public class RecruitFragment extends BaseFragment implements
         bannerRecruit.setFocusableInTouchMode(true);
         bannerRecruit.requestFocus();
 
+        bannerRecruit.setOnBannerClickListener(this);
+
         ViewTreeObserver vto = bannerRecruit.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -137,6 +144,8 @@ public class RecruitFragment extends BaseFragment implements
                 scrollView.setScrollViewListener(RecruitFragment.this);
             }
         });
+
+
     }
 
     @Override
@@ -175,6 +184,8 @@ public class RecruitFragment extends BaseFragment implements
     @Override
     public void onAdsSuccess(List<AdsModel> models) {
         if (models != null && models.size() > 0) {
+            adsModels.clear();
+            adsModels.addAll(models);
             List<String> images = new ArrayList<>();
             for (AdsModel adsModel : models) {
                 images.add(adsModel.getImgUrl());
@@ -210,6 +221,18 @@ public class RecruitFragment extends BaseFragment implements
             textTitle.setBackgroundColor(Color.argb((int) alpha, 240, 72, 72));
         } else {    //滑动到banner下面设置普通颜色
             textTitle.setBackgroundColor(Color.argb(255, 240, 72, 72));
+        }
+    }
+
+    @Override
+    public void OnBannerClick(int position) {
+        if (adsModels.size() > 0) {
+            startActivity(new Intent(context, WebActivity.class)
+                    .putExtra("title", adsModels.get(position % adsModels.size()).getTitle())
+                    .putExtra("schoolId", "")
+                    .putExtra("type", WebActivity.TYPE3)
+                    .putExtra("content", adsModels.get(position % adsModels.size()).getContent()));
+
         }
     }
 }

@@ -1,5 +1,7 @@
 package cn.zty.recruit.ui.activity.person;
 
+import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,6 +13,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.zty.baselib.utils.AppManager;
 import cn.zty.baselib.utils.MyImageLoader;
 import cn.zty.baselib.utils.MyTextUtils;
 import cn.zty.baselib.utils.ResourceUtil;
@@ -19,6 +22,7 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.bean.OrderModel;
+import cn.zty.recruit.listener.PayListener;
 import cn.zty.recruit.presenter.OrderPresenter;
 import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.view.OrderView;
@@ -28,7 +32,8 @@ import cn.zty.recruit.view.OrderView;
  */
 
 public class OrderDetailActivity extends BaseActivity implements
-        OrderView {
+        OrderView,
+        PayListener {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -81,6 +86,8 @@ public class OrderDetailActivity extends BaseActivity implements
 
     private OrderPresenter orderPresenter;
 
+    private OrderModel model;
+
     @Override
     protected int initLayoutId() {
         return R.layout.activity_order_detail;
@@ -97,6 +104,13 @@ public class OrderDetailActivity extends BaseActivity implements
         orderPresenter = new OrderPresenter();
         orderPresenter.attach(this);
         presenters.add(orderPresenter);
+
+        Drawable drawable = ResourceUtil.resToDrawable(this, R.mipmap.ic_position);
+        int top = textOrderSchoolAdd.getLineCount() * textOrderSchoolAdd.getHeight() / 2 - textOrderSchoolAdd.getLineHeight() / 2;
+        int bottom = top + drawable.getIntrinsicHeight();
+
+        drawable.setBounds(0, top, drawable.getIntrinsicWidth(), bottom);
+        textOrderSchoolAdd.setCompoundDrawables(drawable, null, null, null);
     }
 
     @Override
@@ -106,7 +120,8 @@ public class OrderDetailActivity extends BaseActivity implements
 
     @OnClick(R.id.btnSubmit)
     public void onViewClicked() {
-        DialogUtils.showPayDialog(getSupportFragmentManager());
+        if (model != null)
+            DialogUtils.showPayDialog(getSupportFragmentManager(), model, this);
     }
 
     @Override
@@ -115,6 +130,8 @@ public class OrderDetailActivity extends BaseActivity implements
 
     @Override
     public void onOrderDetail(OrderModel model) {
+        this.model = model;
+
         MyImageLoader.load(this, model.getPhoto(), imgOrderHeader);
         textOrderName.setText(model.getFullNm());
         textOrderEducation.setText(model.getEducationLabel());
@@ -134,6 +151,7 @@ public class OrderDetailActivity extends BaseActivity implements
         StringBuffer contentName = new StringBuffer();
         contentName.append(MyTextUtils.notNullStr(model.getDepartmentNm()))
                 .append(model.getCourseNm())
+                .append("   ")
                 .append(TextUtils.isEmpty(model.getStudyTypeLabel()) ? "" : "    进修" + model.getStudyTypeLabel());
         textOrderContentName.setText(contentName.toString());
 
@@ -162,5 +180,17 @@ public class OrderDetailActivity extends BaseActivity implements
             layoutBill.setVisibility(View.INVISIBLE);
             textOrderState.setText(Constants.ORDER_STATE_VALUE3);
         }
+    }
+
+    @Override
+    public void onPaySuccess() {
+        finish();
+        AppManager.getInstance().finishActivity(OrderActivity.class);
+        if (model.getState().equals("0")) {
+            OrderActivity.page = 1;
+        } else if (model.getState().equals("1")) {
+            OrderActivity.page = 2;
+        }
+        startActivity(new Intent(this, OrderActivity.class));
     }
 }

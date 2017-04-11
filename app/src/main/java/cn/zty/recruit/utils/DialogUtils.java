@@ -10,12 +10,14 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
+import cn.zty.recruit.bean.OrderModel;
 import cn.zty.recruit.listener.AreaSelectListener;
 import cn.zty.recruit.listener.BirthSelectListener;
 import cn.zty.recruit.listener.EducationSelectListener;
 import cn.zty.recruit.listener.EnrollTypeSelectListener;
 import cn.zty.recruit.listener.IndustryTypeListener;
 import cn.zty.recruit.listener.MajorSelectListener;
+import cn.zty.recruit.listener.PayListener;
 import cn.zty.recruit.listener.SchoolSelectListener;
 import cn.zty.recruit.listener.SexSelectListener;
 import cn.zty.recruit.listener.StudySchoolListener;
@@ -210,11 +212,11 @@ public class DialogUtils {
     /**
      * 支付
      */
-    public static void showPayDialog(FragmentManager manager) {
+    public static void showPayDialog(FragmentManager manager, OrderModel orderModel, PayListener payListener) {
         Fragment fragment = manager.findFragmentByTag(PAY);
         if (fragment != null)
             manager.beginTransaction().remove(fragment);
-        PayFragment payFragment = PayFragment.newInstance();
+        PayFragment payFragment = PayFragment.newInstance(orderModel, payListener);
         payFragment.show(manager.beginTransaction(), PAY);
     }
 }

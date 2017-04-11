@@ -10,6 +10,11 @@ import com.alipay.sdk.app.PayTask;
 
 import java.util.Map;
 
+import cn.zty.baselib.utils.MyTextUtils;
+import cn.zty.recruit.bean.OrderModel;
+import cn.zty.recruit.listener.PayListener;
+import cn.zty.recruit.utils.ToastUtils;
+
 
 /**
  * 支付宝支付接口
@@ -17,26 +22,29 @@ import java.util.Map;
 public class Payment {
 
     private static final int SDK_PAY_FLAG = 1;
-    private static final int SDK_AUTH_FLAG = 2;
 
     private Activity mContext;
 
-    public Payment(Activity context) {
+    private PayModel payModel;
+
+    private PayListener payListener;
+
+    public Payment(Activity context, PayListener payListener) {
         mContext = context;
+        this.payListener = payListener;
     }
 
     public void payNow() {
 
-        boolean rsa2 = (Keys.PRIVATE.length() > 0);
+        boolean rsa2 = (Keys.RSA2_PRIVATE.length() > 0);
 
         PayTask payTask = new PayTask(mContext);
         String version = payTask.getVersion();
 
-        Map<String, String> params = OrderInfoUtil2_0.buildOrderParamMap(Keys.DEFAULT_PARTNER, rsa2, version);
+        Map<String, String> params = OrderInfoUtil2_0.buildOrderParamMap(Keys.APP_ID, payModel, rsa2, version);
         String orderParam = OrderInfoUtil2_0.buildOrderParam(params);
 
-        String privateKey = rsa2 ? Keys.PRIVATE : Keys.PRIVATE;
-        String sign = OrderInfoUtil2_0.getSign(params, privateKey, rsa2);
+        String sign = OrderInfoUtil2_0.getSign(params, Keys.RSA2_PRIVATE, rsa2);
         final String orderInfo = orderParam + "&" + sign;
 
         Runnable payRunnable = new Runnable() {
@@ -73,25 +81,10 @@ public class Payment {
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
+                        payListener.onPaySuccess();
+                        ToastUtils.show("支付成功");
                     } else {
-                        // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-                    }
-                    break;
-                }
-                case SDK_AUTH_FLAG: {
-                    @SuppressWarnings("unchecked")
-                    AuthResult authResult = new AuthResult((Map<String, String>) msg.obj, true);
-                    String resultStatus = authResult.getResultStatus();
-
-                    // 判断resultStatus 为“9000”且result_code
-                    // 为“200”则代表授权成功，具体状态码代表含义可参考授权接口文档
-                    if (TextUtils.equals(resultStatus, "9000") && TextUtils.equals(authResult.getResultCode(), "200")) {
-                        // 获取alipay_open_id，调支付时作为参数extern_token 的value
-                        // 传入，则支付账户为该授权账户
-                    } else {
-                        // 其他状态值则为授权失败
-
+                        ToastUtils.show("支付失败");
                     }
                     break;
                 }
@@ -99,17 +92,21 @@ public class Payment {
                     break;
             }
         }
-
-        ;
     };
 
-    /**
-     * 跳转到其他Actvity
-     */
-    public void startToOtherActivity(final int type) {
+    public void setPayModel(OrderModel orderModel) {
+        payModel = new PayModel();
 
-
+        String orderState = orderModel.getState();
+        if (orderState.equals("0")) {
+            payModel.setOut_trade_no(orderModel.getOrderCode());
+            payModel.setTotal_amount(orderModel.getDeposit() + "");
+        } else if (orderState.equals("1")) {
+            payModel.setOut_trade_no(orderModel.getId());
+            payModel.setTotal_amount(orderModel.getActualPayment() + "");
+        }
+//        payModel.setTotal_amount("0.01");
+        payModel.setBody(orderModel.getCourseNm());
+        payModel.setSubject("报名：" + orderModel.getCourseNm() + " " + MyTextUtils.notNullStr(orderModel.getDepartmentNm()));
     }
-
-
 }

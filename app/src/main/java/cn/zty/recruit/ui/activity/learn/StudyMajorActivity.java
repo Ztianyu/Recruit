@@ -18,6 +18,7 @@ import cn.zty.recruit.view.DepartmentListView;
 import cn.zty.recruit.view.StudyMajorView;
 
 /**
+ * 专业报名列表
  * Created by zty on 2017/3/18.
  */
 
@@ -25,6 +26,7 @@ public class StudyMajorActivity extends BaseActivity implements
         ExpandableListView.OnGroupClickListener,
         DepartmentListView,
         StudyMajorView {
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.expandedMajor)
@@ -37,6 +39,7 @@ public class StudyMajorActivity extends BaseActivity implements
     private MajorSettingPresenter majorSettingPresenter;
 
     private String schoolId;
+    private String office;
 
     private int handleGroupPosition;
 
@@ -48,11 +51,12 @@ public class StudyMajorActivity extends BaseActivity implements
     @Override
     protected void initView() {
         schoolId = getIntent().getStringExtra("schoolId");
+        office = getIntent().getStringExtra("office");
 
         toolbar.setTitle("专业报名");
         initToolbar(toolbar);
 
-        adapter = new StudyEnrollAdapter(this);
+        adapter = new StudyEnrollAdapter(this, office);
         expandedMajor.setAdapter(adapter);
 
         expandedMajor.setOnGroupClickListener(this);

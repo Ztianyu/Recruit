@@ -16,10 +16,13 @@ import cn.zty.baselib.utils.MyImageLoader;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.SchoolLabAdapter;
 import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.base.BaseData;
+import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.bean.TipModel;
 import cn.zty.recruit.bean.VocationalModel;
 import cn.zty.recruit.presenter.VocationPresenter;
 import cn.zty.recruit.ui.activity.WebActivity;
+import cn.zty.recruit.ui.activity.learn.StudyMajorActivity;
 import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.utils.StringUtils;
 import cn.zty.recruit.view.VocationView;
@@ -92,17 +95,11 @@ public class SchoolDetailActivity extends BaseActivity implements VocationView {
                 .setAdapter(labAdapter);
 
         adapter = new SchoolLabAdapter(this, true);
-
-        presenter.getVocationalSchool(schoolId);
     }
 
     @Override
     protected void initData() {
-        List<TipModel> list = new ArrayList<>();
-        list.add(new TipModel());
-        list.add(new TipModel());
-        list.add(new TipModel());
-        labAdapter.setData(list);
+        presenter.getVocationalSchool(schoolId);
     }
 
     @OnClick({R.id.labSchool1, R.id.labSchool2, R.id.labSchool3, R.id.labSchool4, R.id.labSchool5, R.id.labSchool6})
@@ -130,8 +127,9 @@ public class SchoolDetailActivity extends BaseActivity implements VocationView {
                         .putExtra("type", WebActivity.TYPE2));
                 break;
             case R.id.labSchool5:
-                startActivity(new Intent(this, CollegeListActivity.class)
-                        .putExtra("schoolId", schoolId));
+                startActivity(new Intent(this, StudyMajorActivity.class)
+                        .putExtra("schoolId", schoolId)
+                        .putExtra("office", Constants.OFFICE_TYPE0));
                 break;
             case R.id.labSchool6:
                 DialogUtils.showCall(getSupportFragmentManager(), vocationalModel.getCustomerTel(), vocationalModel.getConsultationTime());
@@ -143,6 +141,8 @@ public class SchoolDetailActivity extends BaseActivity implements VocationView {
     public void onVocationSuccess(VocationalModel model) {
         if (model != null) {
             vocationalModel = model;
+
+            BaseData.studySchoolPhone = model.getContactTel();
 
             autoLineLayout.horizontalLayoutManager(this)
                     .setAdapter(adapter);

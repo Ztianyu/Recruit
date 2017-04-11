@@ -8,6 +8,7 @@ import com.lzy.okhttputils.cookie.store.PersistentCookieStore;
 
 import cn.zty.baselib.http.RetrofitHelper;
 import cn.zty.recruit.bean.UserModel;
+import cn.zty.recruit.utils.FontUtils;
 import cn.zty.recruit.utils.SharedPrefUtils;
 import io.vov.vitamio.Vitamio;
 
@@ -39,6 +40,8 @@ public class RecruitApplication extends Application {
         Vitamio.isInitialized(this);
 
         setCurrentUser();
+
+        FontUtils.setDefaultFont(this, "SERIF", "fonts/myFont.ttf");
 
         MyException crashHandler = MyException.getInstance();
         crashHandler.init(getApplicationContext());

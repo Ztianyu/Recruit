@@ -1,8 +1,11 @@
 package cn.zty.recruit.ui.activity;
 
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.webkit.WebSettings;
+import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.ProgressBar;
 
 import butterknife.BindView;
 import cn.zty.recruit.R;
@@ -22,15 +25,19 @@ public class WebActivity extends BaseActivity implements
 
     public static final int TYPE1 = 0;//院校概述
     public static final int TYPE2 = 1;//师资力量
+    public static final int TYPE3 = 2;//广告页
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.webView)
     WebView webView;
+    @BindView(R.id.progressWeb)
+    ProgressBar progressWeb;
 
     private String schoolId;
     private String title;
     private int type;
+    private String content;
 
     private SchoolIntroductionPresenter schoolIntroductionPresenter;
 
@@ -43,9 +50,11 @@ public class WebActivity extends BaseActivity implements
 
     @Override
     protected void initView() {
-        title = getIntent().getStringExtra("title");
-        schoolId = getIntent().getStringExtra("schoolId");
-        type = getIntent().getIntExtra("type", -1);
+        Bundle bundle = getIntent().getExtras();
+        title = bundle.getString("title");
+        schoolId = bundle.getString("schoolId");
+        type = bundle.getInt("type", -1);
+        content = bundle.getString("content");
 
         toolbar.setTitle(title);
         initToolbar(toolbar);
@@ -53,6 +62,20 @@ public class WebActivity extends BaseActivity implements
         // 设置加载进来的页面自适应手机屏幕
         webView.getSettings().setUseWideViewPort(true);
         webView.getSettings().setLoadWithOverviewMode(true);
+
+        WebChromeClient webChromeClient = new WebChromeClient() {
+
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                if (newProgress == 100) {
+                    progressWeb.setVisibility(View.INVISIBLE);
+                } else {
+                    progressWeb.setVisibility(View.VISIBLE);
+                }
+            }
+        };
+        // 设置setWebChromeClient对象
+        webView.setWebChromeClient(webChromeClient);
     }
 
     @Override
@@ -71,6 +94,12 @@ public class WebActivity extends BaseActivity implements
                 presenters.add(schoolFacultyPresenter);
 
                 schoolFacultyPresenter.getSchoolFaculty(schoolId);
+                break;
+            case TYPE3:
+                webView.loadDataWithBaseURL("file:///android_asset/",
+                        WebLoadHtmlUtils.loadHtml("",
+                                content),
+                        "text/html", "utf-8", null);
                 break;
         }
     }

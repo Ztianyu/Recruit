@@ -23,6 +23,7 @@
         android:drawablePadding="6dp"
         android:textColor="@color/textColor"
         android:textSize="16sp"
+        android:textStyle="bold"
         tools:text="广州职业技术学院" />
 
     <LinearLayout

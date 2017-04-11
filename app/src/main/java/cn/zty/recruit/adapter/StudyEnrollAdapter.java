@@ -27,11 +27,13 @@ public class StudyEnrollAdapter extends BaseExpandableListAdapter {
     private Context mContext;
     private List<CollegeModel> groupData;
     private Map<Integer, List<StudyMajorModel>> childData;
+    private String office;
 
-    public StudyEnrollAdapter(Context context) {
+    public StudyEnrollAdapter(Context context, String office) {
         this.mContext = context;
         this.groupData = new ArrayList<>();
         this.childData = new HashMap<>();
+        this.office = office;
     }
 
     @Override
@@ -121,7 +123,8 @@ public class StudyEnrollAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 mContext.startActivity(new Intent(mContext, StudyEnrollActivity.class)
-                        .putExtra("majorModel", childData.get(groupPosition).get(childPosition)));
+                        .putExtra("majorModel", childData.get(groupPosition).get(childPosition))
+                        .putExtra("office", office));
             }
         });
         return convertView;

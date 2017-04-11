@@ -26,6 +26,7 @@
             android:layout_marginLeft="16dp"
             android:layout_toRightOf="@id/imgSchool"
             tools:text="广州汁职业术学校"
+            android:textStyle="bold"
             android:textColor="@color/textColor" />
 
         <cn.droidlover.xrecyclerview.XRecyclerView

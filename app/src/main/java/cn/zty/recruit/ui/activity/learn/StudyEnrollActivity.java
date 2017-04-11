@@ -88,6 +88,8 @@ public class StudyEnrollActivity extends BaseActivity implements
 
     private UserModel userModel;
 
+    private String office;
+
     @Override
     protected int initLayoutId() {
         return R.layout.activity_study_major_enroll;
@@ -96,6 +98,7 @@ public class StudyEnrollActivity extends BaseActivity implements
     @Override
     protected void initView() {
 
+        office = getIntent().getStringExtra("office");
         studyMajorModel = getIntent().getParcelableExtra("majorModel");
 
         toolbar.setTitle("在线报名");
@@ -169,7 +172,7 @@ public class StudyEnrollActivity extends BaseActivity implements
                 DialogUtils.showEducationSelect(getSupportFragmentManager(), educationName, this);
                 break;
             case R.id.btnChoseType:
-                DialogUtils.showEnrollTypeSelect(getSupportFragmentManager(), this, Constants.OFFICE_TYPE2);
+                DialogUtils.showEnrollTypeSelect(getSupportFragmentManager(), this, office);
                 break;
             case R.id.btnSubmit:
                 submitOrder();
@@ -179,7 +182,9 @@ public class StudyEnrollActivity extends BaseActivity implements
 
     private void submitOrder() {
         if (check())
-            submitOrderPresenter.submitOrder(Constants.OFFICE_TYPE2, studyMajorModel.getId(), enrollTypeModel.getId(),
+            submitOrderPresenter.submitOrder(office,
+                    studyMajorModel.getId(),
+                    enrollTypeModel.getId(),
                     editEnrollName.getText().toString(),
                     btnChoseSex.getText().toString(),
                     btnChoseAge.getText().toString(),

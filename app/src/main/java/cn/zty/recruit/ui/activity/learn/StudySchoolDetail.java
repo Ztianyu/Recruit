@@ -20,6 +20,7 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.SchoolLabAdapter;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.BaseData;
+import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.bean.PanoramaModel;
 import cn.zty.recruit.bean.StudySchoolModel;
 import cn.zty.recruit.bean.TipModel;
@@ -28,7 +29,6 @@ import cn.zty.recruit.presenter.StudySchoolInfoPresenter;
 import cn.zty.recruit.ui.activity.WebActivity;
 import cn.zty.recruit.ui.activity.school.CollegeActivity;
 import cn.zty.recruit.utils.SnackbarUtils;
-import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.PanoramaView;
 import cn.zty.recruit.view.StudySchoolView;
 import cn.zty.recruit.widget.LabView;
@@ -151,7 +151,8 @@ public class StudySchoolDetail extends BaseActivity implements
                 break;
             case R.id.labSchool5:
                 startActivity(new Intent(this, StudyMajorActivity.class)
-                        .putExtra("schoolId", schoolId));
+                        .putExtra("schoolId", schoolId)
+                        .putExtra("office", Constants.OFFICE_TYPE2));
                 break;
         }
     }

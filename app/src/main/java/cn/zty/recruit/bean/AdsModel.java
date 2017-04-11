@@ -14,6 +14,7 @@ public class AdsModel {
      * state : 1
      * thumbImg : http://14.29.68.166:8862/homepageAds/2017/03/ddc0ad1a8bba4b1d974a2bf8d9842492_small.jpg
      * title : 最新公告
+     * content:
      */
 
     private int adsPosition;
@@ -22,6 +23,15 @@ public class AdsModel {
     private int state;
     private String thumbImg;
     private String title;
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 
     public int getAdsPosition() {
         return adsPosition;

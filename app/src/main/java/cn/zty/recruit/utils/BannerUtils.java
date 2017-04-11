@@ -25,13 +25,13 @@ public class BannerUtils {
         //设置图片加载器
         banner.setImageLoader(new BannerImageLoader());
         //设置图片集合
-        banner.setImages(images);
+        banner.update(images);
         //设置banner动画效果
         banner.setBannerAnimation(Transformer.DepthPage);
         //设置自动轮播，默认为true
         banner.isAutoPlay(true);
         //设置轮播时间
-        banner.setDelayTime(5000);
+        banner.setDelayTime(4000);
         //设置指示器位置（当banner模式中有指示器时）
         if (position == 1) {
             banner.setIndicatorGravity(BannerConfig.CENTER);

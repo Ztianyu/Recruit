@@ -1,10 +1,13 @@
 package cn.zty.recruit.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by zty on 2017/3/23.
  */
 
-public class OrderModel {
+public class OrderModel implements Parcelable{
 
 
     /**
@@ -70,6 +73,51 @@ public class OrderModel {
     private String departmentNm;
     private String remarks;
     private String studyTypeLabel;
+
+    protected OrderModel(Parcel in) {
+        id = in.readString();
+        userId = in.readString();
+        fullNm = in.readString();
+        sex = in.readString();
+        age = in.readString();
+        mobile = in.readString();
+        photo = in.readString();
+        education = in.readString();
+        educationLabel = in.readString();
+        orderCode = in.readString();
+        courseId = in.readString();
+        courseNm = in.readString();
+        schoolNm = in.readString();
+        imgUrl = in.readString();
+        thumbImg = in.readString();
+        schoolAddress = in.readString();
+        hours = in.readInt();
+        chargeStandard = in.readString();
+        money = in.readDouble();
+        depositId = in.readString();
+        deductibleAmount = in.readDouble();
+        discountAmount = in.readDouble();
+        deposit = in.readDouble();
+        actualPayment = in.readDouble();
+        state = in.readString();
+        createDate = in.readString();
+        updateDate = in.readString();
+        departmentNm = in.readString();
+        remarks = in.readString();
+        studyTypeLabel = in.readString();
+    }
+
+    public static final Creator<OrderModel> CREATOR = new Creator<OrderModel>() {
+        @Override
+        public OrderModel createFromParcel(Parcel in) {
+            return new OrderModel(in);
+        }
+
+        @Override
+        public OrderModel[] newArray(int size) {
+            return new OrderModel[size];
+        }
+    };
 
     public String getStudyTypeLabel() {
         return studyTypeLabel;
@@ -309,5 +357,44 @@ public class OrderModel {
 
     public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(userId);
+        dest.writeString(fullNm);
+        dest.writeString(sex);
+        dest.writeString(age);
+        dest.writeString(mobile);
+        dest.writeString(photo);
+        dest.writeString(education);
+        dest.writeString(educationLabel);
+        dest.writeString(orderCode);
+        dest.writeString(courseId);
+        dest.writeString(courseNm);
+        dest.writeString(schoolNm);
+        dest.writeString(imgUrl);
+        dest.writeString(thumbImg);
+        dest.writeString(schoolAddress);
+        dest.writeInt(hours);
+        dest.writeString(chargeStandard);
+        dest.writeDouble(money);
+        dest.writeString(depositId);
+        dest.writeDouble(deductibleAmount);
+        dest.writeDouble(discountAmount);
+        dest.writeDouble(deposit);
+        dest.writeDouble(actualPayment);
+        dest.writeString(state);
+        dest.writeString(createDate);
+        dest.writeString(updateDate);
+        dest.writeString(departmentNm);
+        dest.writeString(remarks);
+        dest.writeString(studyTypeLabel);
     }
 }

@@ -3,8 +3,10 @@ package cn.zty.recruit.widget;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
@@ -49,6 +51,11 @@ public class LabView extends RelativeLayout {
         textLab.setTextSize(TypedValue.COMPLEX_UNIT_SP, arr.getInt(R.styleable.LabView_lab_size, 13));
         textLab.setTextColor(arr.getColor(R.styleable.LabView_lab_color, ContextCompat.getColor(context, R.color.textColor)));
 
+        if (arr.getBoolean(R.styleable.LabView_lab_bold, false)) {
+            textLab.setTypeface((Typeface.defaultFromStyle(Typeface.BOLD)));
+            TextPaint tp = textLab.getPaint();
+            tp.setFakeBoldText(true);
+        }
     }
 
 }

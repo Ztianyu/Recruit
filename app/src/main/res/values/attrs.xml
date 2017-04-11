@@ -6,5 +6,6 @@
         <attr name="lab_size" format="integer" />
         <attr name="lab_color" format="color" />
         <attr name="lab_text" format="string" />
+        <attr name="lab_bold" format="boolean" />
     </declare-styleable>
 </resources>

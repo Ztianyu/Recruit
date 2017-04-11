@@ -17,6 +17,7 @@ public class Constants {
     public static final String MOB_APP_SECRET = "2c6b926a4782a34fe2e834f193b18965";
 
     //定金类型
+    public static final String OFFICE_TYPE0 = "1";//职业学校
     public static final String OFFICE_TYPE1 = "2";//培训机构
     public static final String OFFICE_TYPE2 = "3";//进修学校
 

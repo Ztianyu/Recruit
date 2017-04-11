@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/textColor"
             android:textSize="14sp"
+            android:textStyle="bold"
             tools:text="广州汁职业术学校" />
 
         <LinearLayout

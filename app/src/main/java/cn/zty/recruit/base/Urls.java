@@ -108,6 +108,8 @@ public class Urls {
 
     public static final String unifiedorder = "unifiedorder";
 
-    public static final String weChatNotifyUrl = HOST + HOST_ADMIN + "order/orderNotify";
+    public static final String weChatNotifyUrl = HOST + "notifyServlet";
+
+    public static final String aliNotifyUrl = HOST + HOST_ADMIN + "order/orderNotify";
 
 }

@@ -161,7 +161,10 @@ public class InstitutionDetailActivity extends BaseActivity implements
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.textInstitutionIntroduction)
-            startActivity(new Intent(this, WebActivity.class));
+            startActivity(new Intent(this, WebActivity.class)
+                    .putExtra("title", "机构简介")
+                    .putExtra("schoolId", orgId)
+                    .putExtra("type", WebActivity.TYPE1));
     }
 
     @Override

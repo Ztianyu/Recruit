@@ -1,10 +1,13 @@
 package cn.zty.recruit.bean;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by zty on 2017/3/28.
  */
 
-public class DepartmentMajorModel {
+public class DepartmentMajorModel implements Parcelable{
 
     /**
      * id : 4b5b3ced63dd41c892d47560730c446e
@@ -34,6 +37,33 @@ public class DepartmentMajorModel {
     private String remarks;
     private String createDate;
     private String updateDate;
+
+    protected DepartmentMajorModel(Parcel in) {
+        id = in.readString();
+        schoolId = in.readString();
+        majorId = in.readString();
+        majorNm = in.readString();
+        discipline = in.readString();
+        disciplineLabel = in.readString();
+        departmentId = in.readString();
+        departmentNm = in.readString();
+        schoolLength = in.readString();
+        remarks = in.readString();
+        createDate = in.readString();
+        updateDate = in.readString();
+    }
+
+    public static final Creator<DepartmentMajorModel> CREATOR = new Creator<DepartmentMajorModel>() {
+        @Override
+        public DepartmentMajorModel createFromParcel(Parcel in) {
+            return new DepartmentMajorModel(in);
+        }
+
+        @Override
+        public DepartmentMajorModel[] newArray(int size) {
+            return new DepartmentMajorModel[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -129,5 +159,26 @@ public class DepartmentMajorModel {
 
     public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(schoolId);
+        dest.writeString(majorId);
+        dest.writeString(majorNm);
+        dest.writeString(discipline);
+        dest.writeString(disciplineLabel);
+        dest.writeString(departmentId);
+        dest.writeString(departmentNm);
+        dest.writeString(schoolLength);
+        dest.writeString(remarks);
+        dest.writeString(createDate);
+        dest.writeString(updateDate);
     }
 }
