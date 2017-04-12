@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:recyclerBackgroundColor="@android:color/white"
-        app:recyclerScrollbarNone="false"
         app:recyclerScrollbarStyle="outsideOverlay"></cn.droidlover.xrecyclerview.XRecyclerContentLayout>
 
 </LinearLayout>

@@ -57,6 +57,8 @@ public class OrderActivity extends BaseActivity {
         viewpager.setAdapter(adapter);
 
         tabLayout.setupWithViewPager(viewpager);
+
+        viewpager.setOffscreenPageLimit(2);
     }
 
     @Override

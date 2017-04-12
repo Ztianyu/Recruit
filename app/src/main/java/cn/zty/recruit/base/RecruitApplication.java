@@ -41,7 +41,10 @@ public class RecruitApplication extends Application {
 
         setCurrentUser();
 
+        FontUtils.setDefaultFont(this, "DEFAULT", "fonts/myFont.ttf");
+        FontUtils.setDefaultFont(this, "MONOSPACE", "fonts/myFont.ttf");
         FontUtils.setDefaultFont(this, "SERIF", "fonts/myFont.ttf");
+        FontUtils.setDefaultFont(this, "SANS_SERIF", "fonts/myFont.ttf");
 
         MyException crashHandler = MyException.getInstance();
         crashHandler.init(getApplicationContext());

@@ -103,7 +103,7 @@ public class StudyEnrollActivity extends BaseActivity implements
 
         toolbar.setTitle("在线报名");
         toolbar.inflateMenu(R.menu.phone);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_main_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

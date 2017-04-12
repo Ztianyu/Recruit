@@ -33,7 +33,7 @@ public class SetSexActivity extends BaseActivity implements RadioGroup.OnChecked
     protected void initView() {
         toolbar.setTitle("性 别");
         toolbar.inflateMenu(R.menu.save);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_main_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

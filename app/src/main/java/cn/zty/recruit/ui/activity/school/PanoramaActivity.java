@@ -2,6 +2,7 @@ package cn.zty.recruit.ui.activity.school;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -79,10 +80,12 @@ public class PanoramaActivity extends BaseActivity implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.panoramaStrip1:
-//                toDetail(panoramaModel1);
-
-                startActivity(new Intent(this, PanoramaWebActivity.class)
-                        .putExtra("url", ""));
+                if (panoramaModel1 != null && !TextUtils.isEmpty(panoramaModel1.getWebUrl())) {
+                    startActivity(new Intent(this, PanoramaWebActivity.class)
+                            .putExtra("url", panoramaModel1.getWebUrl()));
+                } else {
+                    SnackbarUtils.showShort(toolbar, "暂无资源");
+                }
                 break;
             case R.id.panoramaStrip2:
                 toDetail(panoramaModel2);

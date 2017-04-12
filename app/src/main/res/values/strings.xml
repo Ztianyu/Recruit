@@ -5,6 +5,11 @@
     <string name="title_notifications">生活</string>
     <string name="title_person">我的</string>
 
+    <string name="strCom1">Copyright ©2017</string>
+    <string name="strCom2">广东快乾教育有限公司</string>
+
+    <string name="aboutUs">广东快乾教育有限公司自成立以来，一直致力于各类职业院校的招生工作，我们与多家职业院校建立了长期合作关系，为学校的生源提供有力的帮助。同时为学生的择校、学习和就业提供一站式全方位服务。我们系统有海量的学府、人性化的生活消费服务和就业机会供你选择，为你的学程保驾护航。</string>
+
     <!-- 订单状态-->
     <string name="userOrderTip">报名订单</string>
     <string name="userOrderState1">待付款</string>
@@ -23,6 +28,7 @@
     <string name="userStrip3">版本信息</string>
     <string name="userStrip4">修改密码</string>
     <string name="userStrip5">退出登录</string>
+    <string name="userStrip6">关于我们</string>
 
     <string name="recruitFun1">学校</string>
     <string name="recruitFun2">学习</string>

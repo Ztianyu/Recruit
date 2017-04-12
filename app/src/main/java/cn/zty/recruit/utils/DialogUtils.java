@@ -13,6 +13,7 @@ import java.util.Calendar;
 import cn.zty.recruit.bean.OrderModel;
 import cn.zty.recruit.listener.AreaSelectListener;
 import cn.zty.recruit.listener.BirthSelectListener;
+import cn.zty.recruit.listener.DeleteOrderListener;
 import cn.zty.recruit.listener.EducationSelectListener;
 import cn.zty.recruit.listener.EnrollTypeSelectListener;
 import cn.zty.recruit.listener.IndustryTypeListener;
@@ -23,6 +24,7 @@ import cn.zty.recruit.listener.SexSelectListener;
 import cn.zty.recruit.listener.StudySchoolListener;
 import cn.zty.recruit.listener.ToastSureListener;
 import cn.zty.recruit.ui.fragment.AreaSelectFragment;
+import cn.zty.recruit.ui.fragment.DeleteOrderFragment;
 import cn.zty.recruit.ui.fragment.PayFragment;
 import cn.zty.recruit.ui.fragment.SelectEducation;
 import cn.zty.recruit.ui.fragment.SelectSexFragment;
@@ -55,6 +57,8 @@ public class DialogUtils {
     public static final String INDUSTRY_TYPE = "industryTypeFragment";
 
     public static final String PAY = "payFragment";
+
+    public static final String DELETE = "deleteOrderFragment";
 
     /**
      * 选择 省、市（type:0(省)；1（市））
@@ -218,5 +222,16 @@ public class DialogUtils {
             manager.beginTransaction().remove(fragment);
         PayFragment payFragment = PayFragment.newInstance(orderModel, payListener);
         payFragment.show(manager.beginTransaction(), PAY);
+    }
+
+    /**
+     * 删除订单
+     */
+    public static void showDelete(FragmentManager manager, int position, DeleteOrderListener listener) {
+        Fragment fragment = manager.findFragmentByTag(DELETE);
+        if (fragment != null)
+            manager.beginTransaction().remove(fragment);
+        DeleteOrderFragment deleteOrderFragment = DeleteOrderFragment.newInstance(position, listener);
+        deleteOrderFragment.show(manager.beginTransaction(), DELETE);
     }
 }

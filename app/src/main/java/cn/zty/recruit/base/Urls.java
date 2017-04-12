@@ -66,6 +66,9 @@ public class Urls {
     //提交报名订单
     public static final String submitOrder = HOST_ADMIN + "order/submitOrder";
 
+    //删除订单
+    public static final String deleteOrder = HOST_ADMIN + "order/deleteOrder";
+
     //报名定金类型
     public static final String getDepositSystemList = HOST_ADMIN + "depositSystem/getDepositSystemList";
 

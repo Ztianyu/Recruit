@@ -25,8 +25,8 @@
         <activity
             android:name=".ui.activity.StartActivity"
             android:label="@string/app_name"
-            android:theme="@style/FullScreenTheme"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/FullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -226,6 +226,10 @@
 
         <activity
             android:name=".ui.activity.school.PanoramaWebActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.person.AboutUsActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

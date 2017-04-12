@@ -16,6 +16,7 @@ import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.UserModel;
 import cn.zty.recruit.listener.ToastSureListener;
 import cn.zty.recruit.presenter.GetUserPresenter;
+import cn.zty.recruit.ui.activity.person.AboutUsActivity;
 import cn.zty.recruit.ui.activity.person.ArchivesActivity;
 import cn.zty.recruit.ui.activity.person.IntegralActivity;
 import cn.zty.recruit.ui.activity.person.LoginActivity;
@@ -65,6 +66,8 @@ public class PersonalFragment extends BaseFragment implements
     StripMenuView strip4;
     @BindView(R.id.strip5)
     StripMenuView strip5;
+    @BindView(R.id.strip6)
+    StripMenuView strip6;
     @BindView(R.id.layoutUser)
     LinearLayout layoutUser;
     @BindView(R.id.textLogin)
@@ -124,7 +127,7 @@ public class PersonalFragment extends BaseFragment implements
         textSex.setText(model.getSex());
     }
 
-    @OnClick({R.id.imgHeader, R.id.textLogin, R.id.labOrder1, R.id.labOrder2, R.id.labOrder3, R.id.labResume1, R.id.labResume2, R.id.labResume3, R.id.strip1, R.id.strip2, R.id.strip3, R.id.strip4, R.id.strip5})
+    @OnClick({R.id.imgHeader, R.id.textLogin, R.id.labOrder1, R.id.labOrder2, R.id.labOrder3, R.id.labResume1, R.id.labResume2, R.id.labResume3, R.id.strip1, R.id.strip2, R.id.strip3, R.id.strip4, R.id.strip5, R.id.strip6})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgHeader:
@@ -176,6 +179,9 @@ public class PersonalFragment extends BaseFragment implements
             case R.id.strip5:
                 if (isHaveUser)
                     DialogUtils.showToast(getFragmentManager(), "是否退出登录", this);
+                break;
+            case R.id.strip6:
+                startActivity(new Intent(context, AboutUsActivity.class));
                 break;
         }
     }

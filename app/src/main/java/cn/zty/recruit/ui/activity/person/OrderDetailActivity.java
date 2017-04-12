@@ -1,7 +1,6 @@
 package cn.zty.recruit.ui.activity.person;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
@@ -104,13 +103,6 @@ public class OrderDetailActivity extends BaseActivity implements
         orderPresenter = new OrderPresenter();
         orderPresenter.attach(this);
         presenters.add(orderPresenter);
-
-        Drawable drawable = ResourceUtil.resToDrawable(this, R.mipmap.ic_position);
-        int top = textOrderSchoolAdd.getLineCount() * textOrderSchoolAdd.getHeight() / 2 - textOrderSchoolAdd.getLineHeight() / 2;
-        int bottom = top + drawable.getIntrinsicHeight();
-
-        drawable.setBounds(0, top, drawable.getIntrinsicWidth(), bottom);
-        textOrderSchoolAdd.setCompoundDrawables(drawable, null, null, null);
     }
 
     @Override

@@ -105,7 +105,7 @@ public class Payment {
             payModel.setOut_trade_no(orderModel.getId());
             payModel.setTotal_amount(orderModel.getActualPayment() + "");
         }
-//        payModel.setTotal_amount("0.01");
+        payModel.setTotal_amount("0.01");
         payModel.setBody(orderModel.getCourseNm());
         payModel.setSubject("报名：" + orderModel.getCourseNm() + " " + MyTextUtils.notNullStr(orderModel.getDepartmentNm()));
     }

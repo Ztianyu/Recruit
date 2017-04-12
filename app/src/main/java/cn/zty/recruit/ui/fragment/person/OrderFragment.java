@@ -11,8 +11,12 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.OrderAdapter;
 import cn.zty.recruit.base.BaseFragment;
 import cn.zty.recruit.bean.OrderModel;
+import cn.zty.recruit.listener.DeleteOrderListener;
+import cn.zty.recruit.presenter.DeleteOrderPresenter;
 import cn.zty.recruit.presenter.OrderPresenter;
+import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.OrderView;
+import cn.zty.recruit.view.StringView;
 import cn.zty.recruit.widget.LoadMoreFooter;
 
 /**
@@ -21,7 +25,9 @@ import cn.zty.recruit.widget.LoadMoreFooter;
 
 public class OrderFragment extends BaseFragment implements
         XRecyclerView.OnRefreshAndLoadMoreListener,
-        OrderView {
+        OrderView,
+        StringView,
+        DeleteOrderListener {
 
     @BindView(R.id.layoutContent)
     XRecyclerContentLayout layoutContent;
@@ -35,6 +41,8 @@ public class OrderFragment extends BaseFragment implements
     private int state;
 
     private OrderPresenter orderPresenter;
+
+    private DeleteOrderPresenter deleteOrderPresenter;
 
     private OrderAdapter adapter;
 
@@ -53,19 +61,24 @@ public class OrderFragment extends BaseFragment implements
 
     @Override
     protected void initView() {
+
+        state = getArguments().getInt("state", 0);
+
         orderPresenter = new OrderPresenter();
         orderPresenter.attach(this);
         presenters.add(orderPresenter);
 
+        deleteOrderPresenter = new DeleteOrderPresenter();
+        deleteOrderPresenter.attach(this);
+        presenters.add(deleteOrderPresenter);
+
         loadMoreFooter = new LoadMoreFooter(context);
 
-        adapter = new OrderAdapter(context);
+        adapter = new OrderAdapter(context, getFragmentManager(), this);
 
         layoutContent.getRecyclerView().setRefreshEnabled(true);    //设置是否可刷新
         layoutContent.getSwipeRefreshLayout().setColorSchemeResources(R.color.colorAccent, R.color.colorAccent, R.color.gray);
         initAdapter(layoutContent.getRecyclerView());
-
-        state = getArguments().getInt("state", 0);
     }
 
     @Override
@@ -123,5 +136,22 @@ public class OrderFragment extends BaseFragment implements
     public void onLoadMore(int page) {
         currentPage = page;
         initData();
+    }
+
+    private int currentPosition;
+
+    @Override
+    public void onDelete(int position) {
+        currentPosition = position;
+
+        String orderId = adapter.getData().get(position).getId();
+
+        deleteOrderPresenter.delete(orderId);
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        ToastUtils.show("删除成功");
+        orderPresenter.getOrderList(state, 1);
     }
 }

@@ -29,7 +29,7 @@ public class SetEducationActivity extends BaseActivity implements RadioGroup.OnC
     protected void initView() {
         toolbar.setTitle("学 历");
         toolbar.inflateMenu(R.menu.save);
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_black_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_main_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

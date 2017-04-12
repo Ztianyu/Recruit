@@ -1,6 +1,8 @@
 package cn.zty.recruit.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -9,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.zty.baselib.utils.ResourceUtil;
 import cn.zty.recruit.R;
@@ -41,6 +44,10 @@ public class StartActivity extends BaseActivity implements
     TextView btnSureCode;
     @BindView(R.id.btnSkip)
     TextView btnSkip;
+    @BindView(R.id.textCom1)
+    TextView textCom1;
+    @BindView(R.id.textCom2)
+    TextView textCom2;
 
     private GetUserPresenter presenter;
 
@@ -64,6 +71,13 @@ public class StartActivity extends BaseActivity implements
         setTitleBar();
 
         editStartCode.setOnFocusChangeListener(this);
+
+        Typeface type = Typeface.createFromAsset(getAssets(), "fonts/myFont.ttf");
+        textCom1.setTypeface(type);
+        textCom2.setTypeface(type);
+        btnSureCode.setTypeface(type);
+        btnSkip.setTypeface(type);
+        editStartCode.setTypeface(type);
     }
 
     @Override

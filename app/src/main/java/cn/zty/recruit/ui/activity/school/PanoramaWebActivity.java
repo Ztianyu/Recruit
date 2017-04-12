@@ -74,7 +74,7 @@ public class PanoramaWebActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        webView.loadUrl(defaultUrl);
+        webView.loadUrl(url);
     }
 
     @Override

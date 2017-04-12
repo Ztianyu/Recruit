@@ -16,6 +16,7 @@
         android:textSize="16dp" />
 
     <View
+        android:id="@+id/viewSelectLine"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/colorDiver" />

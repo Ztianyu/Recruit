@@ -13,6 +13,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import cn.zty.recruit.R;
 import cn.zty.recruit.pick.OnSelectListener;
 
@@ -26,6 +27,7 @@ public class SelectPicFragment extends DialogFragment {
     TextView textOpenPic;
     @BindView(R.id.textTakePhoto)
     TextView textTakePhoto;
+    Unbinder unbinder;
 
     private OnSelectListener listener;
 
@@ -34,7 +36,7 @@ public class SelectPicFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.view_select_pic, null);
 
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         return view;
     }
@@ -61,4 +63,9 @@ public class SelectPicFragment extends DialogFragment {
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
 }

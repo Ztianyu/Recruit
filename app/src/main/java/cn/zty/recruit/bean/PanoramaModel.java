@@ -7,7 +7,7 @@ import android.os.Parcelable;
  * Created by zty on 2017/3/22.
  */
 
-public class PanoramaModel implements Parcelable{
+public class PanoramaModel implements Parcelable {
 
     /**
      * id : 58d60adaa100454ab13ff78a9d31c996
@@ -17,6 +17,7 @@ public class PanoramaModel implements Parcelable{
      * content : 周边环境全景图。。。
      * createDate : 2017-03-27 20:14
      * updateDate : 2017-03-27 20:14
+     * webUrl:
      */
 
     private String id;
@@ -26,6 +27,7 @@ public class PanoramaModel implements Parcelable{
     private String createDate;
     private String updateDate;
     private String videoUrl;
+    private String webUrl;
 
     protected PanoramaModel(Parcel in) {
         id = in.readString();
@@ -35,6 +37,7 @@ public class PanoramaModel implements Parcelable{
         createDate = in.readString();
         updateDate = in.readString();
         videoUrl = in.readString();
+        webUrl = in.readString();
     }
 
     public static final Creator<PanoramaModel> CREATOR = new Creator<PanoramaModel>() {
@@ -48,6 +51,14 @@ public class PanoramaModel implements Parcelable{
             return new PanoramaModel[size];
         }
     };
+
+    public String getWebUrl() {
+        return webUrl;
+    }
+
+    public void setWebUrl(String webUrl) {
+        this.webUrl = webUrl;
+    }
 
     public String getId() {
         return id;
@@ -119,5 +130,6 @@ public class PanoramaModel implements Parcelable{
         dest.writeString(createDate);
         dest.writeString(updateDate);
         dest.writeString(videoUrl);
+        dest.writeString(webUrl);
     }
 }
