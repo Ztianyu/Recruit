@@ -13,7 +13,6 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.FileCallback;
@@ -145,6 +144,10 @@ public class DownloadApkService extends Service {
             super.downloadProgress(currentSize, totalSize, progress, networkSpeed);
             Message message = progressHandler.obtainMessage();
             message.arg1 = (int) (100 * currentSize / totalSize);
+//            Bundle bundle = new Bundle();
+//            bundle.putDouble("currentSize", (double) currentSize / 1024 / 1024);
+//            bundle.putDouble("totalSize", (double) totalSize / 1024 / 1024);
+//            message.setData(bundle);
             progressHandler.sendMessage(message);
         }
 
@@ -162,10 +165,13 @@ public class DownloadApkService extends Service {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             int progress = msg.arg1;
+//            Bundle bundle = msg.getData();
+//            double d1 = bundle.getDouble("currentSize");
+//            double d2 = bundle.getDouble("totalSize");
             builder.setProgress(100, progress, false);
             messageNotificationManager.notify(notificationID, builder.build());
             builder.setContentText(progress + "%");
-            Log.i("download", "  " + progress);
+//            builder.setContentText(String.format("%.2f", d1) + "/" + String.format("%.2f", d2));
         }
     };
 }

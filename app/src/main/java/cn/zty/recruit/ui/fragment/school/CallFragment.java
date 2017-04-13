@@ -16,6 +16,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import cn.zty.recruit.R;
 
 /**
@@ -32,6 +33,7 @@ public class CallFragment extends DialogFragment {
     TextView btnNotCall;
     @BindView(R.id.btnCall)
     TextView btnCall;
+    Unbinder unbinder;
 
     private String phone;
     private String time;
@@ -59,7 +61,7 @@ public class CallFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_call, null);
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -91,5 +93,11 @@ public class CallFragment extends DialogFragment {
                 dismiss();
                 break;
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

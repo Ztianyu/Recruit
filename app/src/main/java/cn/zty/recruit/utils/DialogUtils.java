@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.Calendar;
 
 import cn.zty.recruit.bean.OrderModel;
+import cn.zty.recruit.bean.VersionModel;
 import cn.zty.recruit.listener.AreaSelectListener;
 import cn.zty.recruit.listener.BirthSelectListener;
 import cn.zty.recruit.listener.DeleteOrderListener;
@@ -23,12 +24,15 @@ import cn.zty.recruit.listener.SchoolSelectListener;
 import cn.zty.recruit.listener.SexSelectListener;
 import cn.zty.recruit.listener.StudySchoolListener;
 import cn.zty.recruit.listener.ToastSureListener;
+import cn.zty.recruit.listener.VisitListener;
 import cn.zty.recruit.ui.fragment.AreaSelectFragment;
 import cn.zty.recruit.ui.fragment.DeleteOrderFragment;
 import cn.zty.recruit.ui.fragment.PayFragment;
 import cn.zty.recruit.ui.fragment.SelectEducation;
 import cn.zty.recruit.ui.fragment.SelectSexFragment;
 import cn.zty.recruit.ui.fragment.ToastFragment;
+import cn.zty.recruit.ui.fragment.VersionFragment;
+import cn.zty.recruit.ui.fragment.VisitFragment;
 import cn.zty.recruit.ui.fragment.learn.EnrollTypeFragment;
 import cn.zty.recruit.ui.fragment.learn.IndustryTypeFragment;
 import cn.zty.recruit.ui.fragment.learn.StudySchoolSelect;
@@ -59,6 +63,10 @@ public class DialogUtils {
     public static final String PAY = "payFragment";
 
     public static final String DELETE = "deleteOrderFragment";
+
+    public static final String VISIT = "visitFragment";
+
+    public static final String VERSION = "versionFragment";
 
     /**
      * 选择 省、市（type:0(省)；1（市））
@@ -233,5 +241,27 @@ public class DialogUtils {
             manager.beginTransaction().remove(fragment);
         DeleteOrderFragment deleteOrderFragment = DeleteOrderFragment.newInstance(position, listener);
         deleteOrderFragment.show(manager.beginTransaction(), DELETE);
+    }
+
+    /**
+     * 电话回访
+     */
+    public static void showVisit(FragmentManager manager, VisitListener listener) {
+        Fragment fragment = manager.findFragmentByTag(VISIT);
+        if (fragment != null)
+            manager.beginTransaction().remove(fragment);
+        VisitFragment visitFragment = VisitFragment.newInstance(listener);
+        visitFragment.show(manager.beginTransaction(), VISIT);
+    }
+
+    /**
+     * 版本更新
+     */
+    public static void showVersion(FragmentManager manager, String title, VersionModel versionModel) {
+        Fragment fragment = manager.findFragmentByTag(VERSION);
+        if (fragment != null)
+            manager.beginTransaction().remove(fragment);
+        VersionFragment versionFragment = VersionFragment.newInstance(title, versionModel);
+        versionFragment.show(manager.beginTransaction(), VERSION);
     }
 }

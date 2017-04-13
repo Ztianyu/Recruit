@@ -3,6 +3,7 @@ package cn.zty.recruit.ui.activity.learn;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,12 +25,16 @@ import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.bean.PanoramaModel;
 import cn.zty.recruit.bean.StudySchoolModel;
 import cn.zty.recruit.bean.TipModel;
+import cn.zty.recruit.listener.VisitListener;
 import cn.zty.recruit.presenter.PanoramaPresenter;
 import cn.zty.recruit.presenter.StudySchoolInfoPresenter;
+import cn.zty.recruit.presenter.VisitPresenter;
 import cn.zty.recruit.ui.activity.WebActivity;
 import cn.zty.recruit.ui.activity.school.CollegeActivity;
+import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.utils.SnackbarUtils;
 import cn.zty.recruit.view.PanoramaView;
+import cn.zty.recruit.view.StringView;
 import cn.zty.recruit.view.StudySchoolView;
 import cn.zty.recruit.widget.LabView;
 
@@ -39,7 +44,9 @@ import cn.zty.recruit.widget.LabView;
 
 public class StudySchoolDetail extends BaseActivity implements
         StudySchoolView,
-        PanoramaView {
+        PanoramaView,
+        VisitListener,
+        StringView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -81,11 +88,11 @@ public class StudySchoolDetail extends BaseActivity implements
     private String schoolId;
     private String schoolName;
 
-    private StudySchoolModel studySchoolModel;
-
     private StudySchoolInfoPresenter presenter;
 
     private PanoramaPresenter panoramaPresenter;
+
+    private VisitPresenter visitPresenter;
 
     @Override
     protected int initLayoutId() {
@@ -98,7 +105,25 @@ public class StudySchoolDetail extends BaseActivity implements
         schoolName = getIntent().getStringExtra("schoolName");
 
         toolbar.setTitle("学校概况");
-        initToolbar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_main_back);
+        toolbar.inflateMenu(R.menu.visit);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.visit) {
+                    DialogUtils.showVisit(getSupportFragmentManager(), StudySchoolDetail.this);
+                    return true;
+                }
+                return false;
+            }
+        });
+
         layoutBTime.setVisibility(View.VISIBLE);
         layoutETime.setVisibility(View.VISIBLE);
 
@@ -110,10 +135,13 @@ public class StudySchoolDetail extends BaseActivity implements
         panoramaPresenter.attach(this);
         presenters.add(panoramaPresenter);
 
+        visitPresenter = new VisitPresenter();
+        visitPresenter.attach(this);
+        presenters.add(visitPresenter);
+
         labAdapter = new SchoolLabAdapter(this, false);
         autoLineLayout.horizontalLayoutManager(this)
                 .setAdapter(labAdapter);
-
     }
 
     @Override
@@ -166,8 +194,6 @@ public class StudySchoolDetail extends BaseActivity implements
     public void onStudySchool(StudySchoolModel model) {
         if (model != null) {
 
-            studySchoolModel = model;
-
             BaseData.studySchoolPhone = model.getContactTel();
 
             MyImageLoader.load(this, model.getImgUrl(), imgSchool);
@@ -199,10 +225,20 @@ public class StudySchoolDetail extends BaseActivity implements
                         .putExtra("videoUrl", panoramaModel.getVideoUrl())
                         .putExtra("videoName", panoramaModel.getPlace()));
             } else {
-                SnackbarUtils.showShort(toolbar,"暂无宣传视频");
+                SnackbarUtils.showShort(toolbar, "暂无宣传视频");
             }
         } else {
-            SnackbarUtils.showShort(toolbar,"暂无宣传视频");
+            SnackbarUtils.showShort(toolbar, "暂无宣传视频");
         }
+    }
+
+    @Override
+    public void onVisit(String fullNm, String mobile) {
+        visitPresenter.visit(fullNm, mobile, schoolId);
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        SnackbarUtils.showShort(toolbar, "提交成功");
     }
 }

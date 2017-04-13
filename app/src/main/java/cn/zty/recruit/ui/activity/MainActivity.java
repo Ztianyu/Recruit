@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import cn.zty.baselib.utils.AppManager;
+import cn.zty.baselib.utils.VersionUtils;
 import cn.zty.baselib.widget.BottomNavigationViewEx;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
@@ -22,6 +23,8 @@ import cn.zty.recruit.ui.fragment.home.LifeFragment;
 import cn.zty.recruit.ui.fragment.home.LiveFragment;
 import cn.zty.recruit.ui.fragment.home.PersonalFragment;
 import cn.zty.recruit.ui.fragment.home.RecruitFragment;
+import cn.zty.recruit.utils.DialogUtils;
+import cn.zty.recruit.utils.SnackbarUtils;
 import cn.zty.recruit.view.VersionView;
 
 public class MainActivity extends BaseActivity implements
@@ -143,7 +146,12 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void onSuccess(VersionModel versionModel) {
-        if (versionModel != null)
-            versionPresenter.showDialog(getSupportFragmentManager(), this, versionModel, false);
+        if (versionModel != null) {
+            int versionCode = VersionUtils.getVersionCode(this);
+            if (versionModel.getAppVersion() > versionCode) {
+                DialogUtils.showVersion(getSupportFragmentManager(), "发现新版本", versionModel);
+            }
+        }
     }
+
 }

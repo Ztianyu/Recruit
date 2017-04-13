@@ -2,6 +2,7 @@ package cn.zty.recruit.ui.activity.school;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,11 +21,15 @@ import cn.zty.recruit.base.BaseData;
 import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.bean.TipModel;
 import cn.zty.recruit.bean.VocationalModel;
+import cn.zty.recruit.listener.VisitListener;
+import cn.zty.recruit.presenter.VisitPresenter;
 import cn.zty.recruit.presenter.VocationPresenter;
 import cn.zty.recruit.ui.activity.WebActivity;
 import cn.zty.recruit.ui.activity.learn.StudyMajorActivity;
 import cn.zty.recruit.utils.DialogUtils;
+import cn.zty.recruit.utils.SnackbarUtils;
 import cn.zty.recruit.utils.StringUtils;
+import cn.zty.recruit.view.StringView;
 import cn.zty.recruit.view.VocationView;
 import cn.zty.recruit.widget.LabView;
 
@@ -32,7 +37,11 @@ import cn.zty.recruit.widget.LabView;
  * Created by zty on 2017/3/13.
  */
 
-public class SchoolDetailActivity extends BaseActivity implements VocationView {
+public class SchoolDetailActivity extends BaseActivity implements
+        VocationView,
+        StringView,
+        VisitListener {
+
     @BindView(R.id.textTitle)
     TextView textTitle;
     @BindView(R.id.toolbar)
@@ -70,6 +79,8 @@ public class SchoolDetailActivity extends BaseActivity implements VocationView {
 
     VocationPresenter presenter;
 
+    private VisitPresenter visitPresenter;
+
     private String schoolId;
 
     private VocationalModel vocationalModel;
@@ -82,13 +93,34 @@ public class SchoolDetailActivity extends BaseActivity implements VocationView {
     @Override
     protected void initView() {
         toolbar.setTitle("院校概况");
-        initToolbar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_main_back);
+        toolbar.inflateMenu(R.menu.visit);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.visit) {
+                    DialogUtils.showVisit(getSupportFragmentManager(), SchoolDetailActivity.this);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         schoolId = getIntent().getStringExtra("schoolId");
 
         presenter = new VocationPresenter();
         presenter.attach(this);
         presenters.add(presenter);
+
+        visitPresenter = new VisitPresenter();
+        visitPresenter.attach(this);
+        presenters.add(visitPresenter);
 
         labAdapter = new SchoolLabAdapter(this, false);
         autoLineLayout.horizontalLayoutManager(this)
@@ -162,5 +194,15 @@ public class SchoolDetailActivity extends BaseActivity implements VocationView {
             textSchoolCreateData.setText(model.getEstablishDate());
             textSchoolAddress.setText(model.getSchoolAddress());
         }
+    }
+
+    @Override
+    public void onVisit(String fullNm, String mobile) {
+        visitPresenter.visit(fullNm, mobile, schoolId);
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        SnackbarUtils.showShort(toolbar, "提交成功");
     }
 }

@@ -2,6 +2,7 @@ package cn.zty.recruit.ui.activity.learn;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,10 +18,15 @@ import cn.zty.recruit.adapter.InstitutionMajorAdapter;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.bean.InstitutionMajorModel;
 import cn.zty.recruit.bean.TrainingModel;
+import cn.zty.recruit.listener.VisitListener;
 import cn.zty.recruit.presenter.CourseSetListPresenter;
 import cn.zty.recruit.presenter.TrainOrgPresenter;
+import cn.zty.recruit.presenter.VisitPresenter;
 import cn.zty.recruit.ui.activity.WebActivity;
+import cn.zty.recruit.utils.DialogUtils;
+import cn.zty.recruit.utils.SnackbarUtils;
 import cn.zty.recruit.view.CourseSetListView;
+import cn.zty.recruit.view.StringView;
 import cn.zty.recruit.view.TrainOrgView;
 import cn.zty.recruit.widget.LoadMoreFooter;
 
@@ -32,7 +38,9 @@ public class InstitutionDetailActivity extends BaseActivity implements
         View.OnClickListener,
         XRecyclerView.OnRefreshAndLoadMoreListener,
         TrainOrgView,
-        CourseSetListView {
+        CourseSetListView,
+        VisitListener,
+        StringView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -65,6 +73,8 @@ public class InstitutionDetailActivity extends BaseActivity implements
 
     private CourseSetListPresenter courseSetListPresenter;
 
+    private VisitPresenter visitPresenter;
+
     @Override
     protected int initLayoutId() {
         return R.layout.view_content;
@@ -75,7 +85,24 @@ public class InstitutionDetailActivity extends BaseActivity implements
         orgId = getIntent().getStringExtra("orgId");
 
         toolbar.setTitle("机构详情");
-        initToolbar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_main_back);
+        toolbar.inflateMenu(R.menu.visit);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.visit) {
+                    DialogUtils.showVisit(getSupportFragmentManager(), InstitutionDetailActivity.this);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         header1 = View.inflate(this, R.layout.view_institution_header, null);
         imgInstitution = (ImageView) header1.findViewById(R.id.imgInstitution);
@@ -102,6 +129,10 @@ public class InstitutionDetailActivity extends BaseActivity implements
         courseSetListPresenter = new CourseSetListPresenter();
         courseSetListPresenter.attach(this);
         presenters.add(courseSetListPresenter);
+
+        visitPresenter = new VisitPresenter();
+        visitPresenter.attach(this);
+        presenters.add(visitPresenter);
     }
 
     @Override
@@ -177,5 +208,15 @@ public class InstitutionDetailActivity extends BaseActivity implements
     public void onLoadMore(int page) {
         currentPage = page;
         courseSetListPresenter.getCourseSetList(orgId, currentPage);
+    }
+
+    @Override
+    public void onVisit(String fullNm, String mobile) {
+        visitPresenter.visit(fullNm, mobile, orgId);
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        SnackbarUtils.showShort(toolbar, "提交成功");
     }
 }

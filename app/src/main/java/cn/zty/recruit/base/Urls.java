@@ -99,6 +99,9 @@ public class Urls {
     //数据字典
     public static final String getDictList = HOST_ADMIN + "dict/getDictList";
 
+    //电话回访
+    public static final String visit = HOST_ADMIN + "returnRecord/submitReturnRecord";
+
 
     //上传文件（语音文件、图片文件）
     public static final String uploadAndroidServlet = "uploadAndroidServlet";

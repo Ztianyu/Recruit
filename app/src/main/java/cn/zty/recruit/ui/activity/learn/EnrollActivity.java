@@ -24,11 +24,14 @@ import cn.zty.recruit.bean.UserModel;
 import cn.zty.recruit.listener.EducationSelectListener;
 import cn.zty.recruit.listener.EnrollTypeSelectListener;
 import cn.zty.recruit.listener.SexSelectListener;
+import cn.zty.recruit.presenter.GetUserPresenter;
 import cn.zty.recruit.presenter.SubmitOrderPresenter;
 import cn.zty.recruit.ui.activity.PayActivity;
+import cn.zty.recruit.ui.activity.person.LoginActivity;
 import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.StringView;
+import cn.zty.recruit.view.UserView;
 
 /**
  * Created by zty on 2017/3/17.
@@ -38,7 +41,8 @@ public class EnrollActivity extends BaseActivity implements
         SexSelectListener,
         EducationSelectListener,
         EnrollTypeSelectListener,
-        StringView {
+        StringView ,
+        UserView{
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -84,6 +88,8 @@ public class EnrollActivity extends BaseActivity implements
 
     private SubmitOrderPresenter submitOrderPresenter;
 
+    private GetUserPresenter getUserPresenter;
+
     private UserModel userModel;
 
     @Override
@@ -101,6 +107,10 @@ public class EnrollActivity extends BaseActivity implements
         submitOrderPresenter = new SubmitOrderPresenter();
         submitOrderPresenter.attach(this);
         presenters.add(submitOrderPresenter);
+
+        getUserPresenter = new GetUserPresenter();
+        getUserPresenter.attach(this);
+        presenters.add(getUserPresenter);
     }
 
     @Override
@@ -135,6 +145,10 @@ public class EnrollActivity extends BaseActivity implements
 
             educationName = MyTextUtils.notNullStr(userModel.getEducationLabel());
             educationCode = MyTextUtils.notNullStr(userModel.getEducation());
+        }else{
+            if (!TextUtils.isEmpty(RecruitApplication.getInstance().getUserId()))
+                getUserPresenter.getUser(RecruitApplication.getInstance().getTokenId(),
+                        RecruitApplication.getInstance().getUserId());
         }
     }
 
@@ -171,6 +185,11 @@ public class EnrollActivity extends BaseActivity implements
     }
 
     public boolean check() {
+        if (TextUtils.isEmpty(RecruitApplication.getInstance().getUserId())) {
+            ToastUtils.show("请先登录");
+            startActivity(new Intent(this, LoginActivity.class));
+            return false;
+        }
         if (enrollTypeModel == null) {
             ToastUtils.show("请选择定金类型");
             return false;
@@ -232,5 +251,14 @@ public class EnrollActivity extends BaseActivity implements
                 .putExtra("orderCode", msg)
                 .putExtra("money", enrollTypeModel.getAmount() + ""));
         finish();
+    }
+
+    @Override
+    public void onUserSuccess(UserModel userModel) {
+        if (userModel != null) {
+            RecruitApplication.getInstance().setUserModel(userModel);
+            this.userModel = userModel;
+           onResume();
+        }
     }
 }

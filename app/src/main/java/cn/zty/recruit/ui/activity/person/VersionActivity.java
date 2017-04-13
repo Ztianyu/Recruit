@@ -11,6 +11,8 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.bean.VersionModel;
 import cn.zty.recruit.presenter.VersionPresenter;
+import cn.zty.recruit.utils.DialogUtils;
+import cn.zty.recruit.utils.SnackbarUtils;
 import cn.zty.recruit.view.VersionView;
 
 /**
@@ -61,7 +63,13 @@ public class VersionActivity extends BaseActivity implements
 
     @Override
     public void onSuccess(VersionModel versionModel) {
-        if (versionModel != null)
-            versionPresenter.showDialog(getSupportFragmentManager(), this, versionModel, true);
+        if (versionModel != null) {
+            int versionCode = VersionUtils.getVersionCode(this);
+            if (versionModel.getAppVersion() > versionCode) {
+                DialogUtils.showVersion(getSupportFragmentManager(), "有新版本啦", versionModel);
+            } else {
+                SnackbarUtils.showShort(toolbar, "已经是最新版本了");
+            }
+        }
     }
 }
