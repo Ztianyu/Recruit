@@ -6,4 +6,6 @@ package cn.zty.recruit.listener;
 
 public interface PayListener {
     void onPaySuccess();
+
+    void onWeChatPay();
 }

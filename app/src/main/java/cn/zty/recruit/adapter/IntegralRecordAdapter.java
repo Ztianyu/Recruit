@@ -1,11 +1,14 @@
 package cn.zty.recruit.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import cn.droidlover.xrecyclerview.RecyclerAdapter;
 import cn.zty.baselib.holder.ViewHolder;
 import cn.zty.baselib.utils.MyTextUtils;
+import cn.zty.baselib.utils.ResourceUtil;
 import cn.zty.baselib.utils.TimeUtils;
 import cn.zty.recruit.R;
 import cn.zty.recruit.bean.IntegralRecordModel;
@@ -33,7 +36,16 @@ public class IntegralRecordAdapter extends RecyclerAdapter<IntegralRecordModel, 
 
         holder.setText(R.id.textIntegralContent, MyTextUtils.notNullStr(data.get(position).getModeLabel()));
 
-        holder.setText(R.id.textIntegralValue, (data.get(position).getMode().equals("1") ? "-" : "+") +
+        holder.setText(R.id.textIntegralFrom, TextUtils.isEmpty(data.get(position).getSourceNm()) ? "" : "来源：" + data.get(position).getSourceNm());
+
+        int mode = Integer.parseInt(data.get(position).getMode());
+
+        holder.setText(R.id.textIntegralValue, (mode == 1 ? "-" : "+") +
                 data.get(position).getIntegral());
+        if (mode == 1) {
+            ((TextView) holder.getView(R.id.textIntegralValue)).setTextColor(ResourceUtil.resToColor(context, R.color.red));
+        } else {
+            ((TextView) holder.getView(R.id.textIntegralValue)).setTextColor(ResourceUtil.resToColor(context, R.color.green));
+        }
     }
 }

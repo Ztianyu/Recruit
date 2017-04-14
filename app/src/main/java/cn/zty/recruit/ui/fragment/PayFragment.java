@@ -19,12 +19,14 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.bean.OrderModel;
 import cn.zty.recruit.listener.PayListener;
 import cn.zty.recruit.pay.Payment;
+import cn.zty.recruit.presenter.UnifiedorderPresenter;
+import cn.zty.recruit.view.StringView;
 
 /**
  * Created by zty on 2017/4/1.
  */
 
-public class PayFragment extends DialogFragment {
+public class PayFragment extends DialogFragment implements StringView {
 
     @BindView(R.id.payAli)
     StripMenuView payAli;
@@ -96,6 +98,7 @@ public class PayFragment extends DialogFragment {
                 dismiss();
                 break;
             case R.id.payWeChat:
+                payListener.onWeChatPay();
                 dismiss();
                 break;
         }
@@ -107,5 +110,10 @@ public class PayFragment extends DialogFragment {
 
     public void setPayListener(PayListener payListener) {
         this.payListener = payListener;
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+
     }
 }

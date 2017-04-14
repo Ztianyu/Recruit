@@ -108,7 +108,7 @@ public class TimeUtils {
         }
     }
 
-    /*
+    /**
      * 判断聊天时间与当前时间差
      */
     public static long getTimeCount(long l) {
@@ -137,7 +137,7 @@ public class TimeUtils {
     }
 
 
-    /*
+    /**
      * 转换时间格式
      */
     public static String changeTime(String time) {
@@ -159,7 +159,7 @@ public class TimeUtils {
         }
     }
 
-    /*
+    /**
      * 将时间转换为时间戳
      */
     public static long dateToStamp(String s) {
@@ -175,7 +175,7 @@ public class TimeUtils {
         return res;
     }
 
-    /*
+    /**
      * 将时间戳转换为时间
      */
     public static String stampToDate(long s) {

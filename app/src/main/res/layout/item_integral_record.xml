@@ -8,12 +8,13 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/textIntegralTime"
+        android:id="@+id/textIntegralContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="今天\n09:30"
-        android:textColor="@color/gray"
-        android:textSize="14sp" />
+        android:gravity="center"
+        android:textColor="@color/textColor"
+        android:textSize="14sp"
+        tools:text="注册邀请" />
 
     <TextView
         android:layout_width="0dp"
@@ -21,13 +22,14 @@
         android:layout_weight="1" />
 
     <TextView
-        android:id="@+id/textIntegralContent"
+        android:id="@+id/textIntegralFrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        tools:text="注册邀请"
+        android:minWidth="72dp"
         android:textColor="@color/textColor"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        tools:text="来源：张慧峰" />
 
     <TextView
         android:layout_width="0dp"
@@ -38,9 +40,26 @@
         android:id="@+id/textIntegralValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="right"
-        tools:text="+50"
-        android:textColor="@color/colorAccent"
-        android:textSize="15sp" />
+        android:gravity="center"
+        android:minWidth="56dp"
+        android:textSize="15sp"
+        tools:text="+50" />
+
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/textIntegralTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minWidth="72dp"
+        android:textColor="@color/gray"
+        android:textSize="13sp"
+        tools:text="2017-05-06" />
+
 
 </LinearLayout>

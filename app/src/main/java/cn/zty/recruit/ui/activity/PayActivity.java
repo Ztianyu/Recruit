@@ -11,25 +11,34 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.zty.baselib.utils.AppManager;
+import cn.zty.baselib.utils.MyTextUtils;
+import cn.zty.baselib.utils.TimeUtils;
 import cn.zty.baselib.widget.StripMenuView;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.bean.OrderModel;
+import cn.zty.recruit.bean.WeChatPayModel;
 import cn.zty.recruit.listener.PayListener;
 import cn.zty.recruit.pay.Payment;
 import cn.zty.recruit.presenter.OrderPresenter;
+import cn.zty.recruit.presenter.UnifiedorderPresenter;
 import cn.zty.recruit.ui.activity.learn.EnrollActivity;
 import cn.zty.recruit.ui.activity.learn.StudyEnrollActivity;
 import cn.zty.recruit.ui.activity.person.OrderActivity;
 import cn.zty.recruit.ui.activity.person.OrderDetailActivity;
 import cn.zty.recruit.view.OrderView;
+import cn.zty.recruit.view.StringView;
+import cn.zty.recruit.wechat.WeChatPayManager;
 
 /**
  * Created by zty on 2017/3/30.
  */
 
 public class PayActivity extends BaseActivity implements
-        OrderView, PayListener {
+        OrderView,
+        PayListener,
+        StringView {
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.textPayMoney)
@@ -41,10 +50,14 @@ public class PayActivity extends BaseActivity implements
     @BindView(R.id.textPayPs)
     TextView textPayPs;
 
+    private int payType = 0;//支付方式 0：支付宝；1：微信
+
     private String orderCode;
     private String money;
 
     private OrderPresenter orderPresenter;
+
+    private UnifiedorderPresenter presenter;
 
     @Override
     protected int initLayoutId() {
@@ -83,6 +96,10 @@ public class PayActivity extends BaseActivity implements
         orderPresenter = new OrderPresenter();
         orderPresenter.attach(this);
         presenters.add(orderPresenter);
+
+        presenter = new UnifiedorderPresenter();
+        presenter.attach(this);
+        presenters.add(presenter);
     }
 
     @Override
@@ -94,9 +111,12 @@ public class PayActivity extends BaseActivity implements
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.payAli:
+                payType = 0;
                 orderPresenter.getOrder(null, orderCode);
                 break;
             case R.id.payWeChat:
+                payType = 1;
+                orderPresenter.getOrder(null, orderCode);
                 break;
         }
     }
@@ -108,9 +128,16 @@ public class PayActivity extends BaseActivity implements
 
     @Override
     public void onOrderDetail(OrderModel model) {
-        Payment payment = new Payment(this, this);
-        payment.setPayModel(model);
-        payment.payNow();
+        if (payType == 0) {
+            Payment payment = new Payment(this, this);
+            payment.setPayModel(model);
+            payment.payNow();
+        } else {
+//            String body = "报名：" + model.getCourseNm() + " " + MyTextUtils.notNullStr(model.getDepartmentNm());
+//            String nonce_str = WeChatPayManager.getInstance().getNonceStr();
+//            presenter.unifiedorder(body, nonce_str, model.getOrderCode(), model.getDeposit() + "");
+        }
+
     }
 
     @Override
@@ -120,5 +147,19 @@ public class PayActivity extends BaseActivity implements
         AppManager.getInstance().finishActivity(EnrollActivity.class);
         AppManager.getInstance().finishActivity(StudyEnrollActivity.class);
         finish();
+    }
+
+    @Override
+    public void onWeChatPay() {
+
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        WeChatPayModel weChatPayModel = presenter.pullParser(msg);
+
+        WeChatPayManager.getInstance().pay(weChatPayModel.getPrepay_id(),
+                weChatPayModel.getNonce_str(),
+                TimeUtils.dateToStamp(TimeUtils.getFullDate()) + "");
     }
 }

@@ -16,15 +16,20 @@ import cn.zty.baselib.utils.AppManager;
 import cn.zty.baselib.utils.MyImageLoader;
 import cn.zty.baselib.utils.MyTextUtils;
 import cn.zty.baselib.utils.ResourceUtil;
+import cn.zty.baselib.utils.TimeUtils;
 import cn.zty.baselib.widget.CircleImageView;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.bean.OrderModel;
+import cn.zty.recruit.bean.WeChatPayModel;
 import cn.zty.recruit.listener.PayListener;
 import cn.zty.recruit.presenter.OrderPresenter;
+import cn.zty.recruit.presenter.UnifiedorderPresenter;
 import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.view.OrderView;
+import cn.zty.recruit.view.StringView;
+import cn.zty.recruit.wechat.WeChatPayManager;
 
 /**
  * Created by zty on 2017/3/31.
@@ -32,7 +37,8 @@ import cn.zty.recruit.view.OrderView;
 
 public class OrderDetailActivity extends BaseActivity implements
         OrderView,
-        PayListener {
+        PayListener,
+        StringView{
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -85,6 +91,8 @@ public class OrderDetailActivity extends BaseActivity implements
 
     private OrderPresenter orderPresenter;
 
+    private UnifiedorderPresenter presenter;
+
     private OrderModel model;
 
     @Override
@@ -103,6 +111,10 @@ public class OrderDetailActivity extends BaseActivity implements
         orderPresenter = new OrderPresenter();
         orderPresenter.attach(this);
         presenters.add(orderPresenter);
+
+        presenter = new UnifiedorderPresenter();
+        presenter.attach(this);
+        presenters.add(presenter);
     }
 
     @Override
@@ -184,5 +196,21 @@ public class OrderDetailActivity extends BaseActivity implements
             OrderActivity.page = 2;
         }
         startActivity(new Intent(this, OrderActivity.class));
+    }
+
+    @Override
+    public void onWeChatPay() {
+//        String body = "报名：" + model.getCourseNm() + " " + MyTextUtils.notNullStr(model.getDepartmentNm());
+//        String nonce_str = WeChatPayManager.getInstance().getNonceStr();
+//        presenter.unifiedorder(body, nonce_str, model.getOrderCode(), model.getDeposit() + "");
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        WeChatPayModel weChatPayModel = presenter.pullParser(msg);
+
+        WeChatPayManager.getInstance().pay(weChatPayModel.getPrepay_id(),
+                weChatPayModel.getNonce_str(),
+                TimeUtils.dateToStamp(TimeUtils.getFullDate()) + "");
     }
 }
