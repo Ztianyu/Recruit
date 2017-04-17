@@ -80,7 +80,7 @@ public class SchoolActivity extends BaseActivity implements
     private String discipline;
     private String majorId;
     private String score;
-    private String examinationType;
+    private String tuitionType;
 
     private VocationalListPresenter presenter;
 
@@ -128,7 +128,7 @@ public class SchoolActivity extends BaseActivity implements
                 presenter.getVocationList(null, areaProvinceId, areaDiscipline, areaMajorId, null, null, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
             }
         } else {
-            presenter.getVocationList(null, provinceId, discipline, majorId, examinationType, score, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
+            presenter.getVocationList(null, provinceId, discipline, majorId, tuitionType, score, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
         }
     }
 
@@ -224,7 +224,7 @@ public class SchoolActivity extends BaseActivity implements
         this.discipline = discipline;
         this.majorId = majorId;
         this.score = score;
-        this.examinationType = examinationType;
+        this.tuitionType = examinationType;
 
         initData();
     }

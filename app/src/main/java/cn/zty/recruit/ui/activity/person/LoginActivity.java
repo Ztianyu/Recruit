@@ -89,12 +89,10 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
         RecruitApplication.getInstance().setUserId(loginModel.getUserId());
         RecruitApplication.getInstance().setTokenId(loginModel.getTokenId());
 
-        AppManager.getInstance().finishAllActivity();
-        startActivity(new Intent(this, MainActivity.class));
-        RecruitApplication.getInstance().setHaveUser(true);
+        finish();
     }
 
-    @OnClick({R.id.btnLogin, R.id.btnRegister, R.id.btnForgetPw})
+    @OnClick({R.id.btnLogin, R.id.btnRegister, R.id.btnForgetPw, R.id.btnLoginBack})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnLogin:
@@ -105,6 +103,9 @@ public class LoginActivity extends BaseActivity implements View.OnFocusChangeLis
                 break;
             case R.id.btnForgetPw:
                 startActivity(new Intent(this, ConfirmPhoneActivity.class).putExtra("type", 1));
+                break;
+            case R.id.btnLoginBack:
+                finish();
                 break;
         }
     }

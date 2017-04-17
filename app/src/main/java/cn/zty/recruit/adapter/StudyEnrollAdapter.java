@@ -15,9 +15,12 @@ import java.util.List;
 import java.util.Map;
 
 import cn.zty.recruit.R;
+import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.CollegeModel;
 import cn.zty.recruit.bean.StudyMajorModel;
 import cn.zty.recruit.ui.activity.learn.StudyEnrollActivity;
+import cn.zty.recruit.ui.activity.person.LoginActivity;
+import cn.zty.recruit.utils.ToastUtils;
 
 /**
  * Created by zty on 2017/3/18.
@@ -122,9 +125,14 @@ public class StudyEnrollAdapter extends BaseExpandableListAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, StudyEnrollActivity.class)
-                        .putExtra("majorModel", childData.get(groupPosition).get(childPosition))
-                        .putExtra("office", office));
+                if (RecruitApplication.getInstance().isHaveUser()) {
+                    mContext.startActivity(new Intent(mContext, StudyEnrollActivity.class)
+                            .putExtra("majorModel", childData.get(groupPosition).get(childPosition))
+                            .putExtra("office", office));
+                } else {
+                    ToastUtils.show("请先登录");
+                    mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                }
             }
         });
         return convertView;

@@ -68,14 +68,14 @@ public class SchoolSelectFragment extends DialogFragment implements
     private DictAdapter areaAdapter;
     private DictAdapter disciplineAdapter;
     private MajorNameAdapter majorAdapter;
-    private DictAdapter examinationAdapter;
+    private DictAdapter tuitionAdapter;
 
     SchoolSelectListener listener;
 
     private String provinceId;
     private String discipline;
     private String majorId;
-    private String examinationType;
+    private String tuitionType;
 
     public static SchoolSelectFragment newInstance(int height, SchoolSelectListener listener) {
         SchoolSelectFragment fragment = new SchoolSelectFragment();
@@ -133,16 +133,16 @@ public class SchoolSelectFragment extends DialogFragment implements
         areaAdapter = new DictAdapter(getActivity(), -1);
         disciplineAdapter = new DictAdapter(getActivity(), -1);
         majorAdapter = new MajorNameAdapter(getActivity());
-        examinationAdapter = new DictAdapter(getActivity(), -1);
+        tuitionAdapter = new DictAdapter(getActivity(), -1);
 
         spinnerSpace.setAdapter(areaAdapter);
         spinnerDiscipline.setAdapter(disciplineAdapter);
         spinnerMajorType.setAdapter(majorAdapter);
-        spinnerTestType.setAdapter(examinationAdapter);
+        spinnerTestType.setAdapter(tuitionAdapter);
 
         getProvincePresenter.getProvince();
         dictPresenter.getDictList(Constants.DICT_TYPE1);
-        dictPresenter.getDictList(Constants.DICT_TYPE4);
+        dictPresenter.getDictList(Constants.DICT_TYPE7);
     }
 
     @Override
@@ -163,8 +163,8 @@ public class SchoolSelectFragment extends DialogFragment implements
     public void onDictSuccess(String type, List<TipModel> models) {
         if (type.equals(Constants.DICT_TYPE1)) {
             disciplineAdapter.setData(models);
-        } else if (type.equals(Constants.DICT_TYPE4)) {
-            examinationAdapter.setData(models);
+        } else if (type.equals(Constants.DICT_TYPE7)) {
+            tuitionAdapter.setData(models);
         }
     }
 
@@ -187,7 +187,7 @@ public class SchoolSelectFragment extends DialogFragment implements
                 majorId = majorAdapter.getData().get(position).getId();
                 break;
             case R.id.spinnerTestType:
-                examinationType = examinationAdapter.getData().get(position).getKey();
+                tuitionType = tuitionAdapter.getData().get(position).getKey();
                 break;
         }
     }
@@ -200,7 +200,7 @@ public class SchoolSelectFragment extends DialogFragment implements
     @OnClick(R.id.btnSure)
     public void onClick() {
         dismiss();
-        listener.onSchoolSelect(provinceId, discipline, majorId, editScore.getText().toString(), examinationType);
+        listener.onSchoolSelect(provinceId, discipline, majorId, editScore.getText().toString(), tuitionType);
     }
 
     public SchoolSelectListener getListener() {

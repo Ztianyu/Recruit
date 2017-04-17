@@ -4,6 +4,7 @@ import android.app.Application;
 import android.text.TextUtils;
 
 import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.cache.CacheMode;
 import com.lzy.okhttputils.cookie.store.PersistentCookieStore;
 
 import cn.zty.baselib.http.RetrofitHelper;
@@ -66,7 +67,9 @@ public class RecruitApplication extends Application {
                 .setConnectTimeout(OkHttpUtils.DEFAULT_MILLISECONDS)  //全局的连接超时时间
                 .setReadTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)    //全局的读取超时时间
                 .setWriteTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)  //全局的写入超时时间
-                .setCookieStore(new PersistentCookieStore());     //cookie持久化存储，如果cookie不过期，则一直有效;
+                .setCookieStore(new PersistentCookieStore())
+                .setCacheMode(CacheMode.DEFAULT);
+
     }
 
     private void setCurrentUser() {

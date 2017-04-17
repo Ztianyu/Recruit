@@ -7,5 +7,5 @@ package cn.zty.recruit.listener;
 
 public interface SchoolSelectListener {
 
-    void onSchoolSelect(String provinceId, String discipline, String majorId, String score,String examinationType);
+    void onSchoolSelect(String provinceId, String discipline, String majorId, String score,String tuition);
 }

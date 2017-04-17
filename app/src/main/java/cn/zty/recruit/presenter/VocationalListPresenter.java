@@ -31,7 +31,7 @@ public class VocationalListPresenter extends IBasePresenter<VocationalListView> 
 
     private Observable<ResultBean<List<VocationalModel>>> submit(String name, String areaId,
                                                                  String discipline, String majorId,
-                                                                 String examinationType, String score,
+                                                                 String tuitionRange, String score,
                                                                  int isHot, int pageNo, int pageSize) {
         RequestParams params = RequestParamsHelper.getInstance().getRequestParams();
         if (!TextUtils.isEmpty(name))
@@ -42,8 +42,8 @@ public class VocationalListPresenter extends IBasePresenter<VocationalListView> 
             params.put("discipline", discipline);
         if (!TextUtils.isEmpty(majorId))
             params.put("majorId", majorId);
-        if (!TextUtils.isEmpty(examinationType))
-            params.put("examinationType", examinationType);
+        if (!TextUtils.isEmpty(tuitionRange))
+            params.put("tuitionRange", tuitionRange);
         if (!TextUtils.isEmpty(score))
             params.put("score", score);
         if (isHot >= 0)
@@ -55,9 +55,9 @@ public class VocationalListPresenter extends IBasePresenter<VocationalListView> 
 
     public void getVocationList(@Nullable String name, @Nullable String areaId,
                                 @Nullable String discipline, @Nullable String majorId,
-                                @Nullable String examinationType, @Nullable String score,
+                                @Nullable String tuitionRange, @Nullable String score,
                                 int isHot, int pageNo, int pageSize) {
-        mSubscription = RxManager.getInstance().doSubscribe1(submit(name, areaId, discipline, majorId, examinationType, score, isHot, pageNo, pageSize), new RxSubscriber<List<VocationalModel>>() {
+        mSubscription = RxManager.getInstance().doSubscribe1(submit(name, areaId, discipline, majorId, tuitionRange, score, isHot, pageNo, pageSize), new RxSubscriber<List<VocationalModel>>() {
             @Override
             protected void _onNext(List<VocationalModel> models) {
                 mView.onVocationalListSuccess(models);

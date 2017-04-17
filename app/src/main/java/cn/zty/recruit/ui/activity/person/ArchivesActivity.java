@@ -30,6 +30,7 @@ import cn.zty.recruit.listener.EducationSelectListener;
 import cn.zty.recruit.listener.SexSelectListener;
 import cn.zty.recruit.pick.OnSelectListener;
 import cn.zty.recruit.pick.SelectPicUtils;
+import cn.zty.recruit.presenter.GetUserPresenter;
 import cn.zty.recruit.presenter.LoadFilePresenter;
 import cn.zty.recruit.presenter.UpdateUserPresenter;
 import cn.zty.recruit.utils.DialogUtils;
@@ -80,6 +81,8 @@ public class ArchivesActivity extends BaseActivity implements OnSelectListener,
 
     private LoadFilePresenter loadFilePresenter;
 
+    private GetUserPresenter getUserPresenter;
+
     int sexType = -1;
     String education;
 
@@ -98,9 +101,23 @@ public class ArchivesActivity extends BaseActivity implements OnSelectListener,
         presenter = new UpdateUserPresenter();
         presenter.attach(this);
         presenters.add(presenter);
+
         loadFilePresenter = new LoadFilePresenter();
         loadFilePresenter.attach(this);
         presenters.add(loadFilePresenter);
+
+        getUserPresenter = new GetUserPresenter();
+        getUserPresenter.attach(new UserView() {
+            @Override
+            public void onUserSuccess(UserModel userModel) {
+                if (userModel != null) {
+                    RecruitApplication.getInstance().setUserModel(userModel);
+                    setUser(userModel);
+                }
+            }
+        });
+        presenters.add(getUserPresenter);
+
     }
 
     @Override
@@ -251,7 +268,7 @@ public class ArchivesActivity extends BaseActivity implements OnSelectListener,
     public void onUserSuccess(final UserModel userModel) {
         if (userModel != null) {
 
-            SnackbarUtils.showShort(toolbar,"修改成功");
+            SnackbarUtils.showShort(toolbar, "修改成功");
             RecruitApplication.getInstance().setUserModel(userModel);
 
 //            runOnUiThread(new Runnable() {

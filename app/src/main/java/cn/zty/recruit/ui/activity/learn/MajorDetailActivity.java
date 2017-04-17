@@ -14,7 +14,9 @@ import cn.zty.baselib.utils.MyTextUtils;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.Constants;
+import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.InstitutionMajorModel;
+import cn.zty.recruit.ui.activity.person.LoginActivity;
 import cn.zty.recruit.utils.SnackbarUtils;
 import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.widget.LabView;
@@ -87,11 +89,16 @@ public class MajorDetailActivity extends BaseActivity {
                             .putExtra("videoUrl", majorModel.getVideoUrl())
                             .putExtra("videoName", majorModel.getName()));
                 } else {
-                    SnackbarUtils.showShort(toolbar,"暂无试听视频");
+                    SnackbarUtils.showShort(toolbar, "暂无试听视频");
                 }
                 break;
             case R.id.labMajorFun3:
-                startActivity(new Intent(this, EnrollActivity.class).putExtra("model", majorModel));
+                if (RecruitApplication.getInstance().isHaveUser()) {
+                    startActivity(new Intent(this, EnrollActivity.class).putExtra("model", majorModel));
+                } else {
+                    ToastUtils.show("请先登录");
+                    mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                }
                 break;
         }
     }
