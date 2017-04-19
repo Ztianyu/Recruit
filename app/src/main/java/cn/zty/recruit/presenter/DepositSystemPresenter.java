@@ -23,8 +23,8 @@ public class DepositSystemPresenter extends IBasePresenter<DepositSystemView> {
         service = RetrofitHelper.getInstance().getRetrofit().create(DepositSystemService.class);
     }
 
-    public void getDepositSystemList(String office) {
-        mSubscription = RxManager.getInstance().doSubscribe1(service.getDepositSystemList(office), new RxSubscriber<List<DepositSystemModel>>() {
+    public void getDepositSystemList(String schoolId) {
+        mSubscription = RxManager.getInstance().doSubscribe1(service.getDepositSystemList(schoolId), new RxSubscriber<List<DepositSystemModel>>() {
             @Override
             protected void _onNext(List<DepositSystemModel> models) {
                 mView.onDepositSystemSuccess(models);

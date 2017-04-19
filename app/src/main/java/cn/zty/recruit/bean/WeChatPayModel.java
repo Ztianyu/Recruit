@@ -103,6 +103,14 @@ public class WeChatPayModel {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "{return_code=" + return_code + "," +
+                "return_msg=" + return_msg + "," +
+                "appid=" + appid + "," +
+                "mch_id=" + mch_id + "," +
+                "nonce_str=" + nonce_str + "," +
+                "sign=" + sign + "," +
+                "result_code=" + result_code + "," +
+                "prepay_id=" + prepay_id + "," +
+                "trade_type=" + trade_type + ",}";
     }
 }

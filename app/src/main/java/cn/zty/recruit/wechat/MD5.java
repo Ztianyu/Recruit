@@ -4,47 +4,45 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import cn.zty.recruit.pay.Base64;
+import io.vov.vitamio.utils.Log;
 
 public class MD5 {
 
-    private MD5() {
+    private static final String hexDigits[] = { "0", "1", "2", "3", "4", "5",
+            "6", "7", "8", "9", "a", "b", "c", "d", "e", "f" };
+
+    private static String byteArrayToHexString(byte b[]) {
+        StringBuffer resultSb = new StringBuffer();
+        for (int i = 0; i < b.length; i++)
+            resultSb.append(byteToHexString(b[i]));
+
+        return resultSb.toString();
     }
 
-    public final static String getMessageDigest(byte[] buffer) {
-        char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+    private static String byteToHexString(byte b) {
+        int n = b;
+        if (n < 0)
+            n += 256;
+        int d1 = n / 16;
+        int d2 = n % 16;
+        return hexDigits[d1] + hexDigits[d2];
+    }
+
+    public static String MD5Encode(String origin, String charsetname) {
+        String resultString = null;
         try {
-            MessageDigest mdTemp = MessageDigest.getInstance("MD5");
-            mdTemp.update(buffer);
-            byte[] md = mdTemp.digest();
-            int j = md.length;
-            char str[] = new char[j * 2];
-            int k = 0;
-            for (int i = 0; i < j; i++) {
-                byte byte0 = md[i];
-                str[k++] = hexDigits[byte0 >>> 4 & 0xf];
-                str[k++] = hexDigits[byte0 & 0xf];
-            }
-            return new String(str);
-        } catch (Exception e) {
-            return null;
+            resultString = new String(origin);
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            if (charsetname == null || "".equals(charsetname))
+                resultString = byteArrayToHexString(md.digest(resultString
+                        .getBytes()));
+            else
+                resultString = byteArrayToHexString(md.digest(resultString
+                        .getBytes(charsetname)));
+        } catch (Exception exception) {
         }
+        return resultString;
     }
 
-    public static String EncoderByMd5(String str) {
-        MessageDigest mdTemp = null;
 
-        String newstr = "";
-        try {
-            mdTemp = MessageDigest.getInstance("MD5");
-            Base64 base64en = new Base64();
-            //加密后的字符串
-            newstr = base64en.encode(mdTemp.digest(str.getBytes("utf-8")));
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return newstr;
-    }
 }

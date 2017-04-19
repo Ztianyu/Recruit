@@ -54,7 +54,8 @@ public class UniversityAdapter extends RecyclerAdapter<VocationalModel, ViewHold
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                context.startActivity(new Intent(context, SchoolDetailActivity.class).putExtra("schoolId", data.get(position).getId()));
+                context.startActivity(new Intent(context, SchoolDetailActivity.class)
+                        .putExtra("schoolId", data.get(position).getId()));
             }
         });
 

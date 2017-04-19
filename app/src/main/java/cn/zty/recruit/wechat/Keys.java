@@ -9,6 +9,6 @@ public class Keys {
 
     public static final String PARTNER_ID = "1459882202";
 
-    public static final String SIGN = "6626f5458dd92692dbb9912acd30a916";
+    public static final String SIGN = "GUANGZHOUKUAIQIANJIAOYU6KUAIQIAN";
 
 }

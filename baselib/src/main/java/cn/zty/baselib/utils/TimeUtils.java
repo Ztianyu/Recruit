@@ -35,8 +35,9 @@ public class TimeUtils {
      * MM-dd HH:mm 2012-12-25
      */
     public static String getDate(String format) {
-        SimpleDateFormat simple = new SimpleDateFormat(format);
-        return simple.format(calendar.getTime());
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        return simpleDateFormat.format(date);
     }
 
     /**
@@ -44,8 +45,9 @@ public class TimeUtils {
      * 2012-12-29 23:47
      */
     public static String getDateAndMinute() {
-        SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        return simple.format(calendar.getTime());
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        return simpleDateFormat.format(date);
     }
 
     /**
@@ -53,8 +55,9 @@ public class TimeUtils {
      * 2012-12-29 23:47:36
      */
     public static String getFullDate() {
-        SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return simple.format(calendar.getTime());
+        Date date = new Date();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return simpleDateFormat.format(date);
     }
 
 

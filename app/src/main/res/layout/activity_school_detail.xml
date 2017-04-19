@@ -7,21 +7,35 @@
 
     <include layout="@layout/tool_bar" />
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:scrollbars="none">
 
-            <include layout="@layout/view_school_message" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <include layout="@layout/view_school_handle" />
+                <include layout="@layout/view_school_message" />
 
-        </LinearLayout>
-    </ScrollView>
+                <include layout="@layout/view_school_handle" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <include
+            layout="@layout/view_school_call"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbarHeight"
+            android:layout_gravity="bottom" />
+    </FrameLayout>
 
 </LinearLayout>

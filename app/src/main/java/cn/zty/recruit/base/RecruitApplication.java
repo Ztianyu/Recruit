@@ -6,11 +6,15 @@ import android.text.TextUtils;
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.cache.CacheMode;
 import com.lzy.okhttputils.cookie.store.PersistentCookieStore;
+import com.lzy.okhttputils.model.HttpHeaders;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import cn.zty.baselib.http.RetrofitHelper;
 import cn.zty.recruit.bean.UserModel;
 import cn.zty.recruit.utils.FontUtils;
 import cn.zty.recruit.utils.SharedPrefUtils;
+import cn.zty.recruit.wechat.Keys;
 import io.vov.vitamio.Vitamio;
 
 /**
@@ -30,6 +34,8 @@ public class RecruitApplication extends Application {
     private String tokenId;
     private String loginName;
 
+    private IWXAPI api;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -47,6 +53,9 @@ public class RecruitApplication extends Application {
         FontUtils.setDefaultFont(this, "SERIF", "fonts/myFont.ttf");
         FontUtils.setDefaultFont(this, "SANS_SERIF", "fonts/myFont.ttf");
 
+        api = WXAPIFactory.createWXAPI(this, null);
+        api.registerApp(Keys.APP_ID);
+
 //        MyException crashHandler = MyException.getInstance();
 //        crashHandler.init(getApplicationContext());
     }
@@ -61,6 +70,11 @@ public class RecruitApplication extends Application {
 
         //必须调用初始化
         OkHttpUtils.init(this);
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.put(httpHeaders.HEAD_KEY_ACCEPT, "application/json");
+        httpHeaders.put(httpHeaders.HEAD_KEY_CONTENT_TYPE, "application/json");
+
         //以下都不是必须的，根据需要自行选择
         OkHttpUtils.getInstance()
                 .debug("HttpUtils")
@@ -68,7 +82,8 @@ public class RecruitApplication extends Application {
                 .setReadTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)    //全局的读取超时时间
                 .setWriteTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)  //全局的写入超时时间
                 .setCookieStore(new PersistentCookieStore())
-                .setCacheMode(CacheMode.DEFAULT);
+                .setCacheMode(CacheMode.DEFAULT)
+                .addCommonHeaders(httpHeaders);
 
     }
 
@@ -141,4 +156,11 @@ public class RecruitApplication extends Application {
         this.loginName = loginName;
     }
 
+    public IWXAPI getApi() {
+        return api;
+    }
+
+    public void setApi(IWXAPI api) {
+        this.api = api;
+    }
 }

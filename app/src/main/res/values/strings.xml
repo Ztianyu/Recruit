@@ -85,4 +85,7 @@
     <string name="lifeFun5">生活缴费</string>
     <string name="lifeFun6">孵化器</string>
 
+    <string name="schoolOrder">预约看校</string>
+    <string name="schoolCall1">电话咨询</string>
+
 </resources>

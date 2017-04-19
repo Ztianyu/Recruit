@@ -15,5 +15,5 @@ import rx.Observable;
 
 public interface DepositSystemService {
     @GET(Urls.getDepositSystemList)
-    Observable<ResultBean<List<DepositSystemModel>>> getDepositSystemList(@Query("office") String office);
+    Observable<ResultBean<List<DepositSystemModel>>> getDepositSystemList(@Query("schoolId") String schoolId);
 }

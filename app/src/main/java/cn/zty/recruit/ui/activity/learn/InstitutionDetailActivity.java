@@ -2,6 +2,7 @@ package cn.zty.recruit.ui.activity.learn;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +17,7 @@ import cn.zty.baselib.utils.MyImageLoader;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.InstitutionMajorAdapter;
 import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.InstitutionMajorModel;
 import cn.zty.recruit.bean.TrainingModel;
 import cn.zty.recruit.listener.VisitListener;
@@ -23,8 +25,10 @@ import cn.zty.recruit.presenter.CourseSetListPresenter;
 import cn.zty.recruit.presenter.TrainOrgPresenter;
 import cn.zty.recruit.presenter.VisitPresenter;
 import cn.zty.recruit.ui.activity.WebActivity;
+import cn.zty.recruit.ui.activity.person.LoginActivity;
 import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.utils.SnackbarUtils;
+import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.CourseSetListView;
 import cn.zty.recruit.view.StringView;
 import cn.zty.recruit.view.TrainOrgView;
@@ -97,7 +101,12 @@ public class InstitutionDetailActivity extends BaseActivity implements
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.visit) {
-                    DialogUtils.showVisit(getSupportFragmentManager(), InstitutionDetailActivity.this);
+                    if (TextUtils.isEmpty(RecruitApplication.getInstance().getUserId())) {
+                        ToastUtils.show("请先登录");
+                        startActivity(new Intent(InstitutionDetailActivity.this, LoginActivity.class));
+                    } else {
+                        DialogUtils.showVisit(getSupportFragmentManager(), InstitutionDetailActivity.this);
+                    }
                     return true;
                 }
                 return false;

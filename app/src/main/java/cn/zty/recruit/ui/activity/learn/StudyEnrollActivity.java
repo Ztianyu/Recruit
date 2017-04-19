@@ -185,7 +185,7 @@ public class StudyEnrollActivity extends BaseActivity implements
                 DialogUtils.showEducationSelect(getSupportFragmentManager(), educationName, this);
                 break;
             case R.id.btnChoseType:
-                DialogUtils.showEnrollTypeSelect(getSupportFragmentManager(), this, office);
+                DialogUtils.showEnrollTypeSelect(getSupportFragmentManager(), this, studyMajorModel.getSchoolId());
                 break;
             case R.id.btnSubmit:
                 submitOrder();
@@ -249,10 +249,14 @@ public class StudyEnrollActivity extends BaseActivity implements
     @Override
     public void onEnrollTypeSelect(DepositSystemModel enrollTypeModel) {
         this.enrollTypeModel = enrollTypeModel;
-        btnChoseType.setText((int) enrollTypeModel.getAmount() + "(可抵" + (int) enrollTypeModel.getDeductibleAmount() + "元)");
-
-        textBillMoney.setText((int) enrollTypeModel.getAmount() + "");
-        textBillTip.setText("(可抵" + (int) enrollTypeModel.getDeductibleAmount() + "元)");
+        if (enrollTypeModel != null && enrollTypeModel.getAmount() != 0) {
+            btnChoseType.setText((int) enrollTypeModel.getAmount() + "(可抵" + (int) enrollTypeModel.getDeductibleAmount() + "元)");
+            textBillMoney.setText((int) enrollTypeModel.getAmount() + "");
+            textBillTip.setText("(可抵" + (int) enrollTypeModel.getDeductibleAmount() + "元)");
+        } else {
+            btnChoseType.setText("无需定金");
+            textBillMoney.setText("无定金");
+        }
 
         DialogFragment dialogFragment = (DialogFragment) getSupportFragmentManager().findFragmentByTag(DialogUtils.ENROLL_TYPE_SELECT);
         dialogFragment.dismiss();

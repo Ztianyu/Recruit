@@ -41,8 +41,8 @@ public class EnrollActivity extends BaseActivity implements
         SexSelectListener,
         EducationSelectListener,
         EnrollTypeSelectListener,
-        StringView ,
-        UserView{
+        StringView,
+        UserView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -145,7 +145,7 @@ public class EnrollActivity extends BaseActivity implements
 
             educationName = MyTextUtils.notNullStr(userModel.getEducationLabel());
             educationCode = MyTextUtils.notNullStr(userModel.getEducation());
-        }else{
+        } else {
             if (!TextUtils.isEmpty(RecruitApplication.getInstance().getUserId()))
                 getUserPresenter.getUser(RecruitApplication.getInstance().getTokenId(),
                         RecruitApplication.getInstance().getUserId());
@@ -165,7 +165,7 @@ public class EnrollActivity extends BaseActivity implements
                 DialogUtils.showEducationSelect(getSupportFragmentManager(), educationName, this);
                 break;
             case R.id.btnChoseType:
-                DialogUtils.showEnrollTypeSelect(getSupportFragmentManager(), this, Constants.OFFICE_TYPE1);
+                DialogUtils.showEnrollTypeSelect(getSupportFragmentManager(), this, majorModel.getSchoolId());
                 break;
             case R.id.btnSubmit:
                 submitOrder();
@@ -226,10 +226,15 @@ public class EnrollActivity extends BaseActivity implements
     @Override
     public void onEnrollTypeSelect(DepositSystemModel enrollTypeModel) {
         this.enrollTypeModel = enrollTypeModel;
-        btnChoseType.setText((int) enrollTypeModel.getAmount() + "(可抵" + (int) enrollTypeModel.getDeductibleAmount() + "元)");
 
-        textBillMoney.setText((int) enrollTypeModel.getAmount() + "");
-        textBillTip.setText("(可抵" + (int) enrollTypeModel.getDeductibleAmount() + "元)");
+        if (enrollTypeModel != null && enrollTypeModel.getAmount() != 0) {
+            btnChoseType.setText((int) enrollTypeModel.getAmount() + "(可抵" + (int) enrollTypeModel.getDeductibleAmount() + "元)");
+            textBillMoney.setText((int) enrollTypeModel.getAmount() + "");
+            textBillTip.setText("(可抵" + (int) enrollTypeModel.getDeductibleAmount() + "元)");
+        } else {
+            btnChoseType.setText("无需定金");
+            textBillMoney.setText("无定金");
+        }
 
         DialogFragment dialogFragment = (DialogFragment) getSupportFragmentManager().findFragmentByTag(DialogUtils.ENROLL_TYPE_SELECT);
         dialogFragment.dismiss();
@@ -258,7 +263,7 @@ public class EnrollActivity extends BaseActivity implements
         if (userModel != null) {
             RecruitApplication.getInstance().setUserModel(userModel);
             this.userModel = userModel;
-           onResume();
+            onResume();
         }
     }
 }

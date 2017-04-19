@@ -180,11 +180,11 @@ public class DialogUtils {
     /**
      * 选择定金类型
      */
-    public static void showEnrollTypeSelect(FragmentManager manager, EnrollTypeSelectListener listener, String office) {
+    public static void showEnrollTypeSelect(FragmentManager manager, EnrollTypeSelectListener listener, String schoolId) {
         Fragment fragment = manager.findFragmentByTag(ENROLL_TYPE_SELECT);
         if (fragment != null)
             manager.beginTransaction().remove(fragment);
-        EnrollTypeFragment enrollTypeFragment = EnrollTypeFragment.newInstance(listener, office);
+        EnrollTypeFragment enrollTypeFragment = EnrollTypeFragment.newInstance(listener, schoolId);
         enrollTypeFragment.show(manager.beginTransaction(), ENROLL_TYPE_SELECT);
     }
 

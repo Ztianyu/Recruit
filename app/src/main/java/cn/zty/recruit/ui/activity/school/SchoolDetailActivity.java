@@ -1,16 +1,21 @@
 package cn.zty.recruit.ui.activity.school;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.droidlover.xrecyclerview.XRecyclerView;
 import cn.zty.baselib.utils.MyImageLoader;
@@ -19,6 +24,7 @@ import cn.zty.recruit.adapter.SchoolLabAdapter;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.BaseData;
 import cn.zty.recruit.base.Constants;
+import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.TipModel;
 import cn.zty.recruit.bean.VocationalModel;
 import cn.zty.recruit.listener.VisitListener;
@@ -26,9 +32,11 @@ import cn.zty.recruit.presenter.VisitPresenter;
 import cn.zty.recruit.presenter.VocationPresenter;
 import cn.zty.recruit.ui.activity.WebActivity;
 import cn.zty.recruit.ui.activity.learn.StudyMajorActivity;
+import cn.zty.recruit.ui.activity.person.LoginActivity;
 import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.utils.SnackbarUtils;
 import cn.zty.recruit.utils.StringUtils;
+import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.StringView;
 import cn.zty.recruit.view.VocationView;
 import cn.zty.recruit.widget.LabView;
@@ -70,14 +78,17 @@ public class SchoolDetailActivity extends BaseActivity implements
     LabView labSchool4;
     @BindView(R.id.labSchool5)
     LabView labSchool5;
-    @BindView(R.id.labSchool6)
-    LabView labSchool6;
+    @BindView(R.id.btnSchoolOrder)
+    RelativeLayout btnSchoolOrder;
+    @BindView(R.id.btnSchoolCall)
+    RelativeLayout btnSchoolCall;
 
     SchoolLabAdapter labAdapter;
 
     SchoolLabAdapter adapter;
 
     VocationPresenter presenter;
+
 
     private VisitPresenter visitPresenter;
 
@@ -93,24 +104,7 @@ public class SchoolDetailActivity extends BaseActivity implements
     @Override
     protected void initView() {
         toolbar.setTitle("院校概况");
-        toolbar.setNavigationIcon(R.drawable.ic_main_back);
-        toolbar.inflateMenu(R.menu.visit);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.visit) {
-                    DialogUtils.showVisit(getSupportFragmentManager(), SchoolDetailActivity.this);
-                    return true;
-                }
-                return false;
-            }
-        });
+        initToolbar(toolbar);
 
         schoolId = getIntent().getStringExtra("schoolId");
 
@@ -134,8 +128,8 @@ public class SchoolDetailActivity extends BaseActivity implements
         presenter.getVocationalSchool(schoolId);
     }
 
-    @OnClick({R.id.labSchool1, R.id.labSchool2, R.id.labSchool3, R.id.labSchool4, R.id.labSchool5, R.id.labSchool6})
-    public void onClick(View view) {
+    @OnClick({R.id.labSchool1, R.id.labSchool2, R.id.labSchool3, R.id.labSchool4, R.id.labSchool5, R.id.btnSchoolOrder, R.id.btnSchoolCall})
+    public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.labSchool1:
                 startActivity(new Intent(this, WebActivity.class)
@@ -163,8 +157,18 @@ public class SchoolDetailActivity extends BaseActivity implements
                         .putExtra("schoolId", schoolId)
                         .putExtra("office", Constants.OFFICE_TYPE0));
                 break;
-            case R.id.labSchool6:
-                DialogUtils.showCall(getSupportFragmentManager(), vocationalModel.getCustomerTel(), vocationalModel.getConsultationTime());
+            case R.id.btnSchoolOrder:
+                if (TextUtils.isEmpty(RecruitApplication.getInstance().getUserId())) {
+                    ToastUtils.show("请先登录");
+                    startActivity(new Intent(this, LoginActivity.class));
+                    break;
+                }
+                DialogUtils.showVisit(getSupportFragmentManager(), this);
+                break;
+            case R.id.btnSchoolCall:
+                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + vocationalModel.getCustomerTel()));
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 break;
         }
     }
@@ -205,4 +209,5 @@ public class SchoolDetailActivity extends BaseActivity implements
     public void onSuccess(String msg) {
         SnackbarUtils.showShort(toolbar, "提交成功");
     }
+
 }

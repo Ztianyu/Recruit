@@ -35,14 +35,14 @@ public class EnrollTypeFragment extends DialogFragment implements DepositSystemV
     private EnrollTypeAdapter adapter;
 
     private EnrollTypeSelectListener listener;
-    private String office;
+    private String schoolId;
 
     private DepositSystemPresenter presenter;
 
-    public static EnrollTypeFragment newInstance(EnrollTypeSelectListener listener, String office) {
+    public static EnrollTypeFragment newInstance(EnrollTypeSelectListener listener, String schoolId) {
         EnrollTypeFragment fragment = new EnrollTypeFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("office", office);
+        bundle.putString("schoolId", schoolId);
         fragment.setArguments(bundle);
         fragment.setListener(listener);
         return fragment;
@@ -74,7 +74,7 @@ public class EnrollTypeFragment extends DialogFragment implements DepositSystemV
         windowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(windowParams);
 
-        office = getArguments().getString("office");
+        schoolId = getArguments().getString("schoolId");
 
         presenter = new DepositSystemPresenter();
         presenter.attach(this);
@@ -85,12 +85,19 @@ public class EnrollTypeFragment extends DialogFragment implements DepositSystemV
                 .setAdapter(adapter);
         recyclerView.horizontalDivider(R.color.colorDiver, R.dimen.diverHeight);
 
-        presenter.getDepositSystemList(office);
+        presenter.getDepositSystemList(schoolId);
     }
 
     @Override
     public void onDepositSystemSuccess(List<DepositSystemModel> models) {
-        adapter.setData(models);
+        if (models != null && models.size() > 0) {
+            adapter.setData(models);
+        } else {
+            DepositSystemModel depositSystemModel = new DepositSystemModel();
+            depositSystemModel.setAmount(0);
+            depositSystemModel.setDeductibleAmount(0);
+            adapter.addElement(depositSystemModel);
+        }
     }
 
     @Override

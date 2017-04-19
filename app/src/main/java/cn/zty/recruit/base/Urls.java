@@ -6,7 +6,11 @@ package cn.zty.recruit.base;
 
 public class Urls {
 
-    public static final String HOST = "http://www.gdkqvip.xyz/recruitStudents/";
+//    public static final String HOST = "http://www.gdkqvip.xyz/recruitStudents/";
+
+//    public static final String HOST = "http://14.29.68.166:8181/recruitStudents/";
+
+    public static final String HOST = "http://112.74.190.31/recruitStudents/";
 
     public static final String HOST_ADMIN = "admin/ws/";
 
@@ -110,7 +114,9 @@ public class Urls {
     public static final String requestApp = HOST_ADMIN + "user/requestApp";
 
 
-    public static final String weChatPay = "https://api.mch.weixin.qq.com/pay/";
+    public static final String weChatPay = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+
+    public static final String colseOrder = " https://api.mch.weixin.qq.com/pay/closeorder";
 
     public static final String unifiedorder = "unifiedorder";
 

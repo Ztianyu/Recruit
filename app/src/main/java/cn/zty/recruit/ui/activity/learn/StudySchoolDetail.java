@@ -22,6 +22,7 @@ import cn.zty.recruit.adapter.SchoolLabAdapter;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.BaseData;
 import cn.zty.recruit.base.Constants;
+import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.PanoramaModel;
 import cn.zty.recruit.bean.StudySchoolModel;
 import cn.zty.recruit.bean.TipModel;
@@ -30,9 +31,11 @@ import cn.zty.recruit.presenter.PanoramaPresenter;
 import cn.zty.recruit.presenter.StudySchoolInfoPresenter;
 import cn.zty.recruit.presenter.VisitPresenter;
 import cn.zty.recruit.ui.activity.WebActivity;
+import cn.zty.recruit.ui.activity.person.LoginActivity;
 import cn.zty.recruit.ui.activity.school.CollegeActivity;
 import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.utils.SnackbarUtils;
+import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.PanoramaView;
 import cn.zty.recruit.view.StringView;
 import cn.zty.recruit.view.StudySchoolView;
@@ -117,7 +120,12 @@ public class StudySchoolDetail extends BaseActivity implements
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.visit) {
-                    DialogUtils.showVisit(getSupportFragmentManager(), StudySchoolDetail.this);
+                    if (TextUtils.isEmpty(RecruitApplication.getInstance().getUserId())) {
+                        ToastUtils.show("请先登录");
+                        startActivity(new Intent(StudySchoolDetail.this, LoginActivity.class));
+                    } else {
+                        DialogUtils.showVisit(getSupportFragmentManager(), StudySchoolDetail.this);
+                    }
                     return true;
                 }
                 return false;
