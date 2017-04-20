@@ -6,6 +6,6 @@
 
     <include layout="@layout/tool_bar" />
 
-    <include layout="@layout/x_content" />
+    <include layout="@layout/x_content_white" />
 
 </LinearLayout>

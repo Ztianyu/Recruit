@@ -1,8 +1,11 @@
 package cn.zty.recruit.ui.activity.person;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +43,24 @@ public class IntegralActivity extends BaseActivity {
     @Override
     protected void initView() {
         toolbar.setTitle("我的积分");
-        initToolbar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_main_back);
+        toolbar.inflateMenu(R.menu.invite_user);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.inviteUser) {
+                    startActivity(new Intent(IntegralActivity.this, InviteUserActivity.class));
+                    return true;
+                }
+                return false;
+            }
+        });
 
         titles.add("当前积分");
         titles.add("积分记录");
