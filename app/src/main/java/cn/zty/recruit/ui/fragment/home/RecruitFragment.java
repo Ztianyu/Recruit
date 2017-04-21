@@ -145,7 +145,6 @@ public class RecruitFragment extends BaseFragment implements
             }
         });
 
-
     }
 
     @Override

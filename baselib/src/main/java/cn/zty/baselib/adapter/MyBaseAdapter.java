@@ -57,6 +57,11 @@ public abstract class MyBaseAdapter<T> extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void clearData() {
+        this.mData.clear();
+        notifyDataSetChanged();
+    }
+
     /**
      * 添加数据列表到列表尾部
      */

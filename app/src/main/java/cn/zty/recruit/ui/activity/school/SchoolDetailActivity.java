@@ -32,6 +32,7 @@ import cn.zty.recruit.presenter.VisitPresenter;
 import cn.zty.recruit.presenter.VocationPresenter;
 import cn.zty.recruit.ui.activity.WebActivity;
 import cn.zty.recruit.ui.activity.learn.StudyMajorActivity;
+import cn.zty.recruit.ui.activity.person.ArchivesActivity;
 import cn.zty.recruit.ui.activity.person.LoginActivity;
 import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.utils.SnackbarUtils;
@@ -162,10 +163,28 @@ public class SchoolDetailActivity extends BaseActivity implements
                     ToastUtils.show("请先登录");
                     startActivity(new Intent(this, LoginActivity.class));
                     break;
+                } else if (RecruitApplication.getInstance().getUserModel() != null &&
+                        TextUtils.isEmpty(RecruitApplication.getInstance().getUserModel().getFullNm())) {
+                    ToastUtils.show("请先完善个人信息");
+                    startActivity(new Intent(this, ArchivesActivity.class));
+                    break;
                 }
                 DialogUtils.showVisit(getSupportFragmentManager(), this);
                 break;
             case R.id.btnSchoolCall:
+                if (TextUtils.isEmpty(vocationalModel.getContactTel())) {
+                    SnackbarUtils.showShort(toolbar, "暂无咨询电话");
+                    break;
+                } else if (TextUtils.isEmpty(RecruitApplication.getInstance().getUserId())) {
+                    ToastUtils.show("请先登录");
+                    startActivity(new Intent(this, LoginActivity.class));
+                    break;
+                } else if (RecruitApplication.getInstance().getUserModel() != null &&
+                        TextUtils.isEmpty(RecruitApplication.getInstance().getUserModel().getFullNm())) {
+                    ToastUtils.show("请先完善个人信息");
+                    startActivity(new Intent(this, ArchivesActivity.class));
+                    break;
+                }
                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + vocationalModel.getCustomerTel()));
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);

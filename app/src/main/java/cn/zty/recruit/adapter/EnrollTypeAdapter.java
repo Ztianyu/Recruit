@@ -33,7 +33,7 @@ public class EnrollTypeAdapter extends RecyclerAdapter<DepositSystemModel, ViewH
         if (data.get(position).getAmount() != 0) {
             holder.setText(R.id.itemText, (int) data.get(position).getAmount() + "(可抵" + (int) data.get(position).getDeductibleAmount() + "元)");
         } else {
-            holder.setText(R.id.itemText, "无需定金");
+            holder.setText(R.id.itemText, "无折扣");
         }
 
         holder.getConvertView().setOnClickListener(new View.OnClickListener() {

@@ -31,6 +31,7 @@ import cn.zty.recruit.presenter.PanoramaPresenter;
 import cn.zty.recruit.presenter.StudySchoolInfoPresenter;
 import cn.zty.recruit.presenter.VisitPresenter;
 import cn.zty.recruit.ui.activity.WebActivity;
+import cn.zty.recruit.ui.activity.person.ArchivesActivity;
 import cn.zty.recruit.ui.activity.person.LoginActivity;
 import cn.zty.recruit.ui.activity.school.CollegeActivity;
 import cn.zty.recruit.utils.DialogUtils;
@@ -123,6 +124,10 @@ public class StudySchoolDetail extends BaseActivity implements
                     if (TextUtils.isEmpty(RecruitApplication.getInstance().getUserId())) {
                         ToastUtils.show("请先登录");
                         startActivity(new Intent(StudySchoolDetail.this, LoginActivity.class));
+                    } else if (RecruitApplication.getInstance().getUserModel() != null &&
+                            TextUtils.isEmpty(RecruitApplication.getInstance().getUserModel().getFullNm())) {
+                        ToastUtils.show("请先完善个人信息");
+                        startActivity(new Intent(StudySchoolDetail.this, ArchivesActivity.class));
                     } else {
                         DialogUtils.showVisit(getSupportFragmentManager(), StudySchoolDetail.this);
                     }

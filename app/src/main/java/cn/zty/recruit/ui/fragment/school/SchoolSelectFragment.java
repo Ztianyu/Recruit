@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatSpinner;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -23,6 +24,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.DictAdapter;
+import cn.zty.recruit.adapter.MajorAdapter;
 import cn.zty.recruit.adapter.MajorNameAdapter;
 import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.bean.MajorModel;
@@ -31,6 +33,7 @@ import cn.zty.recruit.listener.SchoolSelectListener;
 import cn.zty.recruit.presenter.DictPresenter;
 import cn.zty.recruit.presenter.GetProvincePresenter;
 import cn.zty.recruit.presenter.HotMajorPresenter;
+import cn.zty.recruit.utils.SharedPrefUtils;
 import cn.zty.recruit.view.AreaView;
 import cn.zty.recruit.view.DictListView;
 import cn.zty.recruit.view.HotMajorView;
@@ -73,10 +76,15 @@ public class SchoolSelectFragment extends DialogFragment implements
 
     SchoolSelectListener listener;
 
-    private String provinceId;
-    private String discipline;
-    private String majorId;
-    private String tuitionType;
+    private static List<TipModel> areaModels;
+    private static List<TipModel> disciplineModels;
+    private static List<MajorModel> majorModels;
+    private static List<TipModel> tuitionModels;
+
+    private static String provinceId;
+    private static String discipline;
+    private static String majorId;
+    private static String tuitionType;
 
     public static SchoolSelectFragment newInstance(int height, SchoolSelectListener listener) {
         SchoolSelectFragment fragment = new SchoolSelectFragment();
@@ -100,6 +108,11 @@ public class SchoolSelectFragment extends DialogFragment implements
 
         hotMajorPresenter = new HotMajorPresenter();
         hotMajorPresenter.attach(this);
+
+        provinceId = SharedPrefUtils.getString(getActivity(), SharedPrefUtils.schoolSelectArea);
+        discipline = SharedPrefUtils.getString(getActivity(), SharedPrefUtils.schoolSelectDiscipline);
+        majorId = SharedPrefUtils.getString(getActivity(), SharedPrefUtils.schoolSelectMajor);
+        tuitionType = SharedPrefUtils.getString(getActivity(), SharedPrefUtils.schoolSelectTuition);
     }
 
     @NonNull
@@ -141,9 +154,23 @@ public class SchoolSelectFragment extends DialogFragment implements
         spinnerMajorType.setAdapter(majorAdapter);
         spinnerTestType.setAdapter(tuitionAdapter);
 
-        getProvincePresenter.getProvince();
-        dictPresenter.getDictList(Constants.DICT_TYPE1);
-        dictPresenter.getDictList(Constants.DICT_TYPE7);
+        if (areaModels != null) {
+            setAreaData();
+        } else {
+            getProvincePresenter.getProvince();
+        }
+
+        if (disciplineModels != null) {
+            setDisciplineData();
+        } else {
+            dictPresenter.getDictList(Constants.DICT_TYPE1);
+        }
+
+        if (tuitionModels != null) {
+            setTuitionData();
+        } else {
+            dictPresenter.getDictList(Constants.DICT_TYPE7);
+        }
     }
 
     @Override
@@ -157,26 +184,67 @@ public class SchoolSelectFragment extends DialogFragment implements
 
     @Override
     public void onAreaSuccess(int type, List<TipModel> models) {
-        areaAdapter.setData(models);
+        areaModels = models;
+        setAreaData();
+    }
+
+    private void setAreaData() {
+        areaAdapter.setData(areaModels);
+        if (!TextUtils.isEmpty(provinceId)) {
+            for (int i = 0; i < areaModels.size(); i++) {
+                if (areaModels.get(i).getKey().equals(provinceId))
+                    spinnerSpace.setSelection(i);
+            }
+        }
     }
 
     @Override
     public void onDictSuccess(String type, List<TipModel> models) {
         if (type.equals(Constants.DICT_TYPE1)) {
-            disciplineAdapter.setData(models);
+            disciplineModels = models;
+            setDisciplineData();
         } else if (type.equals(Constants.DICT_TYPE7)) {
-            tuitionAdapter.setData(models);
+            tuitionModels = models;
+            setTuitionData();
+        }
+    }
+
+    private void setDisciplineData() {
+        disciplineAdapter.setData(disciplineModels);
+        if (!TextUtils.isEmpty(provinceId)) {
+            for (int i = 0; i < disciplineModels.size(); i++) {
+                if (disciplineModels.get(i).getKey().equals(discipline))
+                    spinnerDiscipline.setSelection(i);
+            }
+        }
+    }
+
+    private void setTuitionData() {
+        tuitionAdapter.setData(tuitionModels);
+        if (!TextUtils.isEmpty(tuitionType)) {
+            for (int i = 0; i < tuitionModels.size(); i++) {
+                if (tuitionModels.get(i).getKey().equals(tuitionType))
+                    spinnerTestType.setSelection(i);
+            }
+        }
+    }
+
+    private void setMajorData() {
+        majorAdapter.setData(majorModels);
+        if (!TextUtils.isEmpty(majorId)) {
+            for (int i = 0; i < majorModels.size(); i++) {
+                if (majorModels.get(i).getId().equals(majorId))
+                    spinnerMajorType.setSelection(i);
+            }
+        } else {
+            majorId = majorModels.get(0).getId();
         }
     }
 
     @Override
     public void onHotMajorSuccess(List<MajorModel> majorModels) {
-        majorAdapter.setData(majorModels);
-        if (majorModels != null && majorModels.size() > 0) {
-            majorId = majorModels.get(0).getId();
-        } else {
-            majorId = "";
-        }
+        this.majorModels = majorModels;
+        setMajorData();
     }
 
     @Override
@@ -187,6 +255,7 @@ public class SchoolSelectFragment extends DialogFragment implements
                 break;
             case R.id.spinnerDiscipline:
                 discipline = disciplineAdapter.getData().get(position).getKey();
+                majorAdapter.clearData();
                 hotMajorPresenter.getHotMajorList(null, -1, discipline, 1, Constants.MAX_PAGE_SIZE);
                 break;
             case R.id.spinnerMajorType:
@@ -205,6 +274,11 @@ public class SchoolSelectFragment extends DialogFragment implements
 
     @OnClick(R.id.btnSure)
     public void onClick() {
+        SharedPrefUtils.setString(getActivity(), SharedPrefUtils.schoolSelectArea, provinceId);
+        SharedPrefUtils.setString(getActivity(), SharedPrefUtils.schoolSelectDiscipline, discipline);
+        SharedPrefUtils.setString(getActivity(), SharedPrefUtils.schoolSelectMajor, majorId);
+        SharedPrefUtils.setString(getActivity(), SharedPrefUtils.schoolSelectTuition, tuitionType);
+
         dismiss();
         listener.onSchoolSelect(provinceId, discipline, majorId, editScore.getText().toString(), tuitionType);
     }

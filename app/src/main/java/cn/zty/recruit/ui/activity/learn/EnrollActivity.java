@@ -232,7 +232,7 @@ public class EnrollActivity extends BaseActivity implements
             textBillMoney.setText((int) enrollTypeModel.getAmount() + "");
             textBillTip.setText("(可抵" + (int) enrollTypeModel.getDeductibleAmount() + "元)");
         } else {
-            btnChoseType.setText("无需定金");
+            btnChoseType.setText("无折扣");
             textBillMoney.setText("无定金");
         }
 

@@ -1,7 +1,7 @@
 package cn.zty.recruit.ui.activity.job;
 
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,14 +16,6 @@ import cn.zty.recruit.base.BaseActivity;
  */
 
 public class JobActivity extends BaseActivity {
-    @BindView(R.id.btnSearchBack)
-    ImageView btnSearchBack;
-    @BindView(R.id.textSearch)
-    TextView textSearch;
-    @BindView(R.id.textSelectSchool)
-    TextView textSelectSchool;
-    @BindView(R.id.layoutSearchSchool)
-    LinearLayout layoutSearchSchool;
     @BindView(R.id.textProvinceTip)
     TextView textProvinceTip;
     @BindView(R.id.textCityTip)
@@ -34,6 +26,8 @@ public class JobActivity extends BaseActivity {
     LinearLayout layoutSchoolSelect;
     @BindView(R.id.contentLayoutJob)
     XRecyclerContentLayout contentLayoutJob;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected int initLayoutId() {
@@ -42,7 +36,8 @@ public class JobActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        textSearch.setVisibility(View.GONE);
+        toolbar.setTitle("就业");
+        initToolbar(toolbar);
         textMajorTip.setText("行业类别");
     }
 
@@ -51,17 +46,9 @@ public class JobActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.btnSearchBack, R.id.textSearch, R.id.textSelectSchool, R.id.textProvinceTip, R.id.textCityTip, R.id.textMajorTip})
+    @OnClick({R.id.textProvinceTip, R.id.textCityTip, R.id.textMajorTip})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btnSearchBack:
-                finish();
-                break;
-            case R.id.textSearch:
-//                startActivity(new Intent(this, SearchActivity.class));
-                break;
-            case R.id.textSelectSchool:
-                break;
             case R.id.textProvinceTip:
 //                DialogUtils.showAreaSelect(getSupportFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 0, this);
                 break;

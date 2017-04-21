@@ -25,6 +25,7 @@ import cn.zty.recruit.presenter.CourseSetListPresenter;
 import cn.zty.recruit.presenter.TrainOrgPresenter;
 import cn.zty.recruit.presenter.VisitPresenter;
 import cn.zty.recruit.ui.activity.WebActivity;
+import cn.zty.recruit.ui.activity.person.ArchivesActivity;
 import cn.zty.recruit.ui.activity.person.LoginActivity;
 import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.utils.SnackbarUtils;
@@ -101,9 +102,14 @@ public class InstitutionDetailActivity extends BaseActivity implements
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.visit) {
+
                     if (TextUtils.isEmpty(RecruitApplication.getInstance().getUserId())) {
                         ToastUtils.show("请先登录");
                         startActivity(new Intent(InstitutionDetailActivity.this, LoginActivity.class));
+                    } else if (RecruitApplication.getInstance().getUserModel() != null &&
+                            TextUtils.isEmpty(RecruitApplication.getInstance().getUserModel().getFullNm())) {
+                        ToastUtils.show("请先完善个人信息");
+                        startActivity(new Intent(InstitutionDetailActivity.this, ArchivesActivity.class));
                     } else {
                         DialogUtils.showVisit(getSupportFragmentManager(), InstitutionDetailActivity.this);
                     }

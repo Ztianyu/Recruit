@@ -16,6 +16,18 @@ public class SharedPrefUtils {
 
     public static final String inviteCode = "inviteCode";
 
+    public static final String schoolSelectArea = "schoolProvinceId";
+    public static final String schoolSelectDiscipline = "schoolDiscipline";
+    public static final String schoolSelectMajor = "schoolMajorId";
+    public static final String schoolSelectTuition = "schoolTuitionType";
+
+    public static final String studySelectArea = "studyProvinceId";
+    public static final String studySchoolType = "studySchoolType";
+    public static final String studyType = "studyType";
+    public static final String studySelectDiscipline = "studyDiscipline";
+    public static final String studySelectMajor = "studyMajorId";
+    public static final String studySelectTuition = "studyTuitionType";
+
 
     /**
      * 从SharedPreferences 获取一个boolean值，默认为false

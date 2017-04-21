@@ -6,7 +6,7 @@
     android:background="@color/colorBackground"
     android:orientation="vertical">
 
-    <include layout="@layout/view_search3" />
+    <include layout="@layout/tool_bar" />
 
     <include layout="@layout/view_school_select" />
 
