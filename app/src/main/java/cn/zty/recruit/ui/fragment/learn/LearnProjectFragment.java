@@ -3,11 +3,14 @@ package cn.zty.recruit.ui.fragment.learn;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ListView;
@@ -17,8 +20,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.zty.baselib.utils.ResourceUtil;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.DictAdapter;
+import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.TipModel;
 import cn.zty.recruit.listener.AreaSelectListener;
 
@@ -29,6 +35,8 @@ import cn.zty.recruit.listener.AreaSelectListener;
 public class LearnProjectFragment extends DialogFragment {
     @BindView(R.id.areaList)
     ListView areaList;
+    @BindView(R.id.viewSelectBottom)
+    View viewSelectBottom;
 
     private int height;
     private int type;//0:省；1：市:2:项目分类
@@ -75,8 +83,17 @@ public class LearnProjectFragment extends DialogFragment {
         windowParams.dimAmount = 0;
         windowParams.gravity = Gravity.TOP;
         windowParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-        windowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        windowParams.height = BaseActivity.screenHeight - height - RecruitApplication.getInstance().getStatusBarHeight();
         window.setAttributes(windowParams);
+        window.setBackgroundDrawable(new ColorDrawable(ResourceUtil.resToColor(getActivity(), R.color.transparent60)));
+
+        viewSelectBottom.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                dismiss();
+                return true;
+            }
+        });
 
         dictAdapter = new DictAdapter(getActivity(), type);
         areaList.setAdapter(dictAdapter);

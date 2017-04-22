@@ -1,6 +1,7 @@
 package cn.zty.recruit.ui.fragment.school;
 
 import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -21,10 +23,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.zty.baselib.utils.ResourceUtil;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.DictAdapter;
 import cn.zty.recruit.adapter.MajorNameAdapter;
+import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.Constants;
+import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.MajorModel;
 import cn.zty.recruit.bean.TipModel;
 import cn.zty.recruit.listener.SchoolSelectListener;
@@ -58,6 +63,8 @@ public class SchoolSelectFragment extends DialogFragment implements
     AppCompatSpinner spinnerDiscipline;
     @BindView(R.id.btnSure)
     TextView btnSure;
+    @BindView(R.id.viewSelectBottom)
+    View viewSelectBottom;
 
     Unbinder unbinder;
 
@@ -134,8 +141,9 @@ public class SchoolSelectFragment extends DialogFragment implements
         windowParams.dimAmount = 0;
         windowParams.gravity = Gravity.TOP;
         windowParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-        windowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        windowParams.height = BaseActivity.screenHeight - height - RecruitApplication.getInstance().getStatusBarHeight();
         window.setAttributes(windowParams);
+        window.setBackgroundDrawable(new ColorDrawable(ResourceUtil.resToColor(getActivity(), R.color.transparent60)));
 
         spinnerSpace.setOnItemSelectedListener(this);
         spinnerDiscipline.setOnItemSelectedListener(this);
@@ -151,6 +159,14 @@ public class SchoolSelectFragment extends DialogFragment implements
         spinnerDiscipline.setAdapter(disciplineAdapter);
         spinnerMajorType.setAdapter(majorAdapter);
         spinnerTestType.setAdapter(tuitionAdapter);
+
+        viewSelectBottom.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                dismiss();
+                return true;
+            }
+        });
 
         if (areaModels != null) {
             setAreaData();

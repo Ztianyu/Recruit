@@ -2,14 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dialogBackground"
     android:orientation="vertical">
 
     <ListView
         android:id="@+id/areaList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:background="@color/dialogBackground"
         android:divider="@color/colorDiver"
         android:dividerHeight="0.5dp"></ListView>
+
+    <View
+        android:id="@+id/viewSelectBottom"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
 </LinearLayout>

@@ -1,11 +1,14 @@
 package cn.zty.recruit.ui.fragment;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,9 +20,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.zty.baselib.utils.ResourceUtil;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.DictAdapter;
 import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.TipModel;
 import cn.zty.recruit.listener.AreaSelectListener;
 import cn.zty.recruit.presenter.GetCityPresenter;
@@ -34,6 +39,8 @@ public class AreaSelectFragment extends DialogFragment implements AreaView {
 
     @BindView(R.id.areaList)
     ListView areaList;
+    @BindView(R.id.viewSelectBottom)
+    View viewSelectBottom;
 
     Unbinder unbinder;
 
@@ -96,8 +103,9 @@ public class AreaSelectFragment extends DialogFragment implements AreaView {
         windowParams.dimAmount = 0;
         windowParams.gravity = Gravity.TOP;
         windowParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-        windowParams.height = (int) (BaseActivity.screenHeight * 0.6);
+        windowParams.height = BaseActivity.screenHeight - height - RecruitApplication.getInstance().getStatusBarHeight();
         window.setAttributes(windowParams);
+        window.setBackgroundDrawable(new ColorDrawable(ResourceUtil.resToColor(getActivity(), R.color.transparent60)));
 
         dictAdapter = new DictAdapter(getActivity(), type);
         areaList.setAdapter(dictAdapter);
@@ -108,6 +116,14 @@ public class AreaSelectFragment extends DialogFragment implements AreaView {
                 dismiss();
                 listener.onAreaSelect(dictAdapter.getData().get(position).getKey(),
                         dictAdapter.getData().get(position).getValue(), type);
+            }
+        });
+
+        viewSelectBottom.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                dismiss();
+                return true;
             }
         });
 

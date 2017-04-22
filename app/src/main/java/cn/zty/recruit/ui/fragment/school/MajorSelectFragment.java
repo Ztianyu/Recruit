@@ -1,12 +1,14 @@
 package cn.zty.recruit.ui.fragment.school;
 
 import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -20,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.zty.baselib.utils.ResourceUtil;
 import cn.zty.linkage.LinkageView;
 import cn.zty.linkage.model.ILinkage;
 import cn.zty.recruit.R;
@@ -27,6 +30,7 @@ import cn.zty.recruit.adapter.LeftMenuListAdapter;
 import cn.zty.recruit.adapter.RightMajorListAdapter;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.Constants;
+import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.MajorModel;
 import cn.zty.recruit.bean.TipModel;
 import cn.zty.recruit.listener.MajorSelectListener;
@@ -48,6 +52,8 @@ public class MajorSelectFragment extends DialogFragment implements
     LinkageView linkage;
     @BindView(R.id.textAllMajor)
     TextView textAllMajor;
+    @BindView(R.id.viewSelectBottom)
+    View viewSelectBottom;
     Unbinder unbinder;
 
     int height;
@@ -109,8 +115,9 @@ public class MajorSelectFragment extends DialogFragment implements
         windowParams.dimAmount = 0;
         windowParams.gravity = Gravity.TOP;
         windowParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-        windowParams.height = (int) (BaseActivity.screenHeight * 0.6);
+        windowParams.height = BaseActivity.screenHeight - height - RecruitApplication.getInstance().getStatusBarHeight();
         window.setAttributes(windowParams);
+        window.setBackgroundDrawable(new ColorDrawable(ResourceUtil.resToColor(getActivity(), R.color.transparent60)));
 
         leftMenuListAdapter = new LeftMenuListAdapter(getActivity(), new ArrayList<TipModel>());
         linkage.setLeftMenuAdapter(leftMenuListAdapter);
@@ -129,6 +136,14 @@ public class MajorSelectFragment extends DialogFragment implements
             public void onRightClick(View itemView, int position) {
                 dismiss();
                 listener.onMajorSelect(rightMajorListAdapter.getList().get(position));
+            }
+        });
+
+        viewSelectBottom.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                dismiss();
+                return true;
             }
         });
 

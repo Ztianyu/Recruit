@@ -1,11 +1,13 @@
 package cn.zty.recruit.ui.fragment.learn;
 
 import android.app.Dialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -17,9 +19,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.zty.baselib.utils.ResourceUtil;
 import cn.zty.recruit.R;
 import cn.zty.recruit.adapter.IndustryTypeAdapter;
 import cn.zty.recruit.base.BaseActivity;
+import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.IndustryTypeModel;
 import cn.zty.recruit.bean.TipModel;
 import cn.zty.recruit.listener.IndustryTypeListener;
@@ -34,6 +38,8 @@ import cn.zty.recruit.view.IndustryTypeView;
 public class IndustryTypeFragment extends DialogFragment implements IndustryTypeView {
     @BindView(R.id.areaList)
     ListView areaList;
+    @BindView(R.id.viewSelectBottom)
+    View viewSelectBottom;
 
     Unbinder unbinder;
 
@@ -86,8 +92,9 @@ public class IndustryTypeFragment extends DialogFragment implements IndustryType
         windowParams.dimAmount = 0;
         windowParams.gravity = Gravity.TOP;
         windowParams.width = WindowManager.LayoutParams.MATCH_PARENT;
-        windowParams.height = (int) (BaseActivity.screenHeight * 0.6);
+        windowParams.height = BaseActivity.screenHeight - height - RecruitApplication.getInstance().getStatusBarHeight();
         window.setAttributes(windowParams);
+        window.setBackgroundDrawable(new ColorDrawable(ResourceUtil.resToColor(getActivity(), R.color.transparent60)));
 
         adapter = new IndustryTypeAdapter(getActivity());
         areaList.setAdapter(adapter);
@@ -98,6 +105,14 @@ public class IndustryTypeFragment extends DialogFragment implements IndustryType
                 dismiss();
                 listener.onIndustryTypeSelect(adapter.getData().get(position).getId(),
                         adapter.getData().get(position).getName());
+            }
+        });
+
+        viewSelectBottom.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                dismiss();
+                return true;
             }
         });
 
