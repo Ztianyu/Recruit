@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/inviteUser"
-        android:title="邀请用户"
+        android:title="邀请记录"
         app:showAsAction="always"></item>
 
 </menu>

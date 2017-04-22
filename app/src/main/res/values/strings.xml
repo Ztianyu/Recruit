@@ -65,6 +65,8 @@
 
     <string name="strCall">请您拨打招生咨询电话：</string>
 
+    <string name="visitNote">稍后我们会有专人与您联系。</string>
+
     <string name="sure">确定</string>
     <string name="call">呼叫</string>
     <string name="cancel">取消</string>
