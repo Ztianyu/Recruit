@@ -6,11 +6,11 @@ package cn.zty.recruit.base;
 
 public class Urls {
 
-//    public static final String HOST = "http://www.gdkqvip.xyz/recruitStudents/";
+    public static final String HOST = "http://www.gdkqvip.com/ztm/";
 
 //    public static final String HOST = "http://14.29.68.166:8181/recruitStudents/";
 
-    public static final String HOST = "http://112.74.190.31/recruitStudents/";
+//    public static final String HOST = "http://112.74.190.31/ztm/";
 
     public static final String HOST_ADMIN = "admin/ws/";
 
