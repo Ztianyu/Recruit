@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_weight="1"
-        android:background="@mipmap/bg_search"
+        android:background="@drawable/bg_search"
         android:drawableLeft="@mipmap/ic_search"
         android:drawablePadding="6dp"
         android:gravity="center_vertical"

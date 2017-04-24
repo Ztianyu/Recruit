@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -25,7 +26,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:minHeight="200dp"></com.youth.banner.Banner>
+                    android:minHeight="200dp"
+                    app:indicator_height="6dp"
+                    app:indicator_margin="3dp"
+                    app:indicator_width="6dp"></com.youth.banner.Banner>
 
                 <include layout="@layout/view_recruit_fun" />
 
@@ -53,8 +57,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbarHeight"
         android:background="@color/transparent"
-        android:text="@string/app_name"
         android:gravity="center"
+        android:text="@string/app_name"
         android:textColor="@color/transparent"
         android:textSize="16sp" />
 </RelativeLayout>

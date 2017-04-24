@@ -12,14 +12,14 @@ import java.util.List;
 
 public class BannerUtils {
 
-    public static void initBanner(Banner banner, List<String> images, int type, int position) {
+    public static void initBanner(Banner banner, List<String> images,List<String> titles, int type, int position) {
 
         //设置banner样式
         if (type == 0) {//数字指示器
             banner.setBannerStyle(BannerConfig.NUM_INDICATOR);
         }
         if (type == 1) {
-            banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
+            banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         }
 
         //设置图片加载器

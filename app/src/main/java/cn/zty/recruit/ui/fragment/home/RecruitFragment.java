@@ -3,6 +3,7 @@ package cn.zty.recruit.ui.fragment.home;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerClickListener;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,6 +89,8 @@ public class RecruitFragment extends BaseFragment implements
     private int height;
 
     private List<AdsModel> adsModels = new ArrayList<>();
+    private int mIndicatorSelectedResId = R.mipmap.ic_point_select;
+    private int mIndicatorUnselectedResId = R.mipmap.ic_point_normal;
 
     @Override
     protected int initLayoutId() {
@@ -145,6 +149,21 @@ public class RecruitFragment extends BaseFragment implements
             }
         });
 
+        initIndicator();
+
+    }
+
+    private void initIndicator() {
+        try {
+            Field mField1 = Banner.class.getDeclaredField("mIndicatorSelectedResId");
+            mField1.setAccessible(true);
+            Field mField2 = Banner.class.getDeclaredField("mIndicatorUnselectedResId");
+            mField2.setAccessible(true);
+            mField1.set(bannerRecruit, mIndicatorSelectedResId);
+            mField2.set(bannerRecruit, mIndicatorUnselectedResId);
+        } catch (Exception e) {
+            Log.e(getClass().getName(), e.getMessage());
+        }
     }
 
     @Override
@@ -186,10 +205,12 @@ public class RecruitFragment extends BaseFragment implements
             adsModels.clear();
             adsModels.addAll(models);
             List<String> images = new ArrayList<>();
+            List<String> titles = new ArrayList<>();
             for (AdsModel adsModel : models) {
                 images.add(adsModel.getImgUrl());
+                titles.add(adsModel.getTitle());
             }
-            BannerUtils.initBanner(bannerRecruit, images, 1, 2);
+            BannerUtils.initBanner(bannerRecruit, images, titles, 1, 1);
         }
     }
 
@@ -225,12 +246,13 @@ public class RecruitFragment extends BaseFragment implements
 
     @Override
     public void OnBannerClick(int position) {
+
         if (adsModels.size() > 0) {
             startActivity(new Intent(context, WebActivity.class)
-                    .putExtra("title", adsModels.get(position % adsModels.size()).getTitle())
+                    .putExtra("title", adsModels.get((position - 1) % adsModels.size()).getTitle())
                     .putExtra("schoolId", "")
                     .putExtra("type", WebActivity.TYPE3)
-                    .putExtra("content", adsModels.get(position % adsModels.size()).getContent()));
+                    .putExtra("content", adsModels.get((position - 1) % adsModels.size()).getContent()));
 
         }
     }
