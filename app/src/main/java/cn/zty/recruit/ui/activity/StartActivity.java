@@ -2,7 +2,6 @@ package cn.zty.recruit.ui.activity;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -11,20 +10,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.zty.baselib.utils.ResourceUtil;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.base.RecruitApplication;
-import cn.zty.recruit.bean.UserModel;
 import cn.zty.recruit.presenter.CheckInviteCodePresenter;
-import cn.zty.recruit.presenter.GetUserPresenter;
 import cn.zty.recruit.ui.activity.school.SchoolActivity;
 import cn.zty.recruit.utils.SharedPrefUtils;
 import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.StringView;
-import cn.zty.recruit.view.UserView;
 
 /**
  * 启动页
@@ -33,7 +28,6 @@ import cn.zty.recruit.view.UserView;
 
 public class StartActivity extends BaseActivity implements
         View.OnFocusChangeListener,
-        UserView,
         StringView {
 
     @BindView(R.id.editStartCode)
@@ -49,8 +43,6 @@ public class StartActivity extends BaseActivity implements
     @BindView(R.id.textCom2)
     TextView textCom2;
 
-    private GetUserPresenter presenter;
-
     private CheckInviteCodePresenter checkInviteCodePresenter;
 
     @Override
@@ -60,9 +52,6 @@ public class StartActivity extends BaseActivity implements
 
     @Override
     protected void initView() {
-        presenter = new GetUserPresenter();
-        presenter.attach(this);
-        presenters.add(presenter);
 
         checkInviteCodePresenter = new CheckInviteCodePresenter();
         checkInviteCodePresenter.attach(this);
@@ -82,11 +71,12 @@ public class StartActivity extends BaseActivity implements
 
     @Override
     protected void initData() {
-
-        if (!TextUtils.isEmpty(RecruitApplication.getInstance().getTokenId()))
-            presenter.getUser(RecruitApplication.getInstance().getTokenId(), RecruitApplication.getInstance().getUserId());
-
-        thread.start();
+        if (!TextUtils.isEmpty(RecruitApplication.getInstance().getTokenId())) {
+            startActivity(new Intent(StartActivity.this, MainActivity.class));
+            finish();
+        } else {
+            thread.start();
+        }
     }
 
     Thread thread = new Thread(new Runnable() {
@@ -126,12 +116,6 @@ public class StartActivity extends BaseActivity implements
             }
         }
     };
-
-    @Override
-    public void onUserSuccess(UserModel userModel) {
-        if (userModel != null)
-            RecruitApplication.getInstance().setUserModel(userModel);
-    }
 
     @OnClick({R.id.btnSureCode, R.id.btnSkip})
     public void onViewClicked(View view) {

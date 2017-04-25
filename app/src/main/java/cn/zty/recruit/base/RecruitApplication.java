@@ -56,8 +56,8 @@ public class RecruitApplication extends Application {
         api = WXAPIFactory.createWXAPI(this, null);
         api.registerApp(Keys.APP_ID);
 
-//        MyException crashHandler = MyException.getInstance();
-//        crashHandler.init(getApplicationContext());
+        MyException crashHandler = MyException.getInstance();
+        crashHandler.init(getApplicationContext());
     }
 
     public static RecruitApplication getInstance() {
