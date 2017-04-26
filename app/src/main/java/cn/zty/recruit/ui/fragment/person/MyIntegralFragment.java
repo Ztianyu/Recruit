@@ -7,18 +7,20 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseFragment;
 import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.UserModel;
+import cn.zty.recruit.presenter.GetUserPresenter;
+import cn.zty.recruit.view.UserView;
 
 /**
  * Created by zty on 2017/3/20.
  */
 
-public class MyIntegralFragment extends BaseFragment {
+public class MyIntegralFragment extends BaseFragment implements UserView {
     @BindView(R.id.textIntegral)
     TextView textIntegral;
     @BindView(R.id.invitationCode)
     TextView invitationCode;
 
-    private UserModel userModel;
+    private GetUserPresenter presenter;
 
     @Override
     protected int initLayoutId() {
@@ -27,14 +29,27 @@ public class MyIntegralFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        userModel = RecruitApplication.getInstance().getUserModel();
+        presenter = new GetUserPresenter();
+        presenter.attach(this);
+        presenters.add(presenter);
+
+        presenter.getUser(RecruitApplication.getInstance().getTokenId(), RecruitApplication.getInstance().getUserId());
     }
 
     @Override
     protected void initData() {
+
+    }
+
+    @Override
+    public void onUserSuccess(UserModel userModel) {
         if (userModel != null) {
             textIntegral.setText(userModel.getIntegral() + "");
-            invitationCode.setText("邀请码：" + userModel.getInviteCode());
+            if (userModel.getInviteType().equals("0")) {
+                invitationCode.setText("邀请码：" + userModel.getInviteCode());
+            } else {
+                invitationCode.setText("邀请码：" + userModel.getVipInviteCode());
+            }
         }
     }
 }
