@@ -67,11 +67,12 @@ public class WebActivity extends BaseActivity implements
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-                if (newProgress == 100) {
-                    progressWeb.setVisibility(View.INVISIBLE);
-                } else {
-                    progressWeb.setVisibility(View.VISIBLE);
-                }
+                if (progressWeb != null)
+                    if (newProgress == 100) {
+                        progressWeb.setVisibility(View.INVISIBLE);
+                    } else {
+                        progressWeb.setVisibility(View.VISIBLE);
+                    }
             }
         };
         // 设置setWebChromeClient对象

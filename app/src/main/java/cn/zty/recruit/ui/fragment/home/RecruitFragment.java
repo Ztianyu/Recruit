@@ -143,7 +143,7 @@ public class RecruitFragment extends BaseFragment implements
             public void onGlobalLayout() {
                 bannerRecruit.getViewTreeObserver().removeGlobalOnLayoutListener(
                         this);
-                height = bannerRecruit.getHeight();
+                height = bannerRecruit.getHeight() - RecruitApplication.getInstance().getStatusBarHeight();
 
                 scrollView.setScrollViewListener(RecruitFragment.this);
             }
@@ -151,6 +151,13 @@ public class RecruitFragment extends BaseFragment implements
 
         initIndicator();
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adsModels.size() <= 0)
+            initData();
     }
 
     private void initIndicator() {
