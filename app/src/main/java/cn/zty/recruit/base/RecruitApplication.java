@@ -7,6 +7,7 @@ import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.cache.CacheMode;
 import com.lzy.okhttputils.cookie.store.PersistentCookieStore;
 import com.lzy.okhttputils.model.HttpHeaders;
+import com.squareup.leakcanary.LeakCanary;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
@@ -58,6 +59,11 @@ public class RecruitApplication extends Application {
 
         MyException crashHandler = MyException.getInstance();
         crashHandler.init(getApplicationContext());
+
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
     }
 
     public static RecruitApplication getInstance() {
