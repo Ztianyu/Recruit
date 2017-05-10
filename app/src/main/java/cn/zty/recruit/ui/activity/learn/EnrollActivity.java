@@ -227,10 +227,15 @@ public class EnrollActivity extends BaseActivity implements
     public void onEnrollTypeSelect(DepositSystemModel enrollTypeModel) {
         this.enrollTypeModel = enrollTypeModel;
 
+
         if (enrollTypeModel != null && enrollTypeModel.getAmount() != 0) {
-            btnChoseType.setText((int) enrollTypeModel.getAmount() + "(可抵" + (int) enrollTypeModel.getDeductibleAmount() + "元)");
+            if (enrollTypeModel.getAmount() == enrollTypeModel.getDeductibleAmount()) {
+                btnChoseType.setText((int) enrollTypeModel.getAmount() + "元)");
+            } else {
+                btnChoseType.setText((int) enrollTypeModel.getAmount() + "(可抵" + (int) enrollTypeModel.getDeductibleAmount() + "元)");
+                textBillTip.setText("(可抵" + (int) enrollTypeModel.getDeductibleAmount() + "元)");
+            }
             textBillMoney.setText((int) enrollTypeModel.getAmount() + "");
-            textBillTip.setText("(可抵" + (int) enrollTypeModel.getDeductibleAmount() + "元)");
         } else {
             btnChoseType.setText("无折扣");
             textBillMoney.setText("无定金");

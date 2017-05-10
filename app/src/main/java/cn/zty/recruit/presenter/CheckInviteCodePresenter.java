@@ -20,7 +20,7 @@ public class CheckInviteCodePresenter extends IBasePresenter<StringView> {
     }
 
     public void check(String inviteCode) {
-        mSubscription = RxManager.getInstance().doSubscribe1(service.check(inviteCode), new RxSubscriber<String>() {
+        mSubscription = RxManager.getInstance().doSubscribe1(service.check(inviteCode.replace(" ", "")), new RxSubscriber<String>() {
             @Override
             protected void _onNext(String s) {
                 mView.onSuccess(s);

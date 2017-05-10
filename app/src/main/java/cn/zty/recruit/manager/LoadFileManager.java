@@ -19,6 +19,7 @@ public class LoadFileManager {
 
     public static final String healthArchives = "healthArchives";
     public static final String proofPicture = "proofPicture";
+    public static final String log = "log";
 
     private UploadService uploadService;
 

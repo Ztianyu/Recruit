@@ -23,6 +23,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import cn.zty.baselib.utils.AppManager;
+import cn.zty.recruit.bean.LoadFileModel;
+import cn.zty.recruit.manager.LoadFileManager;
+import cn.zty.recruit.presenter.LoadFilePresenter;
+import cn.zty.recruit.view.LoadFileView;
 
 public class MyException implements Thread.UncaughtExceptionHandler {
 
@@ -76,7 +80,7 @@ public class MyException implements Thread.UncaughtExceptionHandler {
             mDefaultHandler.uncaughtException(thread, ex);
         } else {
             try {
-                Thread.sleep(3000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 Log.e(TAG, "error : ", e);
             }
@@ -107,9 +111,9 @@ public class MyException implements Thread.UncaughtExceptionHandler {
             }
         }.start();
         // 收集设备参数信息
-//		collectDeviceInfo(mContext);
-        // 保存日志文件
-//		saveCrashInfo2File(ex);
+        collectDeviceInfo(mContext);
+        //  保存日志文件
+        saveCrashInfo2File(ex);
         return true;
     }
 
@@ -181,6 +185,14 @@ public class MyException implements Thread.UncaughtExceptionHandler {
                 FileOutputStream fos = new FileOutputStream(path + fileName);
                 fos.write(sb.toString().getBytes());
                 fos.close();
+                LoadFilePresenter loadFilePresenter = new LoadFilePresenter();
+                loadFilePresenter.attach(new LoadFileView() {
+                    @Override
+                    public void onLoadFileSuccess(LoadFileModel model) {
+
+                    }
+                });
+                loadFilePresenter.load(new File(path + fileName), LoadFileManager.log);
                 Log.e("error", sb.toString());
             }
             return fileName;

@@ -12,6 +12,7 @@ import cn.zty.baselib.utils.ResourceUtil;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.presenter.UpdatePwdPresenter;
+import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.utils.UserUtils;
 import cn.zty.recruit.view.StringView;
 
@@ -102,8 +103,9 @@ public class ResetPwActivity extends BaseActivity implements
 
     @Override
     public void onSuccess(String msg) {
+        ToastUtils.show("修改成功！");
         UserUtils.clearUser(this);
-        startActivity(new Intent(this,LoginActivity.class));
+        startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
 }
