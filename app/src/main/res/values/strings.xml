@@ -40,10 +40,8 @@
     <string name="city">城市</string>
     <string name="major">专业</string>
 
-    <string name="space">地　　区:</string>
     <string name="discipline">学科门类:</string>
     <string name="majorType">意向专业:</string>
-    <string name="testType">考试类型:</string>
     <string name="testAccount">考试分数:</string>
     <string name="tuitionRange">学费范围:</string>
 
@@ -51,8 +49,6 @@
     <string name="labSchool2">学校全景</string>
     <string name="labSchool3">院系介绍</string>
     <string name="labSchool4">师资力量</string>
-    <string name="labSchool5">院系专业</string>
-    <string name="labSchool6">预约看校</string>
     <string name="labSchool7">视频宣传</string>
     <string name="labSchool8">专业报名</string>
 
