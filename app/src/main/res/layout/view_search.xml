@@ -24,7 +24,7 @@
         android:layout_marginLeft="16dp"
         android:drawableLeft="@mipmap/ic_search"
         android:drawablePadding="6dp"
-        android:hint="搜索院校名称"
+        android:text="搜索院校名称"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
         android:textColor="@color/gray"

@@ -41,7 +41,7 @@ public class StudyMajorActivity extends BaseActivity implements
     private String schoolId;
     private String office;
 
-    private int handleGroupPosition;
+    private int handleGroupPosition = -1;
 
     @Override
     protected int initLayoutId() {
@@ -84,7 +84,7 @@ public class StudyMajorActivity extends BaseActivity implements
                 // 加载child 数据
                 majorSettingPresenter.getMajorList(adapter.getData().get(groupPosition).getId());
             } else {
-                expandedMajor.expandGroup(handleGroupPosition);
+                expandedMajor.expandGroup(groupPosition);
             }
             return true;
         }
@@ -93,12 +93,15 @@ public class StudyMajorActivity extends BaseActivity implements
 
     @Override
     public void onDepartmentSuccess(List<CollegeModel> models) {
-        adapter.setData(models);
+        if (models != null && models.size() > 0)
+            adapter.setData(models);
     }
 
     @Override
     public void onStudyMajorList(List<StudyMajorModel> majorModels) {
-        adapter.setChildData(majorModels, handleGroupPosition);
-        expandedMajor.expandGroup(handleGroupPosition);
+        if (majorModels != null && majorModels.size() > 0) {
+            adapter.setChildData(majorModels, handleGroupPosition);
+            expandedMajor.expandGroup(handleGroupPosition);
+        }
     }
 }

@@ -103,7 +103,7 @@ public class MajorSearchActivity extends BaseActivity implements
 
     private void search() {
         String name = editSearch.getText().toString();
-        hotMajorPresenter.getHotMajorList(name, -1, null, currentPage, Constants.DEFAULT_PAGE_SIZE);
+        hotMajorPresenter.getHotMajorList(name, 1, null, currentPage, Constants.DEFAULT_PAGE_SIZE);
     }
 
     @OnClick({R.id.btnSearchBack, R.id.imgSearch})
@@ -140,7 +140,6 @@ public class MajorSearchActivity extends BaseActivity implements
                 searchContentLayout.getRecyclerView().setPage(currentPage, maxPage);
             } else {
                 searchContentLayout.getRecyclerView().setPage(currentPage, maxPage);
-                majorAdapter.clearData();
             }
         } else {
             if (majorModels != null && majorModels.size() > 0)

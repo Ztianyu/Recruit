@@ -2,6 +2,7 @@ package cn.zty.recruit.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -65,13 +66,18 @@ public class UniversityAdapter extends RecyclerAdapter<VocationalModel, ViewHold
 
         recyclerView.horizontalLayoutManager(context)
                 .setAdapter(adapter);
-        List<TipModel> list = new ArrayList<>();
-        String[] educationTypes = data.get(position).getEducationTypeLabel().split(",");
-        for (int i = 0; i < educationTypes.length; i++) {
-            TipModel model = new TipModel();
-            model.setValue(StringUtils.replace(educationTypes[i]));
-            list.add(model);
+
+        String educations = data.get(position).getEducationTypeLabel();
+
+        if (!TextUtils.isEmpty(educations)) {
+            List<TipModel> list = new ArrayList<>();
+            String[] educationTypes = data.get(position).getEducationTypeLabel().split(",");
+            for (int i = 0; i < educationTypes.length; i++) {
+                TipModel model = new TipModel();
+                model.setValue(StringUtils.replace(educationTypes[i]));
+                list.add(model);
+            }
+            adapter.setData(list);
         }
-        adapter.setData(list);
     }
 }

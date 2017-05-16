@@ -67,6 +67,7 @@ public class MoreActivity extends BaseActivity implements
         type = getIntent().getIntExtra("type", 0);
         switch (type) {
             case TYPE_HOT_SCHOOL:
+                textSearch.setText("搜索院校名称");
                 if (universityAdapter == null)
                     universityAdapter = new UniversityAdapter(this, true);
                 adapter = universityAdapter;
@@ -76,6 +77,7 @@ public class MoreActivity extends BaseActivity implements
                 presenters.add(vocationalListPresenter);
                 break;
             case TYPE_HOT_MAJOR:
+                textSearch.setText("搜索专业名称");
                 if (majorAdapter == null)
                     majorAdapter = new MajorAdapter(this);
                 adapter = majorAdapter;

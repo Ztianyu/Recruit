@@ -148,6 +148,9 @@ public class WeChatPayManager {
         return stringBuffer.toString();
     }
 
+    /**
+     * xml解析
+     */
     public WeChatPayModel pullParser(String str) {
 
         WeChatPayModel weChatPayModel = null;
