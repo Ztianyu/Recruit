@@ -128,6 +128,7 @@ public class SchoolActivity extends BaseActivity implements
                 presenter.getVocationList(null, areaProvinceId, areaDiscipline, areaMajorId, null, null, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
             }
         } else {
+            currentPage = 1;
             presenter.getVocationList(null, provinceId, discipline, majorId, tuitionType, score, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
         }
     }
@@ -154,7 +155,7 @@ public class SchoolActivity extends BaseActivity implements
                 if (!TextUtils.isEmpty(areaProvinceId)) {
                     DialogUtils.showAreaSelect(getSupportFragmentManager(), layoutSchoolSelect.getHeight() + layoutSearchSchool.getHeight(), 1, this, areaProvinceId);
                 } else {
-                    SnackbarUtils.showShort(contentLayoutSchool,"请选择省份");
+                    SnackbarUtils.showShort(contentLayoutSchool, "请选择省份");
                 }
                 break;
             case R.id.textMajorTip:
@@ -214,7 +215,9 @@ public class SchoolActivity extends BaseActivity implements
             }
             contentLayoutSchool.getRecyclerView().setPage(currentPage, maxPage);
         } else {
-            adapter.clearData();
+            if (currentPage == 1)
+                adapter.clearData();
+            contentLayoutSchool.getRecyclerView().setPage(currentPage, maxPage);
         }
     }
 

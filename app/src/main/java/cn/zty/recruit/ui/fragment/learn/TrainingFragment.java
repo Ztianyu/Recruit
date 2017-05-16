@@ -195,7 +195,9 @@ public class TrainingFragment extends BaseFragment implements
             }
             contentLayoutSchool.getRecyclerView().setPage(currentPage, maxPage);
         } else {
-            adapter.clearData();
+            if (currentPage == 1)
+                adapter.clearData();
+            contentLayoutSchool.getRecyclerView().setPage(currentPage, maxPage);
         }
     }
 }
