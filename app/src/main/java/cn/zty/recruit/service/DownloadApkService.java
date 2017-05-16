@@ -108,8 +108,6 @@ public class DownloadApkService extends Service {
                     openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     openIntent.setDataAndType(uri, "application/vnd.android.package-archive");
                     startActivity(openIntent);
-
-                    stopService(intent);
                     break;
                 case DOWN_ERROR:
                     builder.setContentTitle("下载失败");
