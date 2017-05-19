@@ -23,10 +23,10 @@ import cn.zty.recruit.base.Constants;
 import cn.zty.recruit.bean.OrderModel;
 import cn.zty.recruit.listener.PayListener;
 import cn.zty.recruit.presenter.OrderPresenter;
-import cn.zty.recruit.presenter.UnifiedorderPresenter;
+import cn.zty.recruit.wxapi.UnifiedorderPresenter;
 import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.view.OrderView;
-import cn.zty.recruit.wechat.WeChatPayManager;
+import cn.zty.recruit.wxapi.WeChatPayManager;
 
 /**
  * Created by zty on 2017/3/31.

@@ -1,10 +1,6 @@
-package cn.zty.recruit.wechat;
+package cn.zty.recruit.wxapi;
 
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-import io.vov.vitamio.utils.Log;
 
 public class MD5 {
 

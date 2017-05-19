@@ -19,7 +19,6 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.bean.OrderModel;
 import cn.zty.recruit.listener.PayListener;
 import cn.zty.recruit.pay.Payment;
-import cn.zty.recruit.presenter.UnifiedorderPresenter;
 import cn.zty.recruit.view.StringView;
 
 /**

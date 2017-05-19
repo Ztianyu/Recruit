@@ -19,14 +19,14 @@ import cn.zty.recruit.bean.OrderModel;
 import cn.zty.recruit.listener.PayListener;
 import cn.zty.recruit.pay.Payment;
 import cn.zty.recruit.presenter.OrderPresenter;
-import cn.zty.recruit.presenter.UnifiedorderPresenter;
+import cn.zty.recruit.wxapi.UnifiedorderPresenter;
 import cn.zty.recruit.ui.activity.learn.EnrollActivity;
 import cn.zty.recruit.ui.activity.learn.StudyEnrollActivity;
 import cn.zty.recruit.ui.activity.person.OrderActivity;
 import cn.zty.recruit.ui.activity.person.OrderDetailActivity;
 import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.OrderView;
-import cn.zty.recruit.wechat.WeChatPayManager;
+import cn.zty.recruit.wxapi.WeChatPayManager;
 
 /**
  * Created by zty on 2017/3/30.

@@ -1,7 +1,6 @@
-package cn.zty.recruit.wechat;
+package cn.zty.recruit.wxapi;
 
 
-import android.util.Log;
 import android.util.Xml;
 
 import com.tencent.mm.opensdk.modelpay.PayReq;
@@ -18,7 +17,6 @@ import java.util.UUID;
 
 import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.base.Urls;
-import cn.zty.recruit.bean.WeChatPayModel;
 import cn.zty.recruit.utils.HostIPUtils;
 
 /**
@@ -54,6 +52,9 @@ public class WeChatPayManager {
         api.sendReq(request);
     }
 
+    /**
+     * 生成随机字符串
+     */
     public String getNonceStr() {
         return UUID.randomUUID().toString().replace("-", "").toUpperCase();
     }
@@ -129,6 +130,9 @@ public class WeChatPayManager {
         return MD5.MD5Encode(str, "UTF-8").toUpperCase();
     }
 
+    /**
+     * 生成预下单数据
+     */
     public String createPost(String body, String nonce_str, String out_trade_no, String total_fee) {
 
         StringBuffer stringBuffer = new StringBuffer();

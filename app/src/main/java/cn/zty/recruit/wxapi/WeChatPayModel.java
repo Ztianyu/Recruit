@@ -1,4 +1,4 @@
-package cn.zty.recruit.bean;
+package cn.zty.recruit.wxapi;
 
 
 /**

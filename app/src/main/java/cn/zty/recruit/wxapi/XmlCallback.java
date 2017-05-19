@@ -1,4 +1,4 @@
-package cn.zty.recruit.wechat;
+package cn.zty.recruit.wxapi;
 
 
 import android.support.annotation.Nullable;
@@ -6,7 +6,6 @@ import android.text.TextUtils;
 
 import com.lzy.okhttputils.callback.StringCallback;
 
-import cn.zty.recruit.bean.WeChatPayModel;
 import okhttp3.Request;
 import okhttp3.Response;
 

@@ -1,10 +1,10 @@
-package cn.zty.recruit.presenter;
+package cn.zty.recruit.wxapi;
 
 import com.lzy.okhttputils.OkHttpUtils;
 
 import cn.zty.recruit.base.Urls;
-import cn.zty.recruit.wechat.WeChatPayManager;
-import cn.zty.recruit.wechat.XmlCallback;
+import cn.zty.recruit.wxapi.WeChatPayManager;
+import cn.zty.recruit.wxapi.XmlCallback;
 
 /**
  * Created by zty on 2017/4/6.

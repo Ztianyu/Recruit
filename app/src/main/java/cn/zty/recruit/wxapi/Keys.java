@@ -1,4 +1,4 @@
-package cn.zty.recruit.wechat;
+package cn.zty.recruit.wxapi;
 
 /**
  * Created by zty on 2017/4/5.

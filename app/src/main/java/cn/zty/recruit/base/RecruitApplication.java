@@ -15,7 +15,7 @@ import cn.zty.baselib.http.RetrofitHelper;
 import cn.zty.recruit.bean.UserModel;
 import cn.zty.recruit.utils.FontUtils;
 import cn.zty.recruit.utils.SharedPrefUtils;
-import cn.zty.recruit.wechat.Keys;
+import cn.zty.recruit.wxapi.Keys;
 import io.vov.vitamio.Vitamio;
 
 /**
@@ -81,7 +81,6 @@ public class RecruitApplication extends Application {
         httpHeaders.put(httpHeaders.HEAD_KEY_ACCEPT, "application/json");
         httpHeaders.put(httpHeaders.HEAD_KEY_CONTENT_TYPE, "application/json");
 
-        //以下都不是必须的，根据需要自行选择
         OkHttpUtils.getInstance()
                 .debug("HttpUtils")
                 .setConnectTimeout(OkHttpUtils.DEFAULT_MILLISECONDS)  //全局的连接超时时间

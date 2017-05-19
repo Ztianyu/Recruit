@@ -1,6 +1,5 @@
 package cn.zty.recruit.wxapi;
 
-import com.lzy.okhttputils.OkHttpUtils;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
@@ -11,18 +10,13 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import cn.zty.baselib.utils.AppManager;
 import cn.zty.recruit.R;
-import cn.zty.recruit.base.Urls;
 import cn.zty.recruit.ui.activity.PayActivity;
 import cn.zty.recruit.ui.activity.person.OrderActivity;
 import cn.zty.recruit.ui.activity.person.OrderDetailActivity;
 import cn.zty.recruit.utils.ToastUtils;
-import cn.zty.recruit.wechat.Keys;
-import cn.zty.recruit.wechat.WeChatPayManager;
-import cn.zty.recruit.wechat.XmlCallback;
 
 public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
