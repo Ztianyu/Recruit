@@ -98,8 +98,7 @@ public class WebActivity extends BaseActivity implements
                 break;
             case TYPE3:
                 webView.loadDataWithBaseURL("file:///android_asset/",
-                        WebLoadHtmlUtils.loadHtml("",
-                                content),
+                        WebLoadHtmlUtils.loadHtml("", content),
                         "text/html", "utf-8", null);
                 break;
         }

@@ -52,6 +52,8 @@ public class UserModel {
     private String vipInviteCode;
     private String createDate;
     private String updateDate;
+    private String mailbox;
+    private String qq;
 
     public String getId() {
         return id;
@@ -219,5 +221,21 @@ public class UserModel {
 
     public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public String getMailbox() {
+        return mailbox;
+    }
+
+    public void setMailbox(String mailbox) {
+        this.mailbox = mailbox;
+    }
+
+    public String getQq() {
+        return qq;
+    }
+
+    public void setQq(String qq) {
+        this.qq = qq;
     }
 }

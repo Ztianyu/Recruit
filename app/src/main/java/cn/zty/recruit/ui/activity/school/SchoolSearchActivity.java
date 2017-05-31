@@ -86,7 +86,7 @@ public class SchoolSearchActivity extends BaseActivity implements
 
     @Override
     protected void initData() {
-        vocationalListPresenter.getVocationList(null, null, null, null, null, null, 1, 1, 20);
+        vocationalListPresenter.getVocationList(null, null, null, null, null, null, null, null, 1, 1, 20);
     }
 
     private void initAdapter(XRecyclerView recyclerView) {
@@ -100,7 +100,7 @@ public class SchoolSearchActivity extends BaseActivity implements
 
     private void search() {
         String name = editSearch.getText().toString();
-        vocationalListPresenter.getVocationList(name, null, null, null, null, null, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
+        vocationalListPresenter.getVocationList(name, null, null, null, null, null, null, null, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
     }
 
     @OnClick({R.id.btnSearchBack, R.id.imgSearch})

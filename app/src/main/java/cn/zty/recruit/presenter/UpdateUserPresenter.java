@@ -28,10 +28,11 @@ public class UpdateUserPresenter extends IBasePresenter<UserView> {
         service = RetrofitHelper.getInstance().getRetrofit().create(UpdateUserService.class);
     }
 
-    private Observable<ResultBean<UserModel>> submit(String nickName,String fullNm, String sex,
+    private Observable<ResultBean<UserModel>> submit(String nickName, String fullNm, String sex,
                                                      String mobile, String birthDate,
                                                      String education, String province,
-                                                     String city, String photo) {
+                                                     String city, String photo,
+                                                     String mailbox, String qq) {
         RequestParams params = RequestParamsHelper.getInstance().getRequestParams();
         params.put("tokenId", RecruitApplication.getInstance().getTokenId());
         params.put("userId", RecruitApplication.getInstance().getUserId());
@@ -55,6 +56,10 @@ public class UpdateUserPresenter extends IBasePresenter<UserView> {
             params.put("city", city);
         if (!TextUtils.isEmpty(photo))
             params.put("photo", photo);
+        if (!TextUtils.isEmpty(mailbox))
+            params.put("mailbox", mailbox);
+        if (!TextUtils.isEmpty(qq))
+            params.put("qq", qq);
 
         return service.update(params);
     }
@@ -62,8 +67,9 @@ public class UpdateUserPresenter extends IBasePresenter<UserView> {
     public void update(@Nullable String nickName, @Nullable String fullNm, @Nullable String sex,
                        @Nullable String mobile, @Nullable String birthDate,
                        @Nullable String education, @Nullable String province,
-                       @Nullable String city, @Nullable String photo) {
-        mSubscription = RxManager.getInstance().doSubscribe1(submit(nickName,fullNm, sex, mobile, birthDate, education, province, city, photo), new RxSubscriber<UserModel>() {
+                       @Nullable String city, @Nullable String photo,
+                       @Nullable String mailbox, @Nullable String qq) {
+        mSubscription = RxManager.getInstance().doSubscribe1(submit(nickName, fullNm, sex, mobile, birthDate, education, province, city, photo, mailbox, qq), new RxSubscriber<UserModel>() {
             @Override
             protected void _onNext(UserModel userModel) {
                 mView.onUserSuccess(userModel);

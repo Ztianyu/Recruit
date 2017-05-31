@@ -43,6 +43,8 @@ public class PanoramaActivity extends BaseActivity implements
     StripMenuView panoramaStrip5;
     @BindView(R.id.panoramaStrip6)
     StripMenuView panoramaStrip6;
+    @BindView(R.id.panoramaStrip7)
+    StripMenuView panoramaStrip7;
 
     private String schoolId;
     private String schoolGate;
@@ -76,7 +78,7 @@ public class PanoramaActivity extends BaseActivity implements
         presenter.getSchoolPanorama(schoolId);
     }
 
-    @OnClick({R.id.panoramaStrip1, R.id.panoramaStrip2, R.id.panoramaStrip3, R.id.panoramaStrip4, R.id.panoramaStrip5, R.id.panoramaStrip6})
+    @OnClick({R.id.panoramaStrip1, R.id.panoramaStrip2, R.id.panoramaStrip3, R.id.panoramaStrip4, R.id.panoramaStrip5, R.id.panoramaStrip6, R.id.panoramaStrip7})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.panoramaStrip1:
@@ -101,6 +103,9 @@ public class PanoramaActivity extends BaseActivity implements
                 break;
             case R.id.panoramaStrip6:
                 toDetail(panoramaModel6);
+                break;
+            case R.id.panoramaStrip7:
+                toDetail(panoramaModel7);
                 break;
         }
     }
@@ -135,6 +140,9 @@ public class PanoramaActivity extends BaseActivity implements
                 if (panoramaModel.getPlace().equals(ResourceUtil.resToStr(this, R.string.panoramaStrip6))) {
                     panoramaModel6 = panoramaModel;
                 }
+                if (panoramaModel.getPlace().equals(ResourceUtil.resToStr(this, R.string.panoramaStrip7))) {
+                    panoramaModel7 = panoramaModel;
+                }
             }
         }
     }
@@ -145,4 +153,5 @@ public class PanoramaActivity extends BaseActivity implements
     private PanoramaModel panoramaModel4;
     private PanoramaModel panoramaModel5;
     private PanoramaModel panoramaModel6;
+    private PanoramaModel panoramaModel7;
 }

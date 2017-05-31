@@ -180,7 +180,7 @@ public class RecruitFragment extends BaseFragment implements
 
         getAdsPresenter.getAds();
 
-        vocationalListPresenter.getVocationList(null, null, null, null, null, null, 1, 1, Constants.HOT_PAGE_SIZE);
+        vocationalListPresenter.getVocationList(null, null,null,null, null, null, null, null, 1, 1, Constants.HOT_PAGE_SIZE);
 
         hotMajorPresenter.getHotMajorList(null, 1, null, 1, Constants.HOT_PAGE_SIZE);
     }

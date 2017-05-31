@@ -10,10 +10,10 @@ import android.view.View;
 import android.widget.EditText;
 
 import butterknife.BindView;
+import cn.zty.baselib.utils.ValidateUtil;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.utils.SnackbarUtils;
-import cn.zty.recruit.utils.ToastUtils;
 
 /**
  * Created by zty on 2017/1/9.
@@ -29,7 +29,7 @@ public class SetTextActivity extends BaseActivity {
     private String url;
     private String strTitle;
 
-    private int type;//0：姓名；1：电话；2：昵称
+    private int type;//0：姓名；1：电话；2：昵称；3：邮箱；4：QQ号码
 
     @Override
     protected int initLayoutId() {
@@ -44,7 +44,7 @@ public class SetTextActivity extends BaseActivity {
         strTitle = bundle.getString("title");
         type = bundle.getInt("type");
 
-        if (type == 1) {
+        if (type == 1 || type == 4) {
             editSetText.setInputType(InputType.TYPE_CLASS_NUMBER);
         }
 
@@ -86,6 +86,9 @@ public class SetTextActivity extends BaseActivity {
             intent.putExtra("value", strContent);
             intent.putExtra("type", type);
             setResult(1, intent);
+        } else if (type == 3 && ValidateUtil.isEmail(strContent)) {
+            strToast = "请输入正确的邮箱";
+            SnackbarUtils.showShort(toolbar, strToast);
         } else {
             if (type == 0) {
                 strToast = "请输入姓名";
@@ -96,7 +99,10 @@ public class SetTextActivity extends BaseActivity {
             if (type == 2) {
                 strToast = "请输入昵称";
             }
-            SnackbarUtils.showShort(toolbar,strToast);
+            if (type == 4) {
+                strToast = "请输入QQ号码";
+            }
+            SnackbarUtils.showShort(toolbar, strToast);
         }
     }
 }

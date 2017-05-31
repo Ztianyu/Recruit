@@ -53,12 +53,14 @@ public class SchoolSelectFragment extends DialogFragment implements
 
     @BindView(R.id.spinnerSpace)
     AppCompatSpinner spinnerSpace;
+    @BindView(R.id.spinnerSchoolNature)
+    AppCompatSpinner spinnerSchoolNature;
+    @BindView(R.id.spinnerSchoolType)
+    AppCompatSpinner spinnerSchoolType;
     @BindView(R.id.spinnerMajorType)
     AppCompatSpinner spinnerMajorType;
     @BindView(R.id.spinnerTestType)
     AppCompatSpinner spinnerTestType;
-    @BindView(R.id.editScore)
-    EditText editScore;
     @BindView(R.id.spinnerDiscipline)
     AppCompatSpinner spinnerDiscipline;
     @BindView(R.id.btnSure)
@@ -75,6 +77,8 @@ public class SchoolSelectFragment extends DialogFragment implements
     private HotMajorPresenter hotMajorPresenter;
 
     private DictAdapter areaAdapter;
+    private DictAdapter natureAdapter;
+    private DictAdapter typeAdapter;
     private DictAdapter disciplineAdapter;
     private MajorNameAdapter majorAdapter;
     private DictAdapter tuitionAdapter;
@@ -82,11 +86,15 @@ public class SchoolSelectFragment extends DialogFragment implements
     SchoolSelectListener listener;
 
     private static List<TipModel> areaModels;
+    private static List<TipModel> natureModels;
+    private static List<TipModel> typeModels;
     private static List<TipModel> disciplineModels;
     private static List<MajorModel> majorModels;
     private static List<TipModel> tuitionModels;
 
     private static String provinceId;
+    private static String schoolNature;
+    private static String schoolType;
     private static String discipline;
     private static String majorId;
     private static String tuitionType;
@@ -115,6 +123,8 @@ public class SchoolSelectFragment extends DialogFragment implements
         hotMajorPresenter.attach(this);
 
         provinceId = SharedPrefUtils.getString(getActivity(), SharedPrefUtils.schoolSelectArea);
+        schoolNature = SharedPrefUtils.getString(getActivity(), SharedPrefUtils.schoolNature);
+        schoolType = SharedPrefUtils.getString(getActivity(), SharedPrefUtils.schoolType);
         discipline = SharedPrefUtils.getString(getActivity(), SharedPrefUtils.schoolSelectDiscipline);
         majorId = SharedPrefUtils.getString(getActivity(), SharedPrefUtils.schoolSelectMajor);
         tuitionType = SharedPrefUtils.getString(getActivity(), SharedPrefUtils.schoolSelectTuition);
@@ -146,6 +156,8 @@ public class SchoolSelectFragment extends DialogFragment implements
         window.setBackgroundDrawable(new ColorDrawable(ResourceUtil.resToColor(getActivity(), R.color.transparent60)));
 
         spinnerSpace.setOnItemSelectedListener(this);
+        spinnerSchoolNature.setOnItemSelectedListener(this);
+        spinnerSchoolType.setOnItemSelectedListener(this);
         spinnerDiscipline.setOnItemSelectedListener(this);
         spinnerMajorType.setOnItemSelectedListener(this);
         spinnerTestType.setOnItemSelectedListener(this);
@@ -154,8 +166,12 @@ public class SchoolSelectFragment extends DialogFragment implements
         disciplineAdapter = new DictAdapter(getActivity(), -1);
         majorAdapter = new MajorNameAdapter(getActivity());
         tuitionAdapter = new DictAdapter(getActivity(), -1);
+        natureAdapter = new DictAdapter(getActivity(), -1);
+        typeAdapter = new DictAdapter(getActivity(), -1);
 
         spinnerSpace.setAdapter(areaAdapter);
+        spinnerSchoolNature.setAdapter(natureAdapter);
+        spinnerSchoolType.setAdapter(typeAdapter);
         spinnerDiscipline.setAdapter(disciplineAdapter);
         spinnerMajorType.setAdapter(majorAdapter);
         spinnerTestType.setAdapter(tuitionAdapter);
@@ -173,7 +189,17 @@ public class SchoolSelectFragment extends DialogFragment implements
         } else {
             getProvincePresenter.getProvince();
         }
+        if (natureModels != null) {
+            setNatureData();
+        } else {
+            dictPresenter.getDictList(Constants.DICT_TYPE2);
+        }
 
+        if (typeModels != null) {
+            setTypeData();
+        } else {
+            dictPresenter.getDictList(Constants.DICT_TYPE3);
+        }
         if (disciplineModels != null) {
             setDisciplineData();
         } else {
@@ -220,6 +246,32 @@ public class SchoolSelectFragment extends DialogFragment implements
         } else if (type.equals(Constants.DICT_TYPE7)) {
             tuitionModels = models;
             setTuitionData();
+        } else if (type.equals(Constants.DICT_TYPE2)) {
+            natureModels = models;
+            setNatureData();
+        } else if (type.equals(Constants.DICT_TYPE3)) {
+            typeModels = models;
+            setTypeData();
+        }
+    }
+
+    private void setNatureData() {
+        natureAdapter.setData(natureModels);
+        if (!TextUtils.isEmpty(schoolNature)) {
+            for (int i = 0; i < natureModels.size(); i++) {
+                if (natureModels.get(i).getKey().equals(schoolNature))
+                    spinnerSchoolNature.setSelection(i);
+            }
+        }
+    }
+
+    private void setTypeData() {
+        typeAdapter.setData(typeModels);
+        if (!TextUtils.isEmpty(schoolType)) {
+            for (int i = 0; i < typeModels.size(); i++) {
+                if (typeModels.get(i).getKey().equals(schoolType))
+                    spinnerSchoolType.setSelection(i);
+            }
         }
     }
 
@@ -267,6 +319,12 @@ public class SchoolSelectFragment extends DialogFragment implements
             case R.id.spinnerSpace:
                 provinceId = areaAdapter.getData().get(position).getKey();
                 break;
+            case R.id.spinnerSchoolNature:
+                schoolNature = natureAdapter.getData().get(position).getKey();
+                break;
+            case R.id.spinnerSchoolType:
+                schoolType = typeAdapter.getData().get(position).getKey();
+                break;
             case R.id.spinnerDiscipline:
                 discipline = disciplineAdapter.getData().get(position).getKey();
                 majorAdapter.clearData();
@@ -289,12 +347,14 @@ public class SchoolSelectFragment extends DialogFragment implements
     @OnClick(R.id.btnSure)
     public void onClick() {
         SharedPrefUtils.setString(getActivity(), SharedPrefUtils.schoolSelectArea, provinceId);
+        SharedPrefUtils.setString(getActivity(), SharedPrefUtils.schoolNature, schoolNature);
+        SharedPrefUtils.setString(getActivity(), SharedPrefUtils.schoolType, schoolType);
         SharedPrefUtils.setString(getActivity(), SharedPrefUtils.schoolSelectDiscipline, discipline);
         SharedPrefUtils.setString(getActivity(), SharedPrefUtils.schoolSelectMajor, majorId);
         SharedPrefUtils.setString(getActivity(), SharedPrefUtils.schoolSelectTuition, tuitionType);
 
         dismiss();
-        listener.onSchoolSelect(provinceId, discipline, majorId, editScore.getText().toString(), tuitionType);
+        listener.onSchoolSelect(provinceId, schoolNature, schoolType, discipline, majorId, "", tuitionType);
     }
 
     public SchoolSelectListener getListener() {

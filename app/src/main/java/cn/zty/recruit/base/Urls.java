@@ -109,6 +109,9 @@ public class Urls {
     //电话回访
     public static final String visit = HOST_ADMIN + "returnRecord/submitReturnRecord";
 
+    //招聘信息列表
+    public static final String getCompanyJobList = HOST_ADMIN + "companyJob/getCompanyJobList";
+
 
     //上传文件（语音文件、图片文件）
     public static final String uploadAndroidServlet = "uploadAndroidServlet";

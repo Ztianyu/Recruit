@@ -77,6 +77,8 @@ public class SchoolActivity extends BaseActivity implements
     private String areaMajorId;
 
     private String provinceId;
+    private String schoolNature;
+    private String schoolType;
     private String discipline;
     private String majorId;
     private String score;
@@ -123,13 +125,13 @@ public class SchoolActivity extends BaseActivity implements
 
         if (isSearchByArea) {
             if (areaCityId != null) {
-                presenter.getVocationList(null, areaCityId, areaDiscipline, areaMajorId, null, null, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
+                presenter.getVocationList(null, areaCityId, null, null, areaDiscipline, areaMajorId, null, null, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
             } else {
-                presenter.getVocationList(null, areaProvinceId, areaDiscipline, areaMajorId, null, null, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
+                presenter.getVocationList(null, areaProvinceId, null, null, areaDiscipline, areaMajorId, null, null, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
             }
         } else {
             currentPage = 1;
-            presenter.getVocationList(null, provinceId, discipline, majorId, tuitionType, score, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
+            presenter.getVocationList(null, provinceId, schoolNature, schoolType, discipline, majorId, tuitionType, score, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
         }
     }
 
@@ -222,17 +224,6 @@ public class SchoolActivity extends BaseActivity implements
     }
 
     @Override
-    public void onSchoolSelect(String provinceId, String discipline, String majorId, String score, String examinationType) {
-        this.provinceId = provinceId;
-        this.discipline = discipline;
-        this.majorId = majorId;
-        this.score = score;
-        this.tuitionType = examinationType;
-
-        initData();
-    }
-
-    @Override
     public void onRefresh() {
         currentPage = 1;
         initData();
@@ -260,5 +251,18 @@ public class SchoolActivity extends BaseActivity implements
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }
+    }
+
+    @Override
+    public void onSchoolSelect(String provinceId, String nature, String type, String discipline, String majorId, String score, String tuition) {
+        this.provinceId = provinceId;
+        this.schoolNature = nature;
+        this.schoolType = type;
+        this.discipline = discipline;
+        this.majorId = majorId;
+        this.score = score;
+        this.tuitionType = tuition;
+
+        initData();
     }
 }

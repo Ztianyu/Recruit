@@ -73,7 +73,7 @@ public class MajorSchoolActivity extends BaseActivity implements VocationalListV
     protected void initData() {
         if (currentPage == 1)
             layoutContent.refreshState(true);
-        vocationalListPresenter.getVocationList(null, null, discipline, majorId, null, null, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
+        vocationalListPresenter.getVocationList(null, null,null,null, discipline, majorId, null, null, -1, currentPage, Constants.DEFAULT_PAGE_SIZE);
     }
 
     private void initAdapter(XRecyclerView recyclerView) {

@@ -36,7 +36,6 @@ import cn.zty.recruit.presenter.UpdateUserPresenter;
 import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.utils.FileUtil;
 import cn.zty.recruit.utils.SnackbarUtils;
-import cn.zty.recruit.utils.ToastUtils;
 import cn.zty.recruit.view.LoadFileView;
 import cn.zty.recruit.view.UserView;
 
@@ -72,6 +71,10 @@ public class ArchivesActivity extends BaseActivity implements OnSelectListener,
     StripViewNoImg textUserAge;
     @BindView(R.id.textUserPhone)
     StripViewNoImg textUserPhone;
+    @BindView(R.id.textUserEmail)
+    StripViewNoImg textUserEmail;
+    @BindView(R.id.textUserQQ)
+    StripViewNoImg textUserQQ;
     @BindView(R.id.textUserEducation)
     StripViewNoImg textUserEducation;
     @BindView(R.id.textUserPosition)
@@ -133,7 +136,7 @@ public class ArchivesActivity extends BaseActivity implements OnSelectListener,
         textUserNickName.setAdditionText(MyTextUtils.notNullStr(userModel.getNickNm()));
         textUserName.setAdditionText(MyTextUtils.notNullStr(userModel.getFullNm()));
         textUserSex.setAdditionText(MyTextUtils.notNullStr(userModel.getSex()));
-        textUserAge.setAdditionText(MyTextUtils.notNullStr(userModel.getBirthDate()));
+        textUserAge.setAdditionText(TextUtils.isEmpty(userModel.getBirthDate()) ? "" : userModel.getBirthDate().substring(0, 10));
         textUserPhone.setAdditionText(MyTextUtils.notNullStr(userModel.getMobile()));
         textUserEducation.setAdditionText(MyTextUtils.notNullStr(userModel.getEducationLabel()));
         textUserPosition.setAdditionText(MyTextUtils.notNullStr(userModel.getAreaNm()));
@@ -146,7 +149,7 @@ public class ArchivesActivity extends BaseActivity implements OnSelectListener,
             }
     }
 
-    @OnClick({R.id.imgUserHeader, R.id.textUserNickName, R.id.textUserName, R.id.textUserSex, R.id.textUserAge, R.id.textUserPhone, R.id.textUserEducation, R.id.textUserPosition})
+    @OnClick({R.id.imgUserHeader, R.id.textUserNickName, R.id.textUserName, R.id.textUserSex, R.id.textUserAge, R.id.textUserPhone, R.id.textUserEducation, R.id.textUserPosition, R.id.textUserEmail, R.id.textUserQQ})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgUserHeader:
@@ -185,6 +188,20 @@ public class ArchivesActivity extends BaseActivity implements OnSelectListener,
             case R.id.textUserPosition:
                 startActivityForResult(new Intent(this, SetPositionActivity.class), RESULT_SET_POSITION);
                 break;
+            case R.id.textUserEmail:
+                Bundle bundle3 = new Bundle();
+                bundle3.putString("title", "邮 箱");
+                bundle3.putString("message", MyTextUtils.notNullStr(userModel.getMailbox()));
+                bundle3.putInt("type", 3);
+                startActivityForResult(new Intent(this, SetTextActivity.class).putExtras(bundle3), RESULT_SET_TEXT);
+                break;
+            case R.id.textUserQQ:
+                Bundle bundle4 = new Bundle();
+                bundle4.putString("title", "QQ号码");
+                bundle4.putString("message", MyTextUtils.notNullStr(userModel.getQq()));
+                bundle4.putInt("type", 4);
+                startActivityForResult(new Intent(this, SetTextActivity.class).putExtras(bundle4), RESULT_SET_TEXT);
+                break;
         }
     }
 
@@ -220,7 +237,7 @@ public class ArchivesActivity extends BaseActivity implements OnSelectListener,
                     Bundle bundle1 = data.getExtras();
                     textUserPosition.setAdditionText(bundle1.getString("province") + "." + bundle1.getString("city"));
                     presenter.update(null, null, null, null, null, null, bundle1.getString("provinceKey"),
-                            bundle1.getString("cityKey"), null);
+                            bundle1.getString("cityKey"), null, null, null);
                 }
                 break;
             case RESULT_SET_TEXT:
@@ -230,13 +247,19 @@ public class ArchivesActivity extends BaseActivity implements OnSelectListener,
                     String message = bundle2.getString("value");
                     if (type == 0) {
                         textUserName.setAdditionText(message);
-                        presenter.update(null, message, null, null, null, null, null, null, null);
+                        presenter.update(null, message, null, null, null, null, null, null, null, null, null);
                     } else if (type == 1) {
                         textUserPhone.setAdditionText(message);
-                        presenter.update(null, null, null, message, null, null, null, null, null);
+                        presenter.update(null, null, null, message, null, null, null, null, null, null, null);
                     } else if (type == 2) {
                         textUserNickName.setAdditionText(message);
-                        presenter.update(message, null, null, null, null, null, null, null, null);
+                        presenter.update(message, null, null, null, null, null, null, null, null, null, null);
+                    } else if (type == 3) {
+                        textUserEmail.setAdditionText(message);
+                        presenter.update(null, null, null, null, null, null, null, null, null, message, null);
+                    } else if (type == 4) {
+                        textUserQQ.setAdditionText(message);
+                        presenter.update(null, null, null, null, null, null, null, null, null, null, message);
                     }
                 }
                 break;
@@ -267,16 +290,8 @@ public class ArchivesActivity extends BaseActivity implements OnSelectListener,
     @Override
     public void onUserSuccess(final UserModel userModel) {
         if (userModel != null) {
-
             SnackbarUtils.showShort(toolbar, "修改成功");
             RecruitApplication.getInstance().setUserModel(userModel);
-
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    setUser(userModel);
-//                }
-//            });
         }
     }
 
@@ -284,26 +299,26 @@ public class ArchivesActivity extends BaseActivity implements OnSelectListener,
     public void onSexListener(String sex, int type) {
         textUserSex.setAdditionText(sex);
         sexType = type;
-        presenter.update(null, null, sex, null, null, null, null, null, null);
+        presenter.update(null, null, sex, null, null, null, null, null, null, null, null);
     }
 
     @Override
     public void onDateSelect(String date) {
         textUserAge.setAdditionText(date);
-        presenter.update(null, null, null, null, date, null, null, null, null);
+        presenter.update(null, null, null, null, date, null, null, null, null, null, null);
     }
 
     @Override
     public void onLoadFileSuccess(LoadFileModel model) {
         if (model != null)
-            presenter.update(null, null, null, null, null, null, null, null, model.getAudioUrl());
+            presenter.update(null, null, null, null, null, null, null, null, model.getAudioUrl(), null, null);
     }
 
     @Override
     public void onEducationListener(TipModel tipModel) {
         textUserEducation.setAdditionText(tipModel.getValue());
         education = tipModel.getValue();
-        presenter.update(null, null, null, null, null, tipModel.getKey(), null, null, null);
+        presenter.update(null, null, null, null, null, tipModel.getKey(), null, null, null, null, null);
         DialogFragment dialogFragment = (DialogFragment) getSupportFragmentManager().findFragmentByTag(DialogUtils.EDUCATION_SELECT);
         dialogFragment.dismiss();
     }

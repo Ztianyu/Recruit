@@ -30,6 +30,7 @@ public class VocationalListPresenter extends IBasePresenter<VocationalListView> 
     }
 
     private Observable<ResultBean<List<VocationalModel>>> submit(String name, String areaId,
+                                                                 String nature, String type,
                                                                  String discipline, String majorId,
                                                                  String tuitionRange, String score,
                                                                  int isHot, int pageNo, int pageSize) {
@@ -46,6 +47,10 @@ public class VocationalListPresenter extends IBasePresenter<VocationalListView> 
             params.put("tuitionRange", tuitionRange);
         if (!TextUtils.isEmpty(score))
             params.put("score", score);
+        if (!TextUtils.isEmpty(nature))
+            params.put("schoolNature", nature);
+        if (!TextUtils.isEmpty(type))
+            params.put("educationType", type);
         if (isHot >= 0)
             params.put("isHot", isHot);
         params.put("pageSize", pageSize);
@@ -54,10 +59,11 @@ public class VocationalListPresenter extends IBasePresenter<VocationalListView> 
     }
 
     public void getVocationList(@Nullable String name, @Nullable String areaId,
+                                @Nullable String nature, @Nullable String type,
                                 @Nullable String discipline, @Nullable String majorId,
                                 @Nullable String tuitionRange, @Nullable String score,
                                 int isHot, int pageNo, int pageSize) {
-        mSubscription = RxManager.getInstance().doSubscribe1(submit(name, areaId, discipline, majorId, tuitionRange, score, isHot, pageNo, pageSize), new RxSubscriber<List<VocationalModel>>() {
+        mSubscription = RxManager.getInstance().doSubscribe1(submit(name, areaId, nature, type, discipline, majorId, tuitionRange, score, isHot, pageNo, pageSize), new RxSubscriber<List<VocationalModel>>() {
             @Override
             protected void _onNext(List<VocationalModel> models) {
                 mView.onVocationalListSuccess(models);

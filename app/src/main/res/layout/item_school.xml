@@ -65,6 +65,21 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
+            <TextView
+                android:id="@+id/itemSchoolNature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_school_lab1"
+                android:gravity="center"
+                android:paddingBottom="3dp"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:textSize="12sp"
+                android:paddingTop="3dp"
+                android:textColor="@color/white"
+                android:visibility="invisible"
+                tools:text="民办" />
+
             <cn.droidlover.xrecyclerview.XRecyclerView
                 android:id="@+id/recyclerViewHotSchool"
                 android:layout_width="wrap_content"

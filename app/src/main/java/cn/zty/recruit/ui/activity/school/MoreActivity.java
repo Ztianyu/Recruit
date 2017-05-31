@@ -101,7 +101,7 @@ public class MoreActivity extends BaseActivity implements
             moreContent.refreshState(true);
 
         if (type == TYPE_HOT_SCHOOL) {
-            vocationalListPresenter.getVocationList(null, null, null, null, null, null, 1, currentPage, pageSize);
+            vocationalListPresenter.getVocationList(null, null, null, null, null, null, null, null, 1, currentPage, pageSize);
         } else if (type == TYPE_HOT_MAJOR) {
             hotMajorPresenter.getHotMajorList(null, 1, null, currentPage, pageSize);
         }

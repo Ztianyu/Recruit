@@ -73,6 +73,17 @@
                 app:textName="@string/panoramaStrip4"
                 app:textNameColor="@color/textColor"></cn.zty.baselib.widget.StripMenuView>
 
+            <cn.zty.baselib.widget.StripMenuView
+                android:id="@+id/panoramaStrip7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:imgSrc="@mipmap/ic_library"
+                app:isHasBottomLine="true"
+                app:isHasTopLine="false"
+                app:lineMargin="16"
+                app:textName="@string/panoramaStrip7"
+                app:textNameColor="@color/textColor"></cn.zty.baselib.widget.StripMenuView>
+
 
             <cn.zty.baselib.widget.StripMenuView
                 android:id="@+id/panoramaStrip5"

@@ -17,6 +17,8 @@ public class SharedPrefUtils {
     public static final String inviteCode = "inviteCode";
 
     public static final String schoolSelectArea = "schoolProvinceId";
+    public static final String schoolNature = "schoolNature";
+    public static final String schoolType = "schoolType";
     public static final String schoolSelectDiscipline = "schoolDiscipline";
     public static final String schoolSelectMajor = "schoolMajorId";
     public static final String schoolSelectTuition = "schoolTuitionType";

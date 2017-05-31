@@ -42,8 +42,9 @@ public class UniversityAdapter extends RecyclerAdapter<VocationalModel, ViewHold
         holder.setText(R.id.itemSchoolTip, (position + 1) + "");
         holder.setText(R.id.textSchoolName, data.get(position).getName());
         holder.setText(R.id.itemSchoolPosition, data.get(position).getAreaNm());
+        holder.getView(R.id.itemSchoolNature).setVisibility(View.VISIBLE);
+        holder.setText(R.id.itemSchoolNature, data.get(position).getSchoolNatureLabel());
         holder.setImage(context, R.id.itemSchoolImg, data.get(position).getImgUrl());
-
 
         TextView itemSchoolTip = holder.getView(R.id.itemSchoolTip);
         if (isHaveTip) {
