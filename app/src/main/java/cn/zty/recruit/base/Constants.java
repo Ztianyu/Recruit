@@ -30,6 +30,7 @@ public class Constants {
     public static final String DICT_TYPE6 = "study_type";//进修类型
     public static final String DICT_TYPE7 = "tuition_range";//学费范围
     public static final String DICT_TYPE8 = "school_type";//学校类型
+    public static final String DICT_TYPE9 = "company_industry";//行业类别
 
     public static final int DEFAULT_PAGE_SIZE = 10;
     public static final int MAX_PAGE_SIZE = 1000;

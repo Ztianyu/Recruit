@@ -242,6 +242,14 @@
         <activity
             android:name=".ui.activity.person.InviteUserActivity"
             android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.job.JobDetailActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.job.CompanyDetailActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

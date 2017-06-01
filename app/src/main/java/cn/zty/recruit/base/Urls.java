@@ -6,9 +6,9 @@ package cn.zty.recruit.base;
 
 public class Urls {
 
-    public static final String HOST = "http://www.gdkqvip.com/ztm/";
+//    public static final String HOST = "http://www.gdkqvip.com/ztm/";
 
-//    public static final String HOST = "http://14.29.68.166:8181/recruitStudents/";
+    public static final String HOST = "http://14.29.68.166:8181/recruitStudents/";
 
 //    public static final String HOST = "http://112.74.190.31/ztm/";
 
@@ -111,6 +111,9 @@ public class Urls {
 
     //招聘信息列表
     public static final String getCompanyJobList = HOST_ADMIN + "companyJob/getCompanyJobList";
+
+    //获取企业详情
+    public static final String getRecruitCompany = HOST_ADMIN + "recruitCompany/getRecruitCompany";
 
 
     //上传文件（语音文件、图片文件）

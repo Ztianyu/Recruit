@@ -17,6 +17,7 @@ import cn.zty.recruit.listener.BirthSelectListener;
 import cn.zty.recruit.listener.DeleteOrderListener;
 import cn.zty.recruit.listener.EducationSelectListener;
 import cn.zty.recruit.listener.EnrollTypeSelectListener;
+import cn.zty.recruit.listener.IndustrySelectListener;
 import cn.zty.recruit.listener.IndustryTypeListener;
 import cn.zty.recruit.listener.MajorSelectListener;
 import cn.zty.recruit.listener.PayListener;
@@ -33,6 +34,7 @@ import cn.zty.recruit.ui.fragment.SelectSexFragment;
 import cn.zty.recruit.ui.fragment.ToastFragment;
 import cn.zty.recruit.ui.fragment.VersionFragment;
 import cn.zty.recruit.ui.fragment.VisitFragment;
+import cn.zty.recruit.ui.fragment.job.IndustryCategoryFragment;
 import cn.zty.recruit.ui.fragment.learn.EnrollTypeFragment;
 import cn.zty.recruit.ui.fragment.learn.IndustryTypeFragment;
 import cn.zty.recruit.ui.fragment.learn.StudySchoolSelect;
@@ -67,6 +69,8 @@ public class DialogUtils {
     public static final String VISIT = "visitFragment";
 
     public static final String VERSION = "versionFragment";
+
+    public static final String INDUSTRY = "industryCategoryFragment";
 
     /**
      * 选择 省、市（type:0(省)；1（市））
@@ -263,5 +267,16 @@ public class DialogUtils {
             manager.beginTransaction().remove(fragment);
         VersionFragment versionFragment = VersionFragment.newInstance(title, versionModel);
         versionFragment.show(manager.beginTransaction(), VERSION);
+    }
+
+    /**
+     * 电话回访
+     */
+    public static void showIndustrySelect(FragmentManager manager,int height, IndustrySelectListener listener) {
+        Fragment fragment = manager.findFragmentByTag(INDUSTRY);
+        if (fragment != null)
+            manager.beginTransaction().remove(fragment);
+        IndustryCategoryFragment industryCategoryFragment = IndustryCategoryFragment.newInstance(height,listener);
+        industryCategoryFragment.show(manager.beginTransaction(), INDUSTRY);
     }
 }

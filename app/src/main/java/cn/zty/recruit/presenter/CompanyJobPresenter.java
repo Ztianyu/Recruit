@@ -29,11 +29,14 @@ public class CompanyJobPresenter extends IBasePresenter<CompanyJobView> {
         service = RetrofitHelper.getInstance().getRetrofit().create(CompanyJobService.class);
     }
 
-    private Observable<ResultBean<List<CompanyJobModel>>> submit(String companyId, String companyNm,
+    private Observable<ResultBean<List<CompanyJobModel>>> submit(int pageNo, int pageSize,
+                                                                 String companyId, String companyNm,
                                                                  String name, String province,
                                                                  String city, String jobNature,
                                                                  String education, String industry) {
         RequestParams params = RequestParamsHelper.getInstance().getRequestParams();
+        params.put("pageNo", pageNo);
+        params.put("pageSize", pageSize);
         if (!TextUtils.isEmpty(companyId))
             params.put("companyId", companyId);
         if (!TextUtils.isEmpty(companyNm))
@@ -54,12 +57,13 @@ public class CompanyJobPresenter extends IBasePresenter<CompanyJobView> {
         return service.getCompanyJobList(params);
     }
 
-    public void getCompanyJobList(@Nullable String companyId, @Nullable String companyNm,
+    public void getCompanyJobList(int pageNo, int pageSize,
+                                  @Nullable String companyId, @Nullable String companyNm,
                                   @Nullable String name, @Nullable String province,
                                   @Nullable String city, @Nullable String jobNature,
                                   @Nullable String education, @Nullable String industry) {
         mSubscription = RxManager.getInstance().doSubscribe1(
-                submit(companyId, companyNm, name, province, city, jobNature, education, industry),
+                submit(pageNo, pageSize, companyId, companyNm, name, province, city, jobNature, education, industry),
                 new RxSubscriber<List<CompanyJobModel>>() {
                     @Override
                     protected void _onNext(List<CompanyJobModel> models) {
