@@ -181,11 +181,11 @@ public class ConfirmPhoneActivity extends BaseActivity implements View.OnFocusCh
     };
 
     private void toRegister() {
-        startActivity(new Intent(this, RegisterActivity.class).putExtra("mobile", editRegisterPhone.getText().toString()));
+        startActivity(new Intent(mContext, RegisterActivity.class).putExtra("mobile", editRegisterPhone.getText().toString()));
     }
 
     private void toSetPw() {
-        startActivity(new Intent(this, SetNewPwActivity.class).putExtra("mobile", editRegisterPhone.getText().toString()));
+        startActivity(new Intent(mContext, SetNewPwActivity.class).putExtra("mobile", editRegisterPhone.getText().toString()));
     }
 
     @Override
