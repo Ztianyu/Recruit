@@ -97,26 +97,24 @@ public class ConfirmPhoneActivity extends BaseActivity implements View.OnFocusCh
         btnGetCode.setBackgroundResource(R.drawable.bg_no_get_code);
         btnGetCode.setTextColor(ResourceUtil.resToColor(this, R.color.gray));
         btnGetCode.setText("重新发送(" + i + ")");
-        thread.start();
-    }
-
-    Thread thread = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            for (; i > 0; i--) {
-                handler.sendEmptyMessage(-9);
-                if (i <= 0) {
-                    break;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (; i > 0; i--) {
+                    handler.sendEmptyMessage(-9);
+                    if (i <= 0) {
+                        break;
+                    }
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                handler.sendEmptyMessage(-8);
             }
-            handler.sendEmptyMessage(-8);
-        }
-    });
+        }).start();
+    }
 
     int i = 30;
     Handler handler = new Handler() {
