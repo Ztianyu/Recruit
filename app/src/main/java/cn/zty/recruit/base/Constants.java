@@ -16,6 +16,11 @@ public class Constants {
     public static final String MOB_APP_KEY = "1c8060a77f512";
     public static final String MOB_APP_SECRET = "2c6b926a4782a34fe2e834f193b18965";
 
+
+    //分享
+    public static final String MOB_SHARE_APP_KEY = "1e5cef1137de0";
+    public static final String  MOB_SHARE_APP_SECRET = "8921c224afd0f3db3d6e8cfa1cf4aa39";
+
     //定金类型
     public static final String OFFICE_TYPE0 = "1";//职业学校
     public static final String OFFICE_TYPE1 = "2";//培训机构

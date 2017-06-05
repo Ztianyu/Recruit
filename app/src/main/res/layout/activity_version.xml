@@ -21,8 +21,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:gravity="center"
                 android:background="@color/white"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <ImageView
@@ -41,28 +41,46 @@
 
             </LinearLayout>
 
-            <FrameLayout
+
+            <TextView
+                android:id="@+id/textVersionUpdate"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/white"
+                android:drawableRight="@mipmap/ic_expand_normal"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="检查新版本"
+                android:textColor="@color/textColor"
+                android:textSize="14sp" />
 
-                <cn.zty.baselib.widget.StripViewNoImg
-                    android:id="@+id/textVersionUpdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:isHasBottomLine="false"
-                    app:isHasTopLine="false"
-                    app:textAdditionColor="@color/colorDiver"
-                    app:textName="检查新版本"
-                    app:textNameColor="@color/textColor"></cn.zty.baselib.widget.StripViewNoImg>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@color/colorDiver"></View>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|right"
-                    android:layout_marginRight="16dp"
-                    android:background="@mipmap/ic_expand_normal" />
-            </FrameLayout>
+            <TextView
+                android:id="@+id/textVersionShare"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:drawableRight="@mipmap/ic_expand_normal"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="分享"
+                android:textColor="@color/textColor"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorDiver"></View>
+
 
         </LinearLayout>
     </ScrollView>

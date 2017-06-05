@@ -70,4 +70,5 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
             }
         }
     }
+
 }
