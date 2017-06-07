@@ -87,7 +87,7 @@ public class RecruitApplication extends Application {
                 .setReadTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)    //全局的读取超时时间
                 .setWriteTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)  //全局的写入超时时间
                 .setCookieStore(new PersistentCookieStore())
-                .setCacheMode(CacheMode.DEFAULT)
+                .setCacheMode(CacheMode.NO_CACHE)
                 .addCommonHeaders(httpHeaders);
 
     }

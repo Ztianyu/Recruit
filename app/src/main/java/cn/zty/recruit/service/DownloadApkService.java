@@ -13,6 +13,8 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.callback.FileCallback;
@@ -103,11 +105,14 @@ public class DownloadApkService extends Service {
                     builder.setProgress(100, 100, false);
                     messageNotificationManager.notify(notificationID, builder.build());
 
-                    Uri uri = Uri.fromFile(new File(msg.getData().getString("fileName")));
-                    Intent openIntent = new Intent(Intent.ACTION_VIEW);
-                    openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    openIntent.setDataAndType(uri, "application/vnd.android.package-archive");
-                    startActivity(openIntent);
+                    File apkFile = new File(msg.getData().getString("fileName"));
+                    if (apkFile.exists()) {
+                        Uri uri = Uri.fromFile(apkFile);
+                        Intent openIntent = new Intent(Intent.ACTION_VIEW);
+                        openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        openIntent.setDataAndType(uri, "application/vnd.android.package-archive");
+                        startActivity(openIntent);
+                    }
                     break;
                 case DOWN_ERROR:
                     builder.setContentTitle("下载失败");
@@ -134,7 +139,8 @@ public class DownloadApkService extends Service {
             Message message = handler.obtainMessage();
             message.what = DOWN_OK;
             Bundle bundle = new Bundle();
-            bundle.putString("fileName", file.getPath());
+            if (file != null && file.exists())
+                bundle.putString("fileName", file.getPath());
             message.setData(bundle);
             handler.sendMessage(message);
         }
@@ -144,6 +150,7 @@ public class DownloadApkService extends Service {
             super.downloadProgress(currentSize, totalSize, progress, networkSpeed);
             Message message = progressHandler.obtainMessage();
             message.arg1 = (int) (100 * currentSize / totalSize);
+            Log.e("file", (int) (100 * currentSize / totalSize) + "");
 //            Bundle bundle = new Bundle();
 //            bundle.putDouble("currentSize", (double) currentSize / 1024 / 1024);
 //            bundle.putDouble("totalSize", (double) totalSize / 1024 / 1024);
