@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -86,19 +87,28 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    private String[] permissions = {"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
+
+    /**
+     * 检察每个权限是否申请
+     *
+     * @return true 需要申请权限,false 已申请权限
+     */
+    private boolean checkEachSelfPermission(String[] permissions) {
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void setPermissions() {
-        PackageManager pm = getPackageManager();
-        boolean hasCamera = (PackageManager.PERMISSION_GRANTED == pm.checkPermission("android.permission.CAMERA", "com.elink.lifeservice"));
-        boolean hasStorage = (PackageManager.PERMISSION_GRANTED == pm.checkPermission("android.permission.WRITE_EXTERNAL_STORAGE", "com.elink.lifeservice"));
-//        boolean hasRecord = (PackageManager.PERMISSION_GRANTED == pm.checkPermission("android.permission.RECORD_AUDIO", "com.elink.lifeservice"));
-        if (!hasCamera)
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 1);
-
-        if (!hasStorage)
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-
-//        if (!hasRecord)
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 1);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkEachSelfPermission(permissions)) {// 检查是否声明了权限
+                ActivityCompat.requestPermissions(BaseActivity.this, permissions, 1);
+            }
+        }
     }
 
     private void getScreenSize() {
