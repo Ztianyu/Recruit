@@ -1,6 +1,5 @@
 package cn.zty.recruit.base;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -27,7 +26,7 @@ import cn.zty.baselib.utils.AppManager;
  * Created by zty on 2017/2/21.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity{
     protected Context mContext;
     protected Unbinder unbinder;
 

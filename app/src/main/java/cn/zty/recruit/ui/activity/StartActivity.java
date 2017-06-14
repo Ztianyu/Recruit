@@ -71,12 +71,15 @@ public class StartActivity extends BaseActivity implements
 
     @Override
     protected void initData() {
-        if (!TextUtils.isEmpty(RecruitApplication.getInstance().getTokenId())) {
-            startActivity(new Intent(StartActivity.this, MainActivity.class));
-            finish();
-        } else {
-            thread.start();
-        }
+
+        startActivity(new Intent(StartActivity.this, MainActivity.class));
+        finish();
+//        if (!TextUtils.isEmpty(RecruitApplication.getInstance().getTokenId())) {
+//            startActivity(new Intent(StartActivity.this, MainActivity.class));
+//            finish();
+//        } else {
+//            thread.start();
+//        }
     }
 
     Thread thread = new Thread(new Runnable() {
@@ -97,7 +100,7 @@ public class StartActivity extends BaseActivity implements
         }
     });
 
-    int i = 7;
+    int i = 1;
 
     int style = 1;//1：跳转到主页  ；2： 跳转到 学校界面
 

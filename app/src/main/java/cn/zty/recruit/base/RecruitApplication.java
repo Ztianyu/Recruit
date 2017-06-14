@@ -22,7 +22,7 @@ import io.vov.vitamio.Vitamio;
  * Created by zty on 2017/3/4.
  */
 
-public class RecruitApplication extends Application {
+public class RecruitApplication extends Application implements NetBroadcastReceiver.NetEvent {
 
     private static RecruitApplication instance;
 
@@ -36,6 +36,10 @@ public class RecruitApplication extends Application {
     private String loginName;
 
     private IWXAPI api;
+
+    private NetBroadcastReceiver.NetEvent event;
+
+    private int netMobile;
 
     @Override
     public void onCreate() {
@@ -64,6 +68,8 @@ public class RecruitApplication extends Application {
             return;
         }
         LeakCanary.install(this);
+
+        event = this;
     }
 
     public static RecruitApplication getInstance() {
@@ -87,7 +93,7 @@ public class RecruitApplication extends Application {
                 .setReadTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)    //全局的读取超时时间
                 .setWriteTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)  //全局的写入超时时间
                 .setCookieStore(new PersistentCookieStore())
-                .setCacheMode(CacheMode.NO_CACHE)
+                .setCacheMode(CacheMode.DEFAULT)
                 .addCommonHeaders(httpHeaders);
 
     }
@@ -167,5 +173,26 @@ public class RecruitApplication extends Application {
 
     public void setApi(IWXAPI api) {
         this.api = api;
+    }
+
+    public NetBroadcastReceiver.NetEvent getEvent() {
+        return event;
+    }
+
+    public void setEvent(NetBroadcastReceiver.NetEvent event) {
+        this.event = event;
+    }
+
+    public int getNetMobile() {
+        return netMobile;
+    }
+
+    public void setNetMobile(int netMobile) {
+        this.netMobile = netMobile;
+    }
+
+    @Override
+    public void onNetChange(int netMobile) {
+        this.netMobile = netMobile;
     }
 }

@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.lzy.okhttputils.OkHttpUtils;
+import com.lzy.okhttputils.cache.CacheManager;
 import com.lzy.okhttputils.callback.FileCallback;
 
 import java.io.File;
@@ -62,6 +63,9 @@ public class DownloadApkService extends Service {
         if (intent != null) {
             downUrl = intent.getStringExtra("downUrl");
             fileName = intent.getStringExtra("fileName");
+
+            CacheManager.INSTANCE.remove(downUrl);
+
             OkHttpUtils.get(downUrl)
                     .tag(this)
                     .execute(new DownloadApkService.DownloadFileCallBack(file + apk, fileName + ".apk"));//保存到sd卡
@@ -105,13 +109,16 @@ public class DownloadApkService extends Service {
                     builder.setProgress(100, 100, false);
                     messageNotificationManager.notify(notificationID, builder.build());
 
-                    File apkFile = new File(msg.getData().getString("fileName"));
-                    if (apkFile.exists()) {
-                        Uri uri = Uri.fromFile(apkFile);
-                        Intent openIntent = new Intent(Intent.ACTION_VIEW);
-                        openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        openIntent.setDataAndType(uri, "application/vnd.android.package-archive");
-                        startActivity(openIntent);
+                    String fileName = msg.getData().getString("fileName");
+                    if (!TextUtils.isEmpty(fileName)) {
+                        File apkFile = new File(fileName);
+                        if (apkFile.exists()) {
+                            Uri uri = Uri.fromFile(apkFile);
+                            Intent openIntent = new Intent(Intent.ACTION_VIEW);
+                            openIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            openIntent.setDataAndType(uri, "application/vnd.android.package-archive");
+                            startActivity(openIntent);
+                        }
                     }
                     break;
                 case DOWN_ERROR:
