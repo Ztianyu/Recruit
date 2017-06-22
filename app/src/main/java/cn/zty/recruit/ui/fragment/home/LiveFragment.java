@@ -1,5 +1,6 @@
 package cn.zty.recruit.ui.fragment.home;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import cn.zty.recruit.base.BaseFragment;
 import cn.zty.recruit.base.RecruitApplication;
 import cn.zty.recruit.bean.LiveModel;
 import cn.zty.recruit.listener.LiveItemListener;
+import cn.zty.recruit.ui.activity.live.SendLiveActivity;
 import cn.zty.recruit.utils.SnackbarUtils;
 
 /**
@@ -45,6 +47,7 @@ public class LiveFragment extends BaseFragment implements LiveItemListener {
     protected void initView() {
         layoutStatus.setPadding(0, RecruitApplication.getInstance().getStatusBarHeight(), 0, 0);
         title.setText("直\u3000播");
+        titleRight.setText("发 布");
 
         fragmentContentLayout.getRecyclerView().setRefreshEnabled(false);    //设置是否可刷新
 
@@ -63,15 +66,11 @@ public class LiveFragment extends BaseFragment implements LiveItemListener {
         liveAdapter.setData(liveModels);
     }
 
-    @OnClick({R.id.titleLeft, R.id.title})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.titleLeft:
-                break;
-            case R.id.title:
-                break;
-        }
+    @OnClick(R.id.titleRight)
+    public void onViewClicked() {
+        startActivity(new Intent(context, SendLiveActivity.class));
     }
+
 
     @Override
     public void onLiveClick(int position) {

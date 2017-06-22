@@ -143,7 +143,7 @@ public class RecruitFragment extends BaseFragment implements
             public void onGlobalLayout() {
                 bannerRecruit.getViewTreeObserver().removeGlobalOnLayoutListener(
                         this);
-                height = bannerRecruit.getHeight() - RecruitApplication.getInstance().getStatusBarHeight();
+                height = bannerRecruit.getHeight() - textTitle.getHeight();
 
                 scrollView.setScrollViewListener(RecruitFragment.this);
             }
@@ -180,7 +180,7 @@ public class RecruitFragment extends BaseFragment implements
 
         getAdsPresenter.getAds();
 
-        vocationalListPresenter.getVocationList(null, null,null,null, null, null, null, null, 1, 1, Constants.HOT_PAGE_SIZE);
+        vocationalListPresenter.getVocationList(null, null, null, null, null, null, null, null, 1, 1, Constants.HOT_PAGE_SIZE);
 
         hotMajorPresenter.getHotMajorList(null, 1, null, 1, Constants.HOT_PAGE_SIZE);
     }
@@ -239,9 +239,10 @@ public class RecruitFragment extends BaseFragment implements
 
     @Override
     public void onScrollChanged(GradationNestedScrollView scrollView, int x, int y, int oldx, int oldy) {
-        if (y <= 0) {   //设置标题的背景颜色
+        if (y <= (height / 2)) {   //设置标题的背景颜色
             textTitle.setBackgroundColor(Color.argb(0, 240, 72, 72));
-        } else if (y > 0 && y <= height) { //滑动距离小于banner图的高度时，设置背景和字体颜色颜色透明度渐变
+            textTitle.setTextColor(Color.argb(0, 255, 255, 255));
+        } else if (y > (height / 2) && y <= height) { //滑动距离小于banner图的高度时，设置背景和字体颜色颜色透明度渐变
             float scale = (float) y / height;
             float alpha = (255 * scale);
             textTitle.setTextColor(Color.argb((int) alpha, 255, 255, 255));

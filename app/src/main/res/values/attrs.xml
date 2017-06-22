@@ -8,4 +8,11 @@
         <attr name="lab_text" format="string" />
         <attr name="lab_bold" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="UnderLineEditText">
+        <attr name="edt_hint" format="string" />
+        <attr name="edt_left" format="reference" />
+        <attr name="edt_color_select" format="color" />
+        <attr name="edt_color_normal" format="color" />
+    </declare-styleable>
 </resources>

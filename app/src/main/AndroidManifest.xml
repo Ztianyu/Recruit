@@ -27,7 +27,7 @@
 
         <service android:name=".service.DownloadApkService"></service>
 
-        <receiver android:name=".base.NetBroadcastReceiver" >
+        <receiver android:name=".base.NetBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
@@ -61,6 +61,7 @@
             <intent-filter>
                 <data android:scheme="tencent1106045903" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -284,6 +285,10 @@
 
         <activity
             android:name=".ui.activity.job.CompanyDetailActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.live.SendLiveActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

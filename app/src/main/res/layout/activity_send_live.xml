@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    android:orientation="vertical">
+
+    <include layout="@layout/tool_bar" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <cn.zty.recruit.widget.UnderLineEditText
+                android:id="@+id/editLiveTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                app:edt_hint="请输入标题"></cn.zty.recruit.widget.UnderLineEditText>
+
+            <EditText
+                android:id="@+id/editLiveNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/edit_shape"
+                android:gravity="top"
+                android:hint="请输入视频说明"
+                android:minLines="5"
+                android:padding="8dp"
+                android:textColor="@color/textColor"
+                android:textColorHint="@color/gray"
+                android:textCursorDrawable="@null"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/btnAddLive"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_margin="16dp"
+                android:src="@mipmap/ic_add" />
+
+            <TextView
+                android:id="@+id/btnSend"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/loginHeight"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:text="发 布"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_margin="16dp" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>

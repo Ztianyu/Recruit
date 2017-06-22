@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/loginHeight"
+    android:background="@color/white">
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:drawablePadding="8dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:textColor="@color/textColor"
+        android:textColorHint="@color/gray"
+        android:textCursorDrawable="@null"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/underLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/diverHeight"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorDiver" />
+</RelativeLayout>

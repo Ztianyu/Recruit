@@ -54,8 +54,8 @@ public class StudySchoolDetail extends BaseActivity implements
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.imgSchool)
-    ImageView imgSchool;
+    @BindView(R.id.itemSchoolImg)
+    ImageView itemSchoolImg;
     @BindView(R.id.textSchoolName)
     TextView textSchoolName;
     @BindView(R.id.autoLineLayout)
@@ -209,7 +209,7 @@ public class StudySchoolDetail extends BaseActivity implements
 
             BaseData.studySchoolPhone = model.getContactTel();
 
-            MyImageLoader.load(this, model.getImgUrl(), imgSchool);
+            MyImageLoader.load(this, model.getImgUrl(), itemSchoolImg);
             textSchoolName.setText(MyTextUtils.notNullStr(model.getName()));
             textSchoolSpace.setText(MyTextUtils.notNullStr(model.getAreaNm()));
             textSchoolNature.setText(MyTextUtils.notNullStr(model.getSchoolTypeLabel()));
