@@ -43,7 +43,7 @@ public class PanoramaDetailActivity extends BaseActivity {
         }
 
         toolbar.inflateMenu(R.menu.video);
-        toolbar.setNavigationIcon(R.drawable.ic_white_back);
+        toolbar.setNavigationIcon(R.drawable.ic_main_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

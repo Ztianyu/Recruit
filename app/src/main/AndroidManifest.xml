@@ -290,6 +290,10 @@
         <activity
             android:name=".ui.activity.live.SendLiveActivity"
             android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".ui.activity.live.LiveDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"></activity>
     </application>
 
 </manifest>

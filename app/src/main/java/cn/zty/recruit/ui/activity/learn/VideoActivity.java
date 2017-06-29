@@ -1,31 +1,24 @@
 package cn.zty.recruit.ui.activity.learn;
 
-import android.net.Uri;
-import android.view.KeyEvent;
+import com.xiao.nicevideoplayer.NiceVideoPlayer;
+import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
+import com.xiao.nicevideoplayer.TxVideoPlayerController;
 
 import butterknife.BindView;
 import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
-import io.vov.vitamio.MediaPlayer;
-import io.vov.vitamio.widget.MediaController;
-import io.vov.vitamio.widget.VideoView;
 
 /**
  * 视频播放
  * Created by zty on 2017/3/17.
  */
 
-public class VideoActivity extends BaseActivity implements
-        MediaPlayer.OnPreparedListener,
-        MediaPlayer.OnErrorListener,
-        MediaPlayer.OnCompletionListener {
+public class VideoActivity extends BaseActivity {
 
     @BindView(R.id.videoView)
-    VideoView videoView;
+    NiceVideoPlayer videoView;
 
-    private MediaController mMediaController;
-
-    //    private String PATH_URL1 = "http://gslb.miaopai.com/stream/3D~8BM-7CZqjZscVBEYr5g__.mp4";
+    private String PATH_URL1 = "http://tanzi27niu.cdsb.mobi/wps/wp-content/uploads/2017/05/2017-05-17_17-33-30.mp4";
     private String videoUrl;
     private String videoName;
 
@@ -41,15 +34,13 @@ public class VideoActivity extends BaseActivity implements
 
         setTitleBar();
 
-        videoView.setVideoURI(Uri.parse(videoUrl)); //实例化控制器
-        mMediaController = new MediaController(this); //绑定控制器
-        videoView.setMediaController(mMediaController); //控制器显示9s后自动隐藏 mMediaController.show(9000);
-        mMediaController.setFileName(videoName);
-        videoView.setVideoQuality(MediaPlayer.VIDEOQUALITY_HIGH); //设置播放画质 高画质
-        videoView.setVideoLayout(VideoView.VIDEO_LAYOUT_STRETCH, 0); //取得焦点 mVideoView.requestFocus(); //设置相关的监听
-        videoView.setOnPreparedListener(this);
-        videoView.setOnErrorListener(this);
-        videoView.setOnCompletionListener(this);
+        videoView.setPlayerType(NiceVideoPlayer.PLAYER_TYPE_IJK); // IjkPlayer or MediaPlayer
+        videoView.setUp(videoUrl, null);
+        TxVideoPlayerController controller = new TxVideoPlayerController(this);
+        controller.setTitle(videoName);
+        videoView.setController(controller);
+        videoView.enterFullScreen();
+        videoView.start();
     }
 
     @Override
@@ -58,25 +49,20 @@ public class VideoActivity extends BaseActivity implements
     }
 
     @Override
-    public void onPrepared(MediaPlayer mp) {
-        videoView.start();
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
     }
 
     @Override
-    public void onCompletion(MediaPlayer mp) {
+    protected void onStop() {
+        NiceVideoPlayerManager.instance().pauseNiceVideoPlayer();
+        super.onStop();
     }
 
     @Override
-    public boolean onError(MediaPlayer mp, int what, int extra) {
-        return false;
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (event.getAction() == KeyEvent.KEYCODE_BACK) {
-            finish();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+    protected void onRestart() {
+        NiceVideoPlayerManager.instance().restartNiceVideoPlayer();
+        super.onRestart();
     }
 }

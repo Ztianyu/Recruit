@@ -16,8 +16,8 @@ android {
         applicationId "cn.zty.recruit"
         minSdkVersion 19
         targetSdkVersion 25
-        versionCode 10
-        versionName "1.1.0"
+        versionCode 11
+        versionName "1.1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 //        vectorDrawables.useSupportLibrary = true
     }
@@ -29,6 +29,14 @@ android {
         }
         debug {
             signingConfig signingConfigs.config
+        }
+    }
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'x86', 'x86_64', 'armeabi-v7a', 'armeabi'
+            universalApk true
         }
     }
 }
@@ -59,7 +67,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-//    compile 'com.android.support:support-vector-drawable:25.1.0'
+    //    compile 'com.android.support:support-vector-drawable:25.1.0'
     testCompile 'junit:junit:4.12'
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
@@ -70,10 +78,10 @@ dependencies {
     compile(name: 'SMSSDKGUI-2.1.2', ext: 'aar')
     compile project(':baselib')
     compile project(':linkage')
-    compile project(':vitamio_lib')
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
-
+    compile 'com.jaeger.statusbarutil:library:1.4.0'
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.1'
+    compile project(':nicevideoplayer')
 }

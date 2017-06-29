@@ -1,5 +1,6 @@
 package cn.zty.recruit.ui.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -28,12 +29,6 @@ public class SelectVideoFragment extends DialogFragment {
 
     private OnSelectListener listener;
 
-    public static SelectVideoFragment newInstance(OnSelectListener listener) {
-        SelectVideoFragment fragment = new SelectVideoFragment();
-        fragment.setListener(listener);
-        return fragment;
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -60,16 +55,18 @@ public class SelectVideoFragment extends DialogFragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            listener = (OnSelectListener) context;
+        } catch (ClassCastException e) {
+            dismiss();
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
-    }
-
-    public OnSelectListener getListener() {
-        return listener;
-    }
-
-    public void setListener(OnSelectListener listener) {
-        this.listener = listener;
     }
 }

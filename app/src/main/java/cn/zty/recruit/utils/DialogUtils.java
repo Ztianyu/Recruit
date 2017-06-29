@@ -22,15 +22,18 @@ import cn.zty.recruit.listener.IndustryTypeListener;
 import cn.zty.recruit.listener.MajorSelectListener;
 import cn.zty.recruit.listener.PayListener;
 import cn.zty.recruit.listener.SchoolSelectListener;
+import cn.zty.recruit.listener.SendReplayListener;
 import cn.zty.recruit.listener.SexSelectListener;
 import cn.zty.recruit.listener.StudySchoolListener;
 import cn.zty.recruit.listener.ToastSureListener;
 import cn.zty.recruit.listener.VisitListener;
 import cn.zty.recruit.ui.fragment.AreaSelectFragment;
+import cn.zty.recruit.ui.fragment.CommentFragment;
 import cn.zty.recruit.ui.fragment.DeleteOrderFragment;
 import cn.zty.recruit.ui.fragment.PayFragment;
 import cn.zty.recruit.ui.fragment.SelectEducation;
 import cn.zty.recruit.ui.fragment.SelectSexFragment;
+import cn.zty.recruit.ui.fragment.SelectVideoFragment;
 import cn.zty.recruit.ui.fragment.ToastFragment;
 import cn.zty.recruit.ui.fragment.VersionFragment;
 import cn.zty.recruit.ui.fragment.VisitFragment;
@@ -71,6 +74,9 @@ public class DialogUtils {
     public static final String VERSION = "versionFragment";
 
     public static final String INDUSTRY = "industryCategoryFragment";
+
+    public static final String COMMENT = "commentFragment";
+
 
     /**
      * 选择 省、市（type:0(省)；1（市））
@@ -272,11 +278,22 @@ public class DialogUtils {
     /**
      * 电话回访
      */
-    public static void showIndustrySelect(FragmentManager manager,int height, IndustrySelectListener listener) {
+    public static void showIndustrySelect(FragmentManager manager, int height, IndustrySelectListener listener) {
         Fragment fragment = manager.findFragmentByTag(INDUSTRY);
         if (fragment != null)
             manager.beginTransaction().remove(fragment);
-        IndustryCategoryFragment industryCategoryFragment = IndustryCategoryFragment.newInstance(height,listener);
+        IndustryCategoryFragment industryCategoryFragment = IndustryCategoryFragment.newInstance(height, listener);
         industryCategoryFragment.show(manager.beginTransaction(), INDUSTRY);
+    }
+
+    /**
+     * 评论
+     */
+    public static void showReplay(FragmentManager manager, String forumId, int position) {
+        Fragment fragment = manager.findFragmentByTag(COMMENT);
+        if (fragment != null)
+            manager.beginTransaction().remove(fragment);
+        CommentFragment commentFragment = CommentFragment.newInstance(forumId, position);
+        commentFragment.show(manager.beginTransaction(), COMMENT);
     }
 }

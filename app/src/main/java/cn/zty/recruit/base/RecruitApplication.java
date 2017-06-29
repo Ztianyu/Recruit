@@ -16,7 +16,6 @@ import cn.zty.recruit.bean.UserModel;
 import cn.zty.recruit.utils.FontUtils;
 import cn.zty.recruit.utils.SharedPrefUtils;
 import cn.zty.recruit.wxapi.Keys;
-import io.vov.vitamio.Vitamio;
 
 /**
  * Created by zty on 2017/3/4.
@@ -48,8 +47,6 @@ public class RecruitApplication extends Application implements NetBroadcastRecei
         instance = this;
         initHttp();
         getStatusHeight();
-
-        Vitamio.isInitialized(this);
 
         setCurrentUser();
 

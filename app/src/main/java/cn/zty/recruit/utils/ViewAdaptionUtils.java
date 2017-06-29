@@ -4,6 +4,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import cn.zty.recruit.base.BaseActivity;
 
@@ -24,6 +25,15 @@ public class ViewAdaptionUtils {
     public static void LinearLayoutAdaptation(View view, int height) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, (BaseActivity.screenHeight * height / baseHeight));
+        view.setLayoutParams(layoutParams);
+    }
+
+    /**
+     * 父布局是LinearLayout 的高度适配
+     */
+    public static void RelativeAdaptation(View view, int height) {
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT, (BaseActivity.screenHeight * height / baseHeight));
         view.setLayoutParams(layoutParams);
     }
 

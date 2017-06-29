@@ -11,7 +11,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/baselib" />
             <option value="$PROJECT_DIR$/linkage" />
-            <option value="$PROJECT_DIR$/vitamio_lib" />
+            <option value="$PROJECT_DIR$/nicevideoplayer" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

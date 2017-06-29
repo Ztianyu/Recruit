@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#f04848</color>
     <color name="colorAccent">#f04848</color>
 
+    <color name="transparent">#00000000</color>
+
     <color name="transparent60">#99000000</color>
 
     <color name="dialogBackground">#F1F1F1</color>
@@ -30,4 +32,6 @@
     <color name="gray3">#ddffffff</color>
     <color name="gray2">#666666</color>
     <color name="gray4">#eeeeee</color>
+
+    <color name="colorGray">#E8E7E5</color>
 </resources>

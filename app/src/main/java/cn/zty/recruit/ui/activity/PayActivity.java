@@ -65,7 +65,7 @@ public class PayActivity extends BaseActivity implements
     protected void initView() {
         toolbar.setTitle("订单提交成功");
         toolbar.inflateMenu(R.menu.see_order);
-        toolbar.setNavigationIcon(R.drawable.ic_white_back);
+        toolbar.setNavigationIcon(R.drawable.ic_main_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

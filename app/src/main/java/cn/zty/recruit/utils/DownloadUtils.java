@@ -19,7 +19,7 @@ public class DownloadUtils {
     public static String apk = "/recruit/安装包";
 
     public static void downApk(Context context, String url, String fileName) {
-//        FileUtil.deleteFileByDir(file + apk);
+//        FileUtils.deleteFileByDir(file + apk);
         Intent updateIntent = new Intent(context, DownloadApkService.class);
         updateIntent.putExtra("downUrl", url);
         updateIntent.putExtra("fileName", fileName);
