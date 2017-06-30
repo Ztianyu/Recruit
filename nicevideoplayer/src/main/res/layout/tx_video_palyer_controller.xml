@@ -205,7 +205,8 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:lines="1"
-            android:text="真实死亡游戏“蓝鲸”疑似进入国内，家长们要注意了"
+            android:visibility="invisible"
+            android:text=""
             android:textColor="@android:color/white"
             android:textSize="14sp"/>
     </LinearLayout>

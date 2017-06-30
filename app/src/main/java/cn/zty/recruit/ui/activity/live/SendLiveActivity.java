@@ -20,9 +20,7 @@ import cn.zty.recruit.R;
 import cn.zty.recruit.base.BaseActivity;
 import cn.zty.recruit.pick.FileUtils;
 import cn.zty.recruit.pick.OnSelectListener;
-import cn.zty.recruit.pick.SelectPicUtils;
 import cn.zty.recruit.pick.SelectVideoUtils;
-import cn.zty.recruit.utils.DialogUtils;
 import cn.zty.recruit.widget.UnderLineEditText;
 
 import static cn.zty.recruit.pick.SelectVideoUtils.CODE_PICK;
@@ -70,7 +68,7 @@ public class SendLiveActivity extends BaseActivity implements OnSelectListener {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnAddLive:
-                SelectPicUtils.showDialog(getSupportFragmentManager());
+                SelectVideoUtils.showDialog(getSupportFragmentManager());
                 break;
             case R.id.btnSend:
                 break;
@@ -97,19 +95,21 @@ public class SendLiveActivity extends BaseActivity implements OnSelectListener {
         switch (requestCode) {
             case CODE_PICK:
             case CODE_TAKE:
-                Uri recordVideo = data.getData();
-                videoPath = FileUtils.getRealPath(this, recordVideo);
-                if (!TextUtils.isEmpty(videoPath)) {
-                    String size = FileUtils.getFileSize(videoPath);
-                    Bitmap bitmap = SelectVideoUtils.getVideoBitmap(videoPath, 150, 150, MediaStore.Images.Thumbnails.MINI_KIND);
-                    if (bitmap != null) {
-                        btnAddLive.setImageBitmap(bitmap);
-                    } else {
-                        btnAddLive.setBackgroundColor(ResourceUtil.resToColor(this, R.color.gray2));
+                if (data != null && data.getData() != null) {
+                    Uri recordVideo = data.getData();
+                    videoPath = FileUtils.getRealPath(this, recordVideo);
+                    if (!TextUtils.isEmpty(videoPath)) {
+                        String size = FileUtils.getFileSize(videoPath);
+                        Bitmap bitmap = SelectVideoUtils.getVideoBitmap(videoPath, 150, 150, MediaStore.Images.Thumbnails.MINI_KIND);
+                        if (bitmap != null) {
+                            btnAddLive.setImageBitmap(bitmap);
+                        } else {
+                            btnAddLive.setBackgroundColor(ResourceUtil.resToColor(this, R.color.gray2));
+                        }
+                        imgVideoIcon.setVisibility(View.VISIBLE);
+                        textVideoSize.setVisibility(View.VISIBLE);
+                        textVideoSize.setText(size);
                     }
-                    imgVideoIcon.setVisibility(View.VISIBLE);
-                    textVideoSize.setVisibility(View.VISIBLE);
-                    textVideoSize.setText(size);
                 }
                 break;
         }

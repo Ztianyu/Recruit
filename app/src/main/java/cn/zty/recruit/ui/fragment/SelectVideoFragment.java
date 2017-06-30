@@ -36,7 +36,7 @@ public class SelectVideoFragment extends DialogFragment {
 
         unbinder = ButterKnife.bind(this, view);
 
-        textOpenPic.setText("视频");
+        textOpenPic.setText("选择视频");
         textTakePhoto.setText("拍摄");
 
         return view;

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="8dp">
+
+        <cn.zty.baselib.widget.CircleImageView
+            android:id="@+id/imgRemarkHeader"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            app:border_color="@color/colorAccent"
+            app:border_width="0.5dp" />
+
+        <TextView
+            android:id="@+id/textRemarkName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/imgRemarkHeader"
+            android:textColor="@color/textColor"
+            android:textSize="13sp"
+            tools:text="美丽心情" />
+
+        <TextView
+            android:id="@+id/textRemarkTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textRemarkName"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/imgRemarkHeader"
+            android:textColor="@color/gray"
+            android:textSize="12sp"
+            tools:text="5小时前" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textRemarks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:paddingLeft="54dp"
+        android:paddingRight="8dp"
+        android:textColor="@color/textColor"
+        android:textSize="13sp"
+        tools:text="好喜欢的视频，一直在找这样的视频" />
+
+</LinearLayout>

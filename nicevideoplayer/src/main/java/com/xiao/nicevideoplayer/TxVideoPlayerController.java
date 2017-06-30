@@ -184,8 +184,8 @@ public class TxVideoPlayerController
     protected void onPlayerStateChanged(int playerState) {
         switch (playerState) {
             case NiceVideoPlayer.PLAYER_NORMAL:
-                mBack.setVisibility(View.GONE);
-                mTitle.setVisibility(View.GONE);
+                mBack.setVisibility(View.INVISIBLE);
+                mTitle.setVisibility(View.INVISIBLE);
                 mFullScreen.setImageResource(R.drawable.ic_player_enlarge);
                 break;
             case NiceVideoPlayer.PLAYER_FULL_SCREEN:
@@ -214,7 +214,7 @@ public class TxVideoPlayerController
         mFullScreen.setImageResource(R.drawable.ic_player_enlarge);
 
         mTop.setVisibility(View.VISIBLE);
-        mBack.setVisibility(View.GONE);
+        mBack.setVisibility(View.INVISIBLE);
 
         mLoading.setVisibility(View.GONE);
         mError.setVisibility(View.GONE);
