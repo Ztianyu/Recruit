@@ -1,1 +1,1 @@
-include ':app', ':baselib', ':linkage', ':nicevideoplayer'
+include ':app', ':baselib', ':linkage', ':nicevideoplayer', ':PushSDK'

@@ -13,6 +13,7 @@ import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import cn.zty.baselib.http.RetrofitHelper;
 import cn.zty.recruit.bean.UserModel;
+import cn.zty.recruit.push.PushMaster;
 import cn.zty.recruit.utils.FontUtils;
 import cn.zty.recruit.utils.SharedPrefUtils;
 import cn.zty.recruit.wxapi.Keys;
@@ -67,6 +68,9 @@ public class RecruitApplication extends Application implements NetBroadcastRecei
         LeakCanary.install(this);
 
         event = this;
+
+        PushMaster.getInstance().init(this);
+
     }
 
     public static RecruitApplication getInstance() {

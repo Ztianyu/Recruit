@@ -11,6 +11,11 @@ public class Constants {
     public static final String BAIDU_APP_Key = "Kbt27AGUn8lW1Fn24pL8DtFXbi7ucGPj";
     public static final String BAIDU_SECRET_Key = "ecOLVdStNc39HTortwryRO6XznmerVkE";
 
+    //友盟推送
+    public static final String UMENG_APP_KEY = "595c5364677baa182e0005df";
+    public static final String UMENG_MESSAGE_SECRET = "eb5bdd4dd72be28f0fccf0684c2a137b";
+    public static final String UMENG_MASTER_SECRET = "utlepr6eq4o6tg4hsorakic5py3snpgr";
+
 
     //短信验证
     public static final String MOB_APP_KEY = "1c8060a77f512";
@@ -19,7 +24,7 @@ public class Constants {
 
     //分享
     public static final String MOB_SHARE_APP_KEY = "1e5cef1137de0";
-    public static final String  MOB_SHARE_APP_SECRET = "8921c224afd0f3db3d6e8cfa1cf4aa39";
+    public static final String MOB_SHARE_APP_SECRET = "8921c224afd0f3db3d6e8cfa1cf4aa39";
 
     //定金类型
     public static final String OFFICE_TYPE0 = "1";//职业学校

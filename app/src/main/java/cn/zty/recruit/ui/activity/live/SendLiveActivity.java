@@ -11,8 +11,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.File;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.zty.baselib.utils.ResourceUtil;

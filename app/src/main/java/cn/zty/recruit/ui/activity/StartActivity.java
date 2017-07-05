@@ -71,6 +71,7 @@ public class StartActivity extends BaseActivity implements
 
     @Override
     protected void initData() {
+        getWindow().setBackgroundDrawable(null);
 
         startActivity(new Intent(StartActivity.this, MainActivity.class));
         finish();
