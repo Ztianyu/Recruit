@@ -59,7 +59,6 @@ public class VersionActivity extends BaseActivity implements
 
     @Override
     protected void initData() {
-        ShareSDK.initSDK(this);
     }
 
     @Override
@@ -87,16 +86,15 @@ public class VersionActivity extends BaseActivity implements
     }
 
     private void showShare() {
-        ShareSDK.initSDK(this);
         OnekeyShare oks = new OnekeyShare();
         // 在自动授权时可以禁用SSO方式
         oks.disableSSOWhenAuthorize();
-        //oks.setAddress("12345678901"); //分享短信的号码和邮件的地址
+//        oks.setAddress("12345678901"); //分享短信的号码和邮件的地址
         oks.setTitle("选择好的学校就来这里");
         oks.setTitleUrl(url);
         oks.setText("学程通是一款提供职业学校、培训机构、进修学校来源的教育类软件，这里有全面的学校资源、详细的学校介绍、720度校园全景，丰富的专业设置。一直致力于各类职业院校的招生工作，我们与多家职业院校建立了长期合作关系，为学校的生源提供有力的帮助。同时为学生的择校、学习和就业提供一站式全方位服务。我们系统有海量的学府、人性化的生活消费服务和就业机会供你选择，为你的学程保驾护航。");
         //oks.setImagePath("/sdcard/test-pic.jpg");  //分享sdcard目录下的图片
-        oks.setImageUrl("http://api.open.qq.com/tfs/show_img.php?appid=1106045903&uuid=512.png%7C1048576%7C1493086810.0222");
+        oks.setImageUrl("https://mmbiz.qlogo.cn/mmbiz_png/55jRFxib0LAZs0z5uny5jYfXFuEwxLRZEuGJUPicK3Fdtfajv7kcymsCyeD61aRqZFPbU5MZKS9JVFXDoBk5b0Zg/0?wx_fmt=png");
         oks.setUrl(url); //微信不绕过审核分享链接
 //        oks.setFilePath(testVideo);  //filePath用于视频分享
 //        oks.setComment(context.getString(R.string.app_share_comment)); //我对这条分享的评论，仅在人人网和QQ空间使用，否则可以不提供

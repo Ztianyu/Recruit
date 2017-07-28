@@ -48,7 +48,7 @@ public class LiveFragment extends BaseFragment implements LiveItemListener {
     protected void initView() {
         layoutStatus.setPadding(0, RecruitApplication.getInstance().getStatusBarHeight(), 0, 0);
         title.setText("直\u3000播");
-        titleRight.setText("发 布");
+//        titleRight.setText("发 布");
 
         fragmentContentLayout.getRecyclerView().setRefreshEnabled(false);    //设置是否可刷新
 
@@ -69,13 +69,13 @@ public class LiveFragment extends BaseFragment implements LiveItemListener {
 
     @OnClick(R.id.titleRight)
     public void onViewClicked() {
-        startActivity(new Intent(context, SendLiveActivity.class));
+//        startActivity(new Intent(context, SendLiveActivity.class));
     }
 
 
     @Override
     public void onLiveClick(int position) {
-        startActivity(new Intent(context, LiveDetailActivity.class));
-//        SnackbarUtils.showLong(title, "开发中，敬请期待");
+//        startActivity(new Intent(context, LiveDetailActivity.class));
+        SnackbarUtils.showLong(title, "开发中，敬请期待");
     }
 }

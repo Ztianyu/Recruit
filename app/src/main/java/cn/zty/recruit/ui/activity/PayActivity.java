@@ -136,7 +136,7 @@ public class PayActivity extends BaseActivity implements
             payment.setPayModel(model);
             payment.payNow();
         } else {
-            String body = ("报名：" + model.getCourseNm() + MyTextUtils.notNullStr(model.getDepartmentNm())).replace(" ", "");
+            String body = "报名：" + model.getCourseNm() + " " + MyTextUtils.notNullStr(model.getDepartmentNm());
             String nonce_str = WeChatPayManager.getInstance().getNonceStr();
             String orderState = model.getState();
             String out_trade_no = orderState.equals("0") ? model.getOrderCode() : model.getId();

@@ -112,7 +112,7 @@
             android:exported="true"
             android:process=":channel" >
             <intent-filter>
-                <action android:name="com.umeng.message.lib.test.intent.action.COMMAND" />
+                <action android:name="cn.zty.recruit.intent.action.COMMAND" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
@@ -156,7 +156,7 @@
 
         <provider
             android:name="com.umeng.message.provider.MessageProvider"
-            android:authorities="com.umeng.message.lib.test.umeng.message"
+            android:authorities="cn.zty.recruit.umeng.message"
             android:exported="false" >
             <grant-uri-permission android:pathPattern=".*" />
         </provider>

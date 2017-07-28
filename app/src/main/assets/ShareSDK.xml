@@ -1,79 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DevInfor>
 
-    <ShareSDK 
-        AppKey = "1e5cef1137de0"/> <!-- androidv1101 修改成你在sharesdk后台注册的应用的appkey"-->//
-    
-    <!--&lt;!&ndash; ShareByAppClient标识是否使用微博客户端分享，默认是false &ndash;&gt;-->
-    <!--<SinaWeibo-->
-        <!--Id="1"-->
-        <!--SortId="1"-->
-        <!--AppKey="568898243"-->
-        <!--AppSecret="38a4f8204cc784f81f9f0daaf31e02e3"-->
-        <!--RedirectUrl="http://www.sharesdk.cn"-->
-        <!--ShareByAppClient="true"-->
-        <!--Enable="true" />-->
+	<Wechat
+		Id="1"
+		SortId="1"
+		AppId="wxc300ab3866922fe6"
+		BypassApproval="false"
+		Enable="true" />
 
     <WechatMoments
-        Id="1"
-        SortId="1"
-        AppId="wxc300ab3866922fe6"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
-        BypassApproval="false"
-        Enable="true" />
-        
-	<WechatFavorite
         Id="2"
         SortId="2"
         AppId="wxc300ab3866922fe6"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
+        BypassApproval="false"
+        Enable="true" />
+
+	<WechatFavorite
+        Id="3"
+        SortId="3"
+        AppId="wxc300ab3866922fe6"
         Enable="true" />
 
 	<QQ
-        Id="3"
-        SortId="3"
+        Id="4"
+        SortId="4"
 		AppId="1106045903"
 		AppKey="E3FJgxjH7SMwrQOy"
         ShareByAppClient="true"
         Enable="true" />
 
 	<QZone
-		Id="4"
-		SortId="4"
-		AppId="1106045903"
-		AppKey="E3FJgxjH7SMwrQOy"
-		Enable="true" />
-
-
-	<TencentWeibo
 		Id="5"
 		SortId="5"
 		AppId="1106045903"
 		AppKey="E3FJgxjH7SMwrQOy"
-		RedirectUri="http://sharesdk.cn"
 		Enable="true" />
-
-
-    <Email
-        Id="6"
-        SortId="6"
-        Enable="true" />
-    
-    <ShortMessage
-        Id="7"
-        SortId="7"
-        Enable="true" />
-
-     <!--<Alipay-->
-        <!--Id="8"-->
-        <!--SortId="8"-->
-        <!--AppId="2017040106520607"-->
-        <!--Enable="true"/>-->
-     <!---->
-     <!--<AlipayMoments-->
-        <!--Id="9"-->
-        <!--SortId="9"-->
-        <!--AppId="2017040106520607"-->
-        <!--Enable="true"/>-->
 
 </DevInfor>

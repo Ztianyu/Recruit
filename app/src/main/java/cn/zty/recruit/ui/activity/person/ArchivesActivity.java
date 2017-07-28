@@ -140,6 +140,8 @@ public class ArchivesActivity extends BaseActivity implements OnSelectListener,
         textUserPhone.setAdditionText(MyTextUtils.notNullStr(userModel.getMobile()));
         textUserEducation.setAdditionText(MyTextUtils.notNullStr(userModel.getEducationLabel()));
         textUserPosition.setAdditionText(MyTextUtils.notNullStr(userModel.getAreaNm()));
+        textUserQQ.setAdditionText(MyTextUtils.notNullStr(userModel.getQq()));
+        textUserEmail.setAdditionText(MyTextUtils.notNullStr(userModel.getMailbox()));
 
         if (!TextUtils.isEmpty(userModel.getSex()))
             if (userModel.getSex().equals("男")) {
@@ -292,6 +294,7 @@ public class ArchivesActivity extends BaseActivity implements OnSelectListener,
         if (userModel != null) {
             SnackbarUtils.showShort(toolbar, "修改成功");
             RecruitApplication.getInstance().setUserModel(userModel);
+            MyImageLoader.load(this, userModel.getPhoto(), imgUserHeader);
         }
     }
 

@@ -1,12 +1,12 @@
 package cn.zty.recruit.base;
 
-import android.app.Application;
 import android.text.TextUtils;
 
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.cache.CacheMode;
 import com.lzy.okhttputils.cookie.store.PersistentCookieStore;
 import com.lzy.okhttputils.model.HttpHeaders;
+import com.mob.MobApplication;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -22,7 +22,7 @@ import cn.zty.recruit.wxapi.Keys;
  * Created by zty on 2017/3/4.
  */
 
-public class RecruitApplication extends Application implements NetBroadcastReceiver.NetEvent {
+public class RecruitApplication extends MobApplication implements NetBroadcastReceiver.NetEvent {
 
     private static RecruitApplication instance;
 
