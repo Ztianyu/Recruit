@@ -71,8 +71,8 @@
             </intent-filter>
         </activity>
 
-        <meta-data android:name="Mob-AppKey" android:value="1e5cef1137de0"/>
-        <meta-data android:name="Mob-AppSecret" android:value="8921c224afd0f3db3d6e8cfa1cf4aa39"/>
+        <meta-data android:name="Mob-AppKey" android:value="1c8060a77f512"/>
+        <meta-data android:name="Mob-AppSecret" android:value="2c6b926a4782a34fe2e834f193b18965"/>
 
         <!-- 友盟推送 -->
         <meta-data

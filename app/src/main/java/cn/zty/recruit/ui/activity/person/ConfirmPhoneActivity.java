@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.mob.MobSDK;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import cn.smssdk.EventHandler;
@@ -62,7 +64,6 @@ public class ConfirmPhoneActivity extends BaseActivity implements View.OnFocusCh
         editRegisterPhone.setOnFocusChangeListener(this);
         editRegisterCode.setOnFocusChangeListener(this);
 
-        SMSSDK.initSDK(this, Constants.MOB_APP_KEY, Constants.MOB_APP_SECRET);
         SMSSDK.registerEventHandler(eventHandler);
     }
 
